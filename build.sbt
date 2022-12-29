@@ -6,3 +6,7 @@ lazy val root = (project in file("."))
   .settings(
     name := "VecMatLib"
   )
+
+libraryDependencies ++= Seq(
+  "org.scalatest" %% "scalatest" % "3.2.14" % Test
+)
