@@ -1,6 +1,6 @@
 package vecmatlib.vector
 
-trait Vec[V <: Vec[V]] {
+trait VecBase[V <: VecBase[V]] {
 
   def +(v: V): V
 
