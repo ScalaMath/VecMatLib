@@ -51,4 +51,6 @@ case class Vec3d(x: Double, y: Double, z: Double) extends Double3 with VecDouble
   override def lengthSquared: Double = this dot this
 
   def ==(x: Double, y: Double, z: Double): Boolean = this.x == x && this.y == y && this.z == z
+
+  def equals(x: Double, y: Double, z: Double): Boolean = this == (x, y, z)
 }

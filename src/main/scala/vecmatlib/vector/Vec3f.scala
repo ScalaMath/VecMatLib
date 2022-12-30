@@ -69,4 +69,6 @@ case class Vec3f(x: Float, y: Float, z: Float) extends Float3 with VecFloat[Vec3
   override def lengthSquared: Float = this dot this
 
   def ==(x: Float, y: Float, z: Float): Boolean = this.x == x && this.y == y && this.z == z
+
+  def equals(x: Float, y: Float, z: Float): Boolean = this == (x, y, z)
 }

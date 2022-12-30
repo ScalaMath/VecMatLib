@@ -89,4 +89,6 @@ case class Vec3i(x: Int, y: Int, z: Int) extends Int3 with VecInt[Vec3i, Vec3f, 
   override def lengthSquared: Int = this dot this
 
   def ==(x: Int, y: Int, z: Int): Boolean = this.x == x && this.y == y && this.z == z
+
+  def equals(x: Int, y: Int, z: Int): Boolean = this == (x, y, z)
 }
