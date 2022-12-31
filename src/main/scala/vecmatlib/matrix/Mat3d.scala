@@ -65,6 +65,18 @@ case class Mat3d(
       this * this.power(exp - 1)
     }
   }
+
+  def toInt: Mat3i = Mat3i(
+    this.m00.toInt, this.m01.toInt, this.m02.toInt,
+    this.m10.toInt, this.m11.toInt, this.m12.toInt,
+    this.m20.toInt, this.m21.toInt, this.m22.toInt
+  )
+
+  def toFloat: Mat3f = Mat3f(
+    this.m00.toFloat, this.m01.toFloat, this.m02.toFloat,
+    this.m10.toFloat, this.m11.toFloat, this.m12.toFloat,
+    this.m20.toFloat, this.m21.toFloat, this.m22.toFloat
+  )
 }
 
 object Mat3d {

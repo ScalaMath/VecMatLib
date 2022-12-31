@@ -1,6 +1,5 @@
 package vecmatlib.matrix
 
-import vecmatlib.matrix.Mat4f.Identity
 import vecmatlib.vector.{Vec4d, Vec4f}
 
 case class Mat4f(
@@ -52,6 +51,10 @@ case class Mat4f(
   def *(x: Float, y: Float, z: Float, w: Float): Vec4f = this * Vec4f(x, y, z, w)
 
   def multiply(x: Float, y: Float, z: Float, w: Float): Vec4f = this * Vec4f(x, y, z, w)
+
+  def *(x: Double, y: Double, z: Double, w: Double): Vec4d = this * Vec4d(x, y, z, w)
+
+  def multiply(x: Double, y: Double, z: Double, w: Double): Vec4d = this * Vec4d(x, y, z, w)
 
   override def transposed: Mat4f = Mat4f(
     this.m00, this.m10, this.m20, this.m30,

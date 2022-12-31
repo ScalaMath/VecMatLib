@@ -1,6 +1,5 @@
 package vecmatlib.matrix
 
-import vecmatlib.matrix.Mat4d.Identity
 import vecmatlib.vector.Vec4d
 
 case class Mat4d(

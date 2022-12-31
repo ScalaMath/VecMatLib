@@ -70,6 +70,12 @@ case class Mat3f(
     }
   }
 
+  def toInt: Mat3i = Mat3i(
+    this.m00.toInt, this.m01.toInt, this.m02.toInt,
+    this.m10.toInt, this.m11.toInt, this.m12.toInt,
+    this.m20.toInt, this.m21.toInt, this.m22.toInt
+  )
+
   override def toDouble: Mat3d = Mat3d(
     this.m00.toDouble, this.m01.toDouble, this.m02.toDouble,
     this.m10.toDouble, this.m11.toDouble, this.m12.toDouble,

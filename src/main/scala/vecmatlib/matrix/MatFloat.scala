@@ -8,7 +8,7 @@ trait MatFloat[M <: MatFloat[M, V], V <: VecFloat[V]] extends MatBase[M, V] {
 
   def plus(m: MatAsFloat[M, V]): M = this + m
 
-  def -(m: MatAsFloat[M, V]): M = this + m.toFloat
+  def -(m: MatAsFloat[M, V]): M = this - m.toFloat
 
   def minus(m: MatAsFloat[M, V]): M = this - m
 

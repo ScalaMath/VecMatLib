@@ -24,9 +24,9 @@ trait MatBase[M <: MatBase[M, V], V <: VecBase[V]] {
 
   def negatedTransposed: M = -this.transposed
 
-  def symmetric: Boolean = this == this.transposed
+  def isSymmetric: Boolean = this == this.transposed
 
-  def skewSymmetric: Boolean = this == this.negatedTransposed
+  def isSkewSymmetric: Boolean = this == this.negatedTransposed
   
   def *(m: M): M
 
