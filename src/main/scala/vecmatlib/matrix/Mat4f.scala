@@ -1,5 +1,6 @@
 package vecmatlib.matrix
 
+import vecmatlib.matrix.Mat4f.Identity
 import vecmatlib.vector.{Vec4d, Vec4f}
 
 case class Mat4f(
@@ -70,7 +71,7 @@ case class Mat4f(
     if(exp < 0) {
       this.transposed.power(-exp)
     } else if(exp == 0) {
-      Mat4f(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
+      Identity
     } else {
       this * this.power(exp - 1)
     }
@@ -89,4 +90,9 @@ case class Mat4f(
     this.m20.toDouble, this.m21.toDouble, this.m22.toDouble, this.m23.toDouble,
     this.m30.toDouble, this.m31.toDouble, this.m32.toDouble, this.m33.toDouble
   )
+}
+
+object Mat4f {
+  val Identity: Mat4f = Mat4f(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f)
+  val Zero: Mat4f = Mat4f(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
 }

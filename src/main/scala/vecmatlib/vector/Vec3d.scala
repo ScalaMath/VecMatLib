@@ -44,3 +44,14 @@ case class Vec3d(x: Double, y: Double, z: Double) extends Double3 with VecDouble
 
   def equals(x: Double, y: Double, z: Double): Boolean = this == (x, y, z)
 }
+
+object Vec3d {
+  val Zero: Vec3d = Vec3d(0.0, 0.0, 0.0)
+  val One: Vec3d = Vec3d(1.0, 1.0, 1.0)
+  val Right: Vec3d = Vec3d(1.0, 0.0, 0.0)
+  val Left: Vec3d = Vec3d(-1.0, 0.0, 0.0)
+  val Up: Vec3d = Vec3d(0.0, 1.0, 0.0)
+  val Down: Vec3d = Vec3d(0.0, -1.0, 0.0)
+  val Forward: Vec3d = Vec3d(0.0, 0.0, 1.0)
+  val Backwards: Vec3d = Vec3d(0.0, 0.0, -1.0)
+}

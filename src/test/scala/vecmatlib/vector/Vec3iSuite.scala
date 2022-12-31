@@ -190,47 +190,47 @@ class Vec3iSuite extends AnyFunSuite {
   }
 
   test("Test cross 1") {
-    val vec = Vec3i(1, 0, 0)
-    val res = vec cross(0, 1, 0)
-    assert(res == Vec3i(0, 0, 1))
+    val vec = Vec3i.Right
+    val res = vec.cross(0, 1, 0)
+    assert(res == Vec3i.Forward)
   }
 
   test("Test cross 2") {
-    val vec = Vec3i(1, 0, 0)
-    val res = vec cross(0.0f, 1.0f, 0.0f)
-    assert(res == Vec3f(0.0f, 0.0f, 1.0f))
+    val vec = Vec3i.Right
+    val res = vec.cross(0.0f, 1.0f, 0.0f)
+    assert(res == Vec3f.Forward)
   }
 
   test("Test cross 3") {
-    val vec = Vec3i(1, 0, 0)
-    val res = vec cross(0.0, -1.0, 0.0)
-    assert(res == Vec3d(0.0, 0.0, -1.0))
+    val vec = Vec3i.Right
+    val res = vec.cross(0.0, -1.0, 0.0)
+    assert(res == Vec3d.Backwards)
   }
 
   test("Test cross 4") {
-    val a = Vec3i(1, 0, 0)
-    val b = Vec3i(0, -1, 0)
-    assert((a cross b) == Vec3i(0, 0, -1))
+    val a = Vec3i.Right
+    val b = Vec3i.Down
+    assert((a cross b) == Vec3i.Backwards)
   }
 
   test("Test cross 5") {
-    val a = Vec3i(1, 0, 0)
-    val b = Vec3f(0.0f, 1.0f, 0.0f)
-    assert((a cross b) == Vec3f(0.0f, 0.0f, 1.0f))
+    val a = Vec3i.Right
+    val b = Vec3f.Up
+    assert((a cross b) == Vec3f.Forward)
   }
 
   test("Test cross 6") {
-    val a = Vec3i(-1, 0, 0)
-    val b = Vec3d(0.0, 1.0, 0.0)
-    assert((a cross b) == Vec3d(0.0, 0.0, -1.0))
+    val a = Vec3i.Left
+    val b = Vec3d.Up
+    assert((a cross b) == Vec3d.Backwards)
   }
 
   test("Test length squared") {
-    assert(Vec3i(1, 1, 1).lengthSquared == 3)
+    assert(Vec3i.One.lengthSquared == 3)
   }
 
   test("Test length") {
-    assert(Vec3i(1, 1, 1).length == Math.sqrt(3))
+    assert(Vec3i.One.length == Math.sqrt(3))
   }
 
   test("Test normalized") {

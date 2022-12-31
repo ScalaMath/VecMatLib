@@ -1,5 +1,6 @@
 package vecmatlib.matrix
 
+import vecmatlib.matrix.Mat4i.Identity
 import vecmatlib.vector.{Vec4d, Vec4f, Vec4i}
 
 case class Mat4i(
@@ -70,7 +71,7 @@ case class Mat4i(
     if (exp < 0) {
       this.transposed.power(-exp)
     } else if (exp == 0) {
-      Mat4i(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+      Identity
     } else {
       this * this.power(exp - 1)
     }
@@ -89,4 +90,9 @@ case class Mat4i(
     this.m20.toDouble, this.m21.toDouble, this.m22.toDouble, this.m23.toDouble,
     this.m30.toDouble, this.m31.toDouble, this.m32.toDouble, this.m33.toDouble
   )
+}
+
+object Mat4i {
+  val Identity: Mat4i = Mat4i(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+  val Zero: Mat4i = Mat4i(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 }

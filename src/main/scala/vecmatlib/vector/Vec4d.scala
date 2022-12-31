@@ -38,3 +38,8 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) extends Double4 wit
 
   def equals(x: Double, y: Double, z: Double, w: Double): Boolean = this == (x, y, z, w)
 }
+
+object Vec4d {
+  val Zero: Vec4d = Vec4d(0.0, 0.0, 0.0, 0.0)
+  val One: Vec4d = Vec4d(1.0, 1.0, 1.0, 1.0)
+}

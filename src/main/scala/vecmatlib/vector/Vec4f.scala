@@ -52,3 +52,8 @@ case class Vec4f(x: Float, y: Float, z: Float, w: Float) extends Float4 with Vec
 
   def equals(x: Float, y: Float, z: Float, w: Float): Boolean = this == (x, y, z, w)
 }
+
+object Vec4f {
+  val Zero: Vec4f = Vec4f(0.0f, 0.0f, 0.0f, 0.0f)
+  val One: Vec4f = Vec4f(1.0f, 1.0f, 1.0f, 1.0f)
+}

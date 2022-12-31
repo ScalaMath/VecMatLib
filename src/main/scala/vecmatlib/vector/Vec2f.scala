@@ -52,3 +52,12 @@ case class Vec2f(x: Float, y: Float) extends Float2 with VecFloat[Vec2f] with Ve
 
   def equals(x: Float, y: Float): Boolean = this == (x, y)
 }
+
+object Vec2f {
+  val Zero: Vec2f = Vec2f(0.0f, 0.0f)
+  val One: Vec2f = Vec2f(1.0f, 1.0f)
+  val Right: Vec2f = Vec2f(1.0f, 0.0f)
+  val Left: Vec2f = Vec2f(-1.0f, 0.0f)
+  val Up: Vec2f = Vec2f(0.0f, 1.0f)
+  val Down: Vec2f = Vec2f(0.0f, -1.0f)
+}

@@ -38,3 +38,12 @@ case class Vec2d(x: Double, y: Double) extends Double2 with VecDouble[Vec2d] {
 
   def equals(x: Double, y: Double): Boolean = this == (x, y)
 }
+
+object Vec2d {
+  val Zero: Vec2d = Vec2d(0.0, 0.0)
+  val One: Vec2d = Vec2d(1.0, 1.0)
+  val Right: Vec2d = Vec2d(1.0, 0.0)
+  val Left: Vec2d = Vec2d(-1.0, 0.0)
+  val Up: Vec2d = Vec2d(0.0, 1.0)
+  val Down: Vec2d = Vec2d(0.0, -1.0)
+}

@@ -68,3 +68,12 @@ case class Vec2i(x: Int, y: Int) extends Int2 with VecInt[Vec2i] with VecAsFloat
 
   def equals(x: Int, y: Int): Boolean = this == (x, y)
 }
+
+object Vec2i {
+  val Zero: Vec2i = Vec2i(0, 0)
+  val One: Vec2i = Vec2i(1, 1)
+  val Right: Vec2i = Vec2i(1, 0)
+  val Left: Vec2i = Vec2i(-1, 0)
+  val Up: Vec2i = Vec2i(0, 1)
+  val Down: Vec2i = Vec2i(0, -1)
+}

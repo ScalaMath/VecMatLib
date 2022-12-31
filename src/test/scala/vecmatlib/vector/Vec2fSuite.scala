@@ -154,15 +154,15 @@ class Vec2fSuite extends AnyFunSuite {
   }
 
   test("Test length squared") {
-    assert(Vec2f(1.0f, 1.0f).lengthSquared == 2.0f)
+    assert(Vec2f.One.lengthSquared == 2.0f)
   }
 
   test("Test length") {
-    assert(Vec2f(1.0f, 1.0f).length == Math.sqrt(2))
+    assert(Vec2f.One.length == Math.sqrt(2))
   }
 
   test("Test normalized") {
-    val vec = Vec2f(1.0f, 1.0f)
+    val vec = Vec2f.One
     val res = vec.normalized
     assert(res == Vec2d(1.0 / Math.sqrt(2), 1.0 / Math.sqrt(2)))
   }

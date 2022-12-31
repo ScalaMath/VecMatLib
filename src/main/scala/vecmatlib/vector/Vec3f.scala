@@ -62,3 +62,14 @@ case class Vec3f(x: Float, y: Float, z: Float) extends Float3 with VecFloat[Vec3
 
   def equals(x: Float, y: Float, z: Float): Boolean = this == (x, y, z)
 }
+
+object Vec3f {
+  val Zero: Vec3f = Vec3f(0.0f, 0.0f, 0.0f)
+  val One: Vec3f = Vec3f(1.0f, 1.0f, 1.0f)
+  val Right: Vec3f = Vec3f(1.0f, 0.0f, 0.0f)
+  val Left: Vec3f = Vec3f(-1.0f, 0.0f, 0.0f)
+  val Up: Vec3f = Vec3f(0.0f, 1.0f, 0.0f)
+  val Down: Vec3f = Vec3f(0.0f, -1.0f, 0.0f)
+  val Forward: Vec3f = Vec3f(0.0f, 0.0f, 1.0f)
+  val Backwards: Vec3f = Vec3f(0.0f, 0.0f, -1.0f)
+}

@@ -80,3 +80,14 @@ case class Vec3i(x: Int, y: Int, z: Int) extends Int3 with VecInt[Vec3i] with Ve
 
   def equals(x: Int, y: Int, z: Int): Boolean = this == (x, y, z)
 }
+
+object Vec3i {
+  val Zero: Vec3i = Vec3i(0, 0, 0)
+  val One: Vec3i = Vec3i(1, 1, 1)
+  val Right: Vec3i = Vec3i(1, 0, 0)
+  val Left: Vec3i = Vec3i(-1, 0, 0)
+  val Up: Vec3i = Vec3i(0, 1, 0)
+  val Down: Vec3i = Vec3i(0, -1, 0)
+  val Forward: Vec3i = Vec3i(0, 0, 1)
+  val Backwards: Vec3i = Vec3i(0, 0, -1)
+}

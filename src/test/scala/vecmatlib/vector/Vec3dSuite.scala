@@ -95,7 +95,7 @@ class Vec3dSuite extends AnyFunSuite {
 
   test("Test dot 1") {
     val vec = Vec3d(1.0, 2.0, 3.0)
-    val res = vec dot(2.0, 3.0, 1.0)
+    val res = vec.dot(2.0, 3.0, 1.0)
     assert(res == 11.0)
   }
 
@@ -118,40 +118,40 @@ class Vec3dSuite extends AnyFunSuite {
   }
 
   test("Test cross 1") {
-    val vec = Vec3d(1.0, 0.0, 0.0)
-    val res = vec cross(0.0, -1.0, 0.0)
-    assert(res == Vec3d(0.0, 0.0, -1.0))
+    val vec = Vec3d.Right
+    val res = vec.cross(0.0, -1.0, 0.0)
+    assert(res == Vec3d.Backwards)
   }
 
   test("Test cross 2") {
-    val a = Vec3d(1.0, 0.0, 0.0)
-    val b = Vec3i(0, -1, 0)
-    assert((a cross b) == Vec3d(0.0, 0.0, -1.0))
+    val a = Vec3d.Right
+    val b = Vec3i.Down
+    assert((a cross b) == Vec3d.Backwards)
   }
 
   test("Test cross 3") {
-    val a = Vec3d(1.0, 0.0, 0.0)
-    val b = Vec3f(0.0f, 1.0f, 0.0f)
-    assert((a cross b) == Vec3d(0.0, 0.0, 1.0))
+    val a = Vec3d.Right
+    val b = Vec3f.Up
+    assert((a cross b) == Vec3d.Forward)
   }
 
   test("Test cross 4") {
-    val a = Vec3d(-1.0, 0.0, 0.0)
-    val b = Vec3d(0.0, 1.0, 0.0)
-    assert((a cross b) == Vec3d(0.0, 0.0, -1.0))
+    val a = Vec3d.Left
+    val b = Vec3d.Up
+    assert((a cross b) == Vec3d.Backwards)
   }
 
   test("Test length squared") {
-    assert(Vec3d(1.0, 1.0, 1.0).lengthSquared == 3.0)
+    assert(Vec3d.One.lengthSquared == 3.0)
   }
 
   test("Test length") {
-    assert(Vec3d(1.0, 1.0, 1.0).length == Math.sqrt(3))
+    assert(Vec3d.One.length == Math.sqrt(3))
   }
 
   test("Test normalized") {
     val vec = Vec3d(0.0, 3.0, 0.0)
     val res = vec.normalized
-    assert(res == Vec3d(0.0, 1.0, 0.0))
+    assert(res == Vec3d.Up)
   }
 }

@@ -68,3 +68,8 @@ case class Vec4i(x: Int, y: Int, z: Int, w: Int) extends Int4 with VecInt[Vec4i]
 
   def equals(x: Int, y: Int, z: Int, w: Int): Boolean = this == (x, y, z, w)
 }
+
+object Vec4i {
+  val Zero: Vec4i = Vec4i(0, 0, 0, 0)
+  val One: Vec4i = Vec4i(1, 1, 1, 1)
+}
