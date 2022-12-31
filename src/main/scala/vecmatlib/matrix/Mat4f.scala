@@ -71,7 +71,7 @@ case class Mat4f(
     if(exp < 0) {
       this.transposed.power(-exp)
     } else if(exp == 0) {
-      Identity
+      Mat4f.Identity
     } else {
       this * this.power(exp - 1)
     }
