@@ -2,6 +2,19 @@ package vecmatlib.matrix
 
 import vecmatlib.vector.{Vec3d, Vec3f}
 
+/**
+ * 3x3 float matrix.
+ *
+ * @param m00 Element 0 0
+ * @param m01 Element 0 1
+ * @param m02 Element 0 2
+ * @param m10 Element 1 0
+ * @param m11 Element 1 1
+ * @param m12 Element 1 2
+ * @param m20 Element 2 0
+ * @param m21 Element 2 1
+ * @param m22 Element 2 2
+ */
 case class Mat3f(
                   m00: Float, m01: Float, m02: Float,
                   m10: Float, m11: Float, m12: Float,
@@ -26,26 +39,92 @@ case class Mat3f(
     this.m20 * k, this.m21 * k, this.m22 * k
   )
 
+  /**
+   * Returns the first row of this matrix as a 3d vector.
+   *
+   * @return The first row of this matrix as a 3d vector
+   */
   def row0: Vec3f = Vec3f(this.m00, this.m01, this.m02)
 
+  /**
+   * Returns the second row of this matrix as a 3d vector.
+   *
+   * @return The second row of this matrix as a 3d vector
+   */
   def row1: Vec3f = Vec3f(this.m10, this.m11, this.m12)
 
+  /**
+   * Returns the third row of this matrix as a 3d vector.
+   *
+   * @return The third row of this matrix as a 3d vector
+   */
   def row2: Vec3f = Vec3f(this.m20, this.m21, this.m22)
 
+  /**
+   * Returns the first column of this matrix as a 3d vector.
+   *
+   * @return The first column of this matrix as a 3d vector
+   */
   def col0: Vec3f = Vec3f(this.m00, this.m10, this.m20)
 
+  /**
+   * Returns the second column of this matrix as a 3d vector.
+   *
+   * @return The second column of this matrix as a 3d vector
+   */
   def col1: Vec3f = Vec3f(this.m01, this.m11, this.m21)
 
+  /**
+   * Returns the third column of this matrix as a 3d vector.
+   *
+   * @return The third column of this matrix as a 3d vector
+   */
   def col2: Vec3f = Vec3f(this.m02, this.m12, this.m22)
 
   override def *(v: Vec3f): Vec3f = Vec3f(this.row0 dot v, this.row1 dot v, this.row2 dot v)
 
+  /**
+   * Returns the product of this matrix by the vector with the given components.
+   *
+   * @param x X component of the vector by which this matrix is multiplied
+   * @param y Y component of the vector by which this matrix is multiplied
+   * @param z Z component of the vector by which this matrix is multiplied
+   * @return The product between this matrix and the vector with the given components
+   */
   def *(x: Float, y: Float, z: Float): Vec3f = this * Vec3f(x, y, z)
 
+  /**
+   * Returns the product of this matrix by the vector with the given components.
+   *
+   * This method can be used in place of the '*' operator for better interoperability with Java.
+   *
+   * @param x X component of the vector by which this matrix is multiplied
+   * @param y Y component of the vector by which this matrix is multiplied
+   * @param z Z component of the vector by which this matrix is multiplied
+   * @return The product between this matrix and the vector with the given components
+   */
   def multiply(x: Float, y: Float, z: Float): Vec3f = this * Vec3f(x, y, z)
 
+  /**
+   * Returns the product of this matrix by the vector with the given components.
+   *
+   * @param x X component of the vector by which this matrix is multiplied
+   * @param y Y component of the vector by which this matrix is multiplied
+   * @param z Z component of the vector by which this matrix is multiplied
+   * @return The product between this matrix and the vector with the given components
+   */
   def *(x: Double, y: Double, z: Double): Vec3d = this * Vec3d(x, y, z)
 
+  /**
+   * Returns the product of this matrix by the vector with the given components.
+   *
+   * This method can be used in place of the '*' operator for better interoperability with Java.
+   *
+   * @param x X component of the vector by which this matrix is multiplied
+   * @param y Y component of the vector by which this matrix is multiplied
+   * @param z Z component of the vector by which this matrix is multiplied
+   * @return The product between this matrix and the vector with the given components
+   */
   def multiply(x: Double, y: Double, z: Double): Vec3d = this * Vec3d(x, y, z)
 
   override def transposed: Mat3f = Mat3f(
@@ -70,6 +149,11 @@ case class Mat3f(
     }
   }
 
+  /**
+   * Casts this matrix to an int matrix.
+   *
+   * @return A matrix same as this one cast to int
+   */
   def toInt: Mat3i = Mat3i(
     this.m00.toInt, this.m01.toInt, this.m02.toInt,
     this.m10.toInt, this.m11.toInt, this.m12.toInt,
@@ -84,6 +168,8 @@ case class Mat3f(
 }
 
 object Mat3f {
+  /** Shorthand for an identity matrix */
   val Identity: Mat3f = Mat3f(1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f)
+  /** Shorthand for the zero matrix */
   val Zero: Mat3f = Mat3f(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
 }

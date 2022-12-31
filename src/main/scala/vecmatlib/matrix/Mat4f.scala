@@ -2,6 +2,26 @@ package vecmatlib.matrix
 
 import vecmatlib.vector.{Vec4d, Vec4f}
 
+/**
+ * 4x4 float matrix.
+ *
+ * @param m00 Element 0 0
+ * @param m01 Element 0 1
+ * @param m02 Element 0 2
+ * @param m03 Element 0 3
+ * @param m10 Element 1 0
+ * @param m11 Element 1 1
+ * @param m12 Element 1 2
+ * @param m13 Element 1 3
+ * @param m20 Element 2 0
+ * @param m21 Element 2 1
+ * @param m22 Element 2 2
+ * @param m23 Element 2 3
+ * @param m30 Element 3 0
+ * @param m31 Element 3 1
+ * @param m32 Element 3 2
+ * @param m33 Element 3 3
+ */
 case class Mat4f(
                   m00: Float, m01: Float, m02: Float, m03: Float,
                   m10: Float, m11: Float, m12: Float, m13: Float,
@@ -30,30 +50,106 @@ case class Mat4f(
     this.m30 * k, this.m31 * k, this.m32 * k, this.m33 * k
   )
 
+  /**
+   * Returns the first row of this matrix as a 3d vector.
+   *
+   * @return The first row of this matrix as a 3d vector
+   */
   def row0: Vec4f = Vec4f(this.m00, this.m01, this.m02, this.m03)
 
+  /**
+   * Returns the second row of this matrix as a 3d vector.
+   *
+   * @return The second row of this matrix as a 3d vector
+   */
   def row1: Vec4f = Vec4f(this.m10, this.m11, this.m12, this.m13)
 
+  /**
+   * Returns the third row of this matrix as a 3d vector.
+   *
+   * @return The third row of this matrix as a 3d vector
+   */
   def row2: Vec4f = Vec4f(this.m20, this.m21, this.m22, this.m23)
 
+  /**
+   * Returns the fourth row of this matrix as a 3d vector.
+   *
+   * @return The fourth row of this matrix as a 3d vector
+   */
   def row3: Vec4f = Vec4f(this.m30, this.m31, this.m32, this.m33)
 
+  /**
+   * Returns the first column of this matrix as a 3d vector.
+   *
+   * @return The first column of this matrix as a 3d vector
+   */
   def col0: Vec4f = Vec4f(this.m00, this.m10, this.m20, this.m30)
 
+  /**
+   * Returns the second column of this matrix as a 3d vector.
+   *
+   * @return The second column of this matrix as a 3d vector
+   */
   def col1: Vec4f = Vec4f(this.m01, this.m11, this.m21, this.m31)
 
+  /**
+   * Returns the third column of this matrix as a 3d vector.
+   *
+   * @return The third column of this matrix as a 3d vector
+   */
   def col2: Vec4f = Vec4f(this.m02, this.m12, this.m22, this.m32)
 
+  /**
+   * Returns the fourth column of this matrix as a 3d vector.
+   *
+   * @return The fourth column of this matrix as a 3d vector
+   */
   def col3: Vec4f = Vec4f(this.m03, this.m13, this.m23, this.m33)
 
   override def *(v: Vec4f): Vec4f = Vec4f(this.row0 dot v, this.row1 dot v, this.row2 dot v, this.row3 dot v)
 
+  /**
+   * Returns the product of this matrix by the vector with the given components.
+   *
+   * @param x X component of the vector by which this matrix is multiplied
+   * @param y Y component of the vector by which this matrix is multiplied
+   * @param z Z component of the vector by which this matrix is multiplied
+   * @return The product between this matrix and the vector with the given components
+   */
   def *(x: Float, y: Float, z: Float, w: Float): Vec4f = this * Vec4f(x, y, z, w)
 
+  /**
+   * Returns the product of this matrix by the vector with the given components.
+   *
+   * This method can be used in place of the '*' operator for better interoperability with Java.
+   *
+   * @param x X component of the vector by which this matrix is multiplied
+   * @param y Y component of the vector by which this matrix is multiplied
+   * @param z Z component of the vector by which this matrix is multiplied
+   * @return The product between this matrix and the vector with the given components
+   */
   def multiply(x: Float, y: Float, z: Float, w: Float): Vec4f = this * Vec4f(x, y, z, w)
 
+  /**
+   * Returns the product of this matrix by the vector with the given components.
+   *
+   * @param x X component of the vector by which this matrix is multiplied
+   * @param y Y component of the vector by which this matrix is multiplied
+   * @param z Z component of the vector by which this matrix is multiplied
+   * @return The product between this matrix and the vector with the given components
+   */
   def *(x: Double, y: Double, z: Double, w: Double): Vec4d = this * Vec4d(x, y, z, w)
 
+  /**
+   * Returns the product of this matrix by the vector with the given components.
+   *
+   * This method can be used in place of the '*' operator for better interoperability with Java.
+   *
+   * @param x X component of the vector by which this matrix is multiplied
+   * @param y Y component of the vector by which this matrix is multiplied
+   * @param z Z component of the vector by which this matrix is multiplied
+   * @return The product between this matrix and the vector with the given components
+   */
   def multiply(x: Double, y: Double, z: Double, w: Double): Vec4d = this * Vec4d(x, y, z, w)
 
   override def transposed: Mat4f = Mat4f(
@@ -80,6 +176,11 @@ case class Mat4f(
     }
   }
 
+  /**
+   * Casts this matrix to an int matrix.
+   *
+   * @return A matrix same as this one cast to int
+   */
   def toInt: Mat4i = Mat4i(
     this.m00.toInt, this.m01.toInt, this.m02.toInt, this.m03.toInt,
     this.m10.toInt, this.m11.toInt, this.m12.toInt, this.m13.toInt,
@@ -96,6 +197,8 @@ case class Mat4f(
 }
 
 object Mat4f {
+  /** Shorthand for an identity matrix */
   val Identity: Mat4f = Mat4f(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f)
+  /** Shorthand for the zero matrix */
   val Zero: Mat4f = Mat4f(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
 }
