@@ -111,4 +111,56 @@ trait VecAsFloat[F <: VecFloat[F]] {
    * @return The result of the dot product between this vector and the given one.
    */
   def dot(v: F): Float = this.toFloat dot v
+
+  /**
+   * Returns the squared distance between this vector and the given one.
+   *
+   * Using `a.distanceSquaredTo(b)` is equivalent to using `(b - a).lengthSquared`.
+   *
+   * @param v The second vector.
+   * @return The squared distance between this vector and the given one
+   */
+  def distanceSquaredTo(v: F): Float = this.toFloat.distanceSquaredTo(v)
+
+  /**
+   * Returns the distance between this vector and the given one.
+   *
+   * Using `a.distanceTo(b)` is equivalent to using `(b - a).length`.
+   *
+   * @param v The second vector.
+   * @return The distance between this vector and the given one
+   */
+  def distanceTo(v: F): Double = this.toFloat.distanceTo(v)
+
+  /**
+   * Returns this vector reflected from a plane defined by the given normal.
+   *
+   * @param n The normal of the plane (must be normalized)
+   * @return This vector reflected from a plane defined by the given normal
+   */
+  def reflect(n: F): F = this.toFloat.reflect(n)
+
+  /**
+   * Returns this vector reflected from a plane defined by the given normal.
+   *
+   * @param n The normal of the plane (must be normalized)
+   * @return This vector reflected from a plane defined by the given normal
+   */
+  def bounce(n: F): F = this.toFloat.bounce(n)
+
+  /**
+   * Returns this vector projected onto the given one.
+   *
+   * @param v The vector to project onto
+   * @return This vector projected onto the given one
+   */
+  def project(v: F): F = this.toFloat.project(v)
+
+  /**
+   * Returns this vector slid along a plane defined by the given normal.
+   *
+   * @param n The normal of the plane
+   * @return This vector slid along a plane defined by the given normal
+   */
+  def slide(n: F): F = this.toFloat.slide(n)
 }

@@ -92,6 +92,84 @@ case class Vec2d(x: Double, y: Double) extends Double2 with VecDouble[Vec2d] {
   override def lengthSquared: Double = this dot this
 
   /**
+   * Returns the angle in radians between this vector and the one with the given components.
+   *
+   * @param x X component of the second vector
+   * @param y Y component of the second vector
+   * @return The angle in radians between this vector and the one with the given components
+   */
+  def angle(x: Double, y: Double): Double = this.angle(Vec2d(x, y))
+
+  /**
+   * Returns the normalized vector pointing from this vector to the one with the given components.
+   *
+   * Using `a.directionTo(b)` is equivalent to using `(b - a).normalized`.
+   *
+   * @param x X component of the second vector
+   * @param y Y component of the second vector
+   * @return The normalized vector pointing from this vector to the given one
+   */
+  def directionTo(x: Double, y: Double): Vec2d = this.directionTo(Vec2d(x, y))
+
+  /**
+   * Returns the squared distance between this vector and the one with the given components.
+   *
+   * Using `a.distanceSquaredTo(b)` is equivalent to using `(b - a).lengthSquared`.
+   *
+   * @param x X component of the second vector
+   * @param y Y component of the second vector
+   * @return The squared distance between this vector and the one with the given components
+   */
+  def distanceSquaredTo(x: Double, y: Double): Double = this.distanceSquaredTo(Vec2d(x, y))
+
+  /**
+   * Returns the distance between this vector and the one with the given components.
+   *
+   * Using `a.distanceTo(b)` is equivalent to using `(b - a).length`.
+   *
+   * @param x X component of the second vector
+   * @param y Y component of the second vector
+   * @return The distance between this vector and the one with the given components
+   */
+  def distanceTo(x: Double, y: Double): Double = this.distanceTo(Vec2d(x, y))
+
+  /**
+   * Returns this vector reflected from a plane defined by the given normal (must be normalized).
+   *
+   * @param x X component of the normal
+   * @param y Y component of the normal
+   * @return This vector reflected from a plane defined by the given normal
+   */
+  def reflect(x: Double, y: Double): Vec2d = this.reflect(Vec2d(x, y))
+
+  /**
+   * Returns this vector "bounced off" from a plane defined by the given normal (must be normalized).
+   *
+   * @param x X component of the normal
+   * @param y Y component of the normal
+   * @return This vector "bounced off" from a plane defined by the given normal
+   */
+  def bounce(x: Double, y: Double): Vec2d = this.bounce(Vec2d(x, y))
+
+  /**
+   * Returns this vector projected onto the one with the given components.
+   *
+   * @param x X component of the vector to project onto
+   * @param y Y component of the vector to project onto
+   * @return This vector projected onto the one with the given components
+   */
+  def project(x: Double, y: Double): Vec2d = this.project(Vec2d(x, y))
+
+  /**
+   * Returns this vector slid along a plane defined by the normal with the given components.
+   *
+   * @param x X component of the normal
+   * @param y Y component of the normal
+   * @return This vector slid along a plane defined by the given normal
+   */
+  def slide(x: Double, y: Double): Vec2d = this.slide(Vec2d(x, y))
+
+  /**
    * Casts this vector to an int vector.
    *
    * @return A vector same as this one cast to int

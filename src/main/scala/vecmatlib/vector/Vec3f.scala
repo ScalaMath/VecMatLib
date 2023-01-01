@@ -220,6 +220,144 @@ case class Vec3f(x: Float, y: Float, z: Float) extends Float3 with VecFloat[Vec3
   override def lengthSquared: Float = this dot this
 
   /**
+   * Returns the angle in radians between this vector and the one with the given components.
+   *
+   * @param x X component of the second vector
+   * @param y Y component of the second vector
+   * @param z Z component of the second vector
+   * @return The angle in radians between this vector and the one with the given components
+   */
+  def angle(x: Double, y: Double, z: Double): Double = this.angle(Vec3d(x, y, z))
+
+  /**
+   * Returns the normalized vector pointing from this vector to the one with the given components.
+   *
+   * Using `a.directionTo(b)` is equivalent to using `(b - a).normalized`.
+   *
+   * @param x X component of the second vector
+   * @param y Y component of the second vector
+   * @param z Z component of the second vector
+   * @return The normalized vector pointing from this vector to the given one
+   */
+  def directionTo(x: Double, y: Double, z: Double): Vec3d = this.directionTo(Vec3d(x, y, z))
+
+  /**
+   * Returns the squared distance between this vector and the one with the given components.
+   *
+   * Using `a.distanceSquaredTo(b)` is equivalent to using `(b - a).lengthSquared`.
+   *
+   * @param x X component of the second vector
+   * @param y Y component of the second vector
+   * @param z Z component of the second vector
+   * @return The squared distance between this vector and the one with the given components
+   */
+  def distanceSquaredTo(x: Float, y: Float, z: Float): Float = this.distanceSquaredTo(Vec3f(x, y, z))
+
+  /**
+   * Returns the squared distance between this vector and the one with the given components.
+   *
+   * Using `a.distanceSquaredTo(b)` is equivalent to using `(b - a).lengthSquared`.
+   *
+   * @param x X component of the second vector
+   * @param y Y component of the second vector
+   * @param z Z component of the second vector
+   * @return The squared distance between this vector and the one with the given components
+   */
+  def distanceSquaredTo(x: Double, y: Double, z: Double): Double = this.distanceSquaredTo(Vec3d(x, y, z))
+
+  /**
+   * Returns the distance between this vector and the one with the given components.
+   *
+   * Using `a.distanceTo(b)` is equivalent to using `(b - a).length`.
+   *
+   * @param x X component of the second vector
+   * @param y Y component of the second vector
+   * @param z Z component of the second vector
+   * @return The distance between this vector and the one with the given components
+   */
+  def distanceTo(x: Double, y: Double, z: Double): Double = this.distanceTo(Vec3d(x, y, z))
+
+  /**
+   * Returns this vector reflected from a plane defined by the given normal (must be normalized).
+   *
+   * @param x X component of the normal
+   * @param y Y component of the normal
+   * @param z Z component of the normal
+   * @return This vector reflected from a plane defined by the given normal
+   */
+  def reflect(x: Float, y: Float, z: Float): Vec3f = this.reflect(Vec3f(x, y, z))
+
+  /**
+   * Returns this vector reflected from a plane defined by the given normal (must be normalized).
+   *
+   * @param x X component of the normal
+   * @param y Y component of the normal
+   * @param z Z component of the normal
+   * @return This vector reflected from a plane defined by the given normal
+   */
+  def reflect(x: Double, y: Double, z: Double): Vec3d = this.reflect(Vec3d(x, y, z))
+
+  /**
+   * Returns this vector "bounced off" from a plane defined by the given normal (must be normalized).
+   *
+   * @param x X component of the normal
+   * @param y Y component of the normal
+   * @param z Z component of the normal
+   * @return This vector "bounced off" from a plane defined by the given normal
+   */
+  def bounce(x: Float, y: Float, z: Float): Vec3f = this.bounce(Vec3f(x, y, z))
+
+  /**
+   * Returns this vector "bounced off" from a plane defined by the given normal (must be normalized).
+   *
+   * @param x X component of the normal
+   * @param y Y component of the normal
+   * @param z Z component of the normal
+   * @return This vector "bounced off" from a plane defined by the given normal
+   */
+  def bounce(x: Double, y: Double, z: Double): Vec3d = this.bounce(Vec3d(x, y, z))
+
+  /**
+   * Returns this vector projected onto the one with the given components.
+   *
+   * @param x X component of the vector to project onto
+   * @param y Y component of the vector to project onto
+   * @param z Z component of the vector to project onto
+   * @return This vector projected onto the one with the given components
+   */
+  def project(x: Float, y: Float, z: Float): Vec3f = this.project(Vec3f(x, y, z))
+
+  /**
+   * Returns this vector projected onto the one with the given components.
+   *
+   * @param x X component of the vector to project onto
+   * @param y Y component of the vector to project onto
+   * @param z Z component of the vector to project onto
+   * @return This vector projected onto the one with the given components
+   */
+  def project(x: Double, y: Double, z: Double): Vec3d = this.project(Vec3d(x, y, z))
+
+  /**
+   * Returns this vector slid along a plane defined by the normal with the given components.
+   *
+   * @param x X component of the normal
+   * @param y Y component of the normal
+   * @param z Z component of the normal
+   * @return This vector slid along a plane defined by the given normal
+   */
+  def slide(x: Float, y: Float, z: Float): Vec3f = this.slide(Vec3f(x, y, z))
+
+  /**
+   * Returns this vector slid along a plane defined by the normal with the given components.
+   *
+   * @param x X component of the normal
+   * @param y Y component of the normal
+   * @param z Z component of the normal
+   * @return This vector slid along a plane defined by the given normal
+   */
+  def slide(x: Double, y: Double, z: Double): Vec3d = this.slide(Vec3d(x, y, z))
+
+  /**
    * Casts this vector to an int vector.
    *
    * @return A vector same as this one cast to int

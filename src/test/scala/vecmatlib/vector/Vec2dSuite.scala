@@ -130,4 +130,191 @@ class Vec2dSuite extends AnyFunSuite {
     val res = vec.normalized
     assert(res == Vec2d(1.0 / Math.sqrt(2), 1.0 / Math.sqrt(2)))
   }
+
+  test("Test angle 1") {
+    val a = Vec2d.Up
+    val b = Vec2i.Left
+    assert(a.angle(b) == math.Pi / 2.0)
+  }
+
+  test("Test angle 2") {
+    val a = Vec2d.Up
+    val b = Vec2f.Right
+    assert(a.angle(b) == math.Pi / 2.0)
+  }
+
+  test("Test angle 3") {
+    val a = Vec2d.Up
+    val b = Vec2d.Down
+    assert(a.angle(b) == math.Pi)
+  }
+
+  test("Test angle 4") {
+    val vec = Vec2d.Right
+    assert(vec.angle(0.0, 1.0) == math.Pi / 2.0)
+  }
+
+  test("Test direction to 1") {
+    val a = Vec2d.Zero
+    val b = Vec2i(0, 10)
+    assert(a.directionTo(b) == Vec2d.Up)
+  }
+
+  test("Test direction to 2") {
+    val a = Vec2d.Zero
+    val b = Vec2f(0.0f, 10.0f)
+    assert(a.directionTo(b) == Vec2d.Up)
+  }
+
+  test("Test direction to 3") {
+    val a = Vec2d.Zero
+    val b = Vec2d(0.0, -10.0)
+    assert(a.directionTo(b) == Vec2d.Down)
+  }
+
+  test("Test direction to 4") {
+    val vec = Vec2d.Zero
+    assert(vec.directionTo(0.0, 10.0) == Vec2d.Up)
+  }
+
+  test("Test distance squared to 1") {
+    val vec = Vec2d.Zero
+    assert(vec.distanceSquaredTo(2.0, 2.0) == 8.0)
+  }
+
+  test("Test distance squared to 2") {
+    val a = Vec2d.Zero
+    val b = Vec2i.One * 2
+    assert(a.distanceSquaredTo(b) == 8)
+  }
+
+  test("Test distance squared to 3") {
+    val a = Vec2d.Zero
+    val b = Vec2f.One * 2
+    assert(a.distanceSquaredTo(b) == 8.0f)
+  }
+
+  test("Test distance squared to 4") {
+    val a = Vec2d.Zero
+    val b = Vec2d.One * 2
+    assert(a.distanceSquaredTo(b) == 8.0)
+  }
+
+  test("Test distance to 1") {
+    val vec = Vec2d.Zero
+    assert(vec.distanceTo(2.0, 2.0) == 2.0 * math.sqrt(2))
+  }
+
+  test("Test distance to 2") {
+    val a = Vec2d.Zero
+    val b = Vec2i.One * 2
+    assert(a.distanceTo(b) == 2.0 * math.sqrt(2))
+  }
+
+  test("Test distance to 3") {
+    val a = Vec2d.Zero
+    val b = Vec2f.One * 2.0f
+    assert(a.distanceTo(b) == 2.0 * math.sqrt(2))
+  }
+
+  test("Test distance to 4") {
+    val a = Vec2d.Zero
+    val b = Vec2d.One * 2.0
+    assert(a.distanceTo(b) == 2.0 * math.sqrt(2))
+  }
+
+  test("Test reflect 1") {
+    val vec = Vec2d(1.0, -1.0)
+    val res = vec.reflect(0.0, 1.0)
+    assert(res == Vec2d(1.0, 1.0))
+  }
+
+  test("Test reflect 2") {
+    val a = Vec2d(1.0, -1.0)
+    val b = Vec2i(0, 1)
+    assert(a.reflect(b) == Vec2d(1.0, 1.0))
+  }
+
+  test("Test reflect 3") {
+    val a = Vec2d(1.0, -1.0)
+    val b = Vec2f(0.0f, 1.0f)
+    assert(a.reflect(b) == Vec2d(1.0, 1.0))
+  }
+
+  test("Test reflect 4") {
+    val a = Vec2d(1.0, -1.0)
+    val b = Vec2d(0.0, 1.0)
+    assert(a.reflect(b) == Vec2d(1.0, 1.0))
+  }
+
+  test("Test bounce 1") {
+    val vec = Vec2d(1.0, -1.0)
+    val res = vec.bounce(0.0, 1.0)
+    assert(res == Vec2d(-1.0, -1.0))
+  }
+
+  test("Test bounce 2") {
+    val a = Vec2d(1.0, -1.0)
+    val b = Vec2i(0, 1)
+    assert(a.bounce(b) == Vec2d(-1.0, -1.0))
+  }
+
+  test("Test bounce 3") {
+    val a = Vec2d(1.0, -1.0)
+    val b = Vec2f(0.0f, 1.0f)
+    assert(a.bounce(b) == Vec2d(-1.0, -1.0))
+  }
+
+  test("Test bounce 4") {
+    val a = Vec2d(1.0, -1.0)
+    val b = Vec2d(0.0, 1.0)
+    assert(a.bounce(b) == Vec2d(-1.0, -1.0))
+  }
+
+  test("Test project 1") {
+    val vec = Vec2d(2.0, 1.0)
+    val res = vec.project(1.0, 0.0)
+    assert(res == Vec2d(2.0, 0.0))
+  }
+
+  test("Test project 2") {
+    val a = Vec2d(2.0, 1.0)
+    val b = Vec2i(1, 0)
+    assert(a.project(b) == Vec2d(2.0, 0.0))
+  }
+
+  test("Test project 3") {
+    val a = Vec2d(2.0, 1.0)
+    val b = Vec2f(1.0f, 0.0f)
+    assert(a.project(b) == Vec2d(2.0, 0.0))
+  }
+
+  test("Test project 4") {
+    val a = Vec2d(2.0, 1.0)
+    val b = Vec2d(1.0, 0.0)
+    assert(a.project(b) == Vec2d(2.0, 0.0))
+  }
+
+  test("Test slide 1") {
+    val vec = Vec2d(1.0, 1.0)
+    assert(vec.slide(0.0, 1.0) == Vec2d(1.0, 0.0))
+  }
+
+  test("Test slide 2") {
+    val a = Vec2d(1.0, 1.0)
+    val b = Vec2i(0, 1)
+    assert(a.slide(b) == Vec2d(1.0, 0.0))
+  }
+
+  test("Test slide 3") {
+    val a = Vec2d(1.0, 1.0)
+    val b = Vec2f(0.0f, 1.0f)
+    assert(a.slide(b) == Vec2d(1.0, 0.0))
+  }
+
+  test("Test slide 4") {
+    val a = Vec2d(1.0, 1.0)
+    val b = Vec2d(0.0, 1.0)
+    assert(a.slide(b) == Vec2d(1.0, 0.0))
+  }
 }

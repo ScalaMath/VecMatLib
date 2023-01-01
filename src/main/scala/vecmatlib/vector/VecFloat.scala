@@ -121,4 +121,98 @@ trait VecFloat[F <: VecFloat[F]] extends VecBase[F] {
   def lengthSquared: Float
 
   override def length: Double = Math.sqrt(this.lengthSquared)
+
+  /**
+   * Returns the squared distance between this vector and the given one.
+   *
+   * Using `a.distanceSquaredTo(b)` is equivalent to using `(b - a).lengthSquared`.
+   *
+   * @param v The second vector.
+   * @return The squared distance between this vector and the given one
+   */
+  def distanceSquaredTo(v: F): Float = (-(this - v)).lengthSquared
+
+  /**
+   * Returns the squared distance between this vector and the given one.
+   *
+   * Using `a.distanceSquaredTo(b)` is equivalent to using `(b - a).lengthSquared`.
+   *
+   * @param v The second vector.
+   * @return The squared distance between this vector and the given one
+   */
+  def distanceSquaredTo(v: VecAsFloat[F]): Float = this.distanceSquaredTo(v.toFloat)
+
+  /**
+   * Returns the distance between this vector and the given one.
+   *
+   * Using `a.distanceTo(b)` is equivalent to using `(b - a).length`.
+   *
+   * @param v The second vector.
+   * @return The distance between this vector and the given one
+   */
+  def distanceTo(v: VecAsFloat[F]): Double = this.distanceTo(v.toFloat)
+
+  /**
+   * Returns this vector reflected from a plane defined by the given normal.
+   *
+   * @param n The normal of the plane (must be normalized)
+   * @return This vector reflected from a plane defined by the given normal
+   */
+  def reflect(n: F): F = this - (n * (this dot n) * 2)
+
+  /**
+   * Returns this vector reflected from a plane defined by the given normal.
+   *
+   * @param n The normal of the plane (must be normalized)
+   * @return This vector reflected from a plane defined by the given normal
+   */
+  def reflect(n: VecAsFloat[F]): F = this.reflect(n.toFloat)
+
+  /**
+   * Returns this vector "bounced off" from a plane defined by the given normal.
+   *
+   * @param n The normal of the plane (must be normalized)
+   * @return This vector "bounced off" from a plane defined by the given normal
+   */
+  def bounce(n: F): F = -this.reflect(n)
+
+  /**
+   * Returns this vector "bounced off" from a plane defined by the given normal.
+   *
+   * @param n The normal of the plane (must be normalized)
+   * @return This vector "bounced off" from a plane defined by the given normal
+   */
+  def bounce(n: VecAsFloat[F]): F = this.bounce(n.toFloat)
+
+  /**
+   * Returns this vector projected onto the given one.
+   *
+   * @param v The vector to project onto
+   * @return This vector projected onto the given one
+   */
+  def project(v: F): F = v * ((this dot v) / v.lengthSquared)
+
+  /**
+   * Returns this vector projected onto the given one.
+   *
+   * @param v The vector to project onto
+   * @return This vector projected onto the given one
+   */
+  def project(v: VecAsFloat[F]): F = this.project(v.toFloat)
+
+  /**
+   * Returns this vector slid along a plane defined by the given normal.
+   *
+   * @param n The normal of the plane
+   * @return This vector slid along a plane defined by the given normal
+   */
+  def slide(n: F): F = this - (n * (this dot n))
+
+  /**
+   * Returns this vector slid along a plane defined by the given normal.
+   *
+   * @param n The normal of the plane
+   * @return This vector slid along a plane defined by the given normal
+   */
+  def slide(n: VecAsFloat[F]): F = this.slide(n.toFloat)
 }

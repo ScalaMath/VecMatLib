@@ -59,4 +59,46 @@ trait VecInt[I <: VecInt[I]] extends VecBase[I] {
   def lengthSquared: Int
 
   override def length: Double = Math.sqrt(this.lengthSquared)
+
+  /**
+   * Returns the squared distance between this vector and the given one.
+   *
+   * Using `a.distanceSquaredTo(b)` is equivalent to using `(b - a).lengthSquared`.
+   *
+   * @param v The second vector.
+   * @return The squared distance between this vector and the given one
+   */
+  def distanceSquaredTo(v: I): Int = (-(this - v)).lengthSquared
+
+  /**
+   * Returns this vector reflected from a plane defined by the given normal.
+   *
+   * @param n The normal of the plane (must be normalized)
+   * @return This vector reflected from a plane defined by the given normal
+   */
+  def reflect(n: I): I = this - (n * (this dot n) * 2)
+
+  /**
+   * Returns this vector "bounced off" from a plane defined by the given normal.
+   *
+   * @param n The normal of the plane (must be normalized)
+   * @return This vector "bounced off" from a plane defined by the given normal
+   */
+  def bounce(n: I): I = -this.reflect(n)
+
+  /**
+   * Returns this vector projected onto the given one.
+   *
+   * @param v The vector to project onto
+   * @return This vector projected onto the given one
+   */
+  def project(v: I): I = v * ((this dot v) / v.lengthSquared)
+
+  /**
+   * Returns this vector slid along a plane defined by the given normal.
+   *
+   * @param n The normal of the plane
+   * @return This vector slid along a plane defined by the given normal
+   */
+  def slide(n: I): I = this - (n * (this dot n))
 }

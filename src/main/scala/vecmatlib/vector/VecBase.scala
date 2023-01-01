@@ -83,4 +83,14 @@ trait VecBase[V <: VecBase[V]] {
    * @return The length of this vector.
    */
   def length: Double
+
+  /**
+   * Returns the distance between this vector and the given one.
+   *
+   * Using `a.distanceTo(b)` is equivalent to using `(b - a).length`.
+   *
+   * @param v The second vector.
+   * @return The distance between this vector and the given one
+   */
+  def distanceTo(v: V): Double = (-(this - v)).length
 }

@@ -166,4 +166,219 @@ class Vec4fSuite extends AnyFunSuite {
     val res = vec.normalized
     assert(res == Vec4d(1.0, 0.0, 0.0, 0.0))
   }
+
+  test("Test angle 1") {
+    val a = Vec4f(0.0f, 1.0f, 0.0f, 0.0f)
+    val b = Vec4i(-1, 0, 0, 0)
+    assert(a.angle(b) == math.Pi / 2.0)
+  }
+
+  test("Test angle 2") {
+    val a = Vec4f(0.0f, 1.0f, 0.0f, 0.0f)
+    val b = Vec4f(1.0f, 0.0f, 0.0f, 0.0f)
+    assert(a.angle(b) == math.Pi / 2.0)
+  }
+
+  test("Test angle 3") {
+    val a = Vec4f(0.0f, 1.0f, 0.0f, 0.0f)
+    val b = Vec4d(0.0, -1.0, 0.0, 0.0)
+    assert(a.angle(b) == math.Pi)
+  }
+
+  test("Test angle 4") {
+    val vec = Vec4f(1.0f, 0.0f, 0.0f, 0.0f)
+    assert(vec.angle(0.0, 1.0, 0.0, 0.0) == math.Pi / 2.0)
+  }
+
+  test("Test direction to 1") {
+    val a = Vec4f.Zero
+    val b = Vec4i(0, 0, 10, 0)
+    assert(a.directionTo(b) == Vec4d(0.0, 0.0, 1.0, 0.0))
+  }
+
+  test("Test direction to 2") {
+    val a = Vec4f.Zero
+    val b = Vec4f(0.0f, 0.0f, 10.0f, 0.0f)
+    assert(a.directionTo(b) == Vec4d(0.0, 0.0, 1.0, 0.0))
+  }
+
+  test("Test direction to 3") {
+    val a = Vec4f.Zero
+    val b = Vec4d(0.0, 0.0, 10.0, 0.0)
+    assert(a.directionTo(b) == Vec4d(0.0, 0.0, 1.0, 0.0))
+  }
+
+  test("Test direction to 4") {
+    val vec = Vec4f.Zero
+    assert(vec.directionTo(0.0, 0.0, 10.0, 0.0) == Vec4d(0.0, 0.0, 1.0, 0.0))
+  }
+
+  test("Test distance squared to 1") {
+    val vec = Vec4f.Zero
+    assert(vec.distanceSquaredTo(2.0f, 2.0f, 2.0f, 2.0f) == 16.0f)
+  }
+
+  test("Test distance squared to 2") {
+    val vec = Vec4f.Zero
+    assert(vec.distanceSquaredTo(2.0, 2.0, 2.0, 2.0) == 16.0)
+  }
+
+  test("Test distance squared to 3") {
+    val a = Vec4f.Zero
+    val b = Vec4i.One * 2
+    assert(a.distanceSquaredTo(b) == 16)
+  }
+
+  test("Test distance squared to 4") {
+    val a = Vec4i.Zero
+    val b = Vec4f.One * 2
+    assert(a.distanceSquaredTo(b) == 16.0f)
+  }
+
+  test("Test distance squared to 5") {
+    val a = Vec4i.Zero
+    val b = Vec4d.One * 2
+    assert(a.distanceSquaredTo(b) == 16.0)
+  }
+
+  test("Test distance to 1") {
+    val vec = Vec4f.Zero
+    assert(vec.distanceTo(2.0, 2.0, 2.0, 2.0) == 2.0 * math.sqrt(4))
+  }
+
+  test("Test distance to 2") {
+    val a = Vec4f.Zero
+    val b = Vec4i.One * 2
+    assert(a.distanceTo(b) == 2.0 * math.sqrt(4))
+  }
+
+  test("Test distance to 3") {
+    val a = Vec4f.Zero
+    val b = Vec4f.One * 2.0f
+    assert(a.distanceTo(b) == 2.0 * math.sqrt(4))
+  }
+
+  test("Test distance to 4") {
+    val a = Vec4f.Zero
+    val b = Vec4d.One * 2.0
+    assert(a.distanceTo(b) == 2.0 * math.sqrt(4))
+  }
+
+  test("Test reflect 1") {
+    val vec = Vec4f(1.0f, -1.0f, 0.0f, 0.0f)
+    val res = vec.reflect(0.0f, 1.0f, 0.0f, 0.0f)
+    assert(res == Vec4f(1.0f, 1.0f, 0.0f, 0.0f))
+  }
+
+  test("Test reflect 2") {
+    val vec = Vec4f(1.0f, -1.0f, 0.0f, 0.0f)
+    val res = vec.reflect(0.0, 1.0, 0.0, 0.0)
+    assert(res == Vec4d(1.0, 1.0, 0.0, 0.0))
+  }
+
+  test("Test reflect 3") {
+    val a = Vec4f(1.0f, -1.0f, 0.0f, 0.0f)
+    val b = Vec4i(0, 1, 0, 0)
+    assert(a.reflect(b) == Vec4f(1.0f, 1.0f, 0.0f, 0.0f))
+  }
+
+  test("Test reflect 4") {
+    val a = Vec4f(1.0f, -1.0f, 0.0f, 0.0f)
+    val b = Vec4f(0.0f, 1.0f, 0.0f, 0.0f)
+    assert(a.reflect(b) == Vec4f(1.0f, 1.0f, 0.0f, 0.0f))
+  }
+
+  test("Test reflect 5") {
+    val a = Vec4f(1.0f, -1.0f, 0.0f, 0.0f)
+    val b = Vec4d(0.0, 1.0, 0.0, 0.0)
+    assert(a.reflect(b) == Vec4d(1.0, 1.0, 0.0, 0.0))
+  }
+
+  test("Test bounce 1") {
+    val vec = Vec4f(1.0f, -1.0f, 0.0f, 0.0f)
+    val res = vec.bounce(0.0f, 1.0f, 0.0f, 0.0f)
+    assert(res == Vec4f(-1.0f, -1.0f, 0.0f, 0.0f))
+  }
+
+  test("Test bounce 2") {
+    val vec = Vec4f(1.0f, -1.0f, 0.0f, 0.0f)
+    val res = vec.bounce(0.0, 1.0, 0.0, 0.0)
+    assert(res == Vec4d(-1.0, -1.0, 0.0, 0.0))
+  }
+
+  test("Test bounce 3") {
+    val a = Vec4f(1.0f, -1.0f, 0.0f, 0.0f)
+    val b = Vec4i(0, 1, 0, 0)
+    assert(a.bounce(b) == Vec4f(-1, -1, 0, 0))
+  }
+
+  test("Test bounce 4") {
+    val a = Vec4f(1.0f, -1.0f, 0.0f, 0.0f)
+    val b = Vec4f(0.0f, 1.0f, 0.0f, 0.0f)
+    assert(a.bounce(b) == Vec4f(-1.0f, -1.0f, 0.0f, 0.0f))
+  }
+
+  test("Test bounce 5") {
+    val a = Vec4f(1.0f, -1.0f, 0.0f, 0.0f)
+    val b = Vec4d(0.0, 1.0, 0.0, 0.0)
+    assert(a.bounce(b) == Vec4d(-1.0, -1.0, 0.0, 0.0))
+  }
+
+  test("Test project 1") {
+    val vec = Vec4f(2.0f, 1.0f, 0.0f, 0.0f)
+    val res = vec.project(1.0f, 0.0f, 0.0f, 0.0f)
+    assert(res == Vec4f(2.0f, 0.0f, 0.0f, 0.0f))
+  }
+
+  test("Test project 2") {
+    val vec = Vec4f(2.0f, 1.0f, 0.0f, 0.0f)
+    val res = vec.project(1.0, 0.0, 0.0, 0.0)
+    assert(res == Vec4d(2.0, 0.0, 0.0, 0.0))
+  }
+
+  test("Test project 3") {
+    val a = Vec4f(2.0f, 1.0f, 0.0f, 0.0f)
+    val b = Vec4i(1, 0, 0, 0)
+    assert(a.project(b) == Vec4f(2.0f, 0.0f, 0.0f, 0.0f))
+  }
+
+  test("Test project 4") {
+    val a = Vec4f(2.0f, 1.0f, 0.0f, 0.0f)
+    val b = Vec4f(1.0f, 0.0f, 0.0f, 0.0f)
+    assert(a.project(b) == Vec4f(2.0f, 0.0f, 0.0f, 0.0f))
+  }
+
+  test("Test project 5") {
+    val a = Vec4f(2.0f, 1.0f, 0.0f, 0.0f)
+    val b = Vec4d(1.0, 0.0, 0.0, 0.0)
+    assert(a.project(b) == Vec4d(2.0, 0.0, 0.0, 0.0))
+  }
+
+  test("Test slide 1") {
+    val vec = Vec4f(1.0f, 1.0f, 0.0f, 0.0f)
+    assert(vec.slide(0.0f, 1.0f, 0.0f, 0.0f) == Vec4f(1.0f, 0.0f, 0.0f, 0.0f))
+  }
+
+  test("Test slide 2") {
+    val vec = Vec4f(1.0f, 1.0f, 0.0f, 0.0f)
+    assert(vec.slide(0.0, 1.0, 0.0, 0.0) == Vec4d(1.0, 0.0, 0.0, 0.0))
+  }
+
+  test("Test slide 3") {
+    val a = Vec4f(1.0f, 1.0f, 0.0f, 0.0f)
+    val b = Vec4i(0, 1, 0, 0)
+    assert(a.slide(b) == Vec4f(1.0f, 0.0f, 0.0f, 0.0f))
+  }
+
+  test("Test slide 4") {
+    val a = Vec4f(1.0f, 1.0f, 0.0f, 0.0f)
+    val b = Vec4f(0.0f, 1.0f, 0.0f, 0.0f)
+    assert(a.slide(b) == Vec4f(1.0f, 0.0f, 0.0f, 0.0f))
+  }
+
+  test("Test slide 5") {
+    val a = Vec4f(1.0f, 1.0f, 0.0f, 0.0f)
+    val b = Vec4d(0.0, 1.0, 0.0, 0.0)
+    assert(a.slide(b) == Vec4d(1.0, 0.0, 0.0, 0.0))
+  }
 }

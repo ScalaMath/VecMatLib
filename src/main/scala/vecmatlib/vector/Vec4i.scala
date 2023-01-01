@@ -275,6 +275,214 @@ case class Vec4i(x: Int, y: Int, z: Int, w: Int) extends Int4 with VecInt[Vec4i]
 
   override def lengthSquared: Int = this dot this
 
+  /**
+   * Returns the angle in radians between this vector and the one with the given components.
+   *
+   * @param x X component of the second vector
+   * @param y Y component of the second vector
+   * @param z Z component of the second vector
+   * @param w W component of the second vector
+   * @return The angle in radians between this vector and the one with the given components
+   */
+  def angle(x: Double, y: Double, z: Double, w: Double): Double = this.angle(Vec4d(x, y, z, w))
+
+  /**
+   * Returns the normalized vector pointing from this vector to the one with the given components.
+   *
+   * Using `a.directionTo(b)` is equivalent to using `(b - a).normalized`.
+   *
+   * @param x X component of the second vector
+   * @param y Y component of the second vector
+   * @param z Z component of the second vector
+   * @param w W component of the second vector
+   * @return The normalized vector pointing from this vector to the given one
+   */
+  def directionTo(x: Double, y: Double, z: Double, w: Double): Vec4d = this.directionTo(Vec4d(x, y, z, w))
+
+  /**
+   * Returns the squared distance between this vector and the one with the given components.
+   *
+   * Using `a.distanceSquaredTo(b)` is equivalent to using `(b - a).lengthSquared`.
+   *
+   * @param x X component of the second vector
+   * @param y Y component of the second vector
+   * @param z Z component of the second vector
+   * @param w W component of the second vector
+   * @return The squared distance between this vector and the one with the given components
+   */
+  def distanceSquaredTo(x: Int, y: Int, z: Int, w: Int): Int = this.distanceSquaredTo(Vec4i(x, y, z, w))
+
+  /**
+   * Returns the squared distance between this vector and the one with the given components.
+   *
+   * Using `a.distanceSquaredTo(b)` is equivalent to using `(b - a).lengthSquared`.
+   *
+   * @param x X component of the second vector
+   * @param y Y component of the second vector
+   * @param z Z component of the second vector
+   * @param w W component of the second vector
+   * @return The squared distance between this vector and the one with the given components
+   */
+  def distanceSquaredTo(x: Float, y: Float, z: Float, w: Float): Float = this.distanceSquaredTo(Vec4f(x, y, z, w))
+
+  /**
+   * Returns the squared distance between this vector and the one with the given components.
+   *
+   * Using `a.distanceSquaredTo(b)` is equivalent to using `(b - a).lengthSquared`.
+   *
+   * @param x X component of the second vector
+   * @param y Y component of the second vector
+   * @param z Z component of the second vector
+   * @param w W component of the second vector
+   * @return The squared distance between this vector and the one with the given components
+   */
+  def distanceSquaredTo(x: Double, y: Double, z: Double, w: Double): Double = this.distanceSquaredTo(Vec4d(x, y, z, w))
+
+  /**
+   * Returns the distance between this vector and the one with the given components.
+   *
+   * Using `a.distanceTo(b)` is equivalent to using `(b - a).length`.
+   *
+   * @param x X component of the second vector
+   * @param y Y component of the second vector
+   * @param z Z component of the second vector
+   * @param w W component of the second vector
+   * @return The distance between this vector and the one with the given components
+   */
+  def distanceTo(x: Double, y: Double, z: Double, w: Double): Double = this.distanceTo(Vec4d(x, y, z, w))
+
+  /**
+   * Returns this vector reflected from a plane defined by the given normal (must be normalized).
+   *
+   * @param x X component of the normal
+   * @param y Y component of the normal
+   * @param z Z component of the normal
+   * @param w W component of the normal
+   * @return This vector reflected from a plane defined by the given normal
+   */
+  def reflect(x: Int, y: Int, z: Int, w: Int): Vec4i = this.reflect(Vec4i(x, y, z, w))
+
+  /**
+   * Returns this vector reflected from a plane defined by the given normal (must be normalized).
+   *
+   * @param x X component of the normal
+   * @param y Y component of the normal
+   * @param z Z component of the normal
+   * @param w W component of the normal
+   * @return This vector reflected from a plane defined by the given normal
+   */
+  def reflect(x: Float, y: Float, z: Float, w: Float): Vec4f = this.reflect(Vec4f(x, y, z, w))
+
+  /**
+   * Returns this vector reflected from a plane defined by the given normal (must be normalized).
+   *
+   * @param x X component of the normal
+   * @param y Y component of the normal
+   * @param z Z component of the normal
+   * @param w W component of the normal
+   * @return This vector reflected from a plane defined by the given normal
+   */
+  def reflect(x: Double, y: Double, z: Double, w: Double): Vec4d = this.reflect(Vec4d(x, y, z, w))
+
+  /**
+   * Returns this vector "bounced off" from a plane defined by the given normal (must be normalized).
+   *
+   * @param x X component of the normal
+   * @param y Y component of the normal
+   * @param z Z component of the normal
+   * @param w W component of the normal
+   * @return This vector "bounced off" from a plane defined by the given normal
+   */
+  def bounce(x: Int, y: Int, z: Int, w: Int): Vec4i = this.bounce(Vec4i(x, y, z, w))
+
+  /**
+   * Returns this vector "bounced off" from a plane defined by the given normal (must be normalized).
+   *
+   * @param x X component of the normal
+   * @param y Y component of the normal
+   * @param z Z component of the normal
+   * @param w W component of the normal
+   * @return This vector "bounced off" from a plane defined by the given normal
+   */
+  def bounce(x: Float, y: Float, z: Float, w: Float): Vec4f = this.bounce(Vec4f(x, y, z, w))
+
+  /**
+   * Returns this vector "bounced off" from a plane defined by the given normal (must be normalized).
+   *
+   * @param x X component of the normal
+   * @param y Y component of the normal
+   * @param z Z component of the normal
+   * @param w W component of the normal
+   * @return This vector "bounced off" from a plane defined by the given normal
+   */
+  def bounce(x: Double, y: Double, z: Double, w: Double): Vec4d = this.bounce(Vec4d(x, y, z, w))
+
+  /**
+   * Returns this vector projected onto the one with the given components.
+   *
+   * @param x X component of the vector to project onto
+   * @param y Y component of the vector to project onto
+   * @param z Z component of the vector to project onto
+   * @param w W component of the vector to project onto
+   * @return This vector projected onto the one with the given components
+   */
+  def project(x: Int, y: Int, z: Int, w: Int): Vec4i = this.project(Vec4i(x, y, z, w))
+
+  /**
+   * Returns this vector projected onto the one with the given components.
+   *
+   * @param x X component of the vector to project onto
+   * @param y Y component of the vector to project onto
+   * @param z Z component of the vector to project onto
+   * @param w W component of the vector to project onto
+   * @return This vector projected onto the one with the given components
+   */
+  def project(x: Float, y: Float, z: Float, w: Float): Vec4f = this.project(Vec4f(x, y, z, w))
+
+  /**
+   * Returns this vector projected onto the one with the given components.
+   *
+   * @param x X component of the vector to project onto
+   * @param y Y component of the vector to project onto
+   * @param z Z component of the vector to project onto
+   * @param w W component of the vector to project onto
+   * @return This vector projected onto the one with the given components
+   */
+  def project(x: Double, y: Double, z: Double, w: Double): Vec4d = this.project(Vec4d(x, y, z, w))
+
+  /**
+   * Returns this vector slid along a plane defined by the normal with the given components.
+   *
+   * @param x X component of the normal
+   * @param y Y component of the normal
+   * @param z Z component of the normal
+   * @param w W component of the normal
+   * @return This vector slid along a plane defined by the given normal
+   */
+  def slide(x: Int, y: Int, z: Int, w: Int): Vec4i = this.slide(Vec4i(x, y, z, w))
+
+  /**
+   * Returns this vector slid along a plane defined by the normal with the given components.
+   *
+   * @param x X component of the normal
+   * @param y Y component of the normal
+   * @param z Z component of the normal
+   * @param w W component of the normal
+   * @return This vector slid along a plane defined by the given normal
+   */
+  def slide(x: Float, y: Float, z: Float, w: Float): Vec4f = this.slide(Vec4f(x, y, z, w))
+
+  /**
+   * Returns this vector slid along a plane defined by the normal with the given components.
+   *
+   * @param x X component of the normal
+   * @param y Y component of the normal
+   * @param z Z component of the normal
+   * @param w W component of the normal
+   * @return This vector slid along a plane defined by the given normal
+   */
+  def slide(x: Double, y: Double, z: Double, w: Double): Vec4d = this.slide(Vec4d(x, y, z, w))
+
   override def toFloat: Vec4f = Vec4f(this.x.toFloat, this.y.toFloat, this.z.toFloat, this.w.toFloat)
 
   override def toDouble: Vec4d = Vec4d(this.x.toDouble, this.y.toDouble, this.z.toDouble, this.w.toDouble)
