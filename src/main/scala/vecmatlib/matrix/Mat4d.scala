@@ -1,6 +1,6 @@
 package vecmatlib.matrix
 
-import vecmatlib.vector.Vec4d
+import vecmatlib.vector.{Vec3d, Vec4d}
 
 /**
  * 4x4 double matrix.
@@ -184,4 +184,107 @@ object Mat4d {
   val Identity: Mat4d = Mat4d(1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0)
   /** Shorthand for the zero matrix */
   val Zero: Mat4d = Mat4d(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+
+  /**
+   * Returns a 4x4 translation matrix with the given translation.
+   *
+   * @param x X component of the translation
+   * @param y Y component of the translation
+   * @param z Z component of the translation
+   * @return A 4x4 translation matrix
+   */
+  def translation(x: Double, y: Double, z: Double): Mat4d = Mat4d(
+    1.0, 0.0, 0.0, x,
+    0.0, 1.0, 0.0, y,
+    0.0, 0.0, 1.0, z,
+    0.0, 0.0, 0.0, 1.0
+  )
+
+  /**
+   * Returns a 4x4 translation matrix with the given translation.
+   *
+   * @param v The translation vector
+   * @return A 4x4 translation matrix
+   */
+  def translation(v: Vec3d): Mat4d = translation(v.x, v.y, v.z)
+
+  /**
+   * Returns a 4x4 rotation matrix with the given rotation on the x axis.
+   *
+   * @param x Rotation angle in radians
+   * @return A 4x4 rotation matrix
+   */
+  def rotationX(x: Double): Mat4d = Mat4d(
+    1.0, 0.0, 0.0, 0.0,
+    0.0, math.cos(-x), -math.sin(-x), 0.0,
+    0.0, math.sin(-x), math.cos(-x), 0.0,
+    0.0, 0.0, 0.0, 1.0
+  )
+
+  /**
+   * Returns a 4x4 rotation matrix with the given rotation on the y axis.
+   *
+   * @param y Rotation angle in radians
+   * @return A 4x4 rotation matrix
+   */
+  def rotationY(y: Double): Mat4d = Mat4d(
+    math.cos(-y), 0.0, math.sin(-y), 0.0,
+    0.0, 1.0, 0.0, 0.0,
+    -math.sin(-y), 0.0, math.cos(-y), 0.0,
+    0.0, 0.0, 0.0, 1.0
+  )
+
+  /**
+   * Returns a 4x4 rotation matrix with the given rotation on the z axis.
+   *
+   * @param z Rotation angle in radians
+   * @return A 4x4 rotation matrix
+   */
+  def rotationZ(z: Double): Mat4d = Mat4d(
+    math.cos(-z), -math.sin(-z), 0.0, 0.0,
+    math.sin(-z), math.cos(-z), 0.0, 0.0,
+    0.0, 0.0, 1.0, 0.0,
+    0.0, 0.0, 0.0, 1.0
+  )
+
+  /**
+   * Returns a 4x4 rotation matrix with the given rotation.
+   *
+   * @param x Rotation angle in radians on the x axis
+   * @param y Rotation angle in radians on the y axis
+   * @param z Rotation angle in radians on the z axis
+   * @return A 4x4 rotation matrix
+   */
+  def rotation(x: Double, y: Double, z: Double): Mat4d = rotationX(x) * rotationY(y) * rotationZ(z)
+
+  /**
+   * Returns a 4x4 rotation matrix with the given rotation.
+   *
+   * @param v Vector representing the rotation in radians
+   * @return A 4x4 rotation matrix
+   */
+  def rotation(v: Vec3d): Mat4d = rotation(v.x, v.y, v.z)
+
+  /**
+   * Returns a 4x4 scaling matrix with the given scale.
+   *
+   * @param x Scale on the x axis
+   * @param y Scale on the y axis
+   * @param z Scale on the z axis
+   * @return A 4x4 scaling matrix
+   */
+  def scaling(x: Double, y: Double, z: Double): Mat4d = Mat4d(
+    x, 0.0, 0.0, 0.0,
+    0.0, y, 0.0, 0.0,
+    0.0, 0.0, z, 0.0,
+    0.0, 0.0, 0.0, 1.0
+  )
+
+  /**
+   * Returns a 4x4 scaling matrix with the given scale.
+   *
+   * @param v The scale vector
+   * @return A 4x4 scaling matrix
+   */
+  def scaling(v: Vec3d): Mat4d = scaling(v.x, v.y, v.z)
 }

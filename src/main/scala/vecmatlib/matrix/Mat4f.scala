@@ -1,6 +1,6 @@
 package vecmatlib.matrix
 
-import vecmatlib.vector.{Vec4d, Vec4f}
+import vecmatlib.vector.{Vec3f, Vec4d, Vec4f}
 
 /**
  * 4x4 float matrix.
@@ -201,4 +201,107 @@ object Mat4f {
   val Identity: Mat4f = Mat4f(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f)
   /** Shorthand for the zero matrix */
   val Zero: Mat4f = Mat4f(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
+
+  /**
+   * Returns a 4x4 translation matrix with the given translation.
+   *
+   * @param x X component of the translation
+   * @param y Y component of the translation
+   * @param z Z component of the translation
+   * @return A 4x4 translation matrix
+   */
+  def translation(x: Float, y: Float, z: Float): Mat4f = Mat4f(
+    1.0f, 0.0f, 0.0f, x,
+    0.0f, 1.0f, 0.0f, y,
+    0.0f, 0.0f, 1.0f, z,
+    0.0f, 0.0f, 0.0f, 1.0f
+  )
+
+  /**
+   * Returns a 4x4 translation matrix with the given translation.
+   *
+   * @param v The translation vector
+   * @return A 4x4 translation matrix
+   */
+  def translation(v: Vec3f): Mat4f = translation(v.x, v.y, v.z)
+
+  /**
+   * Returns a 4x4 rotation matrix with the given rotation on the x axis.
+   *
+   * @param x Rotation angle in radians
+   * @return A 4x4 rotation matrix
+   */
+  def rotationX(x: Float): Mat4f = Mat4f(
+    1.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, math.cos(-x).toFloat, -math.sin(-x).toFloat, 0.0f,
+    0.0f, math.sin(-x).toFloat, math.cos(-x).toFloat, 0.0f,
+    0.0f, 0.0f, 0.0f, 1.0f
+  )
+
+  /**
+   * Returns a 4x4 rotation matrix with the given rotation on the y axis.
+   *
+   * @param y Rotation angle in radians
+   * @return A 4x4 rotation matrix
+   */
+  def rotationY(y: Float): Mat4f = Mat4f(
+    math.cos(-y).toFloat, 0.0f, math.sin(-y).toFloat, 0.0f,
+    0.0f, 1.0f, 0.0f, 0.0f,
+    -math.sin(-y).toFloat, 0.0f, math.cos(-y).toFloat, 0.0f,
+    0.0f, 0.0f, 0.0f, 1.0f
+  )
+
+  /**
+   * Returns a 4x4 rotation matrix with the given rotation on the z axis.
+   *
+   * @param z Rotation angle in radians
+   * @return A 4x4 rotation matrix
+   */
+  def rotationZ(z: Float): Mat4f = Mat4f(
+    math.cos(-z).toFloat, -math.sin(-z).toFloat, 0.0f, 0.0f,
+    math.sin(-z).toFloat, math.cos(-z).toFloat, 0.0f, 0.0f,
+    0.0f, 0.0f, 1.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 1.0f
+  )
+
+  /**
+   * Returns a 4x4 rotation matrix with the given rotation.
+   *
+   * @param x Rotation angle in radians on the x axis
+   * @param y Rotation angle in radians on the y axis
+   * @param z Rotation angle in radians on the z axis
+   * @return A 4x4 rotation matrix
+   */
+  def rotation(x: Float, y: Float, z: Float): Mat4f = rotationX(x) * rotationY(y) * rotationZ(z)
+
+  /**
+   * Returns a 4x4 rotation matrix with the given rotation.
+   *
+   * @param v Vector representing the rotation in radians
+   * @return A 4x4 rotation matrix
+   */
+  def rotation(v: Vec3f): Mat4f = rotation(v.x, v.y, v.z)
+
+  /**
+   * Returns a 4x4 scaling matrix with the given scale.
+   *
+   * @param x Scale on the x axis
+   * @param y Scale on the y axis
+   * @param z Scale on the z axis
+   * @return A 4x4 scaling matrix
+   */
+  def scaling(x: Float, y: Float, z: Float): Mat4f = Mat4f(
+    x, 0.0f, 0.0f, 0.0f,
+    0.0f, y, 0.0f, 0.0f,
+    0.0f, 0.0f, z, 0.0f,
+    0.0f, 0.0f, 0.0f, 1.0f
+  )
+
+  /**
+   * Returns a 4x4 scaling matrix with the given scale.
+   *
+   * @param v The scale vector
+   * @return A 4x4 scaling matrix
+   */
+  def scaling(v: Vec3f): Mat4f = scaling(v.x, v.y, v.z)
 }

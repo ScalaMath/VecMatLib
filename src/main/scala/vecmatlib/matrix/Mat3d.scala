@@ -1,6 +1,6 @@
 package vecmatlib.matrix
 
-import vecmatlib.vector.Vec3d
+import vecmatlib.vector.{Vec2d, Vec3d}
 
 /**
  * 3x3 double matrix.
@@ -155,4 +155,110 @@ object Mat3d {
   val Identity: Mat3d = Mat3d(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0)
   /** Shorthand for the zero matrix */
   val Zero: Mat3d = Mat3d(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+
+  /**
+   * Returns a 3x3 translation matrix with the given translation.
+   *
+   * @param x X component of the translation
+   * @param y Y component of the translation
+   * @return A 3x3 translation matrix
+   */
+  def translation(x: Double, y: Double): Mat3d = Mat3d(
+    1.0f, 0.0f, x,
+    0.0f, 1.0f, y,
+    0.0f, 0.0f, 1.0f
+  )
+
+  /**
+   * Returns a 3x3 translation matrix with the given translation.
+   *
+   * @param v The translation vector
+   * @return A 3x3 translation matrix
+   */
+  def translation(v: Vec2d): Mat3d = translation(v.x, v.y)
+
+  /**
+   * Returns a 3x3 rotation matrix with the given rotation on the x axis.
+   *
+   * @param x Rotation angle in radians
+   * @return A 3x3 rotation matrix
+   */
+  def rotationX(x: Double): Mat3d = Mat3d(
+    1.0f, 0.0f, 0.0f,
+    0.0f, math.cos(-x), -math.sin(-x),
+    0.0f, math.sin(-x), math.cos(-x)
+  )
+
+  /**
+   * Returns a 3x3 rotation matrix with the given rotation on the y axis.
+   *
+   * @param y Rotation angle in radians
+   * @return A 3x3 rotation matrix
+   */
+  def rotationY(y: Double): Mat3d = Mat3d(
+    math.cos(-y), 0.0f, math.sin(-y),
+    0.0f, 1.0f, 0.0f,
+    -math.sin(-y), 0.0f, math.cos(-y)
+  )
+
+  /**
+   * Returns a 3x3 rotation matrix with the given rotation on the z axis.
+   *
+   * @param z Rotation angle in radians
+   * @return A 3x3 rotation matrix
+   */
+  def rotationZ(z: Double): Mat3d = Mat3d(
+    math.cos(-z), -math.sin(-z), 0.0f,
+    math.sin(-z), math.cos(-z), 0.0f,
+    0.0f, 0.0f, 1.0f
+  )
+
+  /**
+   * Returns a 3x3 rotation matrix with the given rotation.
+   *
+   * @param x Rotation angle in radians on the x axis
+   * @param y Rotation angle in radians on the y axis
+   * @param z Rotation angle in radians on the z axis
+   * @return A 3x3 rotation matrix
+   */
+  def rotation(x: Double, y: Double, z: Double): Mat3d = rotationX(x) * rotationY(y) * rotationZ(z)
+
+  /**
+   * Returns a 3x3 scaling matrix with the given scale.
+   *
+   * @param x Scale on the x axis
+   * @param y Scale on the y axis
+   * @param z Scale on the z axis
+   * @return A 3x3 scaling matrix
+   */
+  def scaling(x: Double, y: Double, z: Double): Mat3d = Mat3d(
+    x, 0.0f, 0.0f,
+    0.0f, y, 0.0f,
+    0.0f, 0.0f, z
+  )
+
+  /**
+   * Returns a 3x3 scaling matrix with the given scale.
+   *
+   * @param x Scale on the x axis
+   * @param y Scale on the y axis
+   * @return A 3x3 scaling matrix
+   */
+  def scaling(x: Double, y: Double): Mat3d = scaling(x, y, 1.0f)
+
+  /**
+   * Returns a 3x3 scaling matrix with the given scale.
+   *
+   * @param v The scale vector
+   * @return A 3x3 scaling matrix
+   */
+  def scaling(v: Vec3d): Mat3d = scaling(v.x, v.y, v.z)
+
+  /**
+   * Returns a 3x3 scaling matrix with the given scale.
+   *
+   * @param v The scale vector
+   * @return A 3x3 scaling matrix
+   */
+  def scaling(v: Vec2d): Mat3d = scaling(v.x, v.y, 1.0f)
 }
