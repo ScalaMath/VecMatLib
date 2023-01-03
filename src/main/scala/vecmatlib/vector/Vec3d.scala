@@ -1,15 +1,46 @@
 package vecmatlib.vector
 
-import vecmatlib.Double3
+import vecmatlib.{Double2, Double3}
 
 /**
- * Three-dimensional double vector.
+ * Class that represents a three-dimensional double vector.
  *
+ * @constructor Constructs a Vec3d from the three given values
  * @param x X component of the vector
  * @param y Y component of the vector
  * @param z Z component of the vector
  */
-case class Vec3d(x: Double, y: Double, z: Double) extends Double3 with VecDouble[Vec3d] {
+case class Vec3d(x: Double, y: Double, z: Double) extends VecDouble[Vec3d] with Double3 {
+
+  /**
+   * Constructs a Vec3d from the given xy tuple and z component.
+   *
+   * @param xy X and Y components of the vector
+   * @param z  Y component of the vector
+   */
+  def this(xy: Double2, z: Double) = this(xy.x, xy.y, z)
+
+  /**
+   * Constructs a Vec3d from the given x component and yz tuple.
+   *
+   * @param x  X component of the vector
+   * @param yz Y and Z components of the vector
+   */
+  def this(x: Double, yz: Double2) = this(x, yz.x, yz.y)
+
+  /**
+   * Returns a 2d vector with the x and y components of this vector.
+   *
+   * @return A 2d vector with the x and y components of this vector
+   */
+  def xy: Vec2d = Vec2d(this.x, this.y)
+
+  /**
+   * Returns a 2d vector with the y and z components of this vector.
+   *
+   * @return A 2d vector with the y and z components of this vector
+   */
+  def yz: Vec2d = Vec2d(this.y, this.z)
 
   /**
    * Returns the sum between this vector and the one with the given components.
@@ -33,8 +64,19 @@ case class Vec3d(x: Double, y: Double, z: Double) extends Double3 with VecDouble
    */
   def plus(x: Double, y: Double, z: Double): Vec3d = this + (x, y, z)
 
+  /**
+   * Returns the sum between this vector and the given one.
+   *
+   * @param v The vector to add.
+   * @return The sum of this vector and the given one.
+   */
   override def +(v: Vec3d): Vec3d = this + (v.x, v.y, v.z)
 
+  /**
+   * Returns the additive inverse of this vector.
+   *
+   * @return The additive inverse of this vector
+   */
   override def unary_- : Vec3d = Vec3d(-this.x, -this.y, -this.z)
 
   /**
@@ -43,7 +85,7 @@ case class Vec3d(x: Double, y: Double, z: Double) extends Double3 with VecDouble
    * @param x X component of the vector to subtract
    * @param y Y component of the vector to subtract
    * @param z Z component of the vector to subtract
-   * @return The subtraction of the vector with the given components from this one
+   * @return The subtraction of the vector with the given components from this one.
    */
   def -(x: Double, y: Double, z: Double): Vec3d = this + (-x, -y, -z)
 
@@ -55,11 +97,17 @@ case class Vec3d(x: Double, y: Double, z: Double) extends Double3 with VecDouble
    * @param x X component of the vector to subtract
    * @param y Y component of the vector to subtract
    * @param z Z component of the vector to subtract
-   * @return The subtraction of the vector with the given components from this one
+   * @return The subtraction of the vector with the given components from this one.
    */
   def minus(x: Double, y: Double, z: Double): Vec3d = this - (x, y, z)
 
-  override def *(k: Double): Vec3d = Vec3d(this.x * k, this.y * k, this.z * k)
+  /**
+   * Returns the product between this vector and the given scalar.
+   *
+   * @param k The scalar to which the vector is multiplied.
+   * @return The result of the product between this vector and the given scalar.
+   */
+  override def *(k: Double): Vec3d = this * (k, k, k)
 
   /**
    * Returns the component-wise multiplication between this vector and the given scalars.
@@ -67,7 +115,7 @@ case class Vec3d(x: Double, y: Double, z: Double) extends Double3 with VecDouble
    * @param x Value by which the X component is multiplied
    * @param y Value by which the Y component is multiplied
    * @param z Value by which the Z component is multiplied
-   * @return The component-wise multiplication between this vector and the given scalars
+   * @return The component-wise multiplication between this vector and the given scalars.
    */
   def *(x: Double, y: Double, z: Double): Vec3d = Vec3d(this.x * x, this.y * y, this.z * z)
 
@@ -79,10 +127,16 @@ case class Vec3d(x: Double, y: Double, z: Double) extends Double3 with VecDouble
    * @param x Value by which the X component is multiplied
    * @param y Value by which the Y component is multiplied
    * @param z Value by which the Z component is multiplied
-   * @return The component-wise multiplication between this vector and the given scalars
+   * @return The component-wise multiplication between this vector and the given scalars.
    */
   def multiply(x: Double, y: Double, z: Double): Vec3d = this * (x, y, z)
 
+  /**
+   * Returns the component-wise multiplication between this vector and the given one.
+   *
+   * @param v The second operand of the multiplication.
+   * @return The component-wise multiplication between this vector and the given one.
+   */
   override def *(v: Vec3d): Vec3d = this * (v.x, v.y, v.z)
 
   /**
@@ -91,10 +145,16 @@ case class Vec3d(x: Double, y: Double, z: Double) extends Double3 with VecDouble
    * @param x X component of the vector by which this one is multiplied
    * @param y Y component of the vector by which this one is multiplied
    * @param z Z component of the vector by which this one is multiplied
-   * @return The result of the dot product between this vector and the one with the given components
+   * @return The result of the dot product between this vector and the one with the given components.
    */
   def dot(x: Double, y: Double, z: Double): Double = this.x * x + this.y * y + this.z * z
 
+  /**
+   * Returns the result of the dot product (or scalar product) between this vector and the given one.
+   *
+   * @param v The vector by which this one is multiplied.
+   * @return The result of the dot product between this vector and the given one.
+   */
   override def dot(v: Vec3d): Double = this.dot(v.x, v.y, v.z)
 
   /**
@@ -111,18 +171,15 @@ case class Vec3d(x: Double, y: Double, z: Double) extends Double3 with VecDouble
    * Returns the cross product (or vector product) between this vector and the given one.
    *
    * @param v The vector by which this one is multiplied
-   * @return The cross product between this vector and the given one
+   * @return The cross product between this vector and the given one.
    */
   def cross(v: Vec3d): Vec3d = this.cross(v.x, v.y, v.z)
 
   /**
-   * Returns the cross product (or vector product) between this vector and the given one.
+   * Returns the squared length (or squared magnitude) of this vector.
    *
-   * @param v The vector by which this one is multiplied
-   * @return The cross product between this vector and the given one.
+   * @return The squared length of this vector.
    */
-  def cross(v: VecAsDouble[Vec3d]): Vec3d = this cross v.toDouble
-
   override def lengthSquared: Double = this dot this
 
   /**

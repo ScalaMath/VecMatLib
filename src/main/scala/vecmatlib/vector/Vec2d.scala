@@ -3,12 +3,13 @@ package vecmatlib.vector
 import vecmatlib.Double2
 
 /**
- * Two-dimensional double vector.
+ * Class that represents a two-dimensional double vector.
  *
+ * @constructor Constructs a Vec2d from the three given values.
  * @param x X component of the vector
  * @param y Y component of the vector
  */
-case class Vec2d(x: Double, y: Double) extends Double2 with VecDouble[Vec2d] {
+case class Vec2d(x: Double, y: Double) extends VecDouble[Vec2d] with Double2 {
 
   /**
    * Returns the sum between this vector and the one with the given components.
@@ -30,8 +31,19 @@ case class Vec2d(x: Double, y: Double) extends Double2 with VecDouble[Vec2d] {
    */
   def plus(x: Double, y: Double): Vec2d = this + (x, y)
 
+  /**
+   * Returns the sum between this vector and the given one.
+   *
+   * @param v The vector to add.
+   * @return The sum of this vector and the given one.
+   */
   override def +(v: Vec2d): Vec2d = this + (v.x, v.y)
 
+  /**
+   * Returns the additive inverse of this vector.
+   *
+   * @return The additive inverse of this vector
+   */
   override def unary_- : Vec2d = Vec2d(-this.x, -this.y)
 
   /**
@@ -54,7 +66,13 @@ case class Vec2d(x: Double, y: Double) extends Double2 with VecDouble[Vec2d] {
    */
   def minus(x: Double, y: Double): Vec2d = this - (x, y)
 
-  override def *(k: Double): Vec2d = Vec2d(this.x * k, this.y * k)
+  /**
+   * Returns the product between this vector and the given scalar.
+   *
+   * @param k The scalar to which the vector is multiplied.
+   * @return The result of the product between this vector and the given scalar.
+   */
+  override def *(k: Double): Vec2d = this * (k, k)
 
   /**
    * Returns the component-wise multiplication between this vector and the given scalars.
@@ -76,6 +94,12 @@ case class Vec2d(x: Double, y: Double) extends Double2 with VecDouble[Vec2d] {
    */
   def multiply(x: Double, y: Double): Vec2d = this * (x, y)
 
+  /**
+   * Returns the component-wise multiplication between this vector and the given one.
+   *
+   * @param v The second operand of the multiplication.
+   * @return The component-wise multiplication between this vector and the given one.
+   */
   override def *(v: Vec2d): Vec2d = this * (v.x, v.y)
 
   /**
@@ -87,8 +111,19 @@ case class Vec2d(x: Double, y: Double) extends Double2 with VecDouble[Vec2d] {
    */
   def dot(x: Double, y: Double): Double = this.x * x + this.y * y
 
+  /**
+   * Returns the result of the dot product (or scalar product) between this vector and the given one.
+   *
+   * @param v The vector by which this one is multiplied.
+   * @return The result of the dot product between this vector and the given one.
+   */
   override def dot(v: Vec2d): Double = this.dot(v.x, v.y)
 
+  /**
+   * Returns the squared length (or squared magnitude) of this vector.
+   *
+   * @return The squared length of this vector.
+   */
   override def lengthSquared: Double = this dot this
 
   /**

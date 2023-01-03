@@ -1,11 +1,11 @@
 package vecmatlib.vector
 
 /**
- * Base trait for all vectors.
+ * Abstract class with base operation for all vector types.
  *
- * @tparam V The vector class extending this trait.
+ * @tparam V The vector class extending this one
  */
-trait VecBase[V <: VecBase[V]] {
+abstract class VecAbstract[V <: VecAbstract[V]] {
 
   /**
    * Returns the sum between this vector and the given one.
@@ -47,7 +47,7 @@ trait VecBase[V <: VecBase[V]] {
    * @param v The vector to subtract.
    * @return The subtraction of the given vector from this one.
    */
-  def -(v: V): V = this + -v
+  def -(v: V): V = this + (-v)
 
   /**
    * Returns the subtraction between the given vector and this one.
@@ -78,19 +78,10 @@ trait VecBase[V <: VecBase[V]] {
   def multiply(v: V): V = this * v
 
   /**
-   * Returns the length of this vector.
+   * Returns the angle in radians between this vector and the given one.
    *
-   * @return The length of this vector.
+   * @param v The second vector
+   * @return The angle in radians between this vector and the given one
    */
-  def length: Double
-
-  /**
-   * Returns the distance between this vector and the given one.
-   *
-   * Using `a.distanceTo(b)` is equivalent to using `(b - a).length`.
-   *
-   * @param v The second vector.
-   * @return The distance between this vector and the given one
-   */
-  def distanceTo(v: V): Double = (-(this - v)).length
+  def angle(v: V): Double
 }

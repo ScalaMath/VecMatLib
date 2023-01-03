@@ -1,15 +1,46 @@
 package vecmatlib.vector
 
-import vecmatlib.Float3
+import vecmatlib.{Float2, Float3}
 
 /**
- * Three-dimensional float vector.
+ * Class that represents a three-dimensional float vector.
  *
+ * @constructor Constructs a Vec3f from the three given values
  * @param x X component of the vector
  * @param y Y component of the vector
  * @param z Z component of the vector
  */
-case class Vec3f(x: Float, y: Float, z: Float) extends Float3 with VecFloat[Vec3f] with VecAsDouble[Vec3d] {
+case class Vec3f(x: Float, y: Float, z: Float) extends VecFloat[Vec3f] with Float3 {
+
+  /**
+   * Constructs a Vec3d from the given xy tuple and z component.
+   *
+   * @param xy X and Y components of the vector
+   * @param z  Y component of the vector
+   */
+  def this(xy: Float2, z: Float) = this(xy.x, xy.y, z)
+
+  /**
+   * Constructs a Vec3d from the given x component and yz tuple.
+   *
+   * @param x  X component of the vector
+   * @param yz Y and Z components of the vector
+   */
+  def this(x: Float, yz: Float2) = this(x, yz.x, yz.y)
+
+  /**
+   * Returns a 2d vector with the x and y components of this vector.
+   *
+   * @return A 2d vector with the x and y components of this vector
+   */
+  def xy: Vec2f = Vec2f(this.x, this.y)
+
+  /**
+   * Returns a 2d vector with the y and z components of this vector.
+   *
+   * @return A 2d vector with the y and z components of this vector
+   */
+  def yz: Vec2f = Vec2f(this.y, this.z)
 
   /**
    * Returns the sum between this vector and the one with the given components.
@@ -33,30 +64,19 @@ case class Vec3f(x: Float, y: Float, z: Float) extends Float3 with VecFloat[Vec3
    */
   def plus(x: Float, y: Float, z: Float): Vec3f = this + (x, y, z)
 
+  /**
+   * Returns the sum between this vector and the given one.
+   *
+   * @param v The vector to add.
+   * @return The sum of this vector and the given one.
+   */
   override def +(v: Vec3f): Vec3f = this + (v.x, v.y, v.z)
 
   /**
-   * Returns the sum between this vector and the one with the given components.
+   * Returns the additive inverse of this vector.
    *
-   * @param x X component of the vector to add
-   * @param y Y component of the vector to add
-   * @param z Z component of the vector to add
-   * @return The sum of this vector and the one with the given components
+   * @return The additive inverse of this vector
    */
-  def +(x: Double, y: Double, z: Double): Vec3d = Vec3d(this.x + x, this.y + y, this.z + z)
-
-  /**
-   * Returns the sum between this vector and the one with the given components.
-   *
-   * This method can be used in place of the '+' operator for better interoperability with Java.
-   *
-   * @param x X component of the vector to add
-   * @param y Y component of the vector to add
-   * @param z Z component of the vector to add
-   * @return The sum of this vector and the one with the given components
-   */
-  def plus(x: Double, y: Double, z: Double): Vec3d = this + (x, y, z)
-
   override def unary_- : Vec3f = Vec3f(-this.x, -this.y, -this.z)
 
   /**
@@ -82,28 +102,12 @@ case class Vec3f(x: Float, y: Float, z: Float) extends Float3 with VecFloat[Vec3
   def minus(x: Float, y: Float, z: Float): Vec3f = this - (x, y, z)
 
   /**
-   * Returns the subtraction between this vector and the one with the given components.
+   * Returns the product between this vector and the given scalar.
    *
-   * @param x X component of the vector to subtract
-   * @param y Y component of the vector to subtract
-   * @param z Z component of the vector to subtract
-   * @return The subtraction of the vector with the given components from this one.
+   * @param k The scalar to which the vector is multiplied.
+   * @return The result of the product between this vector and the given scalar.
    */
-  def -(x: Double, y: Double, z: Double): Vec3d = this + (-x, -y, -z)
-
-  /**
-   * Returns the subtraction between this vector and the one with the given components.
-   *
-   * This method can be used in place of the '-' operator for better interoperability with Java.
-   *
-   * @param x X component of the vector to subtract
-   * @param y Y component of the vector to subtract
-   * @param z Z component of the vector to subtract
-   * @return The subtraction of the vector with the given components from this one.
-   */
-  def minus(x: Double, y: Double, z: Double): Vec3d = this - (x, y, z)
-
-  override def *(k: Float): Vec3f = Vec3f(this.x * k, this.y * k, this.z * k)
+  override def *(k: Float): Vec3f = this * (k, k, k)
 
   /**
    * Returns the component-wise multiplication between this vector and the given scalars.
@@ -127,29 +131,13 @@ case class Vec3f(x: Float, y: Float, z: Float) extends Float3 with VecFloat[Vec3
    */
   def multiply(x: Float, y: Float, z: Float): Vec3f = this * (x, y, z)
 
+  /**
+   * Returns the component-wise multiplication between this vector and the given one.
+   *
+   * @param v The second operand of the multiplication.
+   * @return The component-wise multiplication between this vector and the given one.
+   */
   override def *(v: Vec3f): Vec3f = this * (v.x, v.y, v.z)
-
-  /**
-   * Returns the component-wise multiplication between this vector and the given scalars.
-   *
-   * @param x Value by which the X component is multiplied
-   * @param y Value by which the Y component is multiplied
-   * @param z Value by which the Z component is multiplied
-   * @return The component-wise multiplication between this vector and the given scalars.
-   */
-  def *(x: Double, y: Double, z: Double): Vec3d = Vec3d(this.x * x, this.y * y, this.z * z)
-
-  /**
-   * Returns the component-wise multiplication between this vector and the given scalars.
-   *
-   * This method can be used in place of the '*' operator for better interoperability with Java.
-   *
-   * @param x Value by which the X component is multiplied
-   * @param y Value by which the Y component is multiplied
-   * @param z Value by which the Z component is multiplied
-   * @return The component-wise multiplication between this vector and the given scalars.
-   */
-  def multiply(x: Double, y: Double, z: Double): Vec3d = this * (x, y, z)
 
   /**
    * Returns the result of the dot product (or scalar product) between this vector and the one with the given components.
@@ -161,17 +149,13 @@ case class Vec3f(x: Float, y: Float, z: Float) extends Float3 with VecFloat[Vec3
    */
   def dot(x: Float, y: Float, z: Float): Float = this.x * x + this.y * y + this.z * z
 
-  override def dot(v: Vec3f): Float = this.dot(v.x, v.y, v.z)
-
   /**
-   * Returns the result of the dot product (or scalar product) between this vector and the one with the given components.
+   * Returns the result of the dot product (or scalar product) between this vector and the given one.
    *
-   * @param x X component of the vector by which this one is multiplied
-   * @param y Y component of the vector by which this one is multiplied
-   * @param z Z component of the vector by which this one is multiplied
-   * @return The result of the dot product between this vector and the one with the given components.
+   * @param v The vector by which this one is multiplied.
+   * @return The result of the dot product between this vector and the given one.
    */
-  def dot(x: Double, y: Double, z: Double): Double = this.x * x + this.y * y + this.z * z
+  override def dot(v: Vec3f): Float = this.dot(v.x, v.y, v.z)
 
   /**
    * Returns the cross product (or vector product) between this vector and the one with the given components.
@@ -192,31 +176,10 @@ case class Vec3f(x: Float, y: Float, z: Float) extends Float3 with VecFloat[Vec3
   def cross(v: Vec3f): Vec3f = this.cross(v.x, v.y, v.z)
 
   /**
-   * Returns the cross product (or vector product) between this vector and the given one.
+   * Returns the squared length (or squared magnitude) of this vector.
    *
-   * @param v The vector by which this one is multiplied
-   * @return The cross product between this vector and the given one.
+   * @return The squared length of this vector.
    */
-  def cross(v: VecAsFloat[Vec3f]): Vec3f = this cross v.toFloat
-
-  /**
-   * Returns the cross product (or vector product) between this vector and the one with the given components.
-   *
-   * @param x X component of the vector by which this one is multiplied
-   * @param y Y component of the vector by which this one is multiplied
-   * @param z Z component of the vector by which this one is multiplied
-   * @return The cross product between this vector and the one with the given components
-   */
-  def cross(x: Double, y: Double, z: Double): Vec3d = Vec3d(this.y * z - this.z * y, x * this.z - z * this.x, this.x * y - this.y * x)
-
-  /**
-   * Returns the cross product (or vector product) between this vector and the given one.
-   *
-   * @param v The vector by which this one is multiplied
-   * @return The cross product between this vector and the given one.
-   */
-  def cross(v: Vec3d): Vec3d = this.cross(v.x, v.y, v.z)
-
   override def lengthSquared: Float = this dot this
 
   /**
@@ -227,7 +190,7 @@ case class Vec3f(x: Float, y: Float, z: Float) extends Float3 with VecFloat[Vec3
    * @param z Z component of the second vector
    * @return The angle in radians between this vector and the one with the given components
    */
-  def angle(x: Double, y: Double, z: Double): Double = this.angle(Vec3d(x, y, z))
+  def angle(x: Double, y: Double, z: Double): Double = this.toDouble.angle(Vec3d(x, y, z))
 
   /**
    * Returns the normalized vector pointing from this vector to the one with the given components.
@@ -239,7 +202,7 @@ case class Vec3f(x: Float, y: Float, z: Float) extends Float3 with VecFloat[Vec3
    * @param z Z component of the second vector
    * @return The normalized vector pointing from this vector to the given one
    */
-  def directionTo(x: Double, y: Double, z: Double): Vec3d = this.directionTo(Vec3d(x, y, z))
+  def directionTo(x: Float, y: Float, z: Float): Vec3f = this.directionTo(Vec3f(x, y, z))
 
   /**
    * Returns the squared distance between this vector and the one with the given components.
@@ -254,18 +217,6 @@ case class Vec3f(x: Float, y: Float, z: Float) extends Float3 with VecFloat[Vec3
   def distanceSquaredTo(x: Float, y: Float, z: Float): Float = this.distanceSquaredTo(Vec3f(x, y, z))
 
   /**
-   * Returns the squared distance between this vector and the one with the given components.
-   *
-   * Using `a.distanceSquaredTo(b)` is equivalent to using `(b - a).lengthSquared`.
-   *
-   * @param x X component of the second vector
-   * @param y Y component of the second vector
-   * @param z Z component of the second vector
-   * @return The squared distance between this vector and the one with the given components
-   */
-  def distanceSquaredTo(x: Double, y: Double, z: Double): Double = this.distanceSquaredTo(Vec3d(x, y, z))
-
-  /**
    * Returns the distance between this vector and the one with the given components.
    *
    * Using `a.distanceTo(b)` is equivalent to using `(b - a).length`.
@@ -275,7 +226,7 @@ case class Vec3f(x: Float, y: Float, z: Float) extends Float3 with VecFloat[Vec3
    * @param z Z component of the second vector
    * @return The distance between this vector and the one with the given components
    */
-  def distanceTo(x: Double, y: Double, z: Double): Double = this.distanceTo(Vec3d(x, y, z))
+  def distanceTo(x: Float, y: Float, z: Float): Double = this.distanceTo(Vec3f(x, y, z))
 
   /**
    * Returns this vector reflected from a plane defined by the given normal (must be normalized).
@@ -288,16 +239,6 @@ case class Vec3f(x: Float, y: Float, z: Float) extends Float3 with VecFloat[Vec3
   def reflect(x: Float, y: Float, z: Float): Vec3f = this.reflect(Vec3f(x, y, z))
 
   /**
-   * Returns this vector reflected from a plane defined by the given normal (must be normalized).
-   *
-   * @param x X component of the normal
-   * @param y Y component of the normal
-   * @param z Z component of the normal
-   * @return This vector reflected from a plane defined by the given normal
-   */
-  def reflect(x: Double, y: Double, z: Double): Vec3d = this.reflect(Vec3d(x, y, z))
-
-  /**
    * Returns this vector "bounced off" from a plane defined by the given normal (must be normalized).
    *
    * @param x X component of the normal
@@ -306,16 +247,6 @@ case class Vec3f(x: Float, y: Float, z: Float) extends Float3 with VecFloat[Vec3
    * @return This vector "bounced off" from a plane defined by the given normal
    */
   def bounce(x: Float, y: Float, z: Float): Vec3f = this.bounce(Vec3f(x, y, z))
-
-  /**
-   * Returns this vector "bounced off" from a plane defined by the given normal (must be normalized).
-   *
-   * @param x X component of the normal
-   * @param y Y component of the normal
-   * @param z Z component of the normal
-   * @return This vector "bounced off" from a plane defined by the given normal
-   */
-  def bounce(x: Double, y: Double, z: Double): Vec3d = this.bounce(Vec3d(x, y, z))
 
   /**
    * Returns this vector projected onto the one with the given components.
@@ -328,16 +259,6 @@ case class Vec3f(x: Float, y: Float, z: Float) extends Float3 with VecFloat[Vec3
   def project(x: Float, y: Float, z: Float): Vec3f = this.project(Vec3f(x, y, z))
 
   /**
-   * Returns this vector projected onto the one with the given components.
-   *
-   * @param x X component of the vector to project onto
-   * @param y Y component of the vector to project onto
-   * @param z Z component of the vector to project onto
-   * @return This vector projected onto the one with the given components
-   */
-  def project(x: Double, y: Double, z: Double): Vec3d = this.project(Vec3d(x, y, z))
-
-  /**
    * Returns this vector slid along a plane defined by the normal with the given components.
    *
    * @param x X component of the normal
@@ -348,23 +269,18 @@ case class Vec3f(x: Float, y: Float, z: Float) extends Float3 with VecFloat[Vec3
   def slide(x: Float, y: Float, z: Float): Vec3f = this.slide(Vec3f(x, y, z))
 
   /**
-   * Returns this vector slid along a plane defined by the normal with the given components.
-   *
-   * @param x X component of the normal
-   * @param y Y component of the normal
-   * @param z Z component of the normal
-   * @return This vector slid along a plane defined by the given normal
-   */
-  def slide(x: Double, y: Double, z: Double): Vec3d = this.slide(Vec3d(x, y, z))
-
-  /**
    * Casts this vector to an int vector.
    *
    * @return A vector same as this one cast to int
    */
   def toInt: Vec3i = Vec3i(this.x.toInt, this.y.toInt, this.z.toInt)
 
-  override def toDouble: Vec3d = Vec3d(this.x.toDouble, this.y.toDouble, this.z.toDouble)
+  /**
+   * Converts this vector to a double vector.
+   *
+   * @return This same vector as a double vector
+   */
+  def toDouble: Vec3d = Vec3d(this.x.toDouble, this.y.toDouble, this.z.toDouble)
 
   /**
    * Checks if the components of this vector are equal to the given ones.

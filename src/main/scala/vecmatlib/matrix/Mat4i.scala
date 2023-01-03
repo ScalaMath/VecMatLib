@@ -1,6 +1,6 @@
 package vecmatlib.matrix
 
-import vecmatlib.vector.{Vec4d, Vec4f, Vec4i}
+import vecmatlib.vector.Vec4i
 
 /**
  * 4x4 int matrix.
@@ -27,8 +27,14 @@ case class Mat4i(
                   m10: Int, m11: Int, m12: Int, m13: Int,
                   m20: Int, m21: Int, m22: Int, m23: Int,
                   m30: Int, m31: Int, m32: Int, m33: Int
-                ) extends MatInt[Mat4i, Vec4i] with MatAsFloat[Mat4f, Vec4f] with MatAsDouble[Mat4d, Vec4d] {
+                ) extends MatInt[Mat4i, Vec4i] {
 
+  /**
+   * Returns the sum between this matrix and the given one.
+   *
+   * @param m The matrix to add
+   * @return The sum between this matrix and the given one
+   */
   override def +(m: Mat4i): Mat4i = Mat4i(
     this.m00 + m.m00, this.m01 + m.m01, this.m02 + m.m02, this.m03 + m.m03,
     this.m10 + m.m10, this.m11 + m.m11, this.m12 + m.m12, this.m13 + m.m13,
@@ -36,6 +42,11 @@ case class Mat4i(
     this.m30 + m.m30, this.m31 + m.m31, this.m32 + m.m32, this.m33 + m.m33
   )
 
+  /**
+   * Returns the additive inverse of this matrix.
+   *
+   * @return The additive inverse of this matrix
+   */
   override def unary_- : Mat4i = Mat4i(
     -this.m00, -this.m01, -this.m02, -this.m03,
     -this.m10, -this.m11, -this.m12, -this.m13,
@@ -43,6 +54,12 @@ case class Mat4i(
     -this.m30, -this.m31, -this.m32, -this.m33
   )
 
+  /**
+   * Returns the product of this matrix by the given scalar.
+   *
+   * @param k The scalar by which this matrix is multiplied
+   * @return The product of this matrix by the given scalar
+   */
   override def *(k: Int): Mat4i = Mat4i(
     this.m00 * k, this.m01 * k, this.m02 * k, this.m03 * k,
     this.m10 * k, this.m11 * k, this.m12 * k, this.m13 * k,
@@ -106,6 +123,12 @@ case class Mat4i(
    */
   def col3: Vec4i = Vec4i(this.m03, this.m13, this.m23, this.m33)
 
+  /**
+   * Returns the product of this matrix by the given vector.
+   *
+   * @param v The vector by which this matrix is multiplied
+   * @return The product of this matrix by the given vector
+   */
   override def *(v: Vec4i): Vec4i = Vec4i(this.row0 dot v, this.row1 dot v, this.row2 dot v, this.row3 dot v)
 
   /**
@@ -131,56 +154,11 @@ case class Mat4i(
   def multiply(x: Int, y: Int, z: Int, w: Int): Vec4i = this * Vec4i(x, y, z, w)
 
   /**
-   * Returns the product of this matrix by the vector with the given components.
+   * Returns the product between this matrix and the given one.
    *
-   * @param x X component of the vector by which this matrix is multiplied
-   * @param y Y component of the vector by which this matrix is multiplied
-   * @param z Z component of the vector by which this matrix is multiplied
-   * @return The product between this matrix and the vector with the given components
+   * @param m The matrix by which this one is multiplied
+   * @return The product between this matrix and the given one
    */
-  def *(x: Float, y: Float, z: Float, w: Float): Vec4f = this * Vec4f(x, y, z, w)
-
-  /**
-   * Returns the product of this matrix by the vector with the given components.
-   *
-   * This method can be used in place of the '*' operator for better interoperability with Java.
-   *
-   * @param x X component of the vector by which this matrix is multiplied
-   * @param y Y component of the vector by which this matrix is multiplied
-   * @param z Z component of the vector by which this matrix is multiplied
-   * @return The product between this matrix and the vector with the given components
-   */
-  def multiply(x: Float, y: Float, z: Float, w: Float): Vec4f = this * Vec4f(x, y, z, w)
-
-  /**
-   * Returns the product of this matrix by the vector with the given components.
-   *
-   * @param x X component of the vector by which this matrix is multiplied
-   * @param y Y component of the vector by which this matrix is multiplied
-   * @param z Z component of the vector by which this matrix is multiplied
-   * @return The product between this matrix and the vector with the given components
-   */
-  def *(x: Double, y: Double, z: Double, w: Double): Vec4d = this * Vec4d(x, y, z, w)
-
-  /**
-   * Returns the product of this matrix by the vector with the given components.
-   *
-   * This method can be used in place of the '*' operator for better interoperability with Java.
-   *
-   * @param x X component of the vector by which this matrix is multiplied
-   * @param y Y component of the vector by which this matrix is multiplied
-   * @param z Z component of the vector by which this matrix is multiplied
-   * @return The product between this matrix and the vector with the given components
-   */
-  def multiply(x: Double, y: Double, z: Double, w: Double): Vec4d = this * Vec4d(x, y, z, w)
-
-  override def transposed: Mat4i = Mat4i(
-    this.m00, this.m10, this.m20, this.m30,
-    this.m01, this.m11, this.m21, this.m31,
-    this.m02, this.m12, this.m22, this.m32,
-    this.m03, this.m13, this.m23, this.m33
-  )
-
   override def *(m: Mat4i): Mat4i = Mat4i(
     this.row0 dot m.col0, this.row0 dot m.col1, this.row0 dot m.col2, this.row0 dot m.col3,
     this.row1 dot m.col0, this.row1 dot m.col1, this.row1 dot m.col2, this.row1 dot m.col3,
@@ -188,6 +166,24 @@ case class Mat4i(
     this.row3 dot m.col0, this.row3 dot m.col1, this.row3 dot m.col2, this.row3 dot m.col3
   )
 
+  /**
+   * Returns the transposed of this matrix.
+   *
+   * @return The transposed of this matrix
+   */
+  override def transposed: Mat4i = Mat4i(
+    this.m00, this.m10, this.m20, this.m30,
+    this.m01, this.m11, this.m21, this.m31,
+    this.m02, this.m12, this.m22, this.m32,
+    this.m03, this.m13, this.m23, this.m33
+  )
+
+  /**
+   * Returns this matrix to the power of the given exponent.
+   *
+   * @param exp The exponent
+   * @return This matrix raised to the power of the given exponent
+   */
   override def power(exp: Int): Mat4i = {
     if (exp < 0) {
       this.transposed.power(-exp)
@@ -198,19 +194,28 @@ case class Mat4i(
     }
   }
 
-  override def toFloat: Mat4f = Mat4f(
-    this.m00.toFloat, this.m01.toFloat, this.m02.toFloat, this.m03.toFloat,
-    this.m10.toFloat, this.m11.toFloat, this.m12.toFloat, this.m13.toFloat,
-    this.m20.toFloat, this.m21.toFloat, this.m22.toFloat, this.m23.toFloat,
-    this.m30.toFloat, this.m31.toFloat, this.m32.toFloat, this.m33.toFloat
-  )
-
-  override def toDouble: Mat4d = Mat4d(
-    this.m00.toDouble, this.m01.toDouble, this.m02.toDouble, this.m03.toDouble,
-    this.m10.toDouble, this.m11.toDouble, this.m12.toDouble, this.m13.toDouble,
-    this.m20.toDouble, this.m21.toDouble, this.m22.toDouble, this.m23.toDouble,
-    this.m30.toDouble, this.m31.toDouble, this.m32.toDouble, this.m33.toDouble
-  )
+  /**
+   * Returns the determinant of this matrix.
+   *
+   * @return The determinant of this matrix
+   */
+  override def determinant: Int = this.m00 * Mat3i(
+    this.m11, this.m12, this.m13,
+    this.m21, this.m22, this.m23,
+    this.m31, this.m32, this.m33
+  ).determinant - this.m01 * Mat3i(
+    this.m10, this.m12, this.m13,
+    this.m20, this.m22, this.m23,
+    this.m30, this.m32, this.m33
+  ).determinant + this.m02 * Mat3i(
+    this.m10, this.m11, this.m13,
+    this.m20, this.m21, this.m23,
+    this.m30, this.m31, this.m33
+  ).determinant - this.m03 * Mat3i(
+    this.m10, this.m11, this.m12,
+    this.m20, this.m21, this.m22,
+    this.m30, this.m31, this.m32
+  ).determinant
 }
 
 object Mat4i {

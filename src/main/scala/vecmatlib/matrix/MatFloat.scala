@@ -1,50 +1,14 @@
 package vecmatlib.matrix
 
-import vecmatlib.vector.{VecAsFloat, VecFloat}
+import vecmatlib.vector.VecFloat
 
 /**
- * Trait for all float matrices.
+ * Abstract class with operation for float matrices.
  *
- * @tparam M The matrix class extending this trait
+ * @tparam M The matrix class extending this one
  * @tparam V The corresponding vector class
  */
-trait MatFloat[M <: MatFloat[M, V], V <: VecFloat[V]] extends MatBase[M, V] {
-
-  /**
-   * Returns the sum between this matrix and the given one.
-   *
-   * @param m The matrix to add
-   * @return The sum between this matrix and the given one
-   */
-  def +(m: MatAsFloat[M, V]): M = this + m.toFloat
-
-  /**
-   * Returns the sum between this matrix and the given one.
-   *
-   * This method can be used in place of the '+' operator for better interoperability with Java.
-   *
-   * @param m The matrix to add
-   * @return The sum between this matrix and the given one
-   */
-  def plus(m: MatAsFloat[M, V]): M = this + m
-
-  /**
-   * Returns the subtraction between the given matrix and this one.
-   *
-   * @param m The matrix to subtract
-   * @return The subtraction of the given matrix from this one
-   */
-  def -(m: MatAsFloat[M, V]): M = this - m.toFloat
-
-  /**
-   * Returns the subtraction between the given matrix and this one.
-   *
-   * This method can be used in place of the '-' operator for better interoperability with Java.
-   *
-   * @param m The matrix to subtract
-   * @return The subtraction of the given matrix from this one
-   */
-  def minus(m: MatAsFloat[M, V]): M = this - m
+abstract class MatFloat[M <: MatFloat[M, V], V <: VecFloat[V]] extends MatAbstract[M, V] {
 
   /**
    * Returns the product of this matrix by the given scalar.
@@ -65,38 +29,9 @@ trait MatFloat[M <: MatFloat[M, V], V <: VecFloat[V]] extends MatBase[M, V] {
   def multipliedBy(k: Float): M = this * k
 
   /**
-   * Returns the product of this matrix by the given vector.
+   * Returns the determinant of this matrix.
    *
-   * @param v The vector by which this matrix is multiplied
-   * @return The product of this matrix by the given vector
+   * @return The determinant of this matrix
    */
-  def *(v: VecAsFloat[V]): V = this * v.toFloat
-
-  /**
-   * Returns the product of this matrix by the given vector.
-   *
-   * This method can be used in place of the '*' operator for better interoperability with Java.
-   *
-   * @param v The vector by which this matrix is multiplied
-   * @return The product of this matrix by the given vector
-   */
-  def multiply(v: VecAsFloat[V]): V = this * v
-
-  /**
-   * Returns the product between this matrix and the given one.
-   *
-   * @param m The matrix by which this one is multiplied
-   * @return The product between this matrix and the given one
-   */
-  def *(m: MatAsFloat[M, V]): M = this * m.toFloat
-
-  /**
-   * Returns the product between this matrix and the given one.
-   *
-   * This method can be used in place of the '*' operator for better interoperability with Java.
-   *
-   * @param m The matrix by which this one is multiplied
-   * @return The product between this matrix and the given one
-   */
-  def multiply(m: MatAsFloat[M, V]): M = this * m
+  def determinant: Float
 }

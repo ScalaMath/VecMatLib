@@ -3,12 +3,12 @@ package vecmatlib.matrix
 import vecmatlib.vector.VecInt
 
 /**
- * Trait for all int matrices.
+ * Abstract class with operation for int matrices.
  *
- * @tparam M The matrix class extending this trait
+ * @tparam M The matrix class extending this one
  * @tparam V The corresponding vector class
  */
-trait MatInt[M <: MatInt[M, V], V <: VecInt[V]] extends MatBase[M, V] {
+abstract class MatInt[M <: MatInt[M, V], V <: VecInt[V]] extends MatAbstract[M, V] {
 
   /**
    * Returns the product of this matrix by the given scalar.
@@ -27,4 +27,11 @@ trait MatInt[M <: MatInt[M, V], V <: VecInt[V]] extends MatBase[M, V] {
    * @return The product of this matrix by the given scalar
    */
   def multipliedBy(k: Int): M = this * k
+
+  /**
+   * Returns the determinant of this matrix.
+   *
+   * @return The determinant of this matrix
+   */
+  def determinant: Int
 }

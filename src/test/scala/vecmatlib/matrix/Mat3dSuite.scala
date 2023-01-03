@@ -1,47 +1,11 @@
 package vecmatlib.matrix
 
 import org.scalatest.funsuite.AnyFunSuite
-import vecmatlib.vector.{Vec3d, Vec3f, Vec3i}
+import vecmatlib.vector.Vec3d
 
 class Mat3dSuite extends AnyFunSuite {
 
-  test("Test plus 1") {
-    val a = Mat3d(
-      1.0, 2.0, 3.0,
-      2.0, 3.0, 4.0,
-      3.0, 4.0, 1.0
-    )
-    val b = Mat3i(
-      3, 4, 2,
-      4, 2, 1,
-      2, 1, 3
-    )
-    assert(a + b == Mat3d(
-      4.0, 6.0, 5.0,
-      6.0, 5.0, 5.0,
-      5.0, 5.0, 4.0
-    ))
-  }
-
-  test("Test plus 2") {
-    val a = Mat3d(
-      1.0, 2.0, 3.0,
-      2.0, 3.0, 4.0,
-      3.0, 4.0, 1.0
-    )
-    val b = Mat3f(
-      3.0f, 4.0f, 2.0f,
-      4.0f, 2.0f, 1.0f,
-      2.0f, 1.0f, 3.0f
-    )
-    assert(a + b == Mat3d(
-      4.0, 6.0, 5.0,
-      6.0, 5.0, 5.0,
-      5.0, 5.0, 4.0
-    ))
-  }
-
-  test("Test plus 3") {
+  test("Sum of matrices") {
     val a = Mat3d(
       1.0, 2.0, 3.0,
       2.0, 3.0, 4.0,
@@ -59,7 +23,7 @@ class Mat3dSuite extends AnyFunSuite {
     ))
   }
 
-  test("Test negated") {
+  test("Negative matrix") {
     assert(Mat3d(
       1.0, 2.0, 3.0,
       2.0, 3.0, 4.0,
@@ -71,43 +35,7 @@ class Mat3dSuite extends AnyFunSuite {
     ))
   }
 
-  test("Test minus 1") {
-    val a = Mat3d(
-      4.0, 6.0, 5.0,
-      6.0, 5.0, 5.0,
-      5.0, 5.0, 4.0
-    )
-    val b = Mat3i(
-      3, 4, 2,
-      4, 2, 1,
-      2, 1, 3
-    )
-    assert(a - b == Mat3d(
-      1.0, 2.0, 3.0,
-      2.0, 3.0, 4.0,
-      3.0, 4.0, 1.0
-    ))
-  }
-
-  test("Test minus 2") {
-    val a = Mat3d(
-      4.0, 6.0, 5.0,
-      6.0, 5.0, 5.0,
-      5.0, 5.0, 4.0
-    )
-    val b = Mat3f(
-      3.0f, 4.0f, 2.0f,
-      4.0f, 2.0f, 1.0f,
-      2.0f, 1.0f, 3.0f
-    )
-    assert(a - b == Mat3d(
-      1.0, 2.0, 3.0,
-      2.0, 3.0, 4.0,
-      3.0, 4.0, 1.0
-    ))
-  }
-
-  test("Test minus 3") {
+  test("Subtraction of matrices") {
     val a = Mat3d(
       4.0, 6.0, 5.0,
       6.0, 5.0, 5.0,
@@ -125,7 +53,7 @@ class Mat3dSuite extends AnyFunSuite {
     ))
   }
 
-  test("Test multipliedBy 1") {
+  test("Matrix multiplied by a scalar") {
     assert(Mat3d(
       1.0, 1.0, 1.0,
       1.0, 1.0, 1.0,
@@ -137,27 +65,7 @@ class Mat3dSuite extends AnyFunSuite {
     ))
   }
 
-  test("Test multiply vector 1") {
-    val mat = Mat3d(
-      0.0, 1.0, 0.0,
-      0.0, 0.0, 1.0,
-      1.0, 0.0, 0.0
-    )
-    val vec = Vec3i(2, 3, 4)
-    assert(mat * vec == Vec3d(3.0, 4.0, 2.0))
-  }
-
-  test("Test multiply vector 2") {
-    val mat = Mat3d(
-      0.0, 1.0, 0.0,
-      0.0, 0.0, 1.0,
-      1.0, 0.0, 0.0
-    )
-    val vec = Vec3f(2.0f, 3.0f, 4.0f)
-    assert(mat * vec == Vec3d(3.0, 4.0, 2.0))
-  }
-
-  test("Test multiply vector 3") {
+  test("Matrix-vector product") {
     val mat = Mat3d(
       0.0, 1.0, 0.0,
       0.0, 0.0, 1.0,
@@ -167,7 +75,7 @@ class Mat3dSuite extends AnyFunSuite {
     assert(mat * vec == Vec3d(3.0, 4.0, 2.0))
   }
 
-  test("Test multiply vector 4") {
+  test("Matrix-vector product by values") {
     val mat = Mat3d(
       0.0, 1.0, 0.0,
       0.0, 0.0, 1.0,
@@ -176,7 +84,7 @@ class Mat3dSuite extends AnyFunSuite {
     assert(mat * (2.0, 3.0, 4.0) == Vec3d(3.0, 4.0, 2.0))
   }
 
-  test("Test transposed") {
+  test("Transposed") {
     assert(Mat3d(
       0.0, 1.0, 0.0,
       0.0, 0.0, 1.0,
@@ -188,7 +96,7 @@ class Mat3dSuite extends AnyFunSuite {
     ))
   }
 
-  test("Test symmetric") {
+  test("Symmetric matrix") {
     assert(Mat3d(
       0.0, 1.0, 2.0,
       1.0, 0.0, 4.0,
@@ -196,7 +104,7 @@ class Mat3dSuite extends AnyFunSuite {
     ).isSymmetric)
   }
 
-  test("Test skew symmetric") {
+  test("Skew symmetric matrix") {
     assert(Mat3d(
       0.0, 1.0, 2.0,
       -1.0, 0.0, 4.0,
@@ -204,43 +112,7 @@ class Mat3dSuite extends AnyFunSuite {
     ).isSkewSymmetric)
   }
 
-  test("Test multiply matrix 1") {
-    val a = Mat3d(
-      1.0, 2.0, 3.0,
-      2.0, 3.0, 4.0,
-      3.0, 4.0, 1.0
-    )
-    val b = Mat3i(
-      3, 4, 2,
-      4, 2, 1,
-      2, 1, 3
-    )
-    assert(a * b == Mat3d(
-      17.0, 11.0, 13.0,
-      26.0, 18.0, 19.0,
-      27.0, 21.0, 13.0
-    ))
-  }
-
-  test("Test multiply matrix 2") {
-    val a = Mat3d(
-      1.0, 2.0, 3.0,
-      2.0, 3.0, 4.0,
-      3.0, 4.0, 1.0
-    )
-    val b = Mat3f(
-      3.0f, 4.0f, 2.0f,
-      4.0f, 2.0f, 1.0f,
-      2.0f, 1.0f, 3.0f
-    )
-    assert(a * b == Mat3d(
-      17.0, 11.0, 13.0,
-      26.0, 18.0, 19.0,
-      27.0, 21.0, 13.0
-    ))
-  }
-
-  test("Test multiply matrix 3") {
+  test("Matrix product") {
     val a = Mat3d(
       1.0, 2.0, 3.0,
       2.0, 3.0, 4.0,
@@ -258,12 +130,21 @@ class Mat3dSuite extends AnyFunSuite {
     ))
   }
 
-  test("Test power") {
+  test("Matrix power") {
     val a = Mat3d(
       1.0, 2.0, 3.0,
       2.0, 3.0, 4.0,
       3.0, 4.0, 1.0
     )
     assert((a power 3) == (a * a * a))
+  }
+
+  test("Matrix determinant") {
+    val a = Mat3d(
+      2.0, 1.0, 2.0,
+      1.0, 2.0, 2.0,
+      2.0, 0.0, 0.0
+    )
+    assert(a.determinant == -4.0)
   }
 }

@@ -1,32 +1,11 @@
 package vecmatlib.matrix
 
 import org.scalatest.funsuite.AnyFunSuite
-import vecmatlib.vector.{Vec4d, Vec4f, Vec4i}
+import vecmatlib.vector.Vec4f
 
 class Mat4fSuite extends AnyFunSuite {
 
-  test("Test plus 1") {
-    val a = Mat4f(
-      1.0f, 2.0f, 3.0f, 4.0f,
-      2.0f, 3.0f, 4.0f, 1.0f,
-      3.0f, 4.0f, 1.0f, 2.0f,
-      4.0f, 1.0f, 2.0f, 3.0f
-    )
-    val b = Mat4i(
-      3, 4, 2, 1,
-      4, 2, 1, 3,
-      2, 1, 3, 4,
-      1, 3, 4, 2
-    )
-    assert(a + b == Mat4f(
-      4.0f, 6.0f, 5.0f, 5.0f,
-      6.0f, 5.0f, 5.0f, 4.0f,
-      5.0f, 5.0f, 4.0f, 6.0f,
-      5.0f, 4.0f, 6.0f, 5.0f
-    ))
-  }
-
-  test("Test plus 2") {
+  test("Sum of matrices") {
     val a = Mat4f(
       1.0f, 2.0f, 3.0f, 4.0f,
       2.0f, 3.0f, 4.0f, 1.0f,
@@ -47,28 +26,7 @@ class Mat4fSuite extends AnyFunSuite {
     ))
   }
 
-  test("Test plus 3") {
-    val a = Mat4f(
-      1.0f, 2.0f, 3.0f, 4.0f,
-      2.0f, 3.0f, 4.0f, 1.0f,
-      3.0f, 4.0f, 1.0f, 2.0f,
-      4.0f, 1.0f, 2.0f, 3.0f
-    )
-    val b = Mat4d(
-      3.0, 4.0, 2.0, 1.0,
-      4.0, 2.0, 1.0, 3.0,
-      2.0, 1.0, 3.0, 4.0,
-      1.0, 3.0, 4.0, 2.0
-    )
-    assert(a + b == Mat4d(
-      4.0, 6.0, 5.0, 5.0,
-      6.0, 5.0, 5.0, 4.0,
-      5.0, 5.0, 4.0, 6.0,
-      5.0, 4.0, 6.0, 5.0
-    ))
-  }
-
-  test("Test negated") {
+  test("Negative matrix") {
     assert(Mat4f(
       1.0f, 2.0f, 3.0f, 4.0f,
       2.0f, 3.0f, 4.0f, 1.0f,
@@ -82,28 +40,7 @@ class Mat4fSuite extends AnyFunSuite {
     ))
   }
 
-  test("Test minus 1") {
-    val a = Mat4f(
-      4.0f, 6.0f, 5.0f, 5.0f,
-      6.0f, 5.0f, 5.0f, 4.0f,
-      5.0f, 5.0f, 4.0f, 6.0f,
-      5.0f, 4.0f, 6.0f, 5.0f
-    )
-    val b = Mat4i(
-      3, 4, 2, 1,
-      4, 2, 1, 3,
-      2, 1, 3, 4,
-      1, 3, 4, 2
-    )
-    assert(a - b == Mat4f(
-      1.0f, 2.0f, 3.0f, 4.0f,
-      2.0f, 3.0f, 4.0f, 1.0f,
-      3.0f, 4.0f, 1.0f, 2.0f,
-      4.0f, 1.0f, 2.0f, 3.0f
-    ))
-  }
-
-  test("Test minus 2") {
+  test("Subtraction of matrices") {
     val a = Mat4f(
       4.0f, 6.0f, 5.0f, 5.0f,
       6.0f, 5.0f, 5.0f, 4.0f,
@@ -124,28 +61,7 @@ class Mat4fSuite extends AnyFunSuite {
     ))
   }
 
-  test("Test minus 3") {
-    val a = Mat4f(
-      4.0f, 6.0f, 5.0f, 5.0f,
-      6.0f, 5.0f, 5.0f, 4.0f,
-      5.0f, 5.0f, 4.0f, 6.0f,
-      5.0f, 4.0f, 6.0f, 5.0f
-    )
-    val b = Mat4d(
-      3.0, 4.0, 2.0, 1.0,
-      4.0, 2.0, 1.0, 3.0,
-      2.0, 1.0, 3.0, 4.0,
-      1.0, 3.0, 4.0, 2.0
-    )
-    assert(a - b == Mat4d(
-      1.0, 2.0, 3.0, 4.0,
-      2.0, 3.0, 4.0, 1.0,
-      3.0, 4.0, 1.0, 2.0,
-      4.0, 1.0, 2.0, 3.0
-    ))
-  }
-
-  test("Test multipliedBy 1") {
+  test("Matrix multiplied by a scalar") {
     assert(Mat4f(
       1.0f, 1.0f, 1.0f, 1.0f,
       1.0f, 1.0f, 1.0f, 2.0f,
@@ -159,32 +75,7 @@ class Mat4fSuite extends AnyFunSuite {
     ))
   }
 
-  test("Test multipliedBy 2") {
-    assert(Mat4f(
-      1.0f, 1.0f, 1.0f, 1.0f,
-      1.0f, 1.0f, 1.0f, 2.0f,
-      1.0f, 1.0f, 2.0f, 2.0f,
-      1.0f, 2.0f, 2.0f, 3.0f
-    ) * 1.5 == Mat4d(
-      1.5, 1.5, 1.5, 1.5,
-      1.5, 1.5, 1.5, 3.0,
-      1.5, 1.5, 3.0, 3.0,
-      1.5, 3.0, 3.0, 4.5
-    ))
-  }
-
-  test("Test multiply vector 1") {
-    val mat = Mat4f(
-      0.0f, 1.0f, 0.0f, 0.0f,
-      0.0f, 0.0f, 0.0f, 1.0f,
-      1.0f, 0.0f, 0.0f, 0.0f,
-      0.0f, 0.0f, 1.0f, 0.0f
-    )
-    val vec = Vec4i(2, 3, 4, 5)
-    assert(mat * vec == Vec4f(3.0f, 5.0f, 2.0f, 4.0f))
-  }
-
-  test("Test multiply vector 2") {
+  test("Matrix-vector product") {
     val mat = Mat4f(
       0.0f, 1.0f, 0.0f, 0.0f,
       0.0f, 0.0f, 0.0f, 1.0f,
@@ -195,18 +86,7 @@ class Mat4fSuite extends AnyFunSuite {
     assert(mat * vec == Vec4f(3.0f, 5.0f, 2.0f, 4.0f))
   }
 
-  test("Test multiply vector 3") {
-    val mat = Mat4f(
-      0.0f, 1.0f, 0.0f, 0.0f,
-      0.0f, 0.0f, 0.0f, 1.0f,
-      1.0f, 0.0f, 0.0f, 0.0f,
-      0.0f, 0.0f, 1.0f, 0.0f
-    )
-    val vec = Vec4d(2.0, 3.0, 4.0, 5.0)
-    assert(mat * vec == Vec4d(3.0, 5.0, 2.0, 4.0))
-  }
-
-  test("Test multiply vector 4") {
+  test("Matrix-vector product by values") {
     val mat = Mat4f(
       0.0f, 1.0f, 0.0f, 0.0f,
       0.0f, 0.0f, 0.0f, 1.0f,
@@ -216,17 +96,7 @@ class Mat4fSuite extends AnyFunSuite {
     assert(mat * (2.0f, 3.0f, 4.0f, 5.0f) == Vec4f(3.0f, 5.0f, 2.0f, 4.0f))
   }
 
-  test("Test multiply vector 5") {
-    val mat = Mat4f(
-      0.0f, 1.0f, 0.0f, 0.0f,
-      0.0f, 0.0f, 0.0f, 1.0f,
-      1.0f, 0.0f, 0.0f, 0.0f,
-      0.0f, 0.0f, 1.0f, 0.0f
-    )
-    assert(mat * (2.0, 3.0, 4.0, 5.0) == Vec4d(3.0, 5.0, 2.0, 4.0))
-  }
-
-  test("Test transposed") {
+  test("Transposed") {
     assert(Mat4f(
       0.0f, 1.0f, 0.0f, 0.0f,
       0.0f, 0.0f, 0.0f, 1.0f,
@@ -240,7 +110,7 @@ class Mat4fSuite extends AnyFunSuite {
     ))
   }
 
-  test("Test symmetric") {
+  test("Symmetric matrix") {
     assert(Mat4f(
       0.0f, 1.0f, 2.0f, 3.0f,
       1.0f, 0.0f, 4.0f, 5.0f,
@@ -249,7 +119,7 @@ class Mat4fSuite extends AnyFunSuite {
     ).isSymmetric)
   }
 
-  test("Test skew symmetric") {
+  test("Skew symmetric matrix") {
     assert(Mat4f(
       0.0f, 1.0f, 2.0f, 3.0f,
       -1.0f, 0.0f, 4.0f, 5.0f,
@@ -258,28 +128,7 @@ class Mat4fSuite extends AnyFunSuite {
     ).isSkewSymmetric)
   }
 
-  test("Test multiply matrix 1") {
-    val a = Mat4f(
-      1.0f, 2.0f, 3.0f, 4.0f,
-      2.0f, 3.0f, 4.0f, 1.0f,
-      3.0f, 4.0f, 1.0f, 2.0f,
-      4.0f, 1.0f, 2.0f, 3.0f
-    )
-    val b = Mat4i(
-      3, 4, 2, 1,
-      4, 2, 1, 3,
-      2, 1, 3, 4,
-      1, 3, 4, 2
-    )
-    assert(a * b == Mat4f(
-      21.0f, 23.0f, 29.0f, 27.0f,
-      27.0f, 21.0f, 23.0f, 29.0f,
-      29.0f, 27.0f, 21.0f, 23.0f,
-      23.0f, 29.0f, 27.0f, 21.0f
-    ))
-  }
-
-  test("Test multiply matrix 2") {
+  test("Matrix product") {
     val a = Mat4f(
       1.0f, 2.0f, 3.0f, 4.0f,
       2.0f, 3.0f, 4.0f, 1.0f,
@@ -300,28 +149,7 @@ class Mat4fSuite extends AnyFunSuite {
     ))
   }
 
-  test("Test multiply matrix 3") {
-    val a = Mat4f(
-      1.0f, 2.0f, 3.0f, 4.0f,
-      2.0f, 3.0f, 4.0f, 1.0f,
-      3.0f, 4.0f, 1.0f, 2.0f,
-      4.0f, 1.0f, 2.0f, 3.0f
-    )
-    val b = Mat4d(
-      3.0, 4.0, 2.0, 1.0,
-      4.0, 2.0, 1.0, 3.0,
-      2.0, 1.0, 3.0, 4.0,
-      1.0, 3.0, 4.0, 2.0
-    )
-    assert(a * b == Mat4d(
-      21.0, 23.0, 29.0, 27.0,
-      27.0, 21.0, 23.0, 29.0,
-      29.0, 27.0, 21.0, 23.0,
-      23.0, 29.0, 27.0, 21.0
-    ))
-  }
-
-  test("Test power") {
+  test("Matrix power") {
     val a = Mat4f(
       1.0f, 2.0f, 3.0f, 4.0f,
       2.0f, 3.0f, 4.0f, 1.0f,
@@ -329,5 +157,15 @@ class Mat4fSuite extends AnyFunSuite {
       4.0f, 1.0f, 2.0f, 3.0f
     )
     assert((a power 3) == (a * a * a))
+  }
+
+  test("Matrix determinant") {
+    val a = Mat4f(
+      2.0f, 1.0f, 2.0f, 3.0f,
+      1.0f, 2.0f, 2.0f, 2.0f,
+      2.0f, 0.0f, 0.0f, 0.0f,
+      1.0f, 2.0f, 0.0f, 0.0f
+    )
+    assert(a.determinant == -8.0f)
   }
 }

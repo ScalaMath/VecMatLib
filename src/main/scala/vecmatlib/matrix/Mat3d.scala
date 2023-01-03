@@ -21,18 +21,35 @@ case class Mat3d(
                   m20: Double, m21: Double, m22: Double
                 ) extends MatDouble[Mat3d, Vec3d] {
 
+  /**
+   * Returns the sum between this matrix and the given one.
+   *
+   * @param m The matrix to add
+   * @return The sum between this matrix and the given one
+   */
   override def +(m: Mat3d): Mat3d = Mat3d(
     this.m00 + m.m00, this.m01 + m.m01, this.m02 + m.m02,
     this.m10 + m.m10, this.m11 + m.m11, this.m12 + m.m12,
     this.m20 + m.m20, this.m21 + m.m21, this.m22 + m.m22
   )
 
+  /**
+   * Returns the additive inverse of this matrix.
+   *
+   * @return The additive inverse of this matrix
+   */
   override def unary_- : Mat3d = Mat3d(
     -this.m00, -this.m01, -this.m02,
     -this.m10, -this.m11, -this.m12,
     -this.m20, -this.m21, -this.m22
   )
 
+  /**
+   * Returns the product of this matrix by the given scalar.
+   *
+   * @param k The scalar by which this matrix is multiplied
+   * @return The product of this matrix by the given scalar
+   */
   override def *(k: Double): Mat3d = Mat3d(
     this.m00 * k, this.m01 * k, this.m02 * k,
     this.m10 * k, this.m11 * k, this.m12 * k,
@@ -81,6 +98,12 @@ case class Mat3d(
    */
   def col2: Vec3d = Vec3d(this.m02, this.m12, this.m22)
 
+  /**
+   * Returns the product of this matrix by the given vector.
+   *
+   * @param v The vector by which this matrix is multiplied
+   * @return The product of this matrix by the given vector
+   */
   override def *(v: Vec3d): Vec3d = Vec3d(this.row0 dot v, this.row1 dot v, this.row2 dot v)
 
   /**
@@ -105,18 +128,35 @@ case class Mat3d(
    */
   def multiply(x: Double, y: Double, z: Double): Vec3d = this * Vec3d(x, y, z)
 
-  override def transposed: Mat3d = Mat3d(
-    this.m00, this.m10, this.m20,
-    this.m01, this.m11, this.m21,
-    this.m02, this.m12, this.m22
-  )
-
+  /**
+   * Returns the product between this matrix and the given one.
+   *
+   * @param m The matrix by which this one is multiplied
+   * @return The product between this matrix and the given one
+   */
   override def *(m: Mat3d): Mat3d = Mat3d(
     this.row0 dot m.col0, this.row0 dot m.col1, this.row0 dot m.col2,
     this.row1 dot m.col0, this.row1 dot m.col1, this.row1 dot m.col2,
     this.row2 dot m.col0, this.row2 dot m.col1, this.row2 dot m.col2
   )
 
+  /**
+   * Returns the transposed of this matrix.
+   *
+   * @return The transposed of this matrix
+   */
+  override def transposed: Mat3d = Mat3d(
+    this.m00, this.m10, this.m20,
+    this.m01, this.m11, this.m21,
+    this.m02, this.m12, this.m22
+  )
+
+  /**
+   * Returns this matrix to the power of the given exponent.
+   *
+   * @param exp The exponent
+   * @return This matrix raised to the power of the given exponent
+   */
   override def power(exp: Int): Mat3d = {
     if (exp < 0) {
       this.transposed.power(-exp)
@@ -128,26 +168,11 @@ case class Mat3d(
   }
 
   /**
-   * Casts this matrix to an int matrix.
+   * Returns the determinant of this matrix.
    *
-   * @return A matrix same as this one cast to int
+   * @return The determinant of this matrix
    */
-  def toInt: Mat3i = Mat3i(
-    this.m00.toInt, this.m01.toInt, this.m02.toInt,
-    this.m10.toInt, this.m11.toInt, this.m12.toInt,
-    this.m20.toInt, this.m21.toInt, this.m22.toInt
-  )
-
-  /**
-   * Casts this matrix to a float matrix.
-   *
-   * @return A matrix same as this one cast to float
-   */
-  def toFloat: Mat3f = Mat3f(
-    this.m00.toFloat, this.m01.toFloat, this.m02.toFloat,
-    this.m10.toFloat, this.m11.toFloat, this.m12.toFloat,
-    this.m20.toFloat, this.m21.toFloat, this.m22.toFloat
-  )
+  override def determinant: Double = m00 * m11 * m22 + m01 * m12 * m20 + m02 * m10 * m21 - m02 * m11 * m20 - m01 * m10 * m22 - m00 * m12 * m21
 }
 
 object Mat3d {

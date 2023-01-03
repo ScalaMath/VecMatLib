@@ -1,14 +1,14 @@
 package vecmatlib.matrix
 
-import vecmatlib.vector.VecBase
+import vecmatlib.vector.VecAbstract
 
 /**
- * Base trait for all matrices.
+ * Abstract class with base operation for all matrix types.
  *
- * @tparam M The matrix class extending this trait
+ * @tparam M The matrix class extending this one
  * @tparam V The corresponding vector class
  */
-trait MatBase[M <: MatBase[M, V], V <: VecBase[V]] {
+abstract class MatAbstract[M <: MatAbstract[M, V], V <: VecAbstract[V]] {
 
   /**
    * Returns the sum between this matrix and the given one.

@@ -1,47 +1,11 @@
 package vecmatlib.vector
 
 /**
- * Trait for all float vectors.
+ * Abstract class with operation for float vectors.
  *
- * @tparam F The vector class extending this trait
+ * @tparam V The vector class extending this one
  */
-trait VecFloat[F <: VecFloat[F]] extends VecBase[F] {
-
-  /**
-   * Computes the sum between this vector and the given one.
-   *
-   * @param v The vector to add.
-   * @return The sum of this vector and the given one.
-   */
-  def +(v: VecAsFloat[F]): F = this + v.toFloat
-
-  /**
-   * Computes the sum between this vector and the given one.
-   *
-   * This method can be used in place of the '+' operator for better interoperability with Java.
-   *
-   * @param v The vector to add.
-   * @return The sum of this vector and the given one.
-   */
-  def plus(v: VecAsFloat[F]): F = this + v
-
-  /**
-   * Computes the subtraction between the given vector and this one.
-   *
-   * @param v The vector to subtract.
-   * @return The subtraction of the given vector from this one.
-   */
-  def -(v: VecAsFloat[F]): F = this - v.toFloat
-
-  /**
-   * Computes the subtraction between the given vector and this one.
-   *
-   * This method can be used in place of the '-' operator for better interoperability with Java.
-   *
-   * @param v The vector to subtract.
-   * @return The subtraction of the given vector from this one.
-   */
-  def minus(v: VecAsFloat[F]): F = this - v
+abstract class VecFloat[V <: VecFloat[V]] extends VecAbstract[V] {
 
   /**
    * Returns the product between this vector and the given scalar.
@@ -49,7 +13,7 @@ trait VecFloat[F <: VecFloat[F]] extends VecBase[F] {
    * @param k The scalar to which the vector is multiplied.
    * @return The result of the product between this vector and the given scalar.
    */
-  def *(k: Float): F
+  def *(k: Float): V
 
   /**
    * Returns the product between this vector and the given scalar.
@@ -59,7 +23,7 @@ trait VecFloat[F <: VecFloat[F]] extends VecBase[F] {
    * @param k The scalar to which the vector is multiplied.
    * @return The result of the product between this vector and the given scalar.
    */
-  def multipliedBy(k: Float): F = this * k
+  def multipliedBy(k: Float): V = this * k
 
   /**
    * Returns the division of this vector by the given scalar.
@@ -67,7 +31,7 @@ trait VecFloat[F <: VecFloat[F]] extends VecBase[F] {
    * @param k The scalar by which the vector is divided.
    * @return The result of the division of this vector by the given scalar.
    */
-  def /(k: Float): F = this * (1.0f / k)
+  def /(k: Float): V = this * (1.0f / k)
 
   /**
    * Returns the division of this vector by the given scalar.
@@ -77,25 +41,7 @@ trait VecFloat[F <: VecFloat[F]] extends VecBase[F] {
    * @param k The scalar by which the vector is divided.
    * @return The result of the division of this vector by the given scalar.
    */
-  def dividedBy(k: Float): F = this / k
-
-  /**
-   * Returns the component-wise multiplication between this vector and the given one.
-   *
-   * @param v The second operand of the multiplication.
-   * @return The component-wise multiplication between this vector and the given one.
-   */
-  def *(v: VecAsFloat[F]): F = this * v.toFloat
-
-  /**
-   * Returns the component-wise multiplication between this vector and the given one.
-   *
-   * This method can be used in place of the '*' operator for better interoperability with Java.
-   *
-   * @param v The second operand of the multiplication.
-   * @return The component-wise multiplication between this vector and the given one.
-   */
-  def multiply(v: VecAsFloat[F]): F = this * v
+  def dividedBy(k: Float): V = this / k
 
   /**
    * Returns the result of the dot product (or scalar product) between this vector and the given one.
@@ -103,15 +49,7 @@ trait VecFloat[F <: VecFloat[F]] extends VecBase[F] {
    * @param v The vector by which this one is multiplied.
    * @return The result of the dot product between this vector and the given one.
    */
-  def dot(v: F): Float
-
-  /**
-   * Returns the result of the dot product (or scalar product) between this vector and the given one.
-   *
-   * @param v The vector by which this one is multiplied.
-   * @return The result of the dot product between this vector and the given one.
-   */
-  def dot(v: VecAsFloat[F]): Float = this dot v.toFloat
+  def dot(v: V): Float
 
   /**
    * Returns the squared length (or squared magnitude) of this vector.
@@ -120,7 +58,37 @@ trait VecFloat[F <: VecFloat[F]] extends VecBase[F] {
    */
   def lengthSquared: Float
 
-  override def length: Double = Math.sqrt(this.lengthSquared)
+  /**
+   * Returns the length (or magnitude) of this vector.
+   *
+   * @return The length (or magnitude) of this vector.
+   */
+  def length: Double = Math.sqrt(this.lengthSquared)
+
+  /**
+   * Returns a normalized vector that has the same direction as this one.
+   *
+   * @return A vector with the same direction as this one and length 1.
+   */
+  def normalized: V = this / this.length.toFloat
+
+  /**
+   * Returns the angle in radians between this vector and the given one.
+   *
+   * @param v The second vector
+   * @return The angle in radians between this vector and the given one
+   */
+  override def angle(v: V): Double = math.acos((this dot v) / (this.length * v.length))
+
+  /**
+   * Returns the normalized vector pointing from this vector to the given one.
+   *
+   * Using `a.directionTo(b)` is equivalent to using `(b - a).normalized`.
+   *
+   * @param v The vector to which the direction is pointing
+   * @return The normalized vector pointing from this vector to the given one
+   */
+  def directionTo(v: V): V = -(this - v).normalized
 
   /**
    * Returns the squared distance between this vector and the given one.
@@ -130,17 +98,7 @@ trait VecFloat[F <: VecFloat[F]] extends VecBase[F] {
    * @param v The second vector.
    * @return The squared distance between this vector and the given one
    */
-  def distanceSquaredTo(v: F): Float = (-(this - v)).lengthSquared
-
-  /**
-   * Returns the squared distance between this vector and the given one.
-   *
-   * Using `a.distanceSquaredTo(b)` is equivalent to using `(b - a).lengthSquared`.
-   *
-   * @param v The second vector.
-   * @return The squared distance between this vector and the given one
-   */
-  def distanceSquaredTo(v: VecAsFloat[F]): Float = this.distanceSquaredTo(v.toFloat)
+  def distanceSquaredTo(v: V): Float = (-(this - v)).lengthSquared
 
   /**
    * Returns the distance between this vector and the given one.
@@ -150,7 +108,7 @@ trait VecFloat[F <: VecFloat[F]] extends VecBase[F] {
    * @param v The second vector.
    * @return The distance between this vector and the given one
    */
-  def distanceTo(v: VecAsFloat[F]): Double = this.distanceTo(v.toFloat)
+  def distanceTo(v: V): Double = (-(this - v)).length
 
   /**
    * Returns this vector reflected from a plane defined by the given normal.
@@ -158,15 +116,7 @@ trait VecFloat[F <: VecFloat[F]] extends VecBase[F] {
    * @param n The normal of the plane (must be normalized)
    * @return This vector reflected from a plane defined by the given normal
    */
-  def reflect(n: F): F = this - (n * (this dot n) * 2)
-
-  /**
-   * Returns this vector reflected from a plane defined by the given normal.
-   *
-   * @param n The normal of the plane (must be normalized)
-   * @return This vector reflected from a plane defined by the given normal
-   */
-  def reflect(n: VecAsFloat[F]): F = this.reflect(n.toFloat)
+  def reflect(n: V): V = this - (n * (this dot n) * 2.0f)
 
   /**
    * Returns this vector "bounced off" from a plane defined by the given normal.
@@ -174,15 +124,7 @@ trait VecFloat[F <: VecFloat[F]] extends VecBase[F] {
    * @param n The normal of the plane (must be normalized)
    * @return This vector "bounced off" from a plane defined by the given normal
    */
-  def bounce(n: F): F = -this.reflect(n)
-
-  /**
-   * Returns this vector "bounced off" from a plane defined by the given normal.
-   *
-   * @param n The normal of the plane (must be normalized)
-   * @return This vector "bounced off" from a plane defined by the given normal
-   */
-  def bounce(n: VecAsFloat[F]): F = this.bounce(n.toFloat)
+  def bounce(n: V): V = -this.reflect(n)
 
   /**
    * Returns this vector projected onto the given one.
@@ -190,15 +132,7 @@ trait VecFloat[F <: VecFloat[F]] extends VecBase[F] {
    * @param v The vector to project onto
    * @return This vector projected onto the given one
    */
-  def project(v: F): F = v * ((this dot v) / v.lengthSquared)
-
-  /**
-   * Returns this vector projected onto the given one.
-   *
-   * @param v The vector to project onto
-   * @return This vector projected onto the given one
-   */
-  def project(v: VecAsFloat[F]): F = this.project(v.toFloat)
+  def project(v: V): V = v * ((this dot v) / v.lengthSquared)
 
   /**
    * Returns this vector slid along a plane defined by the given normal.
@@ -206,13 +140,5 @@ trait VecFloat[F <: VecFloat[F]] extends VecBase[F] {
    * @param n The normal of the plane
    * @return This vector slid along a plane defined by the given normal
    */
-  def slide(n: F): F = this - (n * (this dot n))
-
-  /**
-   * Returns this vector slid along a plane defined by the given normal.
-   *
-   * @param n The normal of the plane
-   * @return This vector slid along a plane defined by the given normal
-   */
-  def slide(n: VecAsFloat[F]): F = this.slide(n.toFloat)
+  def slide(n: V): V = this - (n * (this dot n))
 }

@@ -1,16 +1,95 @@
 package vecmatlib.vector
 
-import vecmatlib.Double4
+import vecmatlib.{Double2, Double3, Double4}
 
 /**
- * Four-dimensional double vector.
+ * Class that represents a four-dimensional double vector.
  *
+ * @constructor Constructs a Vec4d from the four given values
  * @param x X component of the vector
  * @param y Y component of the vector
  * @param z Z component of the vector
  * @param w W component of the vector
  */
-case class Vec4d(x: Double, y: Double, z: Double, w: Double) extends Double4 with VecDouble[Vec4d] {
+case class Vec4d(x: Double, y: Double, z: Double, w: Double) extends VecDouble[Vec4d] with Double4 {
+
+  /**
+   * Constructs a Vec4d from the given components.
+   *
+   * @param xy X and Y components of the vector
+   * @param z  Z component of the vector
+   * @param w  W component of the vector
+   */
+  def this(xy: Double2, z: Double, w: Double) = this(xy.x, xy.y, z, w)
+
+  /**
+   * Constructs a Vec4d from the given components.
+   *
+   * @param x  X component of the vector
+   * @param yz Y and Z components of the vector
+   * @param w  W component of the vector
+   */
+  def this(x: Double, yz: Double2, w: Double) = this(x, yz.x, yz.y, w)
+
+  /**
+   * Constructs a Vec4d from the given components.
+   *
+   * @param x  X component of the vector
+   * @param y  Y component of the vector
+   * @param zw Z and W components of the vector
+   */
+  def this(x: Double, y: Double, zw: Double2) = this(x, y, zw.x, zw.y)
+
+  /**
+   * Constructs a Vec4d from the given components.
+   *
+   * @param xyz X, Y, and Z components of the vector
+   * @param w   W component of the vector
+   */
+  def this(xyz: Double3, w: Double) = this(xyz.x, xyz.y, xyz.z, w)
+
+  /**
+   * Constructs a Vec4d from the given components.
+   *
+   * @param x   X component of the vector
+   * @param yzw Y, Z, and W components of the vector
+   */
+  def this(x: Double, yzw: Double3) = this(x, yzw.x, yzw.y, yzw.z)
+
+  /**
+   * Returns a 2d vector with the x and y components of this vector.
+   *
+   * @return A 2d vector with the x and y components of this vector
+   */
+  def xy: Vec2d = Vec2d(this.x, this.y)
+
+  /**
+   * Returns a 2d vector with the y and z components of this vector.
+   *
+   * @return A 2d vector with the y and z components of this vector
+   */
+  def yz: Vec2d = Vec2d(this.y, this.z)
+
+  /**
+   * Returns a 2d vector with the z and w components of this vector.
+   *
+   * @return A 2d vector with the z and w components of this vector
+   */
+  def zw: Vec2d = Vec2d(this.z, this.w)
+
+  /**
+   * Returns a 3d vector with the x, y, and z components of this vector.
+   *
+   * @return A 3d vector with the x, y, and z components of this vector
+   */
+  def xyz: Vec3d = Vec3d(this.x, this.y, this.z)
+
+  /**
+   * Returns a 3d vector with the y, z, and w components of this vector.
+   *
+   * @return A 3d vector with the y, z, and w components of this vector
+   */
+  def yzw: Vec3d = Vec3d(this.y, this.z, this.w)
 
   /**
    * Returns the sum between this vector and the one with the given components.
@@ -36,8 +115,19 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) extends Double4 wit
    */
   def plus(x: Double, y: Double, z: Double, w: Double): Vec4d = this + (x, y, z, w)
 
+  /**
+   * Returns the sum between this vector and the given one.
+   *
+   * @param v The vector to add.
+   * @return The sum of this vector and the given one.
+   */
   override def +(v: Vec4d): Vec4d = this + (v.x, v.y, v.z, v.w)
 
+  /**
+   * Returns the additive inverse of this vector.
+   *
+   * @return The additive inverse of this vector
+   */
   override def unary_- : Vec4d = Vec4d(-this.x, -this.y, -this.z, -this.w)
 
   /**
@@ -64,7 +154,13 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) extends Double4 wit
    */
   def minus(x: Double, y: Double, z: Double, w: Double): Vec4d = this - (x, y, z, w)
 
-  override def *(k: Double): Vec4d = Vec4d(this.x * k, this.y * k, this.z * k, this.w * k)
+  /**
+   * Returns the product between this vector and the given scalar.
+   *
+   * @param k The scalar to which the vector is multiplied.
+   * @return The result of the product between this vector and the given scalar.
+   */
+  override def *(k: Double): Vec4d = this * (k, k, k, k)
 
   /**
    * Returns the component-wise multiplication between this vector and the given scalars.
@@ -90,6 +186,12 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) extends Double4 wit
    */
   def multiply(x: Double, y: Double, z: Double, w: Double): Vec4d = this * (x, y, z, w)
 
+  /**
+   * Returns the component-wise multiplication between this vector and the given one.
+   *
+   * @param v The second operand of the multiplication.
+   * @return The component-wise multiplication between this vector and the given one.
+   */
   override def *(v: Vec4d): Vec4d = this * (v.x, v.y, v.z, v.w)
 
   /**
@@ -103,8 +205,19 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) extends Double4 wit
    */
   def dot(x: Double, y: Double, z: Double, w: Double): Double = this.x * x + this.y * y + this.z * z + this.w * w
 
+  /**
+   * Returns the result of the dot product (or scalar product) between this vector and the given one.
+   *
+   * @param v The vector by which this one is multiplied.
+   * @return The result of the dot product between this vector and the given one.
+   */
   override def dot(v: Vec4d): Double = this.dot(v.x, v.y, v.z, v.w)
 
+  /**
+   * Returns the squared length (or squared magnitude) of this vector.
+   *
+   * @return The squared length of this vector.
+   */
   override def lengthSquared: Double = this dot this
 
   /**
