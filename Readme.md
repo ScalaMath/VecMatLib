@@ -108,7 +108,7 @@ allprojects {
 
 ```groovy
 dependencies {
-    implementation 'com.github.HexagonNico:VecMatLib:0.2'
+    implementation 'com.github.HexagonNico:VecMatLib:1.0'
 }
 ```
 
@@ -127,7 +127,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HexagonNico</groupId>
     <artifactId>VecMatLib</artifactId>
-    <version>0.2</version>
+    <version>1.0</version>
 </dependency>
 ```
 
@@ -138,14 +138,14 @@ resolvers += "jitpack" at "https://jitpack.io"
 ```
 
 ```sbt
-libraryDependencies += "com.github.HexagonNico" % "VecMatLib" % "0.2"
+libraryDependencies += "com.github.HexagonNico" % "VecMatLib" % "1.0"
 ```
 
 ## Support the project
 
 VecMatLib was developed by a single person.
 
-Initially a university project, later completed and turned into a full project.
+Initially a university project, later completed and turned into a fully usable library.
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X87EZ87)
 
