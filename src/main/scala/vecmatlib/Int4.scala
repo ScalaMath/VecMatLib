@@ -8,5 +8,5 @@ trait Int4 extends Int3 {
   /**
    * W component
    */
-  val w: Int
+  def w: Int
 }

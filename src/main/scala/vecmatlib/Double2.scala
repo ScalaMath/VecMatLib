@@ -8,10 +8,10 @@ trait Double2 {
   /**
    * X component
    */
-  val x: Double
+  def x: Double
 
   /**
    * Y component
    */
-  val y: Double
+  def y: Double
 }

@@ -8,10 +8,10 @@ trait Int2 {
   /**
    * X component
    */
-  val x: Int
+  def x: Int
 
   /**
    * Y component
    */
-  val y: Int
+  def y: Int
 }

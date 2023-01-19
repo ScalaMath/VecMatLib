@@ -8,10 +8,10 @@ trait Float2 {
   /**
    * X component
    */
-  val x: Float
+  def x: Float
 
   /**
    * Y component
    */
-  val y: Float
+  def y: Float
 }

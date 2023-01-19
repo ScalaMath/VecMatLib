@@ -8,5 +8,5 @@ trait Double4 extends Double3 {
   /**
    * W component
    */
-  val w: Double
+  def w: Double
 }

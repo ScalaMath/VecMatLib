@@ -8,5 +8,5 @@ trait Float4 extends Float3 {
   /**
    * W component
    */
-  val w: Float
+  def w: Float
 }
