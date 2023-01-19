@@ -106,6 +106,11 @@ class Vec3fSuite extends AnyFunSuite {
     assert(vec.angle(0.0, 1.0, 0.0) == math.Pi / 2.0)
   }
 
+  test("Vector absolute value") {
+    val vec = Vec3f(-1.5f, -2.1f, 3.7f)
+    assert(vec.abs == Vec3f(1.5f, 2.1f, 3.7f))
+  }
+
   test("Direction to vector") {
     val a = Vec3f.Zero
     val b = Vec3f(0.0f, 0.0f, 10.0f)

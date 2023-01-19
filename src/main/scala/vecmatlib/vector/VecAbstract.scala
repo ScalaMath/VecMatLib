@@ -84,4 +84,11 @@ abstract class VecAbstract[V <: VecAbstract[V]] {
    * @return The angle in radians between this vector and the given one
    */
   def angle(v: V): Double
+
+  /**
+   * Returns a vector with all components in absolute value.
+   *
+   * @return This vector with all components in absolute value
+   */
+  def abs: V
 }

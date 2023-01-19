@@ -136,6 +136,13 @@ case class Vec2d(x: Double, y: Double) extends VecDouble[Vec2d] with Double2 {
   def angle(x: Double, y: Double): Double = this.angle(Vec2d(x, y))
 
   /**
+   * Returns a vector with all components in absolute value.
+   *
+   * @return This vector with all components in absolute value
+   */
+  override def abs: Vec2d = Vec2d(math.abs(this.x), math.abs(this.y))
+
+  /**
    * Returns the normalized vector pointing from this vector to the one with the given components.
    *
    * Using `a.directionTo(b)` is equivalent to using `(b - a).normalized`.

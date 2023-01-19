@@ -94,6 +94,11 @@ class Vec2dSuite extends AnyFunSuite {
     assert(vec.angle(0.0, 1.0) == math.Pi / 2.0)
   }
 
+  test("Vector absolute value") {
+    val vec = Vec2d(-1.5, -2.1)
+    assert(vec.abs == Vec2d(1.5, 2.1))
+  }
+
   test("Direction to vector") {
     val a = Vec2d.Zero
     val b = Vec2d(0.0, 10.0)

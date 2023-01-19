@@ -141,4 +141,13 @@ abstract class VecFloat[V <: VecFloat[V]] extends VecAbstract[V] {
    * @return This vector slid along a plane defined by the given normal
    */
   def slide(n: V): V = this - (n * (this dot n))
+
+  /**
+   * Returns the linear interpolation between this vector and the given one by the given weight.
+   *
+   * @param to Vector to interpolate towards
+   * @param weight Weight of the interpolation
+   * @return The linear interpolation between this vector and the given one by the given weight
+   */
+  def lerp(to: V, weight: Float): V = (this * (1.0f - weight)) + (to * weight)
 }

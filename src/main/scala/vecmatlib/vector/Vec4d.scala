@@ -232,6 +232,13 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) extends VecDouble[V
   def angle(x: Double, y: Double, z: Double, w: Double): Double = this.angle(Vec4d(x, y, z, w))
 
   /**
+   * Returns a vector with all components in absolute value.
+   *
+   * @return This vector with all components in absolute value
+   */
+  override def abs: Vec4d = Vec4d(math.abs(this.x), math.abs(this.y), math.abs(this.z), math.abs(this.w))
+
+  /**
    * Returns the normalized vector pointing from this vector to the one with the given components.
    *
    * Using `a.directionTo(b)` is equivalent to using `(b - a).normalized`.

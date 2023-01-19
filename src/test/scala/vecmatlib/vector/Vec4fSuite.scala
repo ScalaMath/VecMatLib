@@ -94,6 +94,11 @@ class Vec4fSuite extends AnyFunSuite {
     assert(vec.angle(0.0, 1.0, 0.0, 0.0) == math.Pi / 2.0)
   }
 
+  test("Vector absolute value") {
+    val vec = Vec4f(-1.5f, -2.1f, 3.7f, -4.0f)
+    assert(vec.abs == Vec4f(1.5f, 2.1f, 3.7f, 4.0f))
+  }
+
   test("Direction to vector") {
     val a = Vec4f.Zero
     val b = Vec4f(0.0f, 0.0f, 10.0f, 0.0f)

@@ -193,6 +193,13 @@ case class Vec3f(x: Float, y: Float, z: Float) extends VecFloat[Vec3f] with Floa
   def angle(x: Double, y: Double, z: Double): Double = this.toDouble.angle(Vec3d(x, y, z))
 
   /**
+   * Returns a vector with all components in absolute value.
+   *
+   * @return This vector with all components in absolute value
+   */
+  override def abs: Vec3f = Vec3f(math.abs(this.x), math.abs(this.y), math.abs(this.z))
+
+  /**
    * Returns the normalized vector pointing from this vector to the one with the given components.
    *
    * Using `a.directionTo(b)` is equivalent to using `(b - a).normalized`.

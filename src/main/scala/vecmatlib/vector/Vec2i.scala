@@ -144,6 +144,13 @@ case class Vec2i(x: Int, y: Int) extends VecInt[Vec2i] with Int2 {
   def angle(x: Double, y: Double): Double = this.toDouble.angle(Vec2d(x, y))
 
   /**
+   * Returns a vector with all components in absolute value.
+   *
+   * @return This vector with all components in absolute value
+   */
+  override def abs: Vec2i = Vec2i(math.abs(this.x), math.abs(this.y))
+
+  /**
    * Returns the squared distance between this vector and the one with the given components.
    *
    * Using `a.distanceSquaredTo(b)` is equivalent to using `(b - a).lengthSquared`.

@@ -88,6 +88,11 @@ class Vec4iSuite extends AnyFunSuite {
     assert(vec.angle(0, 1, 0, 0) == math.Pi / 2)
   }
 
+  test("Vector absolute value") {
+    val vec = Vec4i(-1, -2, 3, -4)
+    assert(vec.abs == Vec4i(1, 2, 3, 4))
+  }
+
   test("Distance squared to three values") {
     val vec = Vec4i.Zero
     assert(vec.distanceSquaredTo(2, 2, 2, 2) == 16)
