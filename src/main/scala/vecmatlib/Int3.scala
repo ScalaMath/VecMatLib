@@ -6,7 +6,9 @@ package vecmatlib
 trait Int3 extends Int2 {
 
   /**
-   * Z component
+   * Z component.
+   *
+   * @return The Z component of this tuple
    */
   def z: Int
 }

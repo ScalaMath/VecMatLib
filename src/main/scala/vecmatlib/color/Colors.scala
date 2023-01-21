@@ -1,5 +1,8 @@
 package vecmatlib.color
 
+/**
+ * Colors object. Contains definitions for color constants.
+ */
 object Colors {
 
   lazy val AliceBlue: Color = Color(0.941176f, 0.972549f, 1.0f)
@@ -36,7 +39,7 @@ object Colors {
 
   lazy val Coral: Color = Color(1.0f, 0.498039f, 0.313726f)
 
-  lazy val cornflower: Color = Color(0.392157f, 0.584314f, 0.929412f)
+  lazy val Cornflower: Color = Color(0.392157f, 0.584314f, 0.929412f)
 
   lazy val Cornsilk: Color = Color(1.0f, 0.972549f, 0.862745f)
 

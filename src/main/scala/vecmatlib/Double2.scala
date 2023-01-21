@@ -6,12 +6,16 @@ package vecmatlib
 trait Double2 {
 
   /**
-   * X component
+   * X component.
+   *
+   * @return The X component of this tuple
    */
   def x: Double
 
   /**
-   * Y component
+   * Y component.
+   *
+   * @return The Y component of this tuple
    */
   def y: Double
 }

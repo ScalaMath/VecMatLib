@@ -6,7 +6,9 @@ package vecmatlib
 trait Float3 extends Float2 {
 
   /**
-   * Z component
+   * Z component.
+   *
+   * @return The Z component of this tuple
    */
   def z: Float
 }

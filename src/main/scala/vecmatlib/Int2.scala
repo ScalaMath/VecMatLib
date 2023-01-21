@@ -6,12 +6,16 @@ package vecmatlib
 trait Int2 {
 
   /**
-   * X component
+   * X component.
+   *
+   * @return The X component of this tuple
    */
   def x: Int
 
   /**
-   * Y component
+   * Y component.
+   *
+   * @return The Y component of this tuple
    */
   def y: Int
 }

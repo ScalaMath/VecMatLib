@@ -6,7 +6,9 @@ package vecmatlib
 trait Double4 extends Double3 {
 
   /**
-   * W component
+   * W component.
+   *
+   * @return The W component of this tuple
    */
   def w: Double
 }

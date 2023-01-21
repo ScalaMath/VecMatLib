@@ -157,7 +157,7 @@ case class Vec4f(x: Float, y: Float, z: Float, w: Float) extends VecFloat[Vec4f]
   /**
    * Returns the product between this vector and the given scalar.
    *
-   * @param k The scalar to which the vector is multiplied.
+   * @param k The scalar by which this vector is multiplied
    * @return The result of the product between this vector and the given scalar.
    */
   override def *(k: Float): Vec4f = this * (k, k, k, k)
