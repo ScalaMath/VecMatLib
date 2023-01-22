@@ -115,7 +115,7 @@ case class Color(r: Float, g: Float, b: Float, a: Float = 1.0f) extends Float4 {
    * @param c The given color
    * @return A color resulting from the component-wise multiplication of this color with the given one
    */
-  def *(c: Color): Color = this * (c.r, c.g, c.g, c.a)
+  def *(c: Color): Color = this * (c.r, c.g, c.b, c.a)
 
   /**
    * Returns a new color resulting from multiplying every component of this color with the given ones.
@@ -128,7 +128,7 @@ case class Color(r: Float, g: Float, b: Float, a: Float = 1.0f) extends Float4 {
    * @param a Alpha component of the color
    * @return A color resulting from multiplying every component of this color with the given ones
    */
-  def multiply(r: Float, g: Float, b: Float, a: Float = 1.0f): Color = this * (r, g, b, a)
+  def blend(r: Float, g: Float, b: Float, a: Float = 1.0f): Color = this * (r, g, b, a)
 
   /**
    * Returns a new color resulting from the component-wise multiplication of this color with the given one.
@@ -138,7 +138,7 @@ case class Color(r: Float, g: Float, b: Float, a: Float = 1.0f) extends Float4 {
    * @param c The given color
    * @return A color resulting from the component-wise multiplication of this color with the given one
    */
-  def multiply(c: Color): Color = this * c
+  def blend(c: Color): Color = this * c
 
   /**
    * Returns a new color resulting from multiplying all the components by the given scalar.
@@ -159,24 +159,6 @@ case class Color(r: Float, g: Float, b: Float, a: Float = 1.0f) extends Float4 {
   def multiply(k: Float): Color = this * k
 
   /**
-   * Returns a new color resulting from multiplying every component of this color with the given ones except for the alpha value.
-   *
-   * @param r Red component of the color
-   * @param g Green component of the color
-   * @param b Blue component of the color
-   * @return A color resulting from multiplying every component of this color with the given ones
-   */
-  def blend(r: Float, g: Float, b: Float): Color = this * (r, g, b, 1.0f)
-
-  /**
-   * Returns a new color resulting from the component-wise multiplication of this color with the given one leaving the alpha value untouched.
-   *
-   * @param c The given color
-   * @return A color resulting from the component-wise multiplication of this color with the given one
-   */
-  def blend(c: Color): Color = this.blend(c.r, c.g, c.b)
-
-  /**
    * Returns the inverted color `(1.0 - r, 1.0 - g, 1.0 - b, a)`.
    *
    * @return The inverted color.
@@ -189,7 +171,7 @@ case class Color(r: Float, g: Float, b: Float, a: Float = 1.0f) extends Float4 {
    * @param k Ratio from 0.0 to 1.0
    * @return A color resulting from making this color darker by the specified percentage
    */
-  def darker(k: Float): Color = this * (1.0f - k)
+  def darker(k: Float): Color = Color(this.r * (1.0f - k), this.g * (1.0f - k), this.b * (1.0f - k), this.a)
 
   /**
    * Returns a new color resulting from making this color lighter by the specified percentage.
@@ -197,7 +179,7 @@ case class Color(r: Float, g: Float, b: Float, a: Float = 1.0f) extends Float4 {
    * @param k Ratio from 0.0 to 1.0
    * @return A color resulting from making this color lighter by the specified percentage
    */
-  def lighter(k: Float): Color = this * (this.invert * k)
+  def lighter(k: Float): Color = Color(this.r + (1.0f - this.r) * k, this.g + (1.0f - this.g) * k, this.b + (1.0f - this.b) * k, this.a)
 
   /**
    * Returns the linear interpolation with another color.
