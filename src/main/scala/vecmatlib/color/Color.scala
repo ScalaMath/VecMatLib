@@ -6,13 +6,22 @@ import vecmatlib.Float4
  * Class that represents a color as a four-dimensional float vector whose components are in a range from 0.0 to 1.0.
  * Values outside the (0.0, 1.0) range are allowed.
  *
- * @constructor Constructs a color with the four given values
+ * @constructor Constructs a color with the four given RGBA values
  * @param r Red component of the color in a range from 0.0 to 1.0
  * @param g Green component of the color in a range from 0.0 to 1.0
  * @param b Blue component of the color in a range from 0.0 to 1.0
  * @param a Red component of the color in a range from 0.0 to 1.0
  */
-case class Color(r: Float, g: Float, b: Float, a: Float = 1.0f) extends Float4 {
+case class Color(r: Float, g: Float, b: Float, a: Float) extends Float4 {
+
+  /**
+   * Constructs a color with the three given RGB values and an alpha value of 1.0
+   *
+   * @param r Red component of the color in a range from 0.0 to 1.0
+   * @param g Green component of the color in a range from 0.0 to 1.0
+   * @param b Blue component of the color in a range from 0.0 to 1.0
+   */
+  def this(r: Float, g: Float, b: Float) = this(r, g, b, 1.0f)
 
   /**
    * Returns a new color resulting from adding the given color to this one.
@@ -23,7 +32,17 @@ case class Color(r: Float, g: Float, b: Float, a: Float = 1.0f) extends Float4 {
    * @param a Alpha component of the color to add
    * @return A color resulting from adding the given color to this one
    */
-  def +(r: Float, g: Float, b: Float, a: Float = 0.0f): Color = Color(this.r + r, this.g + g, this.b + b, this.a + a)
+  def +(r: Float, g: Float, b: Float, a: Float): Color = Color(this.r + r, this.g + g, this.b + b, this.a + a)
+
+  /**
+   * Returns a new color resulting from adding the given color to this one.
+   *
+   * @param r Red component of the color to add
+   * @param g Green component of the color to add
+   * @param b Blue component of the color to add
+   * @return A color resulting from adding the given color to this one
+   */
+  def +(r: Float, g: Float, b: Float): Color = this + (r, g, b, 0.0f)
 
   /**
    * Returns a new color resulting from adding the given color to this one.
@@ -44,7 +63,19 @@ case class Color(r: Float, g: Float, b: Float, a: Float = 1.0f) extends Float4 {
    * @param a Alpha component of the color to add
    * @return A color resulting from adding the given color to this one
    */
-  def add(r: Float, g: Float, b: Float, a: Float = 0.0f): Color = this + (r, g, b, a)
+  def add(r: Float, g: Float, b: Float, a: Float): Color = this + (r, g, b, a)
+
+  /**
+   * Returns a new color resulting from adding the given color to this one.
+   *
+   * This method can be used in place of the '+' operator for better interoperability with Java.
+   *
+   * @param r Red component of the color to add
+   * @param g Green component of the color to add
+   * @param b Blue component of the color to add
+   * @return A color resulting from adding the given color to this one
+   */
+  def add(r: Float, g: Float, b: Float): Color = this.add(r, g, b, 0.0f)
 
   /**
    * Returns a new color resulting from adding the given color to this one.
@@ -65,7 +96,17 @@ case class Color(r: Float, g: Float, b: Float, a: Float = 1.0f) extends Float4 {
    * @param a Alpha component of the color to subtract
    * @return A color resulting from subtracting the given color from this one
    */
-  def -(r: Float, g: Float, b: Float, a: Float = 0.0f): Color = Color(this.r - r, this.g - g, this.b - b, this.a - a)
+  def -(r: Float, g: Float, b: Float, a: Float): Color = Color(this.r - r, this.g - g, this.b - b, this.a - a)
+
+  /**
+   * Returns a new color resulting from subtracting the given color from this one.
+   *
+   * @param r Red component of the color to subtract
+   * @param g Green component of the color to subtract
+   * @param b Blue component of the color to subtract
+   * @return A color resulting from subtracting the given color from this one
+   */
+  def -(r: Float, g: Float, b: Float): Color = this - (r, g, b, 0.0f)
 
   /**
    * Returns a new color resulting from subtracting the given color from this one.
@@ -86,7 +127,19 @@ case class Color(r: Float, g: Float, b: Float, a: Float = 1.0f) extends Float4 {
    * @param a Alpha component of the color to subtract
    * @return A color resulting from subtracting the given color from this one
    */
-  def subtract(r: Float, g: Float, b: Float, a: Float = 0.0f): Color = this - (r, g, b, a)
+  def subtract(r: Float, g: Float, b: Float, a: Float): Color = this - (r, g, b, a)
+
+  /**
+   * Returns a new color resulting from subtracting the given color from this one.
+   *
+   * This method can be used in place of the '-' operator for better interoperability with Java.
+   *
+   * @param r Red component of the color to subtract
+   * @param g Green component of the color to subtract
+   * @param b Blue component of the color to subtract
+   * @return A color resulting from subtracting the given color from this one
+   */
+  def subtract(r: Float, g: Float, b: Float): Color = this.subtract(r, g, b, 0.0f)
 
   /**
    * Returns a new color resulting from subtracting the given color from this one.
@@ -107,7 +160,17 @@ case class Color(r: Float, g: Float, b: Float, a: Float = 1.0f) extends Float4 {
    * @param a Alpha component of the color
    * @return A color resulting from multiplying every component of this color with the given ones
    */
-  def *(r: Float, g: Float, b: Float, a: Float = 1.0f): Color = Color(this.r * r, this.g * g, this.b * b, this.a * a)
+  def *(r: Float, g: Float, b: Float, a: Float): Color = Color(this.r * r, this.g * g, this.b * b, this.a * a)
+
+  /**
+   * Returns a new color resulting from multiplying every component of this color with the given ones.
+   *
+   * @param r Red component of the color
+   * @param g Green component of the color
+   * @param b Blue component of the color
+   * @return A color resulting from multiplying every component of this color with the given ones
+   */
+  def *(r: Float, g: Float, b: Float): Color = this * (r, g, b, 1.0f)
 
   /**
    * Returns a new color resulting from the component-wise multiplication of this color with the given one.
@@ -128,7 +191,19 @@ case class Color(r: Float, g: Float, b: Float, a: Float = 1.0f) extends Float4 {
    * @param a Alpha component of the color
    * @return A color resulting from multiplying every component of this color with the given ones
    */
-  def blend(r: Float, g: Float, b: Float, a: Float = 1.0f): Color = this * (r, g, b, a)
+  def blend(r: Float, g: Float, b: Float, a: Float): Color = this * (r, g, b, a)
+
+  /**
+   * Returns a new color resulting from multiplying every component of this color with the given ones.
+   *
+   * This method can be used in place of the '*' operator for better interoperability with Java.
+   *
+   * @param r Red component of the color
+   * @param g Green component of the color
+   * @param b Blue component of the color
+   * @return A color resulting from multiplying every component of this color with the given ones
+   */
+  def blend(r: Float, g: Float, b: Float): Color = this.blend(r, g, b, 1.0f)
 
   /**
    * Returns a new color resulting from the component-wise multiplication of this color with the given one.
@@ -217,4 +292,20 @@ case class Color(r: Float, g: Float, b: Float, a: Float = 1.0f) extends Float4 {
    * @return The alpha component of this color
    */
   override def w: Float = this.a
+}
+
+/**
+ * Color companion object.
+ */
+object Color {
+
+  /**
+   * Constructs a color with the three given RGB values and an alpha value of 1.0.
+   *
+   * @param r Red component of the color in a range from 0.0 to 1.0
+   * @param g Green component of the color in a range from 0.0 to 1.0
+   * @param b Blue component of the color in a range from 0.0 to 1.0
+   * @return A color with the three given RGB values and an alpha value of 1.0
+   */
+  def apply(r: Float, g: Float, b: Float): Color = this.apply(r, g, b, 1.0f)
 }
