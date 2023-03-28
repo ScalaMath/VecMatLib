@@ -3,14 +3,14 @@ package vecmatlib.color
 import vecmatlib.Float4
 
 /**
- * Class that represents a color as a four-dimensional float vector whose components are in a range from 0.0 to 1.0.
+ * Class that represents a color as a four-dimensional float tuple whose components are in a range from 0.0 to 1.0.
  * Values outside the (0.0, 1.0) range are allowed.
  *
  * @constructor Constructs a color with the four given RGBA values
  * @param r Red component of the color in a range from 0.0 to 1.0
  * @param g Green component of the color in a range from 0.0 to 1.0
  * @param b Blue component of the color in a range from 0.0 to 1.0
- * @param a Red component of the color in a range from 0.0 to 1.0
+ * @param a Alpha component of the color in a range from 0.0 to 1.0
  */
 case class Color4f(r: Float, g: Float, b: Float, a: Float) extends Float4 {
 
@@ -52,6 +52,13 @@ case class Color4f(r: Float, g: Float, b: Float, a: Float) extends Float4 {
    */
   def +(c: Color4f): Color4f = this + (c.r, c.g, c.b, c.a)
 
+  /**
+   * Returns a new color resulting from adding the given color to this one.
+   * Leaves the alpha value untouched.
+   *
+   * @param c The color to add
+   * @return A color resulting from adding the given color to this one
+   */
   def +(c: Color3f): Color4f = this + (c.r, c.g, c.b, 0.0f)
 
   /**
@@ -89,6 +96,15 @@ case class Color4f(r: Float, g: Float, b: Float, a: Float) extends Float4 {
    */
   def add(c: Color4f): Color4f = this + c
 
+  /**
+   * Returns a new color resulting from adding the given color to this one.
+   * Leaves the alpha value untouched.
+   *
+   * This method can be used in place of the '+' operator for better interoperability with Java.
+   *
+   * @param c The color to add
+   * @return A color resulting from adding the given color to this one
+   */
   def add(c: Color3f): Color4f = this + c
 
   /**
@@ -120,6 +136,13 @@ case class Color4f(r: Float, g: Float, b: Float, a: Float) extends Float4 {
    */
   def -(c: Color4f): Color4f = this - (c.r, c.g, c.b, c.a)
 
+  /**
+   * Returns a new color resulting from subtracting the given color from this one.
+   * Leaves the alpha value untouched.
+   *
+   * @param c The color to subtract
+   * @return A color resulting from subtracting the given color from this one
+   */
   def -(c: Color3f): Color4f = this - (c.r, c.g, c.b)
 
   /**
@@ -157,6 +180,15 @@ case class Color4f(r: Float, g: Float, b: Float, a: Float) extends Float4 {
    */
   def subtract(c: Color4f): Color4f = this - c
 
+  /**
+   * Returns a new color resulting from subtracting the given color from this one.
+   * Leaves the alpha value untouched.
+   *
+   * This method can be used in place of the '-' operator for better interoperability with Java.
+   *
+   * @param c The color to subtract
+   * @return A color resulting from subtracting the given color from this one
+   */
   def subtract(c: Color3f): Color4f = this - c
 
   /**
@@ -188,6 +220,13 @@ case class Color4f(r: Float, g: Float, b: Float, a: Float) extends Float4 {
    */
   def *(c: Color4f): Color4f = this * (c.r, c.g, c.b, c.a)
 
+  /**
+   * Returns a new color resulting from the component-wise multiplication of this color with the given one.
+   * Leaves the alpha value untouched.
+   *
+   * @param c The given color
+   * @return A color resulting from the component-wise multiplication of this color with the given one
+   */
   def *(c: Color3f): Color4f = this * (c.r, c.g, c.b)
 
   /**
@@ -225,13 +264,22 @@ case class Color4f(r: Float, g: Float, b: Float, a: Float) extends Float4 {
    */
   def blend(c: Color4f): Color4f = this * c
 
+  /**
+   * Returns a new color resulting from the component-wise multiplication of this color with the given one.
+   * Leaves the alpha value untouched.
+   *
+   * This method can be used in place of the '*' operator for better interoperability with Java.
+   *
+   * @param c The given color
+   * @return A color resulting from the component-wise multiplication of this color with the given one
+   */
   def blend(c: Color3f): Color4f = this * c
 
   /**
    * Returns a new color resulting from multiplying all the components by the given scalar.
    *
    * @param k The scalar by which this color is multiplied
-   * @return
+   * @return A new color resulting of multiplying all the components of this color by the given scalar
    */
   def *(k: Float): Color4f = this * (k, k, k, k)
 
@@ -241,7 +289,7 @@ case class Color4f(r: Float, g: Float, b: Float, a: Float) extends Float4 {
    * This method can be used in place of the '*' operator for better interoperability with Java.
    *
    * @param k The scalar by which this color is multiplied
-   * @return
+   * @return A new color resulting of multiplying all the components of this color by the given scalar
    */
   def multiply(k: Float): Color4f = this * k
 
@@ -277,6 +325,11 @@ case class Color4f(r: Float, g: Float, b: Float, a: Float) extends Float4 {
    */
   def lerp(to: Color4f, weight: Float): Color4f = (this * (1.0f - weight)) + (to * weight)
 
+  /**
+   * Returns a [[Color3f]] with the RGB components of this color.
+   *
+   * @return A `Color3f` with the RGB components of this color
+   */
   def rgb: Color3f = Color3f(this.r, this.g, this.b)
 
   /**
