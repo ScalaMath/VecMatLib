@@ -83,13 +83,15 @@ position = translation.multiply(position);
 
 ## Color math
 
-VecMatLib also provides a structure to represent a color as four floating point values between 0.0 and 1.0 because colors are essentially 4D vectors.
+VecMatLib also provides a structure to represent a color as four-dimensional or three-dimensional floating point tuples with values between 0.0 and 1.0.
 
 ```scala
 val white = Color(1.0f, 1.0f, 1.0f) // (red = 1.0, green = 1.0, blue = 1.0, alpha = 1.0)
 val green = Color(0.0f, 1.0f, 0.0f) // (red = 0.0, green = 1.0, blue = 0.0, alpha = 1.0)
 val transparentBlue = Color(0.0f, 0.0f, 1.0f, 0.5f) // (red = 0.0, green = 0.0, blue = 1.0, alpha = 0.5)
 ```
+
+Values outside the range (0.0, 1.0) are allowed.
 
 ## Using with LWJGL
 
@@ -120,7 +122,7 @@ allprojects {
 
 ```groovy
 dependencies {
-    implementation 'com.github.HexagonNico:VecMatLib:1.1'
+    implementation 'com.github.HexagonNico:VecMatLib:1.2'
 }
 ```
 
@@ -139,7 +141,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HexagonNico</groupId>
     <artifactId>VecMatLib</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
 </dependency>
 ```
 
@@ -150,7 +152,7 @@ resolvers += "jitpack" at "https://jitpack.io"
 ```
 
 ```sbt
-libraryDependencies += "com.github.HexagonNico" % "VecMatLib" % "1.1"
+libraryDependencies += "com.github.HexagonNico" % "VecMatLib" % "1.2"
 ```
 
 ## Support the project
@@ -163,4 +165,4 @@ Initially a university project, later completed and turned into a fully usable l
 
 ## Contributing
 
-Your contributions are always welcome! Please submit a pull request or open an issue if you want to contribute with bug fixes, code improvements and better unit test coverage.
+Your contributions are always welcome! Please submit a pull request or open an issue if you want to contribute with bug fixes, code improvements, documentation, and better unit test coverage.
