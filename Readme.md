@@ -86,9 +86,9 @@ position = translation.multiply(position);
 VecMatLib also provides a structure to represent a color as four-dimensional or three-dimensional floating point tuples with values between 0.0 and 1.0.
 
 ```scala
-val white = Color(1.0f, 1.0f, 1.0f) // (red = 1.0, green = 1.0, blue = 1.0, alpha = 1.0)
-val green = Color(0.0f, 1.0f, 0.0f) // (red = 0.0, green = 1.0, blue = 0.0, alpha = 1.0)
-val transparentBlue = Color(0.0f, 0.0f, 1.0f, 0.5f) // (red = 0.0, green = 0.0, blue = 1.0, alpha = 0.5)
+val white = Color3f(1.0f, 1.0f, 1.0f) // RGB #FFFFFF
+val green = Color3f(0.0f, 1.0f, 0.0f) // RGB #00FF00
+val transparentBlue = Color4f(0.0f, 0.0f, 1.0f, 0.5f) // RGBA #0000FF88
 ```
 
 Values outside the range (0.0, 1.0) are allowed.
