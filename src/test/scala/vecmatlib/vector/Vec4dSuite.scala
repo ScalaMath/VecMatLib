@@ -174,4 +174,10 @@ class Vec4dSuite extends AnyFunSuite {
     val b = Vec4d(0.0, 1.0, 0.0, 0.0)
     assert(a.slide(b) == Vec4d(1.0, 0.0, 0.0, 0.0))
   }
+
+  test("To array") {
+    val vec = Vec4d(1.1, 2.2, 3.3, 4.4)
+    val array = Array(1.1, 2.2, 3.3, 4.4)
+    assert(vec.toArray sameElements array)
+  }
 }

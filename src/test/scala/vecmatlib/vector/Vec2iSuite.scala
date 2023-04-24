@@ -162,4 +162,10 @@ class Vec2iSuite extends AnyFunSuite {
     val b = Vec2i(0, 1)
     assert(a.slide(b) == Vec2i(1, 0))
   }
+
+  test("To array") {
+    val vec = Vec2i(1, 2)
+    val array = Array(1, 2)
+    assert(vec.toArray sameElements array)
+  }
 }

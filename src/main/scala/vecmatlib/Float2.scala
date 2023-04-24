@@ -18,4 +18,6 @@ trait Float2 {
    * @return The Y component of this tuple
    */
   def y: Float
+
+  def toArray: Array[Float] = Array(this.x, this.y)
 }

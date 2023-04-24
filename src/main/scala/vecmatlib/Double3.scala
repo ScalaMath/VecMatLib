@@ -11,4 +11,6 @@ trait Double3 extends Double2 {
    * @return The Z component of this tuple
    */
   def z: Double
+
+  override def toArray: Array[Double] = Array(this.x, this.y, this.z)
 }

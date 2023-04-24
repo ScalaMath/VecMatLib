@@ -61,4 +61,11 @@ public class TestVec2d {
 		Vec2d vector = new Vec2d(1.0, 2.0);
 		Assert.assertEquals(vector.dividedBy(1.5), vector.$div(1.5));
 	}
+
+	@Test
+	public void testToArray() {
+		Vec2d vector = new Vec2d(1.1, 2.2);
+		double[] array = new double[] {1.1, 2.2};
+		Assert.assertArrayEquals(array, vector.toArray(), 0.000001);
+	}
 }

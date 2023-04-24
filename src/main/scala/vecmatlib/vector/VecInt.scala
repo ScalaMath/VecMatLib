@@ -124,4 +124,6 @@ abstract class VecInt[V <: VecInt[V]] extends VecAbstract[V] {
    * @return This vector slid along a plane defined by the given normal
    */
   def slide(n: V): V = this - (n * (this dot n))
+
+  def toArray: Array[Int]
 }

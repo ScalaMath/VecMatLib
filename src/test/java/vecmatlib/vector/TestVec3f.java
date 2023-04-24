@@ -61,4 +61,11 @@ public class TestVec3f {
 		Vec3f vector = new Vec3f(1.0f, 2.0f, 3.0f);
 		Assert.assertEquals(vector.dividedBy(1.5f), vector.$div(1.5f));
 	}
+
+	@Test
+	public void testToArray() {
+		Vec3f vector = new Vec3f(1.1f, 2.2f, 3.3f);
+		float[] array = new float[] {1.1f, 2.2f, 3.3f};
+		Assert.assertArrayEquals(array, vector.toArray(), 0.000001f);
+	}
 }

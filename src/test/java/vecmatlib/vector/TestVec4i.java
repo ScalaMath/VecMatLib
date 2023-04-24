@@ -61,4 +61,11 @@ public class TestVec4i {
 		Vec4i vector = new Vec4i(1, 2, 3, 4);
 		Assert.assertEquals(vector.dividedBy(2), vector.$div(2));
 	}
+
+	@Test
+	public void testToArray() {
+		Vec4i vector = new Vec4i(1, 2, 3, 4);
+		int[] array = new int[] {1, 2, 3, 4};
+		Assert.assertArrayEquals(array, vector.toArray());
+	}
 }

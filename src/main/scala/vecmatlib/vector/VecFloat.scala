@@ -150,4 +150,6 @@ abstract class VecFloat[V <: VecFloat[V]] extends VecAbstract[V] {
    * @return The linear interpolation between this vector and the given one by the given weight
    */
   def lerp(to: V, weight: Float): V = (this * (1.0f - weight)) + (to * weight)
+
+  def toArray: Array[Float]
 }

@@ -18,4 +18,6 @@ trait Double2 {
    * @return The Y component of this tuple
    */
   def y: Double
+
+  def toArray: Array[Double] = Array(this.x, this.y)
 }

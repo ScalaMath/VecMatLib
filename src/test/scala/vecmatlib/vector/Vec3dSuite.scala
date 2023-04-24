@@ -186,4 +186,10 @@ class Vec3dSuite extends AnyFunSuite {
     val b = Vec3d(0.0, 1.0, 0.0)
     assert(a.slide(b) == Vec3d(1.0, 0.0, 0.0))
   }
+
+  test("To array") {
+    val vec = Vec3d(1.1, 2.2, 3.3)
+    val array = Array(1.1, 2.2, 3.3)
+    assert(vec.toArray sameElements array)
+  }
 }

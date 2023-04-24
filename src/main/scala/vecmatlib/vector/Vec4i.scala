@@ -1,6 +1,6 @@
 package vecmatlib.vector
 
-import vecmatlib.{Int2, Int3}
+import vecmatlib.{Int2, Int3, Int4}
 
 /**
  * Class that represents a four-dimensional int vector.
@@ -11,7 +11,7 @@ import vecmatlib.{Int2, Int3}
  * @param z Z component of the vector
  * @param w W component of the vector
  */
-case class Vec4i(x: Int, y: Int, z: Int, w: Int) extends VecInt[Vec4i] with Int3 {
+case class Vec4i(x: Int, y: Int, z: Int, w: Int) extends VecInt[Vec4i] with Int4 {
 
   /**
    * Constructs a Vec4i from the given components.

@@ -11,4 +11,6 @@ trait Float4 extends Float3 {
    * @return The W component of this tuple
    */
   def w: Float
+
+  override def toArray: Array[Float] = Array(this.x, this.y, this.z, this.w)
 }

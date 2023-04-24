@@ -150,4 +150,6 @@ abstract class VecDouble[V <: VecDouble[V]] extends VecAbstract[V] {
    * @return The linear interpolation between this vector and the given one by the given weight
    */
   def lerp(to: V, weight: Double): V = (this * (1.0 - weight)) + (to * weight)
+
+  def toArray: Array[Double]
 }

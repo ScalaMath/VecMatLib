@@ -11,4 +11,6 @@ trait Int3 extends Int2 {
    * @return The Z component of this tuple
    */
   def z: Int
+
+  override def toArray: Array[Int] = Array(this.x, this.y, this.z)
 }
