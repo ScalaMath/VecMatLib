@@ -151,5 +151,10 @@ abstract class VecFloat[V <: VecFloat[V]] extends VecAbstract[V] {
    */
   def lerp(to: V, weight: Float): V = (this * (1.0f - weight)) + (to * weight)
 
+  /**
+   * Returns an array containing all the elements of this vector.
+   *
+   * @return An array containing all the elements of this vector
+   */
   def toArray: Array[Float]
 }

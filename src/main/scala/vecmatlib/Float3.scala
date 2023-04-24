@@ -12,5 +12,10 @@ trait Float3 extends Float2 {
    */
   def z: Float
 
+  /**
+   * Returns an array of length 3 containing the x, y, and z components of this tuple.
+   *
+   * @return An array of length 3 containing the x, y and z components of this tuple
+   */
   override def toArray: Array[Float] = Array(this.x, this.y, this.z)
 }

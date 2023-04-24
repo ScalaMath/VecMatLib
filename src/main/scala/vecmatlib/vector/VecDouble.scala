@@ -151,5 +151,10 @@ abstract class VecDouble[V <: VecDouble[V]] extends VecAbstract[V] {
    */
   def lerp(to: V, weight: Double): V = (this * (1.0 - weight)) + (to * weight)
 
+  /**
+   * Returns an array containing all the elements of this vector.
+   *
+   * @return An array containing all the elements of this vector
+   */
   def toArray: Array[Double]
 }

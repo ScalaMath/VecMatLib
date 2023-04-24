@@ -12,5 +12,10 @@ trait Double3 extends Double2 {
    */
   def z: Double
 
+  /**
+   * Returns an array of length 3 containing the x, y, and z components of this tuple.
+   *
+   * @return An array of length 3 containing the x, y and z components of this tuple
+   */
   override def toArray: Array[Double] = Array(this.x, this.y, this.z)
 }

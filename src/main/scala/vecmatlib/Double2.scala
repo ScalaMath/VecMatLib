@@ -19,5 +19,10 @@ trait Double2 {
    */
   def y: Double
 
+  /**
+   * Returns an array of length 2 containing the x and y components of this tuple.
+   *
+   * @return An array of length 2 containing the x and y components of this tuple
+   */
   def toArray: Array[Double] = Array(this.x, this.y)
 }

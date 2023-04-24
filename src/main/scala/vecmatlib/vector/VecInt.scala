@@ -125,5 +125,10 @@ abstract class VecInt[V <: VecInt[V]] extends VecAbstract[V] {
    */
   def slide(n: V): V = this - (n * (this dot n))
 
+  /**
+   * Returns an array containing all the elements of this vector.
+   *
+   * @return An array containing all the elements of this vector
+   */
   def toArray: Array[Int]
 }
