@@ -40,7 +40,7 @@ Vec3f c = a.plus(b);
 a = a.plus(b);
 ```
 
-The vector package offers integer, single-precision and double-precision vectors with all their basic operations.
+The vector package offers int, float, and double vectors with all their basic operations.
 
 ```scala
 val a = Vec3f(1.0f, 1.0f, 1.0f)
@@ -103,6 +103,8 @@ int location = GL20.glGetUniformLocation(program, "light_position");
 GL20.glUniform3f(location, lightPosition.x(), lightPosition.y(), lightPosition.z());
 ```
 
+An LWJGL project using VecMatLib is [Gamma Engine](https://github.com/Gamma-Engine), a general purpose graphics engine written in Java.
+
 ## Add VecMatLib to your project
 
 VecMatLib can be added to any Java or Scala project as a dependency using [Jitpack](https://jitpack.io/).
@@ -122,7 +124,7 @@ allprojects {
 
 ```groovy
 dependencies {
-    implementation 'com.github.HexagonNico:VecMatLib:1.2'
+    implementation 'com.github.HexagonNico:VecMatLib:1.2.1'
 }
 ```
 
@@ -141,7 +143,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HexagonNico</groupId>
     <artifactId>VecMatLib</artifactId>
-    <version>1.2</version>
+    <version>1.2.1</version>
 </dependency>
 ```
 
@@ -152,7 +154,7 @@ resolvers += "jitpack" at "https://jitpack.io"
 ```
 
 ```sbt
-libraryDependencies += "com.github.HexagonNico" % "VecMatLib" % "1.2"
+libraryDependencies += "com.github.HexagonNico" % "VecMatLib" % "1.2.1"
 ```
 
 ## Support the project
@@ -160,8 +162,6 @@ libraryDependencies += "com.github.HexagonNico" % "VecMatLib" % "1.2"
 VecMatLib was developed by a single person.
 
 Initially a university project, later completed and turned into a fully usable library.
-
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X87EZ87)
 
 ## Contributing
 
