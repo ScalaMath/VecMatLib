@@ -1,7 +1,7 @@
 package vecmatlib.matrix
 
 import org.scalatest.funsuite.AnyFunSuite
-import vecmatlib.vector.{Vec3d, Vec3f, Vec3i}
+import vecmatlib.vector.Vec3f
 
 class Mat3fSuite extends AnyFunSuite {
 

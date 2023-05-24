@@ -263,7 +263,15 @@ object Mat3d {
   )
 
   /**
-   * Returns a 3x3 scaling matrix with the given scale.
+   * Returns a 3x3 scaling matrix with the given scale on all three axes.
+   *
+   * @param scale Scale on all three axes
+   * @return A 3x3 scaling matrix
+   */
+  def scaling(scale: Double): Mat3d = scaling(scale, scale, scale)
+
+  /**
+   * Returns a 3x3 scaling matrix with the given scale on the x and y axes and a scale of 1 on the z axis.
    *
    * @param x Scale on the x axis
    * @param y Scale on the y axis
@@ -280,10 +288,10 @@ object Mat3d {
   def scaling(v: Vec3d): Mat3d = scaling(v.x, v.y, v.z)
 
   /**
-   * Returns a 3x3 scaling matrix with the given scale.
+   * Returns a 3x3 scaling matrix with the given scale on the x and y axes and a scale of 1 on the z axis.
    *
    * @param v The scale vector
    * @return A 3x3 scaling matrix
    */
-  def scaling(v: Vec2d): Mat3d = scaling(v.x, v.y, 1.0f)
+  def scaling(v: Vec2d): Mat3d = scaling(v.x, v.y)
 }

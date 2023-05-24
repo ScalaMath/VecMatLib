@@ -1,6 +1,6 @@
 package vecmatlib.matrix
 
-import vecmatlib.vector.{Vec3d, Vec4d}
+import vecmatlib.vector.{Vec2d, Vec3d, Vec4d}
 
 /**
  * 4x4 double matrix.
@@ -240,12 +240,29 @@ object Mat4d {
   )
 
   /**
+   * Returns a 4x4 translation matrix with the given translation on the x and y axes.
+   *
+   * @param x X component of the translation
+   * @param y Y component of the translation
+   * @return A 4x4 translation matrix
+   */
+  def translation(x: Double, y: Double): Mat4d = translation(x, y, 0.0)
+
+  /**
    * Returns a 4x4 translation matrix with the given translation.
    *
    * @param v The translation vector
    * @return A 4x4 translation matrix
    */
   def translation(v: Vec3d): Mat4d = translation(v.x, v.y, v.z)
+
+  /**
+   * Returns a 4x4 translation matrix with the given translation on the x and y axes.
+   *
+   * @param v The translation vector
+   * @return A 4x4 translation matrix
+   */
+  def translation(v: Vec2d): Mat4d = translation(v.x, v.y)
 
   /**
    * Returns a 4x4 rotation matrix with the given rotation on the x axis.
@@ -320,10 +337,35 @@ object Mat4d {
   )
 
   /**
+   * Returns a 4x4 scaling matrix with the given scale on all three axes.
+   *
+   * @param scale Scale on all three axes
+   * @return A 4x4 scaling matrix
+   */
+  def scaling(scale: Double): Mat4d = scaling(scale, scale, scale)
+
+  /**
+   * Returns a 4x4 scaling matrix with the given scale on the x and y axes and a scale of 1 on the z axis.
+   *
+   * @param x Scale on the x axis
+   * @param y Scale on the y axis
+   * @return A 4x4 scaling matrix
+   */
+  def scaling(x: Double, y: Double): Mat4d = scaling(x, y, 1.0)
+
+  /**
    * Returns a 4x4 scaling matrix with the given scale.
    *
    * @param v The scale vector
    * @return A 4x4 scaling matrix
    */
   def scaling(v: Vec3d): Mat4d = scaling(v.x, v.y, v.z)
+
+  /**
+   * Returns a 4x4 scaling matrix with the given scale on the x and y axes and a scale of 1 on the z axis.
+   *
+   * @param v The scale vector
+   * @return A 4x4 scaling matrix
+   */
+  def scaling(v: Vec2d): Mat4d = scaling(v.x, v.y)
 }

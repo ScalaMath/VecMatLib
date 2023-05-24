@@ -1,6 +1,6 @@
 package vecmatlib.matrix
 
-import vecmatlib.vector.{Vec3f, Vec4f}
+import vecmatlib.vector.{Vec2f, Vec3f, Vec4f}
 
 /**
  * 4x4 float matrix.
@@ -240,12 +240,29 @@ object Mat4f {
   )
 
   /**
+   * Returns a 4x4 translation matrix with the given translation on the x and y axes.
+   *
+   * @param x X component of the translation
+   * @param y Y component of the translation
+   * @return A 4x4 translation matrix
+   */
+  def translation(x: Float, y: Float): Mat4f = translation(x, y, 0.0f)
+
+  /**
    * Returns a 4x4 translation matrix with the given translation.
    *
    * @param v The translation vector
    * @return A 4x4 translation matrix
    */
   def translation(v: Vec3f): Mat4f = translation(v.x, v.y, v.z)
+
+  /**
+   * Returns a 4x4 translation matrix with the given translation on the x and y axes.
+   *
+   * @param v The translation vector
+   * @return A 4x4 translation matrix
+   */
+  def translation(v: Vec2f): Mat4f = translation(v.x, v.y)
 
   /**
    * Returns a 4x4 rotation matrix with the given rotation on the x axis.
@@ -320,10 +337,35 @@ object Mat4f {
   )
 
   /**
+   * Returns a 4x4 scaling matrix with the given scale on all three axes.
+   *
+   * @param scale Scale on all three axes
+   * @return A 4x4 scaling matrix
+   */
+  def scaling(scale: Float): Mat4f = scaling(scale, scale, scale)
+
+  /**
+   * Returns a 4x4 scaling matrix with the given scale on the x and y axes and a scale of 1 on the z axis.
+   *
+   * @param x Scale on the x axis
+   * @param y Scale on the y axis
+   * @return A 4x4 scaling matrix
+   */
+  def scaling(x: Float, y: Float): Mat4f = scaling(x, y, 1.0f)
+
+  /**
    * Returns a 4x4 scaling matrix with the given scale.
    *
    * @param v The scale vector
    * @return A 4x4 scaling matrix
    */
   def scaling(v: Vec3f): Mat4f = scaling(v.x, v.y, v.z)
+
+  /**
+   * Returns a 4x4 scaling matrix with the given scale on the x and y axes and a scale of 1 on the z axis.
+   *
+   * @param v The scale vector
+   * @return A 4x4 scaling matrix
+   */
+  def scaling(v: Vec2f): Mat4f = scaling(v.x, v.y)
 }
