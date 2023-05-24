@@ -106,6 +106,22 @@ class Vec3fSuite extends AnyFunSuite {
     assert(vec.angle(0.0, 1.0, 0.0) == math.Pi / 2.0)
   }
 
+  test("Inverse of a vector") {
+    val vec = Vec3f(2.0f, 4.0f, 8.0f)
+    assert(vec.inverse == Vec3f(0.5f, 0.25f, 0.125f))
+  }
+
+  test("Component-wise division of two vectors") {
+    val a = Vec3f(4.0f, 8.0f, 6.0f)
+    val b = Vec3f(2.0f, 2.0f, 3.0f)
+    assert(a / b == Vec3f(2.0f, 4.0f, 2.0f))
+  }
+
+  test("Component-wise division of a vector and three values") {
+    val vec = Vec3f(4.0f, 8.0f, 6.0f)
+    assert(vec / (2.0f, 2.0f, 3.0f) == Vec3f(2.0f, 4.0f, 2.0f))
+  }
+
   test("Vector absolute value") {
     val vec = Vec3f(-1.5f, -2.1f, 3.7f)
     assert(vec.abs == Vec3f(1.5f, 2.1f, 3.7f))

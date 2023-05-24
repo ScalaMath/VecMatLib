@@ -89,9 +89,25 @@ class Vec4fSuite extends AnyFunSuite {
     assert(a.angle(b) == math.Pi / 2.0)
   }
 
-  test("Angle between a vector and three values") {
+  test("Angle between a vector and four values") {
     val vec = Vec4f(0.0f, 0.0f, 1.0f, 0.0f)
     assert(vec.angle(0.0, 1.0, 0.0, 0.0) == math.Pi / 2.0)
+  }
+
+  test("Inverse of a vector") {
+    val vec = Vec4f(2.0f, 4.0f, 5.0f, 1.0f)
+    assert(vec.inverse == Vec4f(0.5f, 0.25f, 0.2f, 1.0f))
+  }
+
+  test("Component-wise division of two vectors") {
+    val a = Vec4f(4.0f, 8.0f, 6.0f, 1.0f)
+    val b = Vec4f(2.0f, 2.0f, 3.0f, 2.0f)
+    assert(a / b == Vec4f(2.0f, 4.0f, 2.0f, 0.5f))
+  }
+
+  test("Component-wise division of a vector and four values") {
+    val vec = Vec4f(4.0f, 8.0f, 6.0f, 1.0f)
+    assert(vec / (2.0f, 2.0f, 3.0f, 2.0f) == Vec4f(2.0f, 4.0f, 2.0f, 0.5f))
   }
 
   test("Vector absolute value") {

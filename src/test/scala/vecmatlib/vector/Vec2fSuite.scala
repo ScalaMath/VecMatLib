@@ -89,9 +89,25 @@ class Vec2fSuite extends AnyFunSuite {
     assert(a.angle(b) == math.Pi / 2.0)
   }
 
-  test("Angle between a vector and three values") {
+  test("Angle between a vector and two values") {
     val vec = Vec2f.Right
     assert(vec.angle(0.0, 1.0) == math.Pi / 2.0)
+  }
+
+  test("Inverse of a vector") {
+    val vec = Vec2f(2.0f, 4.0f)
+    assert(vec.inverse == Vec2f(0.5f, 0.25f))
+  }
+
+  test("Component-wise division of two vectors") {
+    val a = Vec2f(4.0f, 8.0f)
+    val b = Vec2f(2.0f, 2.0f)
+    assert(a / b == Vec2f(2.0f, 4.0f))
+  }
+
+  test("Component-wise division of a vector and two values") {
+    val vec = Vec2f(4.0f, 8.0f)
+    assert(vec / (2.0f, 2.0f) == Vec2f(2.0f, 4.0f))
   }
 
   test("Vector absolute value") {

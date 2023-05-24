@@ -63,6 +63,19 @@ public class TestVec4d {
 	}
 
 	@Test
+	public void testDivideVector() {
+		Vec4d a = new Vec4d(1.0, 1.5, 2.0, 2.5);
+		Vec4d b = new Vec4d(1.5, 3.0, 4.0, 6.0);
+		Assert.assertEquals(a.divide(b), a.$div(b));
+	}
+
+	@Test
+	public void testDivideValues() {
+		Vec4d vector = new Vec4d(1.0, 1.5, 2.0, 2.5);
+		Assert.assertEquals(vector.divide(1.5, 3.0, 4.0, 6.0), vector.$div(1.5, 3.0, 4.0, 6.0));
+	}
+
+	@Test
 	public void testToArray() {
 		Vec4d vector = new Vec4d(1.1, 2.2, 3.3, 4.4);
 		double[] array = new double[] {1.1, 2.2, 3.3, 4.4};
