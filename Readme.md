@@ -124,7 +124,7 @@ allprojects {
 
 ```groovy
 dependencies {
-    implementation 'com.github.HexagonNico:VecMatLib:1.2.1'
+    implementation 'com.github.HexagonNico:VecMatLib:1.2.2'
 }
 ```
 
@@ -143,7 +143,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HexagonNico</groupId>
     <artifactId>VecMatLib</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
 </dependency>
 ```
 
@@ -154,7 +154,7 @@ resolvers += "jitpack" at "https://jitpack.io"
 ```
 
 ```sbt
-libraryDependencies += "com.github.HexagonNico" % "VecMatLib" % "1.2.1"
+libraryDependencies += "com.github.HexagonNico" % "VecMatLib" % "1.2.2"
 ```
 
 ## Support the project
