@@ -193,6 +193,35 @@ case class Vec3f(x: Float, y: Float, z: Float) extends VecFloat[Vec3f] with Floa
   def angle(x: Double, y: Double, z: Double): Double = this.toDouble.angle(Vec3d(x, y, z))
 
   /**
+   * Returns a vector whose components are the multiplicative inverse of this vectors components.
+   *
+   * @return A vector whose components are the multiplicative inverse of this vectors components
+   */
+  override def inverse: Vec3f = Vec3f(1.0f / this.x, 1.0f / this.y, 1.0f / this.z)
+
+  /**
+   * Returns the component-wise division between this vector and the given scalars.
+   *
+   * @param x Value by which the X component is divided
+   * @param y Value by which the Y component is divided
+   * @param z Value by which the Z component is divided
+   * @return The component-wise division between this vector and the given scalars.
+   */
+  def /(x: Float, y: Float, z: Float): Vec3f = Vec3f(this.x / x, this.y / y, this.z / z)
+
+  /**
+   * Returns the component-wise division between this vector and the given scalars.
+   *
+   * This method can be used in place of the '/' operator for better interoperability with Java.
+   *
+   * @param x Value by which the X component is divided
+   * @param y Value by which the Y component is divided
+   * @param z Value by which the Z component is divided
+   * @return The component-wise division between this vector and the given scalars.
+   */
+  def divide(x: Float, y: Float, z: Float): Vec3f = this / (x, y, z)
+
+  /**
    * Returns a vector with all components in absolute value.
    *
    * @return This vector with all components in absolute value

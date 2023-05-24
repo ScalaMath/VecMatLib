@@ -136,6 +136,33 @@ case class Vec2f(x: Float, y: Float) extends VecFloat[Vec2f] with Float2 {
   def angle(x: Double, y: Double): Double = this.toDouble.angle(Vec2d(x, y))
 
   /**
+   * Returns a vector whose components are the multiplicative inverse of this vectors components.
+   *
+   * @return A vector whose components are the multiplicative inverse of this vectors components
+   */
+  override def inverse: Vec2f = Vec2f(1.0f / this.x, 1.0f / this.y)
+
+  /**
+   * Returns the component-wise division between this vector and the given scalars.
+   *
+   * @param x Value by which the X component is divided
+   * @param y Value by which the Y component is divided
+   * @return The component-wise division between this vector and the given scalars.
+   */
+  def /(x: Float, y: Float): Vec2f = Vec2f(this.x / x, this.y / y)
+
+  /**
+   * Returns the component-wise division between this vector and the given scalars.
+   *
+   * This method can be used in place of the '/' operator for better interoperability with Java.
+   *
+   * @param x Value by which the X component is divided
+   * @param y Value by which the Y component is divided
+   * @return The component-wise division between this vector and the given scalars.
+   */
+  def divide(x: Float, y: Float): Vec2f = this / (x, y)
+
+  /**
    * Returns a vector with all components in absolute value.
    *
    * @return This vector with all components in absolute value

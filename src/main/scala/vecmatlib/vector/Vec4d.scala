@@ -232,6 +232,37 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) extends VecDouble[V
   def angle(x: Double, y: Double, z: Double, w: Double): Double = this.angle(Vec4d(x, y, z, w))
 
   /**
+   * Returns a vector whose components are the multiplicative inverse of this vectors components.
+   *
+   * @return A vector whose components are the multiplicative inverse of this vectors components
+   */
+  override def inverse: Vec4d = Vec4d(1.0 / this.x, 1.0 / this.y, 1.0 / this.z, 1.0 / this.w)
+
+  /**
+   * Returns the component-wise division between this vector and the given scalars.
+   *
+   * @param x Value by which the X component is divided
+   * @param y Value by which the Y component is divided
+   * @param z Value by which the Z component is divided
+   * @param w Value by which the W component is divided
+   * @return The component-wise division between this vector and the given scalars.
+   */
+  def /(x: Double, y: Double, z: Double, w: Double): Vec4d = Vec4d(this.x / x, this.y / y, this.z / z, this.w / w)
+
+  /**
+   * Returns the component-wise division between this vector and the given scalars.
+   *
+   * This method can be used in place of the '/' operator for better interoperability with Java.
+   *
+   * @param x Value by which the X component is divided
+   * @param y Value by which the Y component is divided
+   * @param z Value by which the Z component is divided
+   * @param w Value by which the W component is divided
+   * @return The component-wise division between this vector and the given scalars.
+   */
+  def divide(x: Double, y: Double, z: Double, w: Double): Vec4d = this / (x, y, z, w)
+
+  /**
    * Returns a vector with all components in absolute value.
    *
    * @return This vector with all components in absolute value

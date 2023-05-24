@@ -136,6 +136,33 @@ case class Vec2d(x: Double, y: Double) extends VecDouble[Vec2d] with Double2 {
   def angle(x: Double, y: Double): Double = this.angle(Vec2d(x, y))
 
   /**
+   * Returns a vector whose components are the multiplicative inverse of this vectors components.
+   *
+   * @return A vector whose components are the multiplicative inverse of this vectors components
+   */
+  override def inverse: Vec2d = Vec2d(1.0 / this.x, 1.0 / this.y)
+
+  /**
+   * Returns the component-wise division between this vector and the given scalars.
+   *
+   * @param x Value by which the X component is divided
+   * @param y Value by which the Y component is divided
+   * @return The component-wise division between this vector and the given scalars.
+   */
+  def /(x: Double, y: Double): Vec2d = Vec2d(this.x / x, this.y / y)
+
+  /**
+   * Returns the component-wise division between this vector and the given scalars.
+   *
+   * This method can be used in place of the '/' operator for better interoperability with Java.
+   *
+   * @param x Value by which the X component is divided
+   * @param y Value by which the Y component is divided
+   * @return The component-wise division between this vector and the given scalars.
+   */
+  def divide(x: Double, y: Double): Vec2d = this / (x, y)
+
+  /**
    * Returns a vector with all components in absolute value.
    *
    * @return This vector with all components in absolute value

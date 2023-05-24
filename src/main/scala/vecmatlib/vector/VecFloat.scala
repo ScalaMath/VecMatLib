@@ -81,6 +81,31 @@ abstract class VecFloat[V <: VecFloat[V]] extends VecAbstract[V] {
   override def angle(v: V): Double = math.acos((this dot v) / (this.length * v.length))
 
   /**
+   * Returns a vector whose components are the multiplicative inverse of this vectors components.
+   *
+   * @return A vector whose components are the multiplicative inverse of this vectors components
+   */
+  def inverse: V
+
+  /**
+   * Returns the component-wise division between this vector and the given one.
+   *
+   * @param v The second operand of the division
+   * @return The component-wise multiplication between this vector and the given one
+   */
+  def /(v: V): V = this * v.inverse
+
+  /**
+   * Returns the component-wise division between this vector and the given one.
+   *
+   * This method can be used in place of the '/' operator for better interoperability with Java.
+   *
+   * @param v The second operand of the division
+   * @return The component-wise multiplication between this vector and the given one
+   */
+  def divide(v: V): V = this / v
+
+  /**
    * Returns the normalized vector pointing from this vector to the given one.
    *
    * Using `a.directionTo(b)` is equivalent to using `(b - a).normalized`.
