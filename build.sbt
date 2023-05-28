@@ -16,7 +16,7 @@ libraryDependencies ++= Seq(
 )
 
 // Publishing
-ThisBuild / organization := "vecmatlib"
+ThisBuild / organization := "io.github.hexagonnico"
 ThisBuild / organizationName := "vecmatlib"
 
 ThisBuild / scmInfo := Some(
