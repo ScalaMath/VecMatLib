@@ -18,6 +18,8 @@ libraryDependencies ++= Seq(
 // Publishing
 ThisBuild / organization := "io.github.hexagonnico"
 ThisBuild / organizationName := "vecmatlib"
+ThisBuild / organizationHomepage := Some(url("https://github.com/HexagonNico/VecMatLib"))
+ThisBuild / crossPaths := false
 
 ThisBuild / scmInfo := Some(
   ScmInfo(
@@ -35,9 +37,11 @@ ThisBuild / developers := List(
   )
 )
 
+ThisBuild / description := "A Scala library for vectors and matrix math"
 ThisBuild / licenses := List(
   "Apache 2" -> new URL("http://www.apache.org/licenses/LICENSE-2.0.txt")
 )
+ThisBuild / homepage := Some(url("https://github.com/HexagonNico/VecMatLib"))
 
 ThisBuild / pomIncludeRepository := { _ => false }
 ThisBuild / publishTo := {
@@ -45,5 +49,4 @@ ThisBuild / publishTo := {
   if (isSnapshot.value) Some("snapshots" at nexus + "content/repositories/snapshots")
   else Some("releases" at nexus + "service/local/staging/deploy/maven2")
 }
-
 ThisBuild / publishMavenStyle := true

@@ -130,7 +130,27 @@ An LWJGL project using VecMatLib is [Gamma Engine](https://github.com/Gamma-Engi
 
 ## Add VecMatLib to your project
 
+### sbt
 
+```
+libraryDependencies += "io.github.hexagonnico" % "vecmatlib" % "2.0"
+```
+
+### Maven
+
+```xml
+<dependency>
+    <groupId>io.github.hexagonnico</groupId>
+    <artifactId>vecmatlib</artifactId>
+    <version>2.0</version>
+</dependency>
+```
+
+### Gradle
+
+```groovy
+implementation 'io.github.hexagonnico:vecmatlib:2.0'
+```
 
 ## Contributing
 
