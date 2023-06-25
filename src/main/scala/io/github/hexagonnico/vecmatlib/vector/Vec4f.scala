@@ -396,4 +396,57 @@ object Vec4f {
   val Zero: Vec4f = Vec4f(0.0f, 0.0f, 0.0f, 0.0f)
   /** Shorthand for `new Vec4f(1.0f, 1.0f, 1.0f, 1.0f)` */
   val One: Vec4f = Vec4f(1.0f, 1.0f, 1.0f, 1.0f)
+
+  /**
+   * Constructs a Vec4f from the given components.
+   * Allows to use the syntax `Vec4f(xy, z, w)` instead of `new Vec4f(xy, z, w)` in scala.
+   *
+   * @param xy X and Y components of the vector
+   * @param z  Z component of the vector
+   * @param w  W component of the vector
+   * @return The resulting vector
+   */
+  def apply(xy: Float2, z: Float, w: Float): Vec4f = new Vec4f(xy, z, w)
+
+  /**
+   * Constructs a Vec4f from the given components.
+   * Allows to use the syntax `Vec4f(x, yz, w)` instead of `new Vec4f(x, yz, w)` in scala.
+   *
+   * @param x  X component of the vector
+   * @param yz Y and Z components of the vector
+   * @param w  W component of the vector
+   * @return The resulting vector
+   */
+  def apply(x: Float, yz: Float2, w: Float): Vec4f = new Vec4f(x, yz, w)
+
+  /**
+   * Constructs a Vec4f from the given components.
+   * Allows to use the syntax `Vec4f(x, y, zw)` instead of `new Vec4f(x, y, zw)` in scala.
+   *
+   * @param x  X component of the vector
+   * @param y  Y component of the vector
+   * @param zw Z and W components of the vector
+   * @return The resulting vector
+   */
+  def apply(x: Float, y: Float, zw: Float2): Vec4f = new Vec4f(x, y, zw)
+
+  /**
+   * Constructs a Vec4f from the given components.
+   * Allows to use the syntax `Vec4f(xyz, w)` instead of `new Vec4f(xyz, w)` in scala.
+   *
+   * @param xyz X, Y, and Z components of the vector
+   * @param w   W component of the vector
+   * @return The resulting vector
+   */
+  def apply(xyz: Float3, w: Float): Vec4f = new Vec4f(xyz, w)
+
+  /**
+   * Constructs a Vec4f from the given components.
+   * Allows to use the syntax `Vec4f(x, yzw)` instead of `new Vec4f(x, yzw)` in scala.
+   *
+   * @param x   X component of the vector
+   * @param yzw Y, Z, and W components of the vector
+   * @return The resulting vector
+   */
+  def apply(x: Float, yzw: Float3): Vec4f = new Vec4f(x, yzw)
 }

@@ -360,4 +360,57 @@ object Vec4i {
   val Zero: Vec4i = Vec4i(0, 0, 0, 0)
   /** Shorthand for `new Vec4i(1, 1, 1, 1)` */
   val One: Vec4i = Vec4i(1, 1, 1, 1)
+
+  /**
+   * Constructs a Vec4i from the given components.
+   * Allows to use the syntax `Vec4i(xy, z, w)` instead of `new Vec4i(xy, z, w)` in scala.
+   *
+   * @param xy X and Y components of the vector
+   * @param z  Z component of the vector
+   * @param w  W component of the vector
+   * @return The resulting vector
+   */
+  def apply(xy: Int2, z: Int, w: Int): Vec4i = new Vec4i(xy, z, w)
+
+  /**
+   * Constructs a Vec4i from the given components.
+   * Allows to use the syntax `Vec4i(x, yz, w)` instead of `new Vec4i(x, yz, w)` in scala.
+   *
+   * @param x  X component of the vector
+   * @param yz Y and Z components of the vector
+   * @param w  W component of the vector
+   * @return The resulting vector
+   */
+  def apply(x: Int, yz: Int2, w: Int): Vec4i = new Vec4i(x, yz, w)
+
+  /**
+   * Constructs a Vec4i from the given components.
+   * Allows to use the syntax `Vec4i(x, y, zw)` instead of `new Vec4i(x, y, zw)` in scala.
+   *
+   * @param x  X component of the vector
+   * @param y  Y component of the vector
+   * @param zw Z and W components of the vector
+   * @return The resulting vector
+   */
+  def apply(x: Int, y: Int, zw: Int2): Vec4i = new Vec4i(x, y, zw)
+
+  /**
+   * Constructs a Vec4i from the given components.
+   * Allows to use the syntax `Vec4i(xyz, w)` instead of `new Vec4i(xyz, w)` in scala.
+   *
+   * @param xyz X, Y, and Z components of the vector
+   * @param w   W component of the vector
+   * @return The resulting vector
+   */
+  def apply(xyz: Int3, w: Int): Vec4i = new Vec4i(xyz, w)
+
+  /**
+   * Constructs a Vec4i from the given components.
+   * Allows to use the syntax `Vec4i(x, yzw)` instead of `new Vec4i(x, yzw)` in scala.
+   *
+   * @param x   X component of the vector
+   * @param yzw Y, Z, and W components of the vector
+   * @return The resulting vector
+   */
+  def apply(x: Int, yzw: Int3): Vec4i = new Vec4i(x, yzw)
 }

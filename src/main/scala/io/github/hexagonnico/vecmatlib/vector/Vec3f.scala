@@ -13,7 +13,7 @@ import io.github.hexagonnico.vecmatlib.{Float2, Float3}
 case class Vec3f(x: Float, y: Float, z: Float) extends VecFloat[Vec3f] with Float3 {
 
   /**
-   * Constructs a Vec3d from the given xy tuple and z component.
+   * Constructs a Vec3f from the given xy tuple and z component.
    *
    * @param xy X and Y components of the vector
    * @param z  Y component of the vector
@@ -21,7 +21,7 @@ case class Vec3f(x: Float, y: Float, z: Float) extends VecFloat[Vec3f] with Floa
   def this(xy: Float2, z: Float) = this(xy.x, xy.y, z)
 
   /**
-   * Constructs a Vec3d from the given x component and yz tuple.
+   * Constructs a Vec3f from the given x component and yz tuple.
    *
    * @param x  X component of the vector
    * @param yz Y and Z components of the vector
@@ -358,4 +358,24 @@ object Vec3f {
   val Forward: Vec3f = Vec3f(0.0f, 0.0f, 1.0f)
   /** Shorthand for `new Vec3f(0.0f, 0.0f, -1.0f)` */
   val Backwards: Vec3f = Vec3f(0.0f, 0.0f, -1.0f)
+
+  /**
+   * Constructs a Vec3f from the given xy tuple and z component.
+   * Allows to use the syntax `Vec3f(xy, z)` instead of `new Vec3f(xy, z)` in scala.
+   *
+   * @param xy X and Y components of the vector
+   * @param z  Y component of the vector
+   * @return The resulting vector
+   */
+  def apply(xy: Float2, z: Float): Vec3f = new Vec3f(xy, z)
+
+  /**
+   * Constructs a Vec3f from the given x component and yz tuple.
+   * Allows to use the syntax `Vec3f(x, yz)` instead of `new Vec3f(x, yz)` in scala.
+   *
+   * @param x  X component of the vector
+   * @param yz Y and Z components of the vector
+   * @return The resulting vector
+   */
+  def apply(x: Float, yz: Float2): Vec3f = new Vec3f(x, yz)
 }

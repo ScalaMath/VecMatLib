@@ -396,4 +396,57 @@ object Vec4d {
   val Zero: Vec4d = Vec4d(0.0, 0.0, 0.0, 0.0)
   /** Shorthand for `new Vec4d(1.0, 1.0, 1.0, 1.0)` */
   val One: Vec4d = Vec4d(1.0, 1.0, 1.0, 1.0)
+
+  /**
+   * Constructs a Vec4d from the given components.
+   * Allows to use the syntax `Vec4d(xy, z, w)` instead of `new Vec4d(xy, z, w)` in scala.
+   *
+   * @param xy X and Y components of the vector
+   * @param z  Z component of the vector
+   * @param w  W component of the vector
+   * @return The resulting vector
+   */
+  def apply(xy: Double2, z: Double, w: Double): Vec4d = new Vec4d(xy, z, w)
+
+  /**
+   * Constructs a Vec4d from the given components.
+   * Allows to use the syntax `Vec4d(x, yz, w)` instead of `new Vec4d(x, yz, w)` in scala.
+   *
+   * @param x  X component of the vector
+   * @param yz Y and Z components of the vector
+   * @param w  W component of the vector
+   * @return The resulting vector
+   */
+  def apply(x: Double, yz: Double2, w: Double): Vec4d = new Vec4d(x, yz, w)
+
+  /**
+   * Constructs a Vec4d from the given components.
+   * Allows to use the syntax `Vec4d(x, y, zw)` instead of `new Vec4d(x, y, zw)` in scala.
+   *
+   * @param x  X component of the vector
+   * @param y  Y component of the vector
+   * @param zw Z and W components of the vector
+   * @return The resulting vector
+   */
+  def apply(x: Double, y: Double, zw: Double2): Vec4d = new Vec4d(x, y, zw)
+
+  /**
+   * Constructs a Vec4d from the given components.
+   * Allows to use the syntax `Vec4d(xyz, w)` instead of `new Vec4d(xyz, w)` in scala.
+   *
+   * @param xyz X, Y, and Z components of the vector
+   * @param w   W component of the vector
+   * @return The resulting vector
+   */
+  def apply(xyz: Double3, w: Double): Vec4d = new Vec4d(xyz, w)
+
+  /**
+   * Constructs a Vec4d from the given components.
+   * Allows to use the syntax `Vec4d(x, yzw)` instead of `new Vec4d(x, yzw)` in scala.
+   *
+   * @param x   X component of the vector
+   * @param yzw Y, Z, and W components of the vector
+   * @return The resulting vector
+   */
+  def apply(x: Double, yzw: Double3): Vec4d = new Vec4d(x, yzw)
 }

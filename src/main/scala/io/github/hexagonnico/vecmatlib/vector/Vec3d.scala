@@ -358,4 +358,24 @@ object Vec3d {
   val Forward: Vec3d = Vec3d(0.0, 0.0, 1.0)
   /** Shorthand for `new Vec3d(0.0, 0.0, -1.0)` */
   val Backwards: Vec3d = Vec3d(0.0, 0.0, -1.0)
+
+  /**
+   * Constructs a Vec3d from the given xy tuple and z component.
+   * Allows to use the syntax `Vec3d(xy, z)` instead of `new Vec3d(xy, z)` in scala.
+   *
+   * @param xy X and Y components of the vector
+   * @param z  Y component of the vector
+   * @return The resulting vector
+   */
+  def apply(xy: Double2, z: Double): Vec3d = new Vec3d(xy, z)
+
+  /**
+   * Constructs a Vec3d from the given x component and yz tuple.
+   * Allows to use the syntax `Vec3d(x, yz)` instead of `new Vec3d(x, yz)` in scala.
+   *
+   * @param x  X component of the vector
+   * @param yz Y and Z components of the vector
+   * @return The resulting vector
+   */
+  def apply(x: Double, yz: Double2): Vec3d = new Vec3d(x, yz)
 }

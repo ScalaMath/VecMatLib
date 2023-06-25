@@ -13,7 +13,7 @@ import io.github.hexagonnico.vecmatlib.{Int2, Int3}
 case class Vec3i(x: Int, y: Int, z: Int) extends VecInt[Vec3i] with Int3 {
 
   /**
-   * Constructs a Vec3d from the given xy tuple and z component.
+   * Constructs a Vec3i from the given xy tuple and z component.
    *
    * @param xy X and Y components of the vector
    * @param z  Y component of the vector
@@ -21,7 +21,7 @@ case class Vec3i(x: Int, y: Int, z: Int) extends VecInt[Vec3i] with Int3 {
   def this(xy: Int2, z: Int) = this(xy.x, xy.y, z)
 
   /**
-   * Constructs a Vec3d from the given x component and yz tuple.
+   * Constructs a Vec3i from the given x component and yz tuple.
    *
    * @param x  X component of the vector
    * @param yz Y and Z components of the vector
@@ -325,4 +325,24 @@ object Vec3i {
   val Forward: Vec3i = Vec3i(0, 0, 1)
   /** Shorthand for `new Vec3i(0, 0, -1)` */
   val Backwards: Vec3i = Vec3i(0, 0, -1)
+
+  /**
+   * Constructs a Vec3i from the given xy tuple and z component.
+   * Allows to use the syntax `Vec3i(xy, z)` instead of `new Vec3i(xy, z)` in scala.
+   *
+   * @param xy X and Y components of the vector
+   * @param z  Y component of the vector
+   * @return The resulting vector
+   */
+  def apply(xy: Int2, z: Int): Vec3i = new Vec3i(xy, z)
+
+  /**
+   * Constructs a Vec3i from the given x component and yz tuple.
+   * Allows to use the syntax `Vec3i(x, yz)` instead of `new Vec3i(x, yz)` in scala.
+   *
+   * @param x  X component of the vector
+   * @param yz Y and Z components of the vector
+   * @return The resulting vector
+   */
+  def apply(x: Int, yz: Int2): Vec3i = new Vec3i(x, yz)
 }
