@@ -132,6 +132,16 @@ case class Mat4d(
   override def *(v: Vec4d): Vec4d = Vec4d(this.row0 dot v, this.row1 dot v, this.row2 dot v, this.row3 dot v)
 
   /**
+   * Returns the product of this matrix by the given vector.
+   * Allows a more convenient way to multiply vectors by transformation matrices.
+   *
+   * @param v The X, Y, and Z components of the vector by which this matrix is multiplied
+   * @param w The W component of the vector by which this matrix is multiplied
+   * @return The product of this matrix by the given vector
+   */
+  def *(v: Vec3d, w: Double): Vec4d = this * (v.x, v.y, v.z, w)
+
+  /**
    * Returns the product of this matrix by the vector with the given components.
    *
    * @param x X component of the vector by which this matrix is multiplied
@@ -152,6 +162,18 @@ case class Mat4d(
    * @return The product between this matrix and the vector with the given components
    */
   def multiply(x: Double, y: Double, z: Double, w: Double): Vec4d = this * Vec4d(x, y, z, w)
+
+  /**
+   * Returns the product of this matrix by the given vector.
+   * Allows a more convenient way to multiply vectors by transformation matrices.
+   *
+   * This method can be used in place of the '*' operator for better interoperability with Java.
+   *
+   * @param v The X, Y, and Z components of the vector by which this matrix is multiplied
+   * @param w The W component of the vector by which this matrix is multiplied
+   * @return The product of this matrix by the given vector
+   */
+  def multiply(v: Vec3d, w: Double): Vec4d = this * (v, w)
 
   /**
    * Returns the product between this matrix and the given one.
