@@ -112,7 +112,7 @@ val green = Color3f(0.0f, 1.0f, 0.0f) // RGB #00FF00
 val transparentBlue = Color4f(0.0f, 0.0f, 1.0f, 0.5f) // RGBA #0000FF88
 ```
 
-Values outside the range are allowed.
+Values outside the (0.0, 1.0) range are allowed.
 
 ## Using with LWJGL
 
@@ -126,14 +126,14 @@ int location = GL20.glGetUniformLocation(program, "light_position");
 GL20.glUniform3f(location, lightPosition.x(), lightPosition.y(), lightPosition.z());
 ```
 
-An LWJGL project using VecMatLib is [Gamma Engine](https://github.com/Gamma-Engine), a general purpose graphics engine written in Java.
+An LWJGL project using VecMatLib is [LWJRE](https://github.com/LWJRE), a general purpose rendering engine written in Java.
 
 ## Add VecMatLib to your project
 
 ### sbt
 
 ```
-libraryDependencies += "io.github.hexagonnico" % "vecmatlib" % "2.0"
+libraryDependencies += "io.github.hexagonnico" % "vecmatlib" % "2.1"
 ```
 
 ### Maven
@@ -142,14 +142,14 @@ libraryDependencies += "io.github.hexagonnico" % "vecmatlib" % "2.0"
 <dependency>
     <groupId>io.github.hexagonnico</groupId>
     <artifactId>vecmatlib</artifactId>
-    <version>2.0</version>
+    <version>2.1</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```groovy
-implementation 'io.github.hexagonnico:vecmatlib:2.0'
+implementation 'io.github.hexagonnico:vecmatlib:2.1'
 ```
 
 ## Contributing
