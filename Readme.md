@@ -133,7 +133,7 @@ An LWJGL project using VecMatLib is [LWJRE](https://github.com/LWJRE), a general
 ### sbt
 
 ```
-libraryDependencies += "io.github.hexagonnico" % "vecmatlib" % "2.1"
+libraryDependencies += "io.github.hexagonnico" % "vecmatlib" % "2.2"
 ```
 
 ### Maven
@@ -142,14 +142,14 @@ libraryDependencies += "io.github.hexagonnico" % "vecmatlib" % "2.1"
 <dependency>
     <groupId>io.github.hexagonnico</groupId>
     <artifactId>vecmatlib</artifactId>
-    <version>2.1</version>
+    <version>2.2</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```groovy
-implementation 'io.github.hexagonnico:vecmatlib:2.1'
+implementation 'io.github.hexagonnico:vecmatlib:2.2'
 ```
 
 ## Contributing
