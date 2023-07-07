@@ -57,6 +57,11 @@ class Color3fSuite extends AnyFunSuite {
     assert(color * 0.5f == Color3f(0.5f, 0.45f, 0.4f))
   }
 
+  test("Test color multiplication with a scalar commutativity") {
+    val color = Color3f(1.0f, 0.9f, 0.8f)
+    assert(0.5f * color == Color3f(0.5f, 0.45f, 0.4f))
+  }
+
   test("Test color inverse") {
     val color = Color3f(0.3f, 0.3f, 0.3f)
     assert(color.invert == Color3f(0.7f, 0.7f, 0.7f))

@@ -637,4 +637,20 @@ object Color3f {
   lazy val Yellow: Color3f = Color3f(1.0f, 1.0f, 0.0f)
 
   lazy val YellowGreen: Color3f = Color3f(0.603922f, 0.803922f, 0.196078f)
+
+  /**
+   * Allows to use the operator '*' with a scalar as `1.0f * color`.
+   *
+   * @param k The scalar to which the color is multiplied
+   */
+  implicit class MultiplicationExtender(val k: Float) extends AnyVal {
+
+    /**
+     * Returns the product between this scalar and the given vector.
+     *
+     * @param c The color to which the scalar is multiplied
+     * @return The result of the product between this scalar and the given color
+     */
+    def *(c: Color3f): Color3f = c * k
+  }
 }

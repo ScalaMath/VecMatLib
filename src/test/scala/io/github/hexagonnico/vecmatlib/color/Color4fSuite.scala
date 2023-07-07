@@ -57,6 +57,11 @@ class Color4fSuite extends AnyFunSuite {
     assert(color * 0.5f == Color4f(0.5f, 0.45f, 0.4f, 0.5f))
   }
 
+  test("Test color multiplication with a scalar commutativity") {
+    val color = Color4f(1.0f, 0.9f, 0.8f)
+    assert(0.5f * color == Color4f(0.5f, 0.45f, 0.4f, 0.5f))
+  }
+
   test("Test color inverse") {
     val color = Color4f(0.3f, 0.3f, 0.3f)
     assert(color.invert == Color4f(0.7f, 0.7f, 0.7f))
