@@ -39,6 +39,12 @@ class Vec4fSuite extends AnyFunSuite {
     assert(res == Vec4f(1.5f, 3.0f, 4.5f, 6.0f))
   }
 
+  test("Vector multiplied by a scalar commutativity") {
+    val vec = Vec4f(1.0f, 2.0f, 3.0f, 4.0f)
+    val res = 1.5f * vec
+    assert(res == Vec4f(1.5f, 3.0f, 4.5f, 6.0f))
+  }
+
   test("Vector divided by a scalar") {
     val vec = Vec4f(1.0f, 2.0f, 3.0f, 4.0f)
     val res = vec / 2.0f

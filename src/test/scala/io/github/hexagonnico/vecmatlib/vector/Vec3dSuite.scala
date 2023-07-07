@@ -39,6 +39,12 @@ class Vec3dSuite extends AnyFunSuite {
     assert(res == Vec3d(1.5, 3.0, 4.5))
   }
 
+  test("Vector multiplied by a scalar commutativity") {
+    val vec = Vec3d(1.0, 2.0, 3.0)
+    val res = 1.5 * vec
+    assert(res == Vec3d(1.5, 3.0, 4.5))
+  }
+
   test("Vector divided by a scalar") {
     val vec = Vec3d(1.0, 2.0, 3.0)
     val res = vec / 2.0

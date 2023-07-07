@@ -39,6 +39,12 @@ class Vec2iSuite extends AnyFunSuite {
     assert(res == Vec2i(2, 4))
   }
 
+  test("Vector multiplied by a scalar commutativity") {
+    val vec = Vec2i(1, 2)
+    val res = 2 * vec
+    assert(res == Vec2i(2, 4))
+  }
+
   test("Vector divided by a scalar") {
     val vec = Vec2i(1, 2)
     val res = vec / 2

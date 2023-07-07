@@ -449,4 +449,20 @@ object Vec4f {
    * @return The resulting vector
    */
   def apply(x: Float, yzw: Float3): Vec4f = new Vec4f(x, yzw)
+
+  /**
+   * Allows to use the operator '*' with a scalar as `1.0f * vector`.
+   *
+   * @param k The scalar to which the vector is multiplied
+   */
+  implicit class MultiplicationExtender(val k: Float) extends AnyVal {
+
+    /**
+     * Returns the product between this scalar and the given vector.
+     *
+     * @param v The vector to which the scalar is multiplied
+     * @return The result of the product between this scalar and the given vector
+     */
+    def *(v: Vec4f): Vec4f = v * k
+  }
 }

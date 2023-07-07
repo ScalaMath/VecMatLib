@@ -286,4 +286,20 @@ object Vec2d {
   val Up: Vec2d = Vec2d(0.0, 1.0)
   /** Shorthand for `new Vec2d(0.0, -1.0)` */
   val Down: Vec2d = Vec2d(0.0, -1.0)
+
+  /**
+   * Allows to use the operator '*' with a scalar as `1.0f * vector`.
+   *
+   * @param k The scalar to which the vector is multiplied
+   */
+  implicit class MultiplicationExtender(val k: Double) extends AnyVal {
+
+    /**
+     * Returns the product between this scalar and the given vector.
+     *
+     * @param v The vector to which the scalar is multiplied
+     * @return The result of the product between this scalar and the given vector
+     */
+    def *(v: Vec2d): Vec2d = v * k
+  }
 }
