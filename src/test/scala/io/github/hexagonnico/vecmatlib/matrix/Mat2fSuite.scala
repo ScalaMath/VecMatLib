@@ -55,6 +55,16 @@ class Mat2fSuite extends AnyFunSuite {
     ))
   }
 
+  test("Matrix multiplied by a scalar commutativity") {
+    assert(1.5f * Mat2f(
+      1.0f, 1.0f,
+      1.0f, 1.0f
+    ) == Mat2f(
+      1.5f, 1.5f,
+      1.5f, 1.5f
+    ))
+  }
+
   test("Matrix-vector product") {
     val mat = Mat2f(
       0.0f, 1.0f,

@@ -347,7 +347,7 @@ object Vec3i {
   def apply(x: Int, yz: Int2): Vec3i = new Vec3i(x, yz)
 
   /**
-   * Allows to use the operator '*' with a scalar as `1.0f * vector`.
+   * Allows to use the operator '*' with a scalar as `1 * vector`.
    *
    * @param k The scalar to which the vector is multiplied
    */

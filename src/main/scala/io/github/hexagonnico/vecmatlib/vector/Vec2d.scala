@@ -288,7 +288,7 @@ object Vec2d {
   val Down: Vec2d = Vec2d(0.0, -1.0)
 
   /**
-   * Allows to use the operator '*' with a scalar as `1.0f * vector`.
+   * Allows to use the operator '*' with a scalar as `1.0 * vector`.
    *
    * @param k The scalar to which the vector is multiplied
    */

@@ -415,7 +415,7 @@ object Vec4i {
   def apply(x: Int, yzw: Int3): Vec4i = new Vec4i(x, yzw)
 
   /**
-   * Allows to use the operator '*' with a scalar as `1.0f * vector`.
+   * Allows to use the operator '*' with a scalar as `1 * vector`.
    *
    * @param k The scalar to which the vector is multiplied
    */

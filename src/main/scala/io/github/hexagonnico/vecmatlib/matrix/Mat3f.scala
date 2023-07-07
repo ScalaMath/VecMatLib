@@ -294,4 +294,20 @@ object Mat3f {
    * @return A 3x3 scaling matrix
    */
   def scaling(v: Vec2f): Mat3f = scaling(v.x, v.y, 1.0f)
+
+  /**
+   * Allows to use the operator '*' with a scalar as `1.0f * matrix`.
+   *
+   * @param k The scalar to which the matrix is multiplied
+   */
+  implicit class MultiplicationExtender(val k: Float) extends AnyVal {
+
+    /**
+     * Returns the product between this scalar and the given matrix.
+     *
+     * @param m The matrix to which the scalar is multiplied
+     * @return The result of the product between this scalar and the given matrix
+     */
+    def *(m: Mat3f): Mat3f = m * k
+  }
 }

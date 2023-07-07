@@ -150,4 +150,20 @@ object Mat2i {
   val Identity: Mat2i = Mat2i(1, 0, 0, 1)
   /** Shorthand for `new Mat2i(0, 0, 0, 0)` */
   val Zero: Mat2i = Mat2i(0, 0, 0, 0)
+
+  /**
+   * Allows to use the operator '*' with a scalar as `1 * matrix`.
+   *
+   * @param k The scalar to which the matrix is multiplied
+   */
+  implicit class MultiplicationExtender(val k: Int) extends AnyVal {
+
+    /**
+     * Returns the product between this scalar and the given matrix.
+     *
+     * @param m The matrix to which the scalar is multiplied
+     * @return The result of the product between this scalar and the given matrix
+     */
+    def *(m: Mat2i): Mat2i = m * k
+  }
 }

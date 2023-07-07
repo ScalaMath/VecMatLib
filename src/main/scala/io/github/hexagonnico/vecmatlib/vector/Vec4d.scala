@@ -451,7 +451,7 @@ object Vec4d {
   def apply(x: Double, yzw: Double3): Vec4d = new Vec4d(x, yzw)
 
   /**
-   * Allows to use the operator '*' with a scalar as `1.0f * vector`.
+   * Allows to use the operator '*' with a scalar as `1.0 * vector`.
    *
    * @param k The scalar to which the vector is multiplied
    */

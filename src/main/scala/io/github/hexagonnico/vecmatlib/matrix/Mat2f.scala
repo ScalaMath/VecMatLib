@@ -150,4 +150,20 @@ object Mat2f {
   val Identity: Mat2f = Mat2f(1.0f, 0.0f, 0.0f, 1.0f)
   /** Shorthand for `new Mat2f(0.0f, 0.0f, 0.0f, 0.0f)` */
   val Zero: Mat2f = Mat2f(0.0f, 0.0f, 0.0f, 0.0f)
+
+  /**
+   * Allows to use the operator '*' with a scalar as `1.0f * matrix`.
+   *
+   * @param k The scalar to which the matrix is multiplied
+   */
+  implicit class MultiplicationExtender(val k: Float) extends AnyVal {
+
+    /**
+     * Returns the product between this scalar and the given matrix.
+     *
+     * @param m The matrix to which the scalar is multiplied
+     * @return The result of the product between this scalar and the given matrix
+     */
+    def *(m: Mat2f): Mat2f = m * k
+  }
 }

@@ -55,6 +55,16 @@ class Mat2iSuite extends AnyFunSuite {
     ))
   }
 
+  test("Matrix multiplied by a scalar commutativity") {
+    assert(2 * Mat2i(
+      1, 1,
+      1, 1
+    ) == Mat2i(
+      2, 2,
+      2, 2
+    ))
+  }
+
   test("Matrix-vector product") {
     val mat = Mat2i(
       0, 1,

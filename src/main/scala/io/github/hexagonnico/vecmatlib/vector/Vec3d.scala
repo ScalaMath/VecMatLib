@@ -380,7 +380,7 @@ object Vec3d {
   def apply(x: Double, yz: Double2): Vec3d = new Vec3d(x, yz)
 
   /**
-   * Allows to use the operator '*' with a scalar as `1.0f * vector`.
+   * Allows to use the operator '*' with a scalar as `1.0 * vector`.
    *
    * @param k The scalar to which the vector is multiplied
    */

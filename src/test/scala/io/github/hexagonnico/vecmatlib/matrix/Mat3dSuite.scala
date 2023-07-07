@@ -65,6 +65,18 @@ class Mat3dSuite extends AnyFunSuite {
     ))
   }
 
+  test("Matrix multiplied by a scalar commutativity") {
+    assert(1.5 * Mat3d(
+      1.0, 1.0, 1.0,
+      1.0, 1.0, 1.0,
+      1.0, 1.0, 2.0
+    ) == Mat3d(
+      1.5, 1.5, 1.5,
+      1.5, 1.5, 1.5,
+      1.5, 1.5, 3.0
+    ))
+  }
+
   test("Matrix-vector product") {
     val mat = Mat3d(
       0.0, 1.0, 0.0,

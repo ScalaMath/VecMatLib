@@ -65,6 +65,18 @@ class Mat3iSuite extends AnyFunSuite {
     ))
   }
 
+  test("Matrix multiplied by a scalar commutativity") {
+    assert(2 * Mat3i(
+      1, 1, 1,
+      1, 1, 1,
+      1, 1, 2
+    ) == Mat3i(
+      2, 2, 2,
+      2, 2, 2,
+      2, 2, 4
+    ))
+  }
+
   test("Matrix-vector product") {
     val mat = Mat3i(
       0, 1, 0,

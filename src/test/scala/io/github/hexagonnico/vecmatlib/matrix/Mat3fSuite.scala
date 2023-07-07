@@ -65,6 +65,18 @@ class Mat3fSuite extends AnyFunSuite {
     ))
   }
 
+  test("Matrix multiplied by a scalar commutativity") {
+    assert(1.5f * Mat3f(
+      1.0f, 1.0f, 1.0f,
+      1.0f, 1.0f, 1.0f,
+      1.0f, 1.0f, 2.0f
+    ) == Mat3f(
+      1.5f, 1.5f, 1.5f,
+      1.5f, 1.5f, 1.5f,
+      1.5f, 1.5f, 3.0f
+    ))
+  }
+
   test("Matrix-vector product") {
     val mat = Mat3f(
       0.0f, 1.0f, 0.0f,

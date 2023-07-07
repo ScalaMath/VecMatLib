@@ -258,7 +258,7 @@ object Vec2i {
   val Down: Vec2i = Vec2i(0, -1)
 
   /**
-   * Allows to use the operator '*' with a scalar as `1.0f * vector`.
+   * Allows to use the operator '*' with a scalar as `1 * vector`.
    *
    * @param k The scalar to which the vector is multiplied
    */
