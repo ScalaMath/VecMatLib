@@ -311,10 +311,10 @@ case class Quaternion(w: Double, x: Double, y: Double, z: Double) extends Double
    *
    * @return The exponential of this quaternion
    */
-  def exp: Double = {
+  def exp: Quaternion = {
     val v = Vec3d(this.x, this.y, this.z)
     val length = v.length
-    math.exp(this.w) * (math.cos(length) + v / v.length * math.sin(length))
+    Quaternion(math.exp(this.w), math.cos(length) + v / v.length * math.sin(length))
   }
 
   /**
@@ -322,10 +322,10 @@ case class Quaternion(w: Double, x: Double, y: Double, z: Double) extends Double
    *
    * @return The logarithm of this quaternion
    */
-  def log: Double = {
+  def log: Quaternion = {
     val v = Vec3d(this.x, this.y, this.z)
     val length = this.length
-    math.log(length) + v.normalized * math.acos(this.w / length)
+    Quaternion(math.log(length), v.normalized * math.acos(this.w / length))
   }
 
   /**
