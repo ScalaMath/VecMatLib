@@ -141,7 +141,7 @@ case class Quaternion(w: Double, x: Double, y: Double, z: Double) extends Double
   def multipliedBy(l: Double): Quaternion = this * l
 
   /**
-   * Returns the product between this quaternion and the quaternion `w + xi + yj + zk` as defined by the [[https://en.wikipedia.org/wiki/Quaternion#Hamilton_product Hamilton product]].
+   * Returns the product between this quaternion and the quaternion `w + xi + yj + zk` as defined by the Hamilton product.
    *
    * @param w The real/scalar part of the second operand of the multiplication
    * @param x The first component of the vector part of the second operand of the multiplication
@@ -157,7 +157,7 @@ case class Quaternion(w: Double, x: Double, y: Double, z: Double) extends Double
   )
 
   /**
-   * Returns the product between this quaternion and the quaternion `w + xi + yj + zk` as defined by the [[https://en.wikipedia.org/wiki/Quaternion#Hamilton_product Hamilton product]].
+   * Returns the product between this quaternion and the quaternion `w + xi + yj + zk` as defined by the Hamilton product.
    *
    * This method can be used in place of the '*' operator for better interoperability with Java.
    *
@@ -170,7 +170,7 @@ case class Quaternion(w: Double, x: Double, y: Double, z: Double) extends Double
   def multiply(w: Double, x: Double, y: Double, z: Double): Quaternion = this * (w, x, y, z)
 
   /**
-   * Returns the product between this quaternion and the given one as defined by the [[https://en.wikipedia.org/wiki/Quaternion#Hamilton_product Hamilton product]].
+   * Returns the product between this quaternion and the given one as defined by the Hamilton product.
    *
    * @param q The second operand of the multiplication
    * @return The product between this quaternion and the given one
@@ -178,7 +178,7 @@ case class Quaternion(w: Double, x: Double, y: Double, z: Double) extends Double
   def *(q: Quaternion): Quaternion = this * (q.w, q.x, q.y, q.z)
 
   /**
-   * Returns the product between this quaternion and the given one as defined by the [[https://en.wikipedia.org/wiki/Quaternion#Hamilton_product Hamilton product]].
+   * Returns the product between this quaternion and the given one as defined by the Hamilton product.
    *
    * This method can be used in place of the '*' operator for better interoperability with Java.
    *
@@ -247,11 +247,9 @@ case class Quaternion(w: Double, x: Double, y: Double, z: Double) extends Double
   def length: Double = math.sqrt(this.lengthSquared)
 
   /**
-   * Returns the [[https://en.wikipedia.org/wiki/Quaternion#Unit_quaternion versor]] of this quaternion. That is, this quaternion divided by its norm.
+   * Returns that is, this quaternion divided by its norm or [[length]].
    *
-   * @see [[length]]
-   *
-   * @return The versor of this quaternion
+   * @return A unit quaternion
    */
   def normalized: Quaternion = this / this.length
 
@@ -307,18 +305,18 @@ case class Quaternion(w: Double, x: Double, y: Double, z: Double) extends Double
   def divide(w: Double, x: Double, y: Double, z: Double): Quaternion = this / (w, x, y, z)
 
   /**
-   * Returns the [[https://en.wikipedia.org/wiki/Quaternion#Exponential,_logarithm,_and_power_functions exponential]] of this quaternion.
+   * Returns the exponential of this quaternion.
    *
    * @return The exponential of this quaternion
    */
   def exp: Quaternion = {
     val v = Vec3d(this.x, this.y, this.z)
     val length = v.length
-    Quaternion(math.exp(this.w), math.cos(length) + v / v.length * math.sin(length))
+    Quaternion(math.cos(length), v / v.length * math.sin(length)) * math.exp(this.w)
   }
 
   /**
-   * Returns the [[https://en.wikipedia.org/wiki/Quaternion#Exponential,_logarithm,_and_power_functions logarithm]] of this quaternion.
+   * Returns the logarithm of this quaternion.
    *
    * @return The logarithm of this quaternion
    */
@@ -398,6 +396,34 @@ case class Quaternion(w: Double, x: Double, y: Double, z: Double) extends Double
    * @return True if the components of this quaternion equal the given ones, otherwise false
    */
   def equals(w: Double, x: Double, y: Double, z: Double): Boolean = this == (w, x, y, z)
+
+  /**
+   * Returns a string representation of this quaternion in the form `w + xi + yj + zk`.
+   *
+   * @return A string representation of this quaternion
+   */
+  override def toString: String = {
+    val s = new StringBuilder(if (this.w == 0.0) "" else this.w.toString)
+    if (this.x != 0.0) {
+      if (s.nonEmpty) {
+        s ++= (if (this.x >= 0.0) " + " else " - ")
+      }
+      s ++= this.x.abs + "i"
+    }
+    if (this.y != 0.0) {
+      if (s.nonEmpty) {
+        s ++= (if (this.y >= 0.0) " + " else " - ")
+      }
+      s ++= this.y.abs + "j"
+    }
+    if (this.z != 0.0) {
+      if (s.nonEmpty) {
+        s ++= (if (this.z >= 0.0) " + " else " - ")
+      }
+      s ++= this.z.abs + "k"
+    }
+    s.toString
+  }
 }
 
 object Quaternion {
