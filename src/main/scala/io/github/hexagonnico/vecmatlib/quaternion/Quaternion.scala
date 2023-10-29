@@ -422,7 +422,7 @@ case class Quaternion(w: Double, x: Double, y: Double, z: Double) extends Double
       }
       s ++= this.z.abs + "k"
     }
-    s.toString
+    if (s.isEmpty) "0.0" else s.toString
   }
 }
 
