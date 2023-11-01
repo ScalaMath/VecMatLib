@@ -36,7 +36,7 @@ jobs:
           echo "password=$SONATYPE_PASSWORD" >> ~/.sbt/sonatype_credentials
           mkdir ~/.sbt/1.0/plugins
           touch ~/.sbt/1.0/plugins/gpg.sbt
-          echo "addSbtPlugin("com.github.sbt" % "sbt-pgp" % "2.1.2")" > ~/.sbt/1.0/plugins/gpg.sbt
+          echo "addSbtPlugin(\"com.github.sbt\" % \"sbt-pgp\" % \"2.1.2\")" > ~/.sbt/1.0/plugins/gpg.sbt
       - name: Deploy
         run: sbt publishSigned
       - name: Message
