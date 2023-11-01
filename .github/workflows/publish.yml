@@ -21,6 +21,11 @@ jobs:
         with:
           distribution: oracle
           java-version: 17
+      - name: Configure GPG Key
+        env:
+          GPG_KEY: ${{ secrets.GPG_KEY }}
+        run: |
+          echo -n "$GPG_KEY" | base64 --decode | gpg --import
       - name: Prepare environment
         env:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
