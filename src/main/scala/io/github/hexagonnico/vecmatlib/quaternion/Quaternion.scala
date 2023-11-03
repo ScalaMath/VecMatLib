@@ -1,13 +1,13 @@
 package io.github.hexagonnico.vecmatlib.quaternion
 
-import io.github.hexagonnico.vecmatlib.vector.Vec3d
+import io.github.hexagonnico.vecmatlib.vector.VecAbstract
 
 /**
  * Abstract class with quaternion operations.
  *
  * @tparam Q The quaternion class extending this one
  */
-abstract class Quaternion[Q <: Quaternion[Q]] {
+abstract class Quaternion[Q <: Quaternion[Q, V], V <: VecAbstract[V]] {
 
   /**
    * Returns the sum between this quaternion and the given one.
@@ -103,29 +103,29 @@ abstract class Quaternion[Q <: Quaternion[Q]] {
   def normalized: Q
 
   /**
-   * Returns the multiplicative inverse (or the reciprocal) of this quaternion.
+   * Returns the multiplicative inverse of this quaternion.
    *
    * The same quaternion can be obtained with `1.0 / q`.
    *
-   * @return The reciprocal of this quaternion
+   * @return The inverse of this quaternion
    */
-  def reciprocal: Q
+  def inverse: Q
 
   /**
-   * Returns the product of this quaternion by the [[reciprocal]] of the given one.
+   * Returns the product of this quaternion by the [[inverse]] of the given one.
    *
    * @param q The second operand of the division
-   * @return The product of this quaternion by the reciprocal of the given one
+   * @return The product of this quaternion by the inverse of the given one
    */
-  def /(q: Q): Q = this * q.reciprocal
+  def /(q: Q): Q = this * q.inverse
 
   /**
-   * Returns the product of this quaternion by the [[reciprocal]] of the given one.
+   * Returns the product of this quaternion by the [[inverse]] of the given one.
    *
    * This method can be used in place of the '/' operator for better interoperability with Java.
    *
    * @param q The second operand of the division
-   * @return The product of this quaternion by the reciprocal of the given one
+   * @return The product of this quaternion by the inverse of the given one
    */
   def divide(q: Q): Q = this / q
 
@@ -150,7 +150,7 @@ abstract class Quaternion[Q <: Quaternion[Q]] {
    *
    * @return This quaternion's rotation in the form of euler angles
    */
-  def euler: Vec3d
+  def euler: V
 
   /**
    * Returns the angle of the rotation represented by this unit quaternion.
@@ -162,11 +162,14 @@ abstract class Quaternion[Q <: Quaternion[Q]] {
   def angle: Double
 
   /**
-   * Returns the axis this quaternion is rotating around.
+   * Returns the vector part of this quaternion.
+   * The vector part of a quaternion `w + xi + yj + zk` is the vector `(x, y, z)`.
    *
-   * @return The axis this quaternion is rotating around
+   * Normalize this vector to get the rotation axis of the quaternion.
+   *
+   * @return
    */
-  def axis: Vec3d
+  def vector: V
 
   /**
    * Returns that is, this quaternion divided by its norm or [[length]].

@@ -60,22 +60,22 @@ public class TestQuaternionF {
 
     @Test
     public void testDivideByScalar() {
-        QuaternionF q = new QuaternionF(1.2f, 1.4f, -2.1f, 3.0f);
-        assertEqualApprox(q.dividedBy(1.2f), 1.0f, 1.16666666667f, -1.75f, 2.5f);
+        QuaternionF q = new QuaternionF(1.5f, 2.0f, -2.5f, 3.0f);
+        assertEqualApprox(q.dividedBy(2.0f), 0.75f, 1.0f, -1.25f, 1.5f);
     }
 
     @Test
     public void testDivideQuaternion() {
-        QuaternionF q = new QuaternionF(1.2f, 1.4f, -2.1f, 3.0f);
-        QuaternionF p = new QuaternionF(0.3f, -1.5f, 1.1f, 0.0f);
-        assertEqualApprox(q.divide(p), -1.1408450704225355f, 1.5549295774647889f, 0.7183098591549296f, 0.7070422535211269f);
+        QuaternionF q = new QuaternionF(1.0f, 1.0f, 1.0f, 1.0f);
+        QuaternionF p = new QuaternionF(1.0f, 0.0f, 1.0f, 0.0f);
+        assertEqualApprox(q.divide(p), 1.0f, 1.0f, 0.0f, 0.0f);
     }
 
     @Test
     public void testDivideFourValues() {
-        QuaternionF q = new QuaternionF(1.2f, 1.4f, -2.1f, 3.0f);
-        QuaternionF p = q.divide(0.3f, -1.5f, 1.1f, 0.0f);
-        assertEqualApprox(p, -1.1408450704225355f, 1.5549295774647889f, 0.7183098591549296f, 0.7070422535211269f);
+        QuaternionF q = new QuaternionF(1.0f, 1.0f, 1.0f, 1.0f);
+        QuaternionF p = q.divide(1.0f, 0.0f, 1.0f, 0.0f);
+        assertEqualApprox(p, 1.0f, 1.0f, 0.0f, 0.0f);
     }
 
     @Test

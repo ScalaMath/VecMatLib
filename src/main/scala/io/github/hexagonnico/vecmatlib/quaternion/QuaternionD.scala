@@ -12,7 +12,7 @@ import io.github.hexagonnico.vecmatlib.vector.Vec3d
  * @param y The second component of the vector part (imaginary 'j' axis)
  * @param z The third component of the vector part (imaginary 'k' axis)
  */
-case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quaternion[QuaternionD] with Double4 {
+case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quaternion[QuaternionD, Vec3d] with Double4 {
 
   /**
    * Constructs a quaternion from the given scalar part and the given vector part
@@ -208,27 +208,27 @@ case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quate
   override def normalized: QuaternionD = this / this.length
 
   /**
-   * Returns the multiplicative inverse (or the reciprocal) of this quaternion.
+   * Returns the multiplicative inverse of this quaternion.
    *
    * The same quaternion can be obtained with `1.0 / q`.
    *
-   * @return The reciprocal of this quaternion
+   * @return The inverse of this quaternion
    */
-  override def reciprocal: QuaternionD = this.conjugate / this.lengthSquared
+  override def inverse: QuaternionD = this.conjugate / this.lengthSquared
 
   /**
-   * Returns the product of this quaternion by the [[reciprocal]] of the quaternion `w + xi + yj + zk`.
+   * Returns the product of this quaternion by the [[inverse]] of the quaternion `w + xi + yj + zk`.
    *
    * @param w The real/scalar part of the second operand of the division
    * @param x The first component of the vector part of the second operand of the division
    * @param y The second component of the vector part of the second operand of the division
    * @param z The third component of the vector part of the second operand of the division
-   * @return The product of this quaternion by the reciprocal of the quaternion `w + xi + yj + zk`
+   * @return The product of this quaternion by the inverse of the quaternion `w + xi + yj + zk`
    */
   def /(w: Double, x: Double, y: Double, z: Double): QuaternionD = this / QuaternionD(w, x, y, z)
 
   /**
-   * Returns the product of this quaternion by the [[reciprocal]] of the quaternion `w + xi + yj + zk`.
+   * Returns the product of this quaternion by the [[inverse]] of the quaternion `w + xi + yj + zk`.
    *
    * This method can be used in place of the '/' operator for better interoperability with Java.
    *
@@ -236,7 +236,7 @@ case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quate
    * @param x The first component of the vector part of the second operand of the division
    * @param y The second component of the vector part of the second operand of the division
    * @param z The third component of the vector part of the second operand of the division
-   * @return The product of this quaternion by the reciprocal of the quaternion `w + xi + yj + zk`
+   * @return The product of this quaternion by the inverse of the quaternion `w + xi + yj + zk`
    */
   def divide(w: Double, x: Double, y: Double, z: Double): QuaternionD = this / (w, x, y, z)
 
@@ -285,14 +285,14 @@ case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quate
   override def angle: Double = 2.0 * math.acos(this.w)
 
   /**
-   * Returns the axis this quaternion is rotating around.
+   * Returns the vector part of this quaternion.
+   * The vector part of a quaternion `w + xi + yj + zk` is the vector `(x, y, z)`.
    *
-   * @return The axis this quaternion is rotating around
+   * Normalize this vector to get the rotation axis of the quaternion.
+   *
+   * @return
    */
-  override def axis: Vec3d = {
-    val r = 1.0 / math.sqrt(1.0 - w * w)
-    Vec3d(x * r, y * r, z * r)
-  }
+  override def vector: Vec3d = Vec3d(this.x, this.y, this.z)
 
   /**
    * Returns that is, this quaternion divided by its norm or [[length]].
@@ -447,11 +447,11 @@ object QuaternionD {
     def *(q: QuaternionD): QuaternionD = q * l
 
     /**
-     * Returns the product between this scalar and the [[Quaternion.reciprocal]] of the given quaternion.
+     * Returns the product between this scalar and the [[Quaternion.inverse]] of the given quaternion.
      *
      * @param q The second operand of the division
-     * @return The product of this scalar by the reciprocal of the given quaternion
+     * @return The product of this scalar by the inverse of the given quaternion
      */
-    def /(q: QuaternionD): QuaternionD = l * q.reciprocal
+    def /(q: QuaternionD): QuaternionD = l * q.inverse
   }
 }

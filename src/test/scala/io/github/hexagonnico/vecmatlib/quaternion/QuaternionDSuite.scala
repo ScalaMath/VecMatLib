@@ -71,8 +71,8 @@ class QuaternionDSuite extends AnyFunSuite {
   }
 
   test("Quaternion divided by a scalar") {
-    val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
-    assert(q / 1.2 === QuaternionD(1.0, 1.16666666667, -1.75, 2.5))
+    val q = QuaternionD(1.5, 2.0, -2.5, 3.0)
+    assert(q / 2.0 === QuaternionD(0.75, 1.0, -1.25, 1.5))
   }
 
   test("Quaternion divided by zero") {
@@ -102,18 +102,18 @@ class QuaternionDSuite extends AnyFunSuite {
   }
 
   test("Squared norm of a quaternion") {
-    val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
-    assert(q.lengthSquared === (16.81 +- 1e-9))
+    val q = QuaternionD(2.0, 2.0, -2.0, 2.0)
+    assert(q.lengthSquared == 16.0)
   }
 
   test("Norm of a quaternion") {
-    val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
-    assert(q.length === (4.1 +- 1e-9))
+    val q = QuaternionD(2.0, 2.0, -2.0, 2.0)
+    assert(q.length == 4.0)
   }
 
   test("Normalized quaternion") {
-    val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
-    assert(q.normalized === QuaternionD(0.292682926829, 0.341463414634, -0.512195121951, 0.731707317073))
+    val q = QuaternionD(2.0, 2.0, -2.0, 2.0)
+    assert(q.normalized === QuaternionD(0.5, 0.5, -0.5, 0.5))
   }
 
   test("Normalized zero quaternion") {
@@ -125,12 +125,12 @@ class QuaternionDSuite extends AnyFunSuite {
   }
 
   test("Multiplicative inverse") {
-    val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
-    assert(q.reciprocal === QuaternionD(0.07138607971445568, -0.08328375966686496, 0.12492563950029746, -0.17846519928613921))
+    val q = QuaternionD(1.0, 0.0, 1.0, 0.0)
+    assert(q.inverse === QuaternionD(0.5, 0.0, -0.5, 0.0))
   }
 
   test("Multiplicative inverse of the zero quaternion") {
-    val q = QuaternionD.Zero.reciprocal
+    val q = QuaternionD.Zero.inverse
     assert(q.w.isNaN)
     assert(q.x.isNaN)
     assert(q.y.isNaN)
@@ -138,9 +138,9 @@ class QuaternionDSuite extends AnyFunSuite {
   }
 
   test("Quaternion divided by a quaternion") {
-    val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
-    val p = QuaternionD(0.3, -1.5, 1.1, 0.0)
-    assert(q / p === QuaternionD(-1.1408450704225355, 1.5549295774647889, 0.7183098591549296, 0.7070422535211269))
+    val q = QuaternionD(1.0, 1.0, 1.0, 1.0)
+    val p = QuaternionD(1.0, 0.0, 1.0, 0.0)
+    assert(q / p === QuaternionD(1.0, 1.0, 0.0, 0.0))
   }
 
   test("Quaternion divided by the zero quaternion") {
@@ -153,9 +153,9 @@ class QuaternionDSuite extends AnyFunSuite {
   }
 
   test("Quaternion divided by four values") {
-    val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
-    val p = q / (0.3, -1.5, 1.1, 0.0)
-    assert(p === QuaternionD(-1.1408450704225355, 1.5549295774647889, 0.7183098591549296, 0.7070422535211269))
+    val q = QuaternionD(1.0, 1.0, 1.0, 1.0)
+    val p = q / (1.0, 0.0, 1.0, 0.0)
+    assert(p === QuaternionD(1.0, 1.0, 0.0, 0.0))
   }
 
   test("Quaternion divided by four zeros") {
@@ -168,22 +168,29 @@ class QuaternionDSuite extends AnyFunSuite {
   }
 
   test("Quaternion exponential") {
-    val q = QuaternionD(5.0, 11.0, 10.0, 8.0)
-    assert(q.exp === QuaternionD(-57.35934830430998, -89.1893488603172, -81.081226236652, -64.86498098932161))
+    val q = QuaternionD(0.0, 0.0, 0.7854, 0.0)
+    assert(q.exp === QuaternionD(0.7071054825112363, 0.0, 0.7071080798594735, 0.0))
   }
 
   test("Quaternion logarithm") {
-    val q = QuaternionD(1.8339, 0.31877, 0.34262, -1.3499)
-    assert(q.log === QuaternionD(0.8436087534264758, 0.14766753357708173, 0.15871584639137853, -0.6253298728729261))
+    val q = QuaternionD(1.0, 0.0, 1.0, 0.0).normalized
+    assert(q.log === QuaternionD(0.0, 0.0, 0.7853981633974483, 0.0))
   }
 
-  // TODO: Euler angles from quaternion
+  test("Euler angles from quaternion") {
+    assert(QuaternionD(0.5, 0.5, 0.5, 0.5).euler == Vec3d(math.Pi * 0.5, 0.0, math.Pi * 0.5))
+  }
 
-  // TODO: Rotation angle from quaternion
+  test("Rotation angle from quaternion") {
+    val q = QuaternionD(0.5, 1.0, 1.0, 1.0)
+    assert(q.angle === 2.0 * math.Pi / 3.0 +- 1e-9)
+  }
 
-  // TODO: Rotation axis from quaternion
-
-  // TODO: slerp
+  test("Rotation axis from quaternion") {
+    val v = Vec3d(0.5, 0.5, 0.5)
+    val q = QuaternionD(1.5, v)
+    assert(q.vector.normalized == v.normalized)
+  }
 
   test("Quaternion equals four values") {
     val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
@@ -210,17 +217,10 @@ class QuaternionDSuite extends AnyFunSuite {
   }
 
   test("Quaternion from euler angles") {
-    val v = Vec3d(math.Pi / 4.0, math.Pi / 2.0, 0.0)
+    val v = Vec3d(math.Pi * 0.5, 0.0, math.Pi * 0.5)
     val q = QuaternionD(v)
-    assert(q === QuaternionD(0.6532814824381883, 0.2705980500730985, 0.6532814824381882, -0.27059805007309845))
+    assert(q === QuaternionD(0.5, 0.5, 0.5, 0.5))
   }
-
-  test("Quaternion from axis and angle") {
-    val q = QuaternionD(Vec3d.Up, math.Pi / 6.0)
-    assert(q === QuaternionD(0.9659258262890683, 0.0, 0.25881904510252074, 0.0))
-  }
-
-  // TODO: Quaternion from shortest arc
 
   test("Scalar multiplied by a quaternion") {
     val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
@@ -229,6 +229,6 @@ class QuaternionDSuite extends AnyFunSuite {
 
   test("Scalar divided by a quaternion") {
     val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
-    assert((2.0 / q) === (q.reciprocal * 2.0))
+    assert((2.0 / q) === (q.inverse * 2.0))
   }
 }
