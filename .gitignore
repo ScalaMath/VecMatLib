@@ -6,3 +6,7 @@ target/
 .bsp/
 .idea/
 *.iws
+
+# Directories
+.DS_Store
+.directory
