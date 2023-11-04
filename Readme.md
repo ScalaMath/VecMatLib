@@ -126,6 +126,12 @@ val eulerAngles = Vec3d(math.Pi * 0.5, 0.0, math.Pi * 0.5)
 val rotation = QuaternionD(eulerAngles)
 ```
 
+## Complex numbers
+
+An additional library providing complex numbers can be found here: [CmplxLib](https://github.com/HexagonNico/CmplxLib)
+
+CmplxLib depend on VecMatLib and provides complex numbers, as well as complex vectors and complex matrices.
+
 ## Using with LWJGL
 
 VecMatLib can be used together with [LWJGL](https://lwjgl.org) to build transformation matrices and set uniform

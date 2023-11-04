@@ -1,6 +1,6 @@
 ThisBuild / version := "2.3"
 
-ThisBuild / scalaVersion := "2.13.10"
+ThisBuild / scalaVersion := "2.13.12"
 
 lazy val root = (project in file(".")).settings(
   name := "VecMatLib"
@@ -10,10 +10,8 @@ lazy val root = (project in file(".")).settings(
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.15" % Test
 
 // Junit test dependency
-libraryDependencies ++= Seq(
-  "junit" % "junit" % "4.13.2" % Test,
-  "com.novocode" % "junit-interface" % "0.11" % Test
-)
+libraryDependencies += "com.github.sbt" % "junit-interface" % "0.13.3" % Test
+crossPaths := false
 
 // Publishing
 ThisBuild / organization := "io.github.hexagonnico"
