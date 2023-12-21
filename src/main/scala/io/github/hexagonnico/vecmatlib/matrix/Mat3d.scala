@@ -1,5 +1,6 @@
 package io.github.hexagonnico.vecmatlib.matrix
 
+import io.github.hexagonnico.vecmatlib.quaternion.QuaternionD
 import io.github.hexagonnico.vecmatlib.vector.{Vec2d, Vec3d}
 
 /**
@@ -247,6 +248,22 @@ object Mat3d {
    * @return A 3x3 rotation matrix
    */
   def rotation(x: Double, y: Double, z: Double): Mat3d = rotationX(x) * rotationY(y) * rotationZ(z)
+
+  /**
+   * Returns a 3x3 rotation matrix with the given rotation.
+   *
+   * @param v Vector representing the rotation in radians
+   * @return A 3x3 rotation matrix
+   */
+  def rotation(v: Vec3d): Mat3d = this.rotation(v.x, v.y, v.z)
+
+  /**
+   * Returns a 3x3 rotation matrix with the rotation represented by the given quaternion.
+   *
+   * @param q The rotation quaternion
+   * @return A 3x3 rotation matrix
+   */
+  def rotation(q: QuaternionD): Mat3d = q.rotationMatrix
 
   /**
    * Returns a 3x3 scaling matrix with the given scale.

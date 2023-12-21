@@ -1,5 +1,6 @@
 package io.github.hexagonnico.vecmatlib.quaternion
 
+import io.github.hexagonnico.vecmatlib.matrix.Mat3d
 import io.github.hexagonnico.vecmatlib.{Double3, Double4}
 import io.github.hexagonnico.vecmatlib.vector.Vec3d
 
@@ -303,6 +304,20 @@ case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quate
     val omega = math.acos(this dot to)
     val sinOmega = math.sin(omega)
     this * (math.sin((1.0 - weight) * omega) / sinOmega) + to * (math.sin(weight * omega) / sinOmega)
+  }
+
+  /**
+   * Converts the rotation represented by this quaternion to a 3x3 rotation matrix.
+   *
+   * @return A 3x3 rotation matrix
+   */
+  def rotationMatrix: Mat3d = {
+    val s = 1.0 / this.lengthSquared
+    Mat3d(
+      1.0 - 2.0 * s * (y * y + z * z), 2.0 * s * (x * y - z * w), 2.0 * s * (x * z + y * w),
+      2.0 * s * (x * y + z * w), 1.0 - 2.0 * s * (x * x + z * z), 2.0 * s * (y * z - x * w),
+      2.0 * s * (x * z - y * w), 2.0 * s * (y * z + x * w), 1.0 - 2.0 * s * (x * x + y * y)
+    )
   }
 
   /**

@@ -1,5 +1,6 @@
 package io.github.hexagonnico.vecmatlib.quaternion
 
+import io.github.hexagonnico.vecmatlib.matrix.Mat3f
 import io.github.hexagonnico.vecmatlib.vector.{Vec3d, Vec3f}
 import org.scalactic.Equality
 import org.scalactic.Tolerance.convertNumericToPlusOrMinusWrapper
@@ -21,6 +22,14 @@ class QuaternionFSuite extends AnyFunSuite {
       math.abs(a.x - b.x) < 1e-6 &&
       math.abs(a.y - b.y) < 1e-6 &&
       math.abs(a.z - b.z) < 1e-6
+    case _ => false
+  }
+
+  implicit val mat3f: Equality[Mat3f] = (a: Mat3f, b: Any) => b match {
+    case b: Mat3f =>
+      math.abs(a.m00 - b.m00) < 1e-4 && math.abs(a.m01 - b.m01) < 1e-4 && math.abs(a.m02 - b.m02) < 1e-4 &&
+      math.abs(a.m10 - b.m10) < 1e-4 && math.abs(a.m11 - b.m11) < 1e-4 && math.abs(a.m12 - b.m12) < 1e-4 &&
+      math.abs(a.m20 - b.m20) < 1e-4 && math.abs(a.m21 - b.m21) < 1e-4 && math.abs(a.m22 - b.m22) < 1e-4
     case _ => false
   }
 
@@ -190,6 +199,17 @@ class QuaternionFSuite extends AnyFunSuite {
     val v = Vec3f(0.5f, 0.5f, 0.5f)
     val q = QuaternionF(1.5f, v)
     assert(q.vector.normalized == v.normalized)
+  }
+
+  test("Test quaternion to rotation matrix") {
+    // https://www.mathworks.com/help/nav/ref/quaternion.rotmat.html
+    val q = QuaternionF(0.8924f, 0.23912f, 0.36964f, 0.099046f)
+    val m = Mat3f(
+      0.7071f, 0.0f, 0.7071f,
+      0.3536f, 0.866f, -0.3536f,
+      -0.6124f, 0.5f, 0.6124f
+    )
+    assert(q.rotationMatrix === m)
   }
 
   test("Quaternion equals four values") {

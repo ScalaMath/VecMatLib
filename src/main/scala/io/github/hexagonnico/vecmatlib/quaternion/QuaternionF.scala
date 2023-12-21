@@ -1,5 +1,6 @@
 package io.github.hexagonnico.vecmatlib.quaternion
 
+import io.github.hexagonnico.vecmatlib.matrix.Mat3f
 import io.github.hexagonnico.vecmatlib.{Float3, Float4}
 import io.github.hexagonnico.vecmatlib.vector.{Vec3d, Vec3f}
 
@@ -288,6 +289,20 @@ case class QuaternionF(w: Float, x: Float, y: Float, z: Float) extends Quaternio
    * @return A unit quaternion
    */
   override def slerp(to: QuaternionF, weight: Double): QuaternionF = this.toDouble.slerp(to.toDouble, weight).toFloat
+
+  /**
+   * Converts the rotation represented by this quaternion to a 3x3 rotation matrix.
+   *
+   * @return A 3x3 rotation matrix
+   */
+  def rotationMatrix: Mat3f = {
+    val s = 1.0f / this.lengthSquared
+    Mat3f(
+      1.0f - 2.0f * s * (y * y + z * z), 2.0f * s * (x * y - z * w), 2.0f * s * (x * z + y * w),
+      2.0f * s * (x * y + z * w), 1.0f - 2.0f * s * (x * x + z * z), 2.0f * s * (y * z - x * w),
+      2.0f * s * (x * z - y * w), 2.0f * s * (y * z + x * w), 1.0f - 2.0f * s * (x * x + y * y)
+    )
+  }
 
   /**
    * Converts this quaternion to a double quaternion.
