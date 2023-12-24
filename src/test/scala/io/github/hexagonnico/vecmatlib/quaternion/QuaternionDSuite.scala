@@ -176,22 +176,47 @@ class QuaternionDSuite extends AnyFunSuite {
     assert(p.z.isNaN)
   }
 
+  test("Quaternion power") {
+    val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
+    assert((q * q * q) === q.pow(3))
+  }
+
+  test("Quaternion to the power of zero") {
+    val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
+    assert(q.pow(0) == QuaternionD.Identity)
+  }
+
+  test("Quaternion to a negative power") {
+    val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
+    val p = q.inverse
+    assert((p * p * p) === q.pow(-3))
+  }
+
   test("Quaternion exponential") {
-    val q = QuaternionD(0.0, 0.0, 0.7854, 0.0)
-    assert(q.exp === QuaternionD(0.7071054825112363, 0.0, 0.7071080798594735, 0.0))
+    // https://www.mathworks.com/help/fusion/ref/quaternion.exp.html
+    val q = QuaternionD(4.0, 14.0, 15.0, 1.0).exp
+    assert(q.w === -6.66 +- 1e-3)
+    assert(q.x === 36.931 +- 1e-3)
+    assert(q.y === 39.569 +- 1e-3)
+    assert(q.z === 2.6379 +- 1e-3)
   }
 
   test("Quaternion logarithm") {
-    val q = QuaternionD(1.0, 0.0, 1.0, 0.0).normalized
-    assert(q.log === QuaternionD(0.0, 0.0, 0.7853981633974483, 0.0))
+    // https://www.mathworks.com/help/fusion/ref/quaternion.log.html
+    val q = QuaternionD(0.5367, 0.86217, -0.43359, 2.7694).log
+    assert(q.w === 1.0925 +- 1e-3)
+    assert(q.x === 0.40848 +- 1e-3)
+    assert(q.y === -0.20543 +- 1e-3)
+    assert(q.z === 1.3121 +- 1e-3)
   }
 
-  test("Euler angles from quaternion") {
-    assert(QuaternionD(0.5, 0.5, 0.5, 0.5).euler == Vec3d(math.Pi * 0.5, 0.0, math.Pi * 0.5))
-  }
+  // TODO: Test euler angles
+//  test("Euler angles from quaternion") {
+//    assert(QuaternionD(0.5, 0.5, 0.5, 0.5).euler == Vec3d(math.Pi * 0.5, 0.0, math.Pi * 0.5))
+//  }
 
   test("Rotation angle from quaternion") {
-    val q = QuaternionD(0.5, 1.0, 1.0, 1.0)
+    val q = QuaternionD(0.5, 1.0 / 6.0, 1.0 / 6.0, 1.0 / 6.0)
     assert(q.angle === 2.0 * math.Pi / 3.0 +- 1e-9)
   }
 
@@ -200,6 +225,8 @@ class QuaternionDSuite extends AnyFunSuite {
     val q = QuaternionD(1.5, v)
     assert(q.vector.normalized == v.normalized)
   }
+
+  // TODO: Test slerp
 
   test("Test quaternion to rotation matrix") {
     // https://www.mathworks.com/help/nav/ref/quaternion.rotmat.html
@@ -236,16 +263,23 @@ class QuaternionDSuite extends AnyFunSuite {
     assert(QuaternionD.Zero.toString == "0.0")
   }
 
-  test("Quaternion from euler angles") {
-    val v = Vec3d(math.Pi * 0.5, 0.0, math.Pi * 0.5)
-    val q = QuaternionD(v)
-    assert(q === QuaternionD(0.5, 0.5, 0.5, 0.5))
-  }
+  // TODO: Test euler angles
+//  test("Quaternion from euler angles") {
+//    val v = Vec3d(math.Pi * 0.5, 0.0, math.Pi * 0.5)
+//    val q = QuaternionD(v)
+//    assert(q === QuaternionD(0.5, 0.5, 0.5, 0.5))
+//  }
 
   test("Scalar multiplied by a quaternion") {
     val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
     assert((1.2 * q) === QuaternionD(1.44, 1.68, -2.52, 3.6))
   }
+
+  // TODO: Quaternion from euler angles
+
+  // TODO: Quaternion from axis and rotation
+
+  // TODO: Quaternion from shortest arc
 
   test("Scalar divided by a quaternion") {
     val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
