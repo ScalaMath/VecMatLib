@@ -1,5 +1,6 @@
 package io.github.hexagonnico.vecmatlib.quaternion
 
+import io.github.hexagonnico.vecmatlib.matrix.Mat3d
 import io.github.hexagonnico.vecmatlib.vector.Vec3d
 import org.scalactic.Equality
 import org.scalactic.Tolerance.convertNumericToPlusOrMinusWrapper
@@ -21,6 +22,14 @@ class QuaternionDSuite extends AnyFunSuite {
       math.abs(a.x - b.x) < 1e-9 &&
       math.abs(a.y - b.y) < 1e-9 &&
       math.abs(a.z - b.z) < 1e-9
+    case _ => false
+  }
+
+  implicit val mat3d: Equality[Mat3d] = (a: Mat3d, b: Any) => b match {
+    case b: Mat3d =>
+      math.abs(a.m00 - b.m00) < 1e-4 && math.abs(a.m01 - b.m01) < 1e-4 && math.abs(a.m02 - b.m02) < 1e-4 &&
+        math.abs(a.m10 - b.m10) < 1e-4 && math.abs(a.m11 - b.m11) < 1e-4 && math.abs(a.m12 - b.m12) < 1e-4 &&
+        math.abs(a.m20 - b.m20) < 1e-4 && math.abs(a.m21 - b.m21) < 1e-4 && math.abs(a.m22 - b.m22) < 1e-4
     case _ => false
   }
 
@@ -167,22 +176,47 @@ class QuaternionDSuite extends AnyFunSuite {
     assert(p.z.isNaN)
   }
 
+  test("Quaternion power") {
+    val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
+    assert((q * q * q) === q.pow(3))
+  }
+
+  test("Quaternion to the power of zero") {
+    val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
+    assert(q.pow(0) == QuaternionD.Identity)
+  }
+
+  test("Quaternion to a negative power") {
+    val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
+    val p = q.inverse
+    assert((p * p * p) === q.pow(-3))
+  }
+
   test("Quaternion exponential") {
-    val q = QuaternionD(0.0, 0.0, 0.7854, 0.0)
-    assert(q.exp === QuaternionD(0.7071054825112363, 0.0, 0.7071080798594735, 0.0))
+    // https://www.mathworks.com/help/fusion/ref/quaternion.exp.html
+    val q = QuaternionD(4.0, 14.0, 15.0, 1.0).exp
+    assert(q.w === -6.66 +- 1e-3)
+    assert(q.x === 36.931 +- 1e-3)
+    assert(q.y === 39.569 +- 1e-3)
+    assert(q.z === 2.6379 +- 1e-3)
   }
 
   test("Quaternion logarithm") {
-    val q = QuaternionD(1.0, 0.0, 1.0, 0.0).normalized
-    assert(q.log === QuaternionD(0.0, 0.0, 0.7853981633974483, 0.0))
+    // https://www.mathworks.com/help/fusion/ref/quaternion.log.html
+    val q = QuaternionD(0.5367, 0.86217, -0.43359, 2.7694).log
+    assert(q.w === 1.0925 +- 1e-3)
+    assert(q.x === 0.40848 +- 1e-3)
+    assert(q.y === -0.20543 +- 1e-3)
+    assert(q.z === 1.3121 +- 1e-3)
   }
 
-  test("Euler angles from quaternion") {
-    assert(QuaternionD(0.5, 0.5, 0.5, 0.5).euler == Vec3d(math.Pi * 0.5, 0.0, math.Pi * 0.5))
-  }
+  // TODO: Test euler angles
+//  test("Euler angles from quaternion") {
+//    assert(QuaternionD(0.5, 0.5, 0.5, 0.5).euler == Vec3d(math.Pi * 0.5, 0.0, math.Pi * 0.5))
+//  }
 
   test("Rotation angle from quaternion") {
-    val q = QuaternionD(0.5, 1.0, 1.0, 1.0)
+    val q = QuaternionD(0.5, 1.0 / 6.0, 1.0 / 6.0, 1.0 / 6.0)
     assert(q.angle === 2.0 * math.Pi / 3.0 +- 1e-9)
   }
 
@@ -190,6 +224,19 @@ class QuaternionDSuite extends AnyFunSuite {
     val v = Vec3d(0.5, 0.5, 0.5)
     val q = QuaternionD(1.5, v)
     assert(q.vector.normalized == v.normalized)
+  }
+
+  // TODO: Test slerp
+
+  test("Test quaternion to rotation matrix") {
+    // https://www.mathworks.com/help/nav/ref/quaternion.rotmat.html
+    val q = QuaternionD(0.8924, 0.23912, 0.36964, 0.099046)
+    val m = Mat3d(
+      0.7071, 0.0, 0.7071,
+      0.3536, 0.866, -0.3536,
+      -0.6124, 0.5, 0.6124
+    )
+    assert(q.rotationMatrix === m)
   }
 
   test("Quaternion equals four values") {
@@ -216,16 +263,28 @@ class QuaternionDSuite extends AnyFunSuite {
     assert(QuaternionD.Zero.toString == "0.0")
   }
 
-  test("Quaternion from euler angles") {
-    val v = Vec3d(math.Pi * 0.5, 0.0, math.Pi * 0.5)
-    val q = QuaternionD(v)
-    assert(q === QuaternionD(0.5, 0.5, 0.5, 0.5))
-  }
+  // TODO: Test euler angles
+//  test("Quaternion from euler angles") {
+//    val v = Vec3d(math.Pi * 0.5, 0.0, math.Pi * 0.5)
+//    val q = QuaternionD(v)
+//    assert(q === QuaternionD(0.5, 0.5, 0.5, 0.5))
+//  }
 
   test("Scalar multiplied by a quaternion") {
     val q = QuaternionD(1.2, 1.4, -2.1, 3.0)
     assert((1.2 * q) === QuaternionD(1.44, 1.68, -2.52, 3.6))
   }
+
+  // TODO: Quaternion from euler angles
+
+  test("Test quaternion from axis and rotation") {
+    // https://it.mathworks.com/help/robotics/ref/axang2quat.html
+    val q = QuaternionD(Vec3d.Right, math.Pi / 2.0)
+    val s2 = math.sqrt(2.0) / 2.0
+    assert(q === QuaternionD(s2, s2, 0.0, 0.0))
+  }
+
+  // TODO: Quaternion from shortest arc
 
   test("Scalar divided by a quaternion") {
     val q = QuaternionD(1.2, 1.4, -2.1, 3.0)

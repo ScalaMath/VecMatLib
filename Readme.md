@@ -172,7 +172,7 @@ operations are called, it can be used safely in a multithreaded application.
 ### sbt
 
 ```
-libraryDependencies += "io.github.hexagonnico" % "vecmatlib" % "2.3"
+libraryDependencies += "io.github.hexagonnico" % "vecmatlib" % "2.3.1"
 ```
 
 ### Maven
@@ -181,14 +181,14 @@ libraryDependencies += "io.github.hexagonnico" % "vecmatlib" % "2.3"
 <dependency>
     <groupId>io.github.hexagonnico</groupId>
     <artifactId>vecmatlib</artifactId>
-    <version>2.3</version>
+    <version>2.3.1</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```
-implementation 'io.github.hexagonnico:vecmatlib:2.3'
+implementation 'io.github.hexagonnico:vecmatlib:2.3.1'
 ```
 
 ## Contributing

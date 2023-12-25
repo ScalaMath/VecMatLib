@@ -1,5 +1,6 @@
 package io.github.hexagonnico.vecmatlib.quaternion
 
+import io.github.hexagonnico.vecmatlib.matrix.Mat3f
 import io.github.hexagonnico.vecmatlib.{Float3, Float4}
 import io.github.hexagonnico.vecmatlib.vector.{Vec3d, Vec3f}
 
@@ -241,6 +242,25 @@ case class QuaternionF(w: Float, x: Float, y: Float, z: Float) extends Quaternio
   def divide(w: Float, x: Float, y: Float, z: Float): QuaternionF = this / (w, x, y, z)
 
   /**
+   * Raises this quaternion to the power of the given exponent.
+   *
+   * A quaternion raised to the power of 0 is the identity quaternion.
+   * A quaternion raised to a negative power is equal to its inverse raised to the additive inverse of the exponent.
+   *
+   * @param t The exponent.
+   * @return This quaternion raised to the power of the given exponent.
+   */
+  override def pow(t: Int): QuaternionF = {
+    if(t == 0) {
+      QuaternionF.Identity
+    } else if(t > 0) {
+      this * pow(t - 1)
+    } else {
+      this.inverse.pow(-t)
+    }
+  }
+
+  /**
    * Returns the exponential of this quaternion.
    *
    * @return The exponential of this quaternion
@@ -268,7 +288,7 @@ case class QuaternionF(w: Float, x: Float, y: Float, z: Float) extends Quaternio
    *
    * The result is undefined if this quaternion is not [[normalized]].
    *
-   * @return The angle of the rotation represented by this unit quaternion
+   * @return The angle of the rotation represented by this unit quaternion.
    */
   override def angle: Double = 2.0 * math.acos(this.w)
 
@@ -276,18 +296,32 @@ case class QuaternionF(w: Float, x: Float, y: Float, z: Float) extends Quaternio
    * Returns the vector part of this quaternion.
    * The vector part of a quaternion `w + xi + yj + zk` is the vector `(x, y, z)`.
    *
-   * Normalize this vector to get the rotation axis of the quaternion.
-   *
-   * @return
+   * @return The vector part of this quaternion.
    */
   override def vector: Vec3f = Vec3f(this.x, this.y, this.z)
 
   /**
-   * Returns that is, this quaternion divided by its norm or [[length]].
+   * Returns the spherical linear interpolation between this quaternion and the given one.
    *
-   * @return A unit quaternion
+   * @param to The second quaternion.
+   * @param weight Interpolation weight.
+   * @return The spherical linear interpolation between this quaternion and the given one
    */
   override def slerp(to: QuaternionF, weight: Double): QuaternionF = this.toDouble.slerp(to.toDouble, weight).toFloat
+
+  /**
+   * Converts the rotation represented by this quaternion to a 3x3 rotation matrix.
+   *
+   * @return A 3x3 rotation matrix
+   */
+  def rotationMatrix: Mat3f = {
+    val s = 1.0f / this.lengthSquared
+    Mat3f(
+      1.0f - 2.0f * s * (y * y + z * z), 2.0f * s * (x * y - z * w), 2.0f * s * (x * z + y * w),
+      2.0f * s * (x * y + z * w), 1.0f - 2.0f * s * (x * x + z * z), 2.0f * s * (y * z - x * w),
+      2.0f * s * (x * z - y * w), 2.0f * s * (y * z + x * w), 1.0f - 2.0f * s * (x * x + y * y)
+    )
+  }
 
   /**
    * Converts this quaternion to a double quaternion.

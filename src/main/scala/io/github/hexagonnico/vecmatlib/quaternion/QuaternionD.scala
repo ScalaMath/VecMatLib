@@ -1,35 +1,36 @@
 package io.github.hexagonnico.vecmatlib.quaternion
 
+import io.github.hexagonnico.vecmatlib.matrix.Mat3d
 import io.github.hexagonnico.vecmatlib.{Double3, Double4}
 import io.github.hexagonnico.vecmatlib.vector.Vec3d
 
 /**
  * Class that represents a double-precision float quaternion.
  *
- * @constructor Constructs a quaternion from the four given values
- * @param w The real/scalar part of the quaternion
- * @param x The first component of the vector part (imaginary 'i' axis)
- * @param y The second component of the vector part (imaginary 'j' axis)
- * @param z The third component of the vector part (imaginary 'k' axis)
+ * @constructor Constructs a quaternion from the four given values.
+ * @param w The real/scalar part of the quaternion.
+ * @param x The first component of the vector part (imaginary 'i' axis).
+ * @param y The second component of the vector part (imaginary 'j' axis).
+ * @param z The third component of the vector part (imaginary 'k' axis).
  */
 case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quaternion[QuaternionD, Vec3d] with Double4 {
 
   /**
-   * Constructs a quaternion from the given scalar part and the given vector part
+   * Constructs a quaternion from the given scalar part and the given vector part.
    *
-   * @param w The real/scalar part of the quaternion
-   * @param v The vector part of the quaternion
+   * @param w The real/scalar part of the quaternion.
+   * @param v The vector part of the quaternion.
    */
   def this(w: Double, v: Double3) = this(w, v.x, v.y, v.z)
 
   /**
    * Returns the sum between this quaternion and the quaternion `w + xi + yj + zk`.
    *
-   * @param w The real/scalar part of the quaternion to add
-   * @param x The first component of the vector part of the quaternion to add
-   * @param y The second component of the vector part of the quaternion to add
-   * @param z The third component of the vector part of the quaternion to add
-   * @return The sum of this quaternion and the one with the quaternion `w + xi + yj + zk`
+   * @param w The real/scalar part of the quaternion to add.
+   * @param x The first component of the vector part of the quaternion to add.
+   * @param y The second component of the vector part of the quaternion to add.
+   * @param z The third component of the vector part of the quaternion to add.
+   * @return The sum of this quaternion and the one with the quaternion `w + xi + yj + zk`.
    */
   def +(w: Double, x: Double, y: Double, z: Double): QuaternionD = QuaternionD(this.w + w, this.x + x, this.y + y, this.z + z)
 
@@ -38,37 +39,37 @@ case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quate
    *
    * This method can be used in place of the '+' operator for better interoperability with Java.
    *
-   * @param w The real/scalar part of the quaternion to add
-   * @param x The first component of the vector part of the quaternion to add
-   * @param y The second component of the vector part of the quaternion to add
-   * @param z The third component of the vector part of the quaternion to add
-   * @return The sum of this quaternion and the one with the quaternion `w + xi + yj + zk`
+   * @param w The real/scalar part of the quaternion to add.
+   * @param x The first component of the vector part of the quaternion to add.
+   * @param y The second component of the vector part of the quaternion to add.
+   * @param z The third component of the vector part of the quaternion to add.
+   * @return The sum of this quaternion and the one with the quaternion `w + xi + yj + zk`.
    */
   def plus(w: Double, x: Double, y: Double, z: Double): QuaternionD = this + (w, x, y, z)
 
   /**
    * Returns the sum between this quaternion and the given one.
    *
-   * @param q The quaternion to add
-   * @return The sum of this quaternion and the given one
+   * @param q The quaternion to add.
+   * @return The sum of this quaternion and the given one.
    */
   override def +(q: QuaternionD): QuaternionD = this + (q.w, q.x, q.y, q.z)
 
   /**
    * Returns the additive inverse of this quaternion.
    *
-   * @return The additive inverse of this quaternion
+   * @return The additive inverse of this quaternion.
    */
   override def unary_-(): QuaternionD = QuaternionD(-this.w, -this.x, -this.y, -this.z)
 
   /**
    * Returns the subtraction between this quaternion and the quaternion `w + xi + yj + zk`.
    *
-   * @param w The real/scalar part of the quaternion to subtract
-   * @param x The first component of the vector part of the quaternion to subtract
-   * @param y The second component of the vector part of the quaternion to subtract
-   * @param z The third component of the vector part of the quaternion to subtract
-   * @return The subtract of the quaternion `w + xi + yj + zk` from this one
+   * @param w The real/scalar part of the quaternion to subtract.
+   * @param x The first component of the vector part of the quaternion to subtract.
+   * @param y The second component of the vector part of the quaternion to subtract.
+   * @param z The third component of the vector part of the quaternion to subtract.
+   * @return The subtract of the quaternion `w + xi + yj + zk` from this one.
    */
   def -(w: Double, x: Double, y: Double, z: Double): QuaternionD = QuaternionD(this.w - w, this.x - x, this.y - y, this.z - z)
 
@@ -77,19 +78,19 @@ case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quate
    *
    * This method can be used in place of the '-' operator for better interoperability with Java.
    *
-   * @param w The real/scalar part of the quaternion to subtract
-   * @param x The first component of the vector part of the quaternion to subtract
-   * @param y The second component of the vector part of the quaternion to subtract
-   * @param z The third component of the vector part of the quaternion to subtract
-   * @return The subtract of the quaternion `w + xi + yj + zk` from this one
+   * @param w The real/scalar part of the quaternion to subtract.
+   * @param x The first component of the vector part of the quaternion to subtract.
+   * @param y The second component of the vector part of the quaternion to subtract.
+   * @param z The third component of the vector part of the quaternion to subtract.
+   * @return The subtract of the quaternion `w + xi + yj + zk` from this one.
    */
   def minus(w: Double, x: Double, y: Double, z: Double): QuaternionD = this - (w, x, y, z)
 
   /**
    * Returns the product between this quaternion and the given scalar.
    *
-   * @param l The scalar to which the quaternion is multiplied
-   * @return The result of the product between this quaternion and the given scalar
+   * @param l The scalar to which the quaternion is multiplied.
+   * @return The result of the product between this quaternion and the given scalar.
    */
   def *(l: Double): QuaternionD = QuaternionD(this.w * l, this.x * l, this.y * l, this.z * l)
 
@@ -98,19 +99,19 @@ case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quate
    *
    * This method can be used in place of the '*' operator for better interoperability with Java.
    *
-   * @param l The scalar to which the quaternion is multiplied
-   * @return The result of the product between this quaternion and the given scalar
+   * @param l The scalar to which the quaternion is multiplied.
+   * @return The result of the product between this quaternion and the given scalar.
    */
   def multipliedBy(l: Double): QuaternionD = this * l
 
   /**
    * Returns the product between this quaternion and the quaternion `w + xi + yj + zk` as defined by the Hamilton product.
    *
-   * @param w The real/scalar part of the second operand of the multiplication
-   * @param x The first component of the vector part of the second operand of the multiplication
-   * @param y The second component of the vector part of the second operand of the multiplication
-   * @param z The third component of the vector part of the second operand of the multiplication
-   * @return The product between this quaternion and the quaternion `w + xi + yj + zk`
+   * @param w The real/scalar part of the second operand of the multiplication.
+   * @param x The first component of the vector part of the second operand of the multiplication.
+   * @param y The second component of the vector part of the second operand of the multiplication.
+   * @param z The third component of the vector part of the second operand of the multiplication.
+   * @return The product between this quaternion and the quaternion `w + xi + yj + zk`.
    */
   def *(w: Double, x: Double, y: Double, z: Double): QuaternionD = QuaternionD(
     this.w * w - this.x * x - this.y * y - this.z * z,
@@ -124,27 +125,27 @@ case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quate
    *
    * This method can be used in place of the '*' operator for better interoperability with Java.
    *
-   * @param w The real/scalar part of the second operand of the multiplication
-   * @param x The first component of the vector part of the second operand of the multiplication
-   * @param y The second component of the vector part of the second operand of the multiplication
-   * @param z The third component of the vector part of the second operand of the multiplication
-   * @return The product between this quaternion and the quaternion `w + xi + yj + zk`
+   * @param w The real/scalar part of the second operand of the multiplication.
+   * @param x The first component of the vector part of the second operand of the multiplication.
+   * @param y The second component of the vector part of the second operand of the multiplication.
+   * @param z The third component of the vector part of the second operand of the multiplication.
+   * @return The product between this quaternion and the quaternion `w + xi + yj + zk`.
    */
   def multiply(w: Double, x: Double, y: Double, z: Double): QuaternionD = this * (w, x, y, z)
 
   /**
    * Returns the product between this quaternion and the given one as defined by the Hamilton product.
    *
-   * @param q The second operand of the multiplication
-   * @return The product between this quaternion and the given one
+   * @param q The second operand of the multiplication.
+   * @return The product between this quaternion and the given one.
    */
   override def *(q: QuaternionD): QuaternionD = this * (q.w, q.x, q.y, q.z)
 
   /**
    * Returns the result of dividing this quaternion by the given scalar.
    *
-   * @param l The scalar by which this quaternion is divided
-   * @return The result of the division of this quaternion by the given scalar
+   * @param l The scalar by which this quaternion is divided.
+   * @return The result of the division of this quaternion by the given scalar.
    */
   def /(l: Double): QuaternionD = QuaternionD(this.w / l, this.x / l, this.y / l, this.z / l)
 
@@ -153,8 +154,8 @@ case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quate
    *
    * This method can be used in place of the '/' operator for better interoperability with Java.
    *
-   * @param l The scalar by which this quaternion is divided
-   * @return The result of the division of this quaternion by the given scalar
+   * @param l The scalar by which this quaternion is divided.
+   * @return The result of the division of this quaternion by the given scalar.
    */
   def dividedBy(l: Double): QuaternionD = this / l
 
@@ -162,40 +163,40 @@ case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quate
    * Returns the conjugate of this quaternion.
    * The conjugate of a quaternion `w + xi + yj + zk` is the quaternion `w - xi - yj - zk`.
    *
-   * @return The conjugate of this quaternion
+   * @return The conjugate of this quaternion.
    */
   override def conjugate: QuaternionD = QuaternionD(this.w, -this.x, -this.y, -this.z)
 
   /**
    * Returns the result of the dot product (or scalar product) between this quaternion and the quaternion `w + xi + yj + zk`.
    *
-   * @param w The real/scalar part of the second operand of the product
-   * @param x The first component of the vector part of the second operand of the product
-   * @param y The second component of the vector part of the second operand of the product
-   * @param z The third component of the vector part of the second operand of the product
-   * @return The result of the dot product between this quaternion and the quaternion `w + xi + yj + zk`
+   * @param w The real/scalar part of the second operand of the product.
+   * @param x The first component of the vector part of the second operand of the product.
+   * @param y The second component of the vector part of the second operand of the product.
+   * @param z The third component of the vector part of the second operand of the product.
+   * @return The result of the dot product between this quaternion and the quaternion `w + xi + yj + zk`.
    */
   def dot(w: Double, x: Double, y: Double, z: Double): Double = this.w * w + this.x * x + this.y * y + this.z * z
 
   /**
    * Returns the result of the dot product (or scalar product) between this quaternion and the given one.
    *
-   * @param q The second operand of the product
-   * @return The result of the dot product between this quaternion and the given one
+   * @param q The second operand of the product.
+   * @return The result of the dot product between this quaternion and the given one.
    */
   def dot(q: QuaternionD): Double = this.dot(q.w, q.x, q.y, q.z)
 
   /**
    * Returns the squared length (or squared norm) of this quaternion.
    *
-   * @return The squared norm of this quaternion
+   * @return The squared norm of this quaternion.
    */
   def lengthSquared: Double = this dot this
 
   /**
    * Returns the length (or norm) of this quaternion.
    *
-   * @return The norm of this quaternion
+   * @return The norm of this quaternion.
    */
   override def length: Double = math.sqrt(this.lengthSquared)
 
@@ -203,7 +204,7 @@ case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quate
    * Returns this quaternion as a unit quaternion.
    * That is, this quaternion divided by its norm or [[length]].
    *
-   * @return This quaternion as a unit quaternion
+   * @return This quaternion as a unit quaternion.
    */
   override def normalized: QuaternionD = this / this.length
 
@@ -212,18 +213,18 @@ case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quate
    *
    * The same quaternion can be obtained with `1.0 / q`.
    *
-   * @return The inverse of this quaternion
+   * @return The inverse of this quaternion.
    */
   override def inverse: QuaternionD = this.conjugate / this.lengthSquared
 
   /**
    * Returns the product of this quaternion by the [[inverse]] of the quaternion `w + xi + yj + zk`.
    *
-   * @param w The real/scalar part of the second operand of the division
-   * @param x The first component of the vector part of the second operand of the division
-   * @param y The second component of the vector part of the second operand of the division
-   * @param z The third component of the vector part of the second operand of the division
-   * @return The product of this quaternion by the inverse of the quaternion `w + xi + yj + zk`
+   * @param w The real/scalar part of the second operand of the division.
+   * @param x The first component of the vector part of the second operand of the division.
+   * @param y The second component of the vector part of the second operand of the division.
+   * @param z The third component of the vector part of the second operand of the division.
+   * @return The product of this quaternion by the inverse of the quaternion `w + xi + yj + zk`.
    */
   def /(w: Double, x: Double, y: Double, z: Double): QuaternionD = this / QuaternionD(w, x, y, z)
 
@@ -232,18 +233,37 @@ case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quate
    *
    * This method can be used in place of the '/' operator for better interoperability with Java.
    *
-   * @param w The real/scalar part of the second operand of the division
-   * @param x The first component of the vector part of the second operand of the division
-   * @param y The second component of the vector part of the second operand of the division
-   * @param z The third component of the vector part of the second operand of the division
-   * @return The product of this quaternion by the inverse of the quaternion `w + xi + yj + zk`
+   * @param w The real/scalar part of the second operand of the division.
+   * @param x The first component of the vector part of the second operand of the division.
+   * @param y The second component of the vector part of the second operand of the division.
+   * @param z The third component of the vector part of the second operand of the division.
+   * @return The product of this quaternion by the inverse of the quaternion `w + xi + yj + zk`.
    */
   def divide(w: Double, x: Double, y: Double, z: Double): QuaternionD = this / (w, x, y, z)
 
   /**
+   * Raises this quaternion to the power of the given exponent.
+   *
+   * A quaternion raised to the power of 0 is the identity quaternion.
+   * A quaternion raised to a negative power is equal to its inverse raised to the additive inverse of the exponent.
+   *
+   * @param t The exponent.
+   * @return This quaternion raised to the power of the given exponent.
+   */
+  override def pow(t: Int): QuaternionD = {
+    if(t == 0) {
+      QuaternionD.Identity
+    } else if(t > 0) {
+      this * pow(t - 1)
+    } else {
+      this.inverse.pow(-t)
+    }
+  }
+
+  /**
    * Returns the exponential of this quaternion.
    *
-   * @return The exponential of this quaternion
+   * @return The exponential of this quaternion.
    */
   override def exp: QuaternionD = {
     val v = Vec3d(this.x, this.y, this.z)
@@ -254,7 +274,7 @@ case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quate
   /**
    * Returns the logarithm of this quaternion.
    *
-   * @return The logarithm of this quaternion
+   * @return The logarithm of this quaternion.
    */
   override def log: QuaternionD = {
     val v = Vec3d(this.x, this.y, this.z)
@@ -267,7 +287,7 @@ case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quate
    *
    * The result is undefined if this quaternion is not [[normalized]].
    *
-   * @return This quaternion's rotation in the form of euler angles
+   * @return This quaternion's rotation in the form of euler angles.
    */
   override def euler: Vec3d = Vec3d(
     math.atan2(2.0 * (w * x + y * z), 1.0 - 2.0 * (x * x + y * y)),
@@ -295,14 +315,30 @@ case class QuaternionD(w: Double, x: Double, y: Double, z: Double) extends Quate
   override def vector: Vec3d = Vec3d(this.x, this.y, this.z)
 
   /**
-   * Returns that is, this quaternion divided by its norm or [[length]].
+   * Returns the spherical linear interpolation between this quaternion and the given one.
    *
-   * @return A unit quaternion
+   * @param to The second quaternion.
+   * @param weight Interpolation weight.
+   * @return The spherical linear interpolation between this quaternion and the given one
    */
   override def slerp(to: QuaternionD, weight: Double): QuaternionD = {
     val omega = math.acos(this dot to)
     val sinOmega = math.sin(omega)
     this * (math.sin((1.0 - weight) * omega) / sinOmega) + to * (math.sin(weight * omega) / sinOmega)
+  }
+
+  /**
+   * Converts the rotation represented by this quaternion to a 3x3 rotation matrix.
+   *
+   * @return A 3x3 rotation matrix
+   */
+  def rotationMatrix: Mat3d = {
+    val s = 1.0 / this.lengthSquared
+    Mat3d(
+      1.0 - 2.0 * s * (y * y + z * z), 2.0 * s * (x * y - z * w), 2.0 * s * (x * z + y * w),
+      2.0 * s * (x * y + z * w), 1.0 - 2.0 * s * (x * x + z * z), 2.0 * s * (y * z - x * w),
+      2.0 * s * (x * z - y * w), 2.0 * s * (y * z + x * w), 1.0 - 2.0 * s * (x * x + y * y)
+    )
   }
 
   /**
@@ -386,8 +422,8 @@ object QuaternionD {
   /**
    * Constructs a quaternion from the given euler angles.
    *
-   * @param euler Euler angles
-   * @return The resulting quaternion
+   * @param euler Euler angles.
+   * @return The resulting quaternion.
    */
   def apply(euler: Vec3d): QuaternionD = {
     val cr = math.cos(euler.x * 0.5)
@@ -407,9 +443,9 @@ object QuaternionD {
   /**
    * Constructs a quaternion representing a rotation around the given axis of the given angle.
    *
-   * @param axis The rotation axis
-   * @param angle The rotation angle
-   * @return The resulting quaternion
+   * @param axis The rotation axis.
+   * @param angle The rotation angle.
+   * @return The resulting quaternion.
    */
   def apply(axis: Vec3d, angle: Double): QuaternionD = {
     val s = math.sin(angle * 0.5)
@@ -421,9 +457,9 @@ object QuaternionD {
    *
    * The result is undefined if the two quaternions are not [[Quaternion.normalized]].
    *
-   * @param from First vector
-   * @param to Second vector
-   * @return The resulting quaternion
+   * @param from First vector.
+   * @param to Second vector.
+   * @return The resulting quaternion.
    */
   def apply(from: Vec3d, to: Vec3d): QuaternionD = {
     val c = from cross to
