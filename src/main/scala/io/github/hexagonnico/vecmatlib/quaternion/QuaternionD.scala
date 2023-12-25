@@ -422,8 +422,8 @@ object QuaternionD {
   /**
    * Constructs a quaternion from the given euler angles.
    *
-   * @param euler Euler angles
-   * @return The resulting quaternion
+   * @param euler Euler angles.
+   * @return The resulting quaternion.
    */
   def apply(euler: Vec3d): QuaternionD = {
     val cr = math.cos(euler.x * 0.5)
@@ -443,9 +443,9 @@ object QuaternionD {
   /**
    * Constructs a quaternion representing a rotation around the given axis of the given angle.
    *
-   * @param axis The rotation axis
-   * @param angle The rotation angle
-   * @return The resulting quaternion
+   * @param axis The rotation axis.
+   * @param angle The rotation angle.
+   * @return The resulting quaternion.
    */
   def apply(axis: Vec3d, angle: Double): QuaternionD = {
     val s = math.sin(angle * 0.5)
@@ -457,9 +457,9 @@ object QuaternionD {
    *
    * The result is undefined if the two quaternions are not [[Quaternion.normalized]].
    *
-   * @param from First vector
-   * @param to Second vector
-   * @return The resulting quaternion
+   * @param from First vector.
+   * @param to Second vector.
+   * @return The resulting quaternion.
    */
   def apply(from: Vec3d, to: Vec3d): QuaternionD = {
     val c = from cross to

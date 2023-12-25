@@ -272,7 +272,12 @@ class QuaternionFSuite extends AnyFunSuite {
 
   // TODO: Quaternion from euler angles
 
-  // TODO: Quaternion from axis and rotation
+  test("Test quaternion from axis and rotation") {
+    // https://it.mathworks.com/help/robotics/ref/axang2quat.html
+    val q = QuaternionF(Vec3f.Right, (math.Pi / 2.0).toFloat)
+    val s2 = (math.sqrt(2.0) / 2.0).toFloat
+    assert(q === QuaternionF(s2, s2, 0.0f, 0.0f))
+  }
 
   // TODO: Quaternion from shortest arc
 
