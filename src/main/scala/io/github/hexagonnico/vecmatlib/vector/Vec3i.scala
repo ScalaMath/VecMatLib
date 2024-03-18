@@ -1,364 +1,736 @@
 package io.github.hexagonnico.vecmatlib.vector
 
-import io.github.hexagonnico.vecmatlib.{Int2, Int3}
+import io.github.hexagonnico.vecmatlib.matrix.{Mat3i, Mat3x4i}
 
 /**
- * Class that represents a three-dimensional int vector.
+ * A 3D vector using floating point coordinates.
  *
- * @constructor Constructs a Vec3i from the three given values.
- * @param x X component of the vector
- * @param y Y component of the vector
- * @param z Z component of the vector
+ * Can be used to represent 3D coordinates or any other triplet of numeric values.
+ *
+ * @constructor Constructs a 3D vector from the three given components.
+ * @param x The vector's x component.
+ * @param y The vector's y component.
+ * @param z The vector's z component.
  */
-case class Vec3i(x: Int, y: Int, z: Int) extends VecInt[Vec3i] with Int3 {
+case class Vec3i(x: Int, y: Int, z: Int) {
 
   /**
-   * Constructs a Vec3i from the given xy tuple and z component.
+   * Constructs a 3D vector from the given components.
    *
-   * @param xy X and Y components of the vector
-   * @param z  Y component of the vector
+   * @param xy The vector's x and y components.
+   * @param z The vector's z component.
    */
-  def this(xy: Int2, z: Int) = this(xy.x, xy.y, z)
+  def this(xy: Vec2i, z: Int) = this(xy.x, xy.y, z)
 
   /**
-   * Constructs a Vec3i from the given x component and yz tuple.
+   * Returns a 2D vector composed of the x and the y components of this vector.
    *
-   * @param x  X component of the vector
-   * @param yz Y and Z components of the vector
-   */
-  def this(x: Int, yz: Int2) = this(x, yz.x, yz.y)
-
-  /**
-   * Returns a 2d vector with the x and y components of this vector.
-   *
-   * @return A 2d vector with the x and y components of this vector
+   * @return A 2D vector composed of the x and the y components of this vector.
    */
   def xy: Vec2i = Vec2i(this.x, this.y)
 
   /**
-   * Returns a 2d vector with the y and z components of this vector.
+   * Adds the given values to the components of this vector and returns the result.
    *
-   * @return A 2d vector with the y and z components of this vector
-   */
-  def yz: Vec2i = Vec2i(this.y, this.z)
-
-  /**
-   * Returns the sum between this vector and the one with the given components.
-   *
-   * @param x X component of the vector to add
-   * @param y Y component of the vector to add
-   * @param z Z component of the vector to add
-   * @return The sum of this vector and the one with the given components
+   * @param x The x component to add.
+   * @param y The y component to add.
+   * @param z The z component to add.
+   * @return The sum between this vector and the given values.
    */
   def +(x: Int, y: Int, z: Int): Vec3i = Vec3i(this.x + x, this.y + y, this.z + z)
 
   /**
-   * Returns the sum between this vector and the one with the given components.
+   * Adds the given values to the components of this vector and returns the result.
    *
-   * This method can be used in place of the '+' operator for better interoperability with Java.
+   * This method can be used in place of the `+` operator for better interoperability with Java.
    *
-   * @param x X component of the vector to add
-   * @param y Y component of the vector to add
-   * @param z Z component of the vector to add
-   * @return The sum of this vector and the one with the given components
+   * @param x The x component to add.
+   * @param y The y component to add.
+   * @param z The z component to add.
+   * @return The sum between this vector and the given values.
    */
   def plus(x: Int, y: Int, z: Int): Vec3i = this + (x, y, z)
 
   /**
-   * Returns the sum between this vector and the given one.
+   * Adds the given vector to this one and returns the result.
    *
    * @param v The vector to add.
-   * @return The sum of this vector and the given one.
+   * @return The sum between this vector and the given one.
    */
-  override def +(v: Vec3i): Vec3i = this + (v.x, v.y, v.z)
+  def +(v: Vec3i): Vec3i = this + (v.x, v.y, v.z)
 
   /**
-   * Returns the additive inverse of this vector.
+   * Adds the given vector to this one and returns the result.
    *
-   * @return The additive inverse of this vector
+   * This method can be used in place of the `+` operator for better interoperability with Java.
+   *
+   * @param v The vector to add.
+   * @return The sum between this vector and the given one.
    */
-  override def unary_- : Vec3i = Vec3i(-this.x, -this.y, -this.z)
+  def plus(v: Vec3i): Vec3i = this + v
 
   /**
-   * Returns the subtraction between this vector and the one with the given components.
+   * Returns this exact vector.
    *
-   * @param x X component of the vector to subtract
-   * @param y Y component of the vector to subtract
-   * @param z Z component of the vector to subtract
-   * @return The subtraction of the vector with the given components from this one.
+   * The unary `+` operator does nothing, but can sometimes make the code more readable.
+   *
+   * @return This exact vector.
    */
-  def -(x: Int, y: Int, z: Int): Vec3i = this + (-x, -y, -z)
+  def unary_+(): Vec3i = this
 
   /**
-   * Returns the subtraction between this vector and the one with the given components.
+   * Subtracts the given values from each component of this vector and returns the result.
    *
-   * This method can be used in place of the '-' operator for better interoperability with Java.
+   * @param x The x component to subtract.
+   * @param y The y component to subtract.
+   * @param z The z component to subtract.
+   * @return The subtraction between this vector and the given values.
+   */
+  def -(x: Int, y: Int, z: Int): Vec3i = Vec3i(this.x - x, this.y - y, this.z - z)
+
+  /**
+   * Subtracts the given values from each component of this vector and returns the result.
    *
-   * @param x X component of the vector to subtract
-   * @param y Y component of the vector to subtract
-   * @param z Z component of the vector to subtract
-   * @return The subtraction of the vector with the given components from this one.
+   * This method can be used in place of the `-` operator for better interoperability with Java.
+   *
+   * @param x The x component to subtract.
+   * @param y The y component to subtract.
+   * @param z The z component to subtract.
+   * @return The subtraction between this vector and the given values.
    */
   def minus(x: Int, y: Int, z: Int): Vec3i = this - (x, y, z)
 
   /**
-   * Returns the product between this vector and the given scalar.
+   * Subtracts the given vector from this one and returns the result.
    *
-   * @param k The scalar to which the vector is multiplied.
-   * @return The result of the product between this vector and the given scalar.
+   * @param v The vector to subtract.
+   * @return The subtraction between this vector and the given one.
    */
-  override def *(k: Int): Vec3i = this * (k, k, k)
+  def -(v: Vec3i): Vec3i = this - (v.x, v.y, v.z)
 
   /**
-   * Returns the component-wise multiplication between this vector and the given scalars.
+   * Subtracts the given vector from this one and returns the result.
    *
-   * @param x Value by which the X component is multiplied
-   * @param y Value by which the Y component is multiplied
-   * @param z Value by which the Z component is multiplied
-   * @return The component-wise multiplication between this vector and the given scalars.
+   * This method can be used in place of the `-` operator for better interoperability with Java.
+   *
+   * @param v The vector to subtract.
+   * @return The subtraction between this vector and the given one.
+   */
+  def minus(v: Vec3i): Vec3i = this - v
+
+  /**
+   * Returns the additive inverse of this vector.
+   *
+   * @return The additive inverse of this vector.
+   */
+  def unary_-(): Vec3i = Vec3i(-this.x, -this.y, -this.z)
+
+  /**
+   * Returns the additive inverse of this vector.
+   *
+   * This method can be used in place of the unary `-` operator for better interoperability with Java.
+   *
+   * @return The additive inverse of this vector.
+   */
+  def negated: Vec3i = -this
+
+  /**
+   * Multiplies each component of this vector by the given values and returns the result.
+   *
+   * @param x Value to multiply the x component by.
+   * @param y Value to multiply the y component by.
+   * @param z Value to multiply the z component by.
+   * @return The component-wise multiplication between this vector and the given values.
    */
   def *(x: Int, y: Int, z: Int): Vec3i = Vec3i(this.x * x, this.y * y, this.z * z)
 
   /**
-   * Returns the component-wise multiplication between this vector and the given scalars.
+   * Multiplies each component of this vector by the given values and returns the result.
    *
-   * This method can be used in place of the '*' operator for better interoperability with Java.
+   * This method can be used in place of the `*` operator for better interoperability with Java.
    *
-   * @param x Value by which the X component is multiplied
-   * @param y Value by which the Y component is multiplied
-   * @param z Value by which the Z component is multiplied
-   * @return The component-wise multiplication between this vector and the given scalars.
+   * @param x The value to multiply the x component by.
+   * @param y The value to multiply the y component by.
+   * @param z The value to multiply the z component by.
+   * @return The component-wise multiplication between this vector and the given values.
    */
   def multiply(x: Int, y: Int, z: Int): Vec3i = this * (x, y, z)
 
   /**
-   * Returns the division of this vector by the given scalar.
+   * Multiplies each component of this vector by the components of the given ones and returns the result.
    *
-   * @param k The scalar by which the vector is divided.
-   * @return The result of the division of this vector by the given scalar.
+   * @param v The vector to multiply this one by.
+   * @return The component-wise multiplication between this vector and the one.
    */
-  override def /(k: Int): Vec3i = Vec3i(this.x / k, this.y / k, this.z / k)
+  def *(v: Vec3i): Vec3i = this * (v.x, v.y, v.z)
 
   /**
-   * Returns the component-wise multiplication between this vector and the given one.
+   * Multiplies each component of this vector by the components of the given ones and returns the result.
    *
-   * @param v The second operand of the multiplication.
-   * @return The component-wise multiplication between this vector and the given one.
+   * This method can be used in place of the `*` operator for better interoperability with Java.
+   *
+   * @param v The vector to multiply this one by.
+   * @return The component-wise multiplication between this vector and the one.
    */
-  override def *(v: Vec3i): Vec3i = this * (v.x, v.y, v.z)
+  def multiply(v: Vec3i): Vec3i = this * v
 
   /**
-   * Returns the result of the dot product (or scalar product) between this vector and the one with the given components.
+   * Multiplies this vector by the given scalar and returns the result.
    *
-   * @param x X component of the vector by which this one is multiplied
-   * @param y Y component of the vector by which this one is multiplied
-   * @param z Z component of the vector by which this one is multiplied
-   * @return The result of the dot product between this vector and the one with the given components.
+   * @param k The scalar to multiply this vector by.
+   * @return The product between this vector and the given scalar.
+   */
+  def *(k: Int): Vec3i = this * (k, k, k)
+
+  /**
+   * Multiplies this vector by the given scalar and returns the result.
+   *
+   * This method can be used in place of the `*` operator for better interoperability with Java.
+   *
+   * @param k The scalar to multiply this vector by.
+   * @return The product between this vector and the given scalar.
+   */
+  def multipliedBy(k: Int): Vec3i = this * k
+
+  /**
+   * Divides each component of this vector by the given values and returns the result.
+   *
+   * Note that this method performs an integer division.
+   *
+   * @param x The value to divide the x component by.
+   * @param y The value to divide the y component by.
+   * @param z The value to divide the z component by.
+   * @return The component-wise division between this vector and the given values.
+   */
+  def /(x: Int, y: Int, z: Int): Vec3i = Vec3i(this.x / x, this.y / y, this.z / z)
+
+  /**
+   * Divides each component of this vector by the given values and returns the result.
+   *
+   * Note that this method performs an integer division.
+   *
+   * This method can be used in place of the `/` operator for better interoperability with Java.
+   *
+   * @param x The value to divide the x component by.
+   * @param y The value to divide the y component by.
+   * @param z The value to divide the z component by.
+   * @return The component-wise division between this vector and the given values.
+   */
+  def divide(x: Int, y: Int, z: Int): Vec3i = this / (x, y, z)
+
+  /**
+   * Divides each component of this vector by the components of the given ones and returns the result.
+   *
+   * Note that this method performs an integer division.
+   *
+   * @param v The vector to divide this one by.
+   * @return The component-wise division between this vector and the one.
+   */
+  def /(v: Vec3i): Vec3i = this / (v.x, v.y, v.z)
+
+  /**
+   * Divides each component of this vector by the components of the given ones and returns the result.
+   *
+   * Note that this method performs an integer division.
+   *
+   * This method can be used in place of the `/` operator for better interoperability with Java.
+   *
+   * @param v The vector to divide this one by.
+   * @return The component-wise division between this vector and the one.
+   */
+  def divide(v: Vec3i): Vec3i = this / v
+
+  /**
+   * Divides this vector by the given scalar and returns the result.
+   *
+   * Note that this method performs an integer division.
+   *
+   * @param k The scalar to divide this vector by.
+   * @return The division between this vector and the given scalar.
+   */
+  def /(k: Int): Vec3i = this / (k, k, k)
+
+  /**
+   * Divides this vector by the given scalar and returns the result.
+   *
+   * Note that this method performs an integer division.
+   *
+   * This method can be used in place of the `/` operator for better interoperability with Java.
+   *
+   * @param k The scalar to divide this vector by.
+   * @return The division between this vector and the given scalar.
+   */
+  def dividedBy(k: Int): Vec3i = this / k
+
+  /**
+   * Returns the inverse of this vector with respect to component-wise multiplication.
+   * For a vector `(x, y)`, that is the vector `(1.0 / x, 1.0 / y, 1.0 / z)`.
+   *
+   * @return The inverse of this vector.
+   */
+  def inverse: Vec3f = Vec3f(1.0f / this.x, 1.0f / this.y, 1.0f / this.z)
+
+  /**
+   * Returns the dot product, or scalar product, between this vector and the given values.
+   *
+   * @param x The x component of the vector to multiply this one by.
+   * @param y The y component of the vector to multiply this one by.
+   * @param z The z component of the vector to multiply this one by.
+   * @return The dot product between this vector and the given values.
    */
   def dot(x: Int, y: Int, z: Int): Int = this.x * x + this.y * y + this.z * z
 
   /**
-   * Returns the result of the dot product (or scalar product) between this vector and the given one.
+   * Returns the dot product, or scalar product, between this vector and the given one.
    *
-   * @param v The vector by which this one is multiplied.
-   * @return The result of the dot product between this vector and the given one.
+   * @param v The second vector.
+   * @return The dot product between this vector and the given one.
    */
-  override def dot(v: Vec3i): Int = this.dot(v.x, v.y, v.z)
+  def dot(v: Vec3i): Int = this.dot(v.x, v.y, v.z)
 
   /**
-   * Returns the cross product (or vector product) between this vector and the one with the given components.
+   * Returns the cross product, or vector product, between this vector and the vector defined by the given components.
    *
-   * @param x X component of the vector by which this one is multiplied
-   * @param y Y component of the vector by which this one is multiplied
-   * @param z Z component of the vector by which this one is multiplied
-   * @return The cross product between this vector and the one with the given components
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @param z The z component of the second vector.
+   * @return The cross product between this vector and the vector defined by the given components.
    */
   def cross(x: Int, y: Int, z: Int): Vec3i = Vec3i(this.y * z - this.z * y, x * this.z - z * this.x, this.x * y - this.y * x)
 
   /**
-   * Returns the cross product (or vector product) between this vector and the given one.
+   * Returns the cross product, or vector product, between this vector and the given one.
    *
-   * @param v The vector by which this one is multiplied
+   * @param v The second vector.
    * @return The cross product between this vector and the given one.
    */
   def cross(v: Vec3i): Vec3i = this.cross(v.x, v.y, v.z)
 
   /**
-   * Returns the squared length (or squared magnitude) of this vector.
+   * Returns the cross product, or vector product, between this vector and the given one.
    *
-   * @return The squared length of this vector.
+   * Since the cross product is only defined in three dimensions, the given vector is considered to be laying on the xy plane, i.e. its z component is considered to be zero.
+   *
+   * @param v The second vector.
+   * @return The cross product between this vector and the given one.
    */
-  override def lengthSquared: Int = this dot this
+  def cross(v: Vec2i): Vec3i = this.cross(v.x, v.y, 0)
 
   /**
-   * Returns the angle in radians between this vector and the one with the given components.
+   * Returns the squared length, or magnitude, or modulus, of this vector.
    *
-   * @param x X component of the second vector
-   * @param y Y component of the second vector
-   * @param z Z component of the second vector
-   * @return The angle in radians between this vector and the one with the given components
+   * When comparing vectors by their length, it is more efficient to compare them by their squared length, since computing it does not require computing a square root.
+   *
+   * @return The squared length of this vector.
+   * @see [[length]]
    */
-  def angle(x: Double, y: Double, z: Double): Double = this.toDouble.angle(Vec3d(x, y, z))
+  def lengthSquared: Int = this.dot(this)
+
+  /**
+   * Returns the length, or magnitude, or modulus, of this vector.
+   *
+   * @return The length of this vector.
+   * @see [[lengthSquared]]
+   */
+  def length: Float = math.sqrt(this.lengthSquared).toFloat
+
+  /**
+   * Returns the result of scaling this vector to unit length.
+   * Equivalent to `v / v.length`.
+   *
+   * The resulting vector has the same direction as this one, but a length of `1.0`.
+   *
+   * @return The result of scaling this vector to unit length.
+   * @see [[isNormalized]]
+   */
+  def normalized: Vec3f = this / this.length
+
+  /**
+   * Checks if this vector is a unit vector by checking if its length is equal to `1`.
+   *
+   * @return True if this vector is a unit vector, otherwise false.
+   * @see [[normalized]]
+   */
+  def isNormalized: Boolean = this.lengthSquared == 1
 
   /**
    * Returns a vector with all components in absolute value.
    *
-   * @return This vector with all components in absolute value
+   * Not to be confused with the modulus, or [[length]], of a vector.
+   *
+   * @return A vector with all components in absolute value.
    */
-  override def abs: Vec3i = Vec3i(math.abs(this.x), math.abs(this.y), math.abs(this.z))
+  def abs: Vec3i = Vec3i(this.x.abs, this.y.abs, this.z.abs)
 
   /**
-   * Returns the squared distance between this vector and the one with the given components.
+   * Returns a vector with the signs of the components of this vector.
    *
-   * Using `a.distanceSquaredTo(b)` is equivalent to using `(b - a).lengthSquared`.
+   * @return A vector with all components representing the sign of this vector.
+   */
+  def sign: Vec3i = Vec3i(this.x.sign, this.y.sign, this.z.sign)
+
+  /**
+   * Computes the normalized vector pointing from this one to the given one and returns the result.
    *
-   * @param x X component of the second vector
-   * @param y Y component of the second vector
-   * @param z Z component of the second vector
-   * @return The squared distance between this vector and the one with the given components
+   * This method is equivalent to `(b - a).normalized`.
+   *
+   * @param v The second vector.
+   * @return The normalized vector pointing from this one to the given one.
+   */
+  def directionTo(v: Vec3i): Vec3f = (v - this).normalized
+
+  /**
+   * Computes the normalized vector pointing from this one to the one with the given components and returns the result.
+   *
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @param z The z component of the second vector.
+   * @return The normalized vector pointing from this one to the one with the given components.
+   */
+  def directionTo(x: Int, y: Int, z: Int): Vec3f = this.directionTo(Vec3i(x, y, z))
+
+  /**
+   * Returns the squared distance between the point represented by this vector and the point represented by the given one.
+   *
+   * This method is equivalent to `(b - a).lengthSquared`
+   *
+   * @param v The second vector.
+   * @return The squared distance between this vector and the given one.
+   * @see [[lengthSquared]]
+   */
+  def distanceSquaredTo(v: Vec3i): Int = (v - this).lengthSquared
+
+  /**
+   * Returns the squared distance between the point represented by this vector and the point represented by the given one.
+   *
+   * This method is equivalent to `(b - a).lengthSquared`
+   *
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @param z The z component of the second vector.
+   * @return The squared distance between this vector and the one with the given components.
+   * @see [[lengthSquared]]
    */
   def distanceSquaredTo(x: Int, y: Int, z: Int): Int = this.distanceSquaredTo(Vec3i(x, y, z))
 
   /**
-   * Returns the distance between this vector and the one with the given components.
+   * Returns the distance between the point represented by this vector and the point represented by the given one.
    *
-   * Using `a.distanceTo(b)` is equivalent to using `(b - a).length`.
+   * This method is equivalent to `(b - a).length`
    *
-   * @param x X component of the second vector
-   * @param y Y component of the second vector
-   * @param z Z component of the second vector
-   * @return The distance between this vector and the one with the given components
+   * @param v The second vector.
+   * @return The squared between this vector and the given one.
+   * @see [[length]]
    */
-  def distanceTo(x: Int, y: Int, z: Int): Double = this.distanceTo(Vec3i(x, y, z))
+  def distanceTo(v: Vec3i): Float = (v - this).length
 
   /**
-   * Returns this vector reflected from a plane defined by the given normal (must be normalized).
+   * Returns the distance between the point represented by this vector and the point represented by the given one.
    *
-   * @param x X component of the normal
-   * @param y Y component of the normal
-   * @param z Z component of the normal
-   * @return This vector reflected from a plane defined by the given normal
+   * This method is equivalent to `(b - a).length`
+   *
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @param z The z component of the second vector.
+   * @return The squared between this vector and the one with the given components.
+   * @see [[length]]
+   */
+  def distanceTo(x: Int, y: Int, z: Int): Float = this.distanceTo(Vec3i(x, y, z))
+
+  /**
+   * Returns the angle in radians between this vector and the given one.
+   *
+   * @param v The second vector.
+   * @return The angle in radians between this vector and the given one.
+   */
+  def angleTo(v: Vec3i): Double = math.acos((this dot v) / (this.length * v.length))
+
+  /**
+   * Returns the angle in radians between this vector and the one with the given components.
+   *
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @param z The z component of the second vector.
+   * @return The angle in radians between this vector and the one with the given components.
+   */
+  def angleTo(x: Int, y: Int, z: Int): Double = this.angleTo(Vec3i(x, y, z))
+
+  /**
+   * Returns the signed angle to the given vector in radians.
+   *
+   * @param to The second vector.
+   * @param axis Specifies the sign of the angle.
+   * @return The signed angle to the given vector in radians.
+   */
+  def signedAngleTo(to: Vec3i, axis: Vec3i): Double = {
+    val cross = this.cross(to)
+    val angle = math.atan2(cross.length, this.dot(to))
+    if (cross.dot(axis) < 0) {
+      -angle
+    } else {
+      angle
+    }
+  }
+
+  /**
+   * Projects this vector on the given one and returns the result.
+   *
+   * @param v The second vector.
+   * @return The projection of this vector on the given one.
+   */
+  def project(v: Vec3i): Vec3f = v * ((this dot v) / v.lengthSquared.toFloat)
+
+  /**
+   * Projects this vector on the one with the given components and returns the result.
+   *
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @param z The z component of the second vector.
+   * @return The projection of this vector on the one with the given components.
+   */
+  def project(x: Int, y: Int, z: Int): Vec3f = this.project(Vec3i(x, y, z))
+
+  /**
+   * Reflects this vector by the given normal and returns the result.
+   *
+   * @param n The reflection normal.
+   * @return The reflection of this vector by the given normal.
+   */
+  def reflect(n: Vec3i): Vec3i = this - (n * (this dot n) * 2)
+
+  /**
+   * Reflects this vector by the normal defined by the given components and returns the result.
+   *
+   * @param x The x component of the reflection normal.
+   * @param y The y component of the reflection normal.
+   * @param z The z component of the reflection normal.
+   * @return The reflection of this vector by the normal defined by the given components.
    */
   def reflect(x: Int, y: Int, z: Int): Vec3i = this.reflect(Vec3i(x, y, z))
 
   /**
-   * Returns this vector "bounced off" from a plane defined by the given normal (must be normalized).
+   * "Bounces" this vector on a plane defined by the given normal and returns the result.
    *
-   * @param x X component of the normal
-   * @param y Y component of the normal
-   * @param z Z component of the normal
-   * @return This vector "bounced off" from a plane defined by the given normal
+   * @param n The normal of the plane.
+   * @return A vector "bounced off" from a plane defined by the given normal.
+   */
+  def bounce(n: Vec3i): Vec3i = -this.reflect(n)
+
+  /**
+   * "Bounces" this vector on a plane defined by the normal defined by the given components and returns the result.
+   *
+   * @param x The x component of the plane's normal.
+   * @param y The y component of the plane's normal.
+   * @param z The z component of the plane's normal.
+   * @return A vector "bounced off" from a plane defined by the normal defined by the given components.
    */
   def bounce(x: Int, y: Int, z: Int): Vec3i = this.bounce(Vec3i(x, y, z))
 
   /**
-   * Returns this vector projected onto the one with the given components.
+   * Slides this vector along a plane defined by the given normal and returns the result.
    *
-   * @param x X component of the vector to project onto
-   * @param y Y component of the vector to project onto
-   * @param z Z component of the vector to project onto
-   * @return This vector projected onto the one with the given components
+   * @param n The normal of the plane.
+   * @return The result of sliding this vector along a plane defined by the given normal.
    */
-  def project(x: Int, y: Int, z: Int): Vec3i = this.project(Vec3i(x, y, z))
+  def slide(n: Vec3i): Vec3i = this - (n * (this dot n))
 
   /**
-   * Returns this vector slid along a plane defined by the normal with the given components.
+   * Slides this vector along a plane defined by the normal defined by the given components and returns the result.
    *
-   * @param x X component of the normal
-   * @param y Y component of the normal
-   * @param z Z component of the normal
-   * @return This vector slid along a plane defined by the given normal
+   * @param x The x component of the plane's normal.
+   * @param y The y component of the plane's normal.
+   * @param z The z component of the plane's normal.
+   * @return The result of sliding this vector along a plane defined by the normal defined by the given components.
    */
   def slide(x: Int, y: Int, z: Int): Vec3i = this.slide(Vec3i(x, y, z))
 
   /**
-   * Converts this vector to a float vector.
+   * Returns a vector composed by the reminder of the division between this vector's components and the given values.
    *
-   * @return This same vector as a float vector
+   * @param x The x component.
+   * @param y The y component.
+   * @param z The z component.
+   * @return A vector composed by the reminder of the division between this vector's components and the given values.
    */
-  def toFloat: Vec3f = Vec3f(this.x.toFloat, this.y.toFloat, this.z.toFloat)
+  def %(x: Int, y: Int, z: Int): Vec3i = Vec3i(this.x % x, this.y % y, this.z % z)
 
   /**
-   * Converts this vector to a double vector.
+   * Returns a vector composed by the reminder of the division between this vector's components and the given values.
    *
-   * @return This same vector as a double vector
+   * This method can be used in place of the `%` operator for better interoperability with Java.
+   *
+   * @param x The x component.
+   * @param y The y component.
+   * @param z The z component.
+   * @return A vector composed by the reminder of the division between this vector's components and the given values.
    */
-  def toDouble: Vec3d = Vec3d(this.x.toDouble, this.y.toDouble, this.z.toDouble)
+  def mod(x: Int, y: Int, z: Int): Vec3i = this % (x, y, z)
+
+  /**
+   * Returns a vector composed by the reminder of the division between this vector's components and the components of the given vector.
+   *
+   * @param v The second vector.
+   * @return A vector composed by the reminder of the division between this vector's components and the components of the given vector.
+   */
+  def %(v: Vec3i): Vec3i = this % (v.x, v.y, v.z)
+
+  /**
+   * Returns a vector composed by the reminder of the division between this vector's components and the components of the given vector.
+   *
+   * This method can be used in place of the `%` operator for better interoperability with Java.
+   *
+   * @param v The second vector.
+   * @return A vector composed by the reminder of the division between this vector's components and the components of the given vector.
+   */
+  def mod(v: Vec3i): Vec3i = this % v
+
+  /**
+   * Returns a vector composed by the reminder of the division between this vector's components and the given scalar.
+   *
+   * @param k The scalar.
+   * @return A vector composed by the reminder of the division between this vector's components and the given scalar.
+   */
+  def %(k: Int): Vec3i = this % (k, k, k)
+
+  /**
+   * Returns a vector composed by the reminder of the division between this vector's components and the given scalar.
+   *
+   * This method can be used in place of the `%` operator for better interoperability with Java.
+   *
+   * @param k The scalar.
+   * @return A vector composed by the reminder of the division between this vector's components and the given scalar.
+   */
+  def mod(k: Int): Vec3i = this % k
+
+  /**
+   * Returns the outer product between this vector and the given one.
+   *
+   * @param v The second vector.
+   * @return The outer product between this vector and the given one.
+   */
+  def outer(v: Vec3i): Mat3i = Mat3i(
+    this.x * v.x, this.x * v.y, this.x * v.z,
+    this.y * v.x, this.y * v.y, this.y * v.z,
+    this.z * v.x, this.z * v.y, this.z * v.z
+  )
+
+  /**
+   * Returns the outer product between this vector and the given one.
+   *
+   * @param v The second vector.
+   * @return The outer product between this vector and the given one.
+   */
+  def outer(v: Vec4i): Mat3x4i = Mat3x4i(
+    this.x * v.x, this.x * v.y, this.x * v.z, this.x * v.w,
+    this.y * v.x, this.y * v.y, this.y * v.z, this.y * v.w,
+    this.z * v.x, this.z * v.y, this.z * v.z, this.z * v.w
+  )
 
   /**
    * Checks if the components of this vector are equal to the given ones.
    *
-   * @param x X component of the vector
-   * @param y Y component of the vector
-   * @param z Z component of the vector
-   * @return True if the components of this vector equal the given ones, otherwise false
+   * @param x The x component.
+   * @param y The y component.
+   * @param z The z component.
+   * @return True if the components of this vector are equal to the given ones, otherwise false.
    */
   def ==(x: Int, y: Int, z: Int): Boolean = this.x == x && this.y == y && this.z == z
 
   /**
    * Checks if the components of this vector are equal to the given ones.
    *
-   * This method can be used in place of the '==' operator for better interoperability with Java.
+   * This method can be used in place of the `==` operator for better interoperability with Java.
    *
-   * @param x X component of the vector
-   * @param y Y component of the vector
-   * @param z Z component of the vector
-   * @return True if the components of this vector equal the given ones, otherwise false
+   * @param x The x component.
+   * @param y The y component.
+   * @param z The z component.
+   * @return True if the components of this vector are equal to the given ones, otherwise false.
    */
   def equals(x: Int, y: Int, z: Int): Boolean = this == (x, y, z)
+
+  /**
+   * Returns the component of this vector at the given index.
+   * `0` for `x`, `1` for `y`, `2` for `z`.
+   *
+   * @param i The index of the requested component. Must be either 0, 1, or 2.
+   * @return The component of this vector at the given index.
+   * @throws scala.MatchError If the given index is out of bounds.
+   */
+  def apply(i: Int): Int = i match {
+    case 0 => this.x
+    case 1 => this.y
+    case 2 => this.z
+  }
+
+  /**
+   * Returns this vector as a float vector.
+   *
+   * @return This vector as a float vector.
+   */
+  def toFloat: Vec3f = Vec3f(this.x, this.y, this.z)
+
+  /**
+   * Returns this vector as a double vector.
+   *
+   * @return This vector as a double vector.
+   */
+  def toDouble: Vec3d = Vec3d(this.x, this.y, this.z)
 }
 
+/**
+ * Constants, factory methods, and implicits for vectors.
+ */
 object Vec3i {
-  /** Shorthand for `new Vec3i(0, 0, 0)` */
+
+  /** Shorthand for `Vec3i(0, 0, 0)` */
   val Zero: Vec3i = Vec3i(0, 0, 0)
-  /** Shorthand for `new Vec3i(1, 1, 1)` */
+  /** Shorthand for `Vec3i(1, 1, 1)` */
   val One: Vec3i = Vec3i(1, 1, 1)
-  /** Shorthand for `new Vec3i(1, 0, 0)` */
+  /** Shorthand for `Vec3i(1, 0, 0)` */
   val Right: Vec3i = Vec3i(1, 0, 0)
-  /** Shorthand for `new Vec3i(-1, 0, 0)` */
+  /** Shorthand for `Vec3i(-1, 0, 0)` */
   val Left: Vec3i = Vec3i(-1, 0, 0)
-  /** Shorthand for `new Vec3i(0, 1, 0)` */
+  /** Shorthand for `Vec3i(0, 1, 0)` */
   val Up: Vec3i = Vec3i(0, 1, 0)
-  /** Shorthand for `new Vec3i(0, -1, 0)` */
+  /** Shorthand for `Vec3i(0, -1, 0)` */
   val Down: Vec3i = Vec3i(0, -1, 0)
-  /** Shorthand for `new Vec3i(0, 0, 1)` */
+  /** Shorthand for `Vec3i(0, 0, 1` */
   val Forward: Vec3i = Vec3i(0, 0, 1)
-  /** Shorthand for `new Vec3i(0, 0, -1)` */
+  /** Shorthand for `Vec3i(0.0, 0, -1)` */
   val Backwards: Vec3i = Vec3i(0, 0, -1)
 
   /**
-   * Constructs a Vec3i from the given xy tuple and z component.
-   * Allows to use the syntax `Vec3i(xy, z)` instead of `new Vec3i(xy, z)` in scala.
+   * Constructs a 3D vector from the given components.
    *
-   * @param xy X and Y components of the vector
-   * @param z  Y component of the vector
-   * @return The resulting vector
+   * @param xy The vector's x and y components.
+   * @param z The vector's z component.
+   * @return A 3D vector constructed from the given components.
    */
-  def apply(xy: Int2, z: Int): Vec3i = new Vec3i(xy, z)
+  def apply(xy: Vec2i, z: Int) = new Vec3i(xy, z)
 
   /**
-   * Constructs a Vec3i from the given x component and yz tuple.
-   * Allows to use the syntax `Vec3i(x, yz)` instead of `new Vec3i(x, yz)` in scala.
+   * Allows to use the `*` operator with a scalar as `1 * vector`.
    *
-   * @param x  X component of the vector
-   * @param yz Y and Z components of the vector
-   * @return The resulting vector
+   * @param self The scalar value.
    */
-  def apply(x: Int, yz: Int2): Vec3i = new Vec3i(x, yz)
-
-  /**
-   * Allows to use the operator '*' with a scalar as `1 * vector`.
-   *
-   * @param k The scalar to which the vector is multiplied
-   */
-  implicit class MultiplicationExtender(val k: Int) extends AnyVal {
+  implicit class MultiplicationExtender(val self: Int) extends AnyVal {
 
     /**
-     * Returns the product between this scalar and the given vector.
+     * Multiplies the given vector by this scalar and returns the result.
      *
-     * @param v The vector to which the scalar is multiplied
-     * @return The result of the product between this scalar and the given vector
+     * @param v The vector to multiply.
+     * @return The product between this scalar and the given vector.
      */
-    def *(v: Vec3i): Vec3i = v * k
+    def *(v: Vec3i): Vec3i = v * self
   }
+
+  /**
+   * Implicit conversion from [[Vec3i]] to [[Vec3f]].
+   */
+  implicit val vec3iToVec3f: Vec3i => Vec3f = v => v.toFloat
+
+  /**
+   * Implicit conversion from [[Vec3i]] to [[Vec3d]].
+   */
+  implicit val vec3iToVec3d: Vec3i => Vec3d = v => v.toDouble
 }

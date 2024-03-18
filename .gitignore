@@ -1,11 +1,14 @@
-# Scala sbt
-project/target/
+# Scala SBT
 target/
+*.class
+.bsp
 
-# Intellij
-.bsp/
-.idea/
+# IntelliJ IDEA
+*.iml
+*.ipr
 *.iws
+.idea/
+out/
 
 # Directories
 .DS_Store

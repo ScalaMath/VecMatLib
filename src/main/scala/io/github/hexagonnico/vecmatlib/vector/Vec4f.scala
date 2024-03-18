@@ -1,468 +1,813 @@
 package io.github.hexagonnico.vecmatlib.vector
 
-import io.github.hexagonnico.vecmatlib.{Float2, Float3, Float4}
+import io.github.hexagonnico.vecmatlib.FloatEqualsApprox
+import io.github.hexagonnico.vecmatlib.matrix.Mat4f
 
 /**
- * Class that represents a four-dimensional float vector.
+ * A 4D vector using floating point coordinates.
  *
- * @constructor Constructs a Vec4f from the four given values
- * @param x X component of the vector
- * @param y Y component of the vector
- * @param z Z component of the vector
- * @param w W component of the vector
+ * @constructor Constructs a 4D vector from the four given components.
+ * @param x The vector's x component.
+ * @param y The vector's y component.
+ * @param z The vector's z component.
+ * @param w The vector's w component.
  */
-case class Vec4f(x: Float, y: Float, z: Float, w: Float) extends VecFloat[Vec4f] with Float4 {
+case class Vec4f(x: Float, y: Float, z: Float, w: Float) {
 
   /**
-   * Constructs a Vec4f from the given components.
+   * Constructs a 4D vector from the given components.
    *
-   * @param xy X and Y components of the vector
-   * @param z Z component of the vector
-   * @param w W component of the vector
+   * @param xyz The vector's x, y, and z components.
+   * @param w The vector's w component.
    */
-  def this(xy: Float2, z: Float, w: Float) = this(xy.x, xy.y, z, w)
+  def this(xyz: Vec3f, w: Float) = this(xyz.x, xyz.y, xyz.z, w)
 
   /**
-   * Constructs a Vec4f from the given components.
+   * Constructs a 4D vector from the given components.
    *
-   * @param x X component of the vector
-   * @param yz Y and Z components of the vector
-   * @param w W component of the vector
+   * @param xy The vector's x and y components.
+   * @param z The vector's z component.
+   * @param w The vector's w component.
    */
-  def this(x: Float, yz: Float2, w: Float) = this(x, yz.x, yz.y, w)
+  def this(xy: Vec2f, z: Float, w: Float) = this(xy.x, xy.y, z, w)
 
   /**
-   * Constructs a Vec4f from the given components.
+   * Returns a 2D vector composed of the x and the y components of this vector.
    *
-   * @param x X component of the vector
-   * @param y Y component of the vector
-   * @param zw Z and W components of the vector
-   */
-  def this(x: Float, y: Float, zw: Float2) = this(x, y, zw.x, zw.y)
-
-  /**
-   * Constructs a Vec4f from the given components.
-   *
-   * @param xyz X, Y, and Z components of the vector
-   * @param w W component of the vector
-   */
-  def this(xyz: Float3, w: Float) = this(xyz.x, xyz.y, xyz.z, w)
-
-  /**
-   * Constructs a Vec4f from the given components.
-   *
-   * @param x X component of the vector
-   * @param yzw Y, Z, and W components of the vector
-   */
-  def this(x: Float, yzw: Float3) = this(x, yzw.x, yzw.y, yzw.z)
-
-  /**
-   * Returns a 2d vector with the x and y components of this vector.
-   *
-   * @return A 2d vector with the x and y components of this vector
+   * @return A 2D vector composed of the x and the y components of this vector.
    */
   def xy: Vec2f = Vec2f(this.x, this.y)
 
   /**
-   * Returns a 2d vector with the y and z components of this vector.
+   * Returns a 3D vector composed of the x, the y, and the z components of this vector.
    *
-   * @return A 2d vector with the y and z components of this vector
-   */
-  def yz: Vec2f = Vec2f(this.y, this.z)
-
-  /**
-   * Returns a 2d vector with the z and w components of this vector.
-   *
-   * @return A 2d vector with the z and w components of this vector
-   */
-  def zw: Vec2f = Vec2f(this.z, this.w)
-
-  /**
-   * Returns a 3d vector with the x, y, and z components of this vector.
-   *
-   * @return A 3d vector with the x, y, and z components of this vector
+   * @return A 3D vector composed of the x, the y, and the z components of this vector.
    */
   def xyz: Vec3f = Vec3f(this.x, this.y, this.z)
 
   /**
-   * Returns a 3d vector with the y, z, and w components of this vector.
+   * Adds the given values to the components of this vector and returns the result.
    *
-   * @return A 3d vector with the y, z, and w components of this vector
-   */
-  def yzw: Vec3f = Vec3f(this.y, this.z, this.w)
-
-  /**
-   * Returns the sum between this vector and the one with the given components.
-   *
-   * @param x X component of the vector to add
-   * @param y Y component of the vector to add
-   * @param z Z component of the vector to add
-   * @param w W component of the vector to add
-   * @return The sum of this vector and the one with the given components
+   * @param x The x component to add.
+   * @param y The y component to add.
+   * @param z The z component to add.
+   * @param w The w component to add.
+   * @return The sum between this vector and the given values.
    */
   def +(x: Float, y: Float, z: Float, w: Float): Vec4f = Vec4f(this.x + x, this.y + y, this.z + z, this.w + w)
 
   /**
-   * Returns the sum between this vector and the one with the given components.
+   * Adds the given values to the components of this vector and returns the result.
    *
-   * This method can be used in place of the '+' operator for better interoperability with Java.
+   * This method can be used in place of the `+` operator for better interoperability with Java.
    *
-   * @param x X component of the vector to add
-   * @param y Y component of the vector to add
-   * @param z Z component of the vector to add
-   * @param w W component of the vector to add
-   * @return The sum of this vector and the one with the given components
+   * @param x The x component to add.
+   * @param y The y component to add.
+   * @param z The z component to add.
+   * @param w The w component to add.
+   * @return The sum between this vector and the given values.
    */
   def plus(x: Float, y: Float, z: Float, w: Float): Vec4f = this + (x, y, z, w)
 
   /**
-   * Returns the sum between this vector and the given one.
+   * Adds the given vector to this one and returns the result.
    *
    * @param v The vector to add.
-   * @return The sum of this vector and the given one.
+   * @return The sum between this vector and the given one.
    */
-  override def +(v: Vec4f): Vec4f = this + (v.x, v.y, v.z, v.w)
+  def +(v: Vec4f): Vec4f = this + (v.x, v.y, v.z, v.w)
 
   /**
-   * Returns the additive inverse of this vector.
+   * Adds the given vector to this one and returns the result.
    *
-   * @return The additive inverse of this vector
+   * This method can be used in place of the `+` operator for better interoperability with Java.
+   *
+   * @param v The vector to add.
+   * @return The sum between this vector and the given one.
    */
-  override def unary_- : Vec4f = Vec4f(-this.x, -this.y, -this.z, -this.w)
+  def plus(v: Vec4f): Vec4f = this + v
 
   /**
-   * Returns the subtraction between this vector and the one with the given components.
+   * Returns this exact vector.
    *
-   * @param x X component of the vector to subtract
-   * @param y Y component of the vector to subtract
-   * @param z Z component of the vector to subtract
-   * @param w W component of the vector to subtract
-   * @return The subtraction of the vector with the given components from this one.
+   * The unary `+` operator does nothing, but can sometimes make the code more readable.
+   *
+   * @return This exact vector.
    */
-  def -(x: Float, y: Float, z: Float, w: Float): Vec4f = this + (-x, -y, -z, -w)
+  def unary_+(): Vec4f = this
 
   /**
-   * Returns the subtraction between this vector and the one with the given components.
+   * Subtracts the given values from each component of this vector and returns the result.
    *
-   * This method can be used in place of the '-' operator for better interoperability with Java.
+   * @param x The x component to subtract.
+   * @param y The y component to subtract.
+   * @param z The z component to subtract.
+   * @param w The w component to subtract.
+   * @return The subtraction between this vector and the given values.
+   */
+  def -(x: Float, y: Float, z: Float, w: Float): Vec4f = Vec4f(this.x - x, this.y - y, this.z - z, this.w - w)
+
+  /**
+   * Subtracts the given values from each component of this vector and returns the result.
    *
-   * @param x X component of the vector to subtract
-   * @param y Y component of the vector to subtract
-   * @param z Z component of the vector to subtract
-   * @param w W component of the vector to subtract
-   * @return The subtraction of the vector with the given components from this one.
+   * This method can be used in place of the `-` operator for better interoperability with Java.
+   *
+   * @param x The x component to subtract.
+   * @param y The y component to subtract.
+   * @param z The z component to subtract.
+   * @param w The w component to subtract.
+   * @return The subtraction between this vector and the given values.
    */
   def minus(x: Float, y: Float, z: Float, w: Float): Vec4f = this - (x, y, z, w)
 
   /**
-   * Returns the product between this vector and the given scalar.
+   * Subtracts the given vector from this one and returns the result.
    *
-   * @param k The scalar by which this vector is multiplied
-   * @return The result of the product between this vector and the given scalar.
+   * @param v The vector to subtract.
+   * @return The subtraction between this vector and the given one.
    */
-  override def *(k: Float): Vec4f = this * (k, k, k, k)
+  def -(v: Vec4f): Vec4f = this - (v.x, v.y, v.z, v.w)
 
   /**
-   * Returns the component-wise multiplication between this vector and the given scalars.
+   * Subtracts the given vector from this one and returns the result.
    *
-   * @param x Value by which the X component is multiplied
-   * @param y Value by which the Y component is multiplied
-   * @param z Value by which the Z component is multiplied
-   * @param w Value by which the W component is multiplied
-   * @return The component-wise multiplication between this vector and the given scalars.
+   * This method can be used in place of the `-` operator for better interoperability with Java.
+   *
+   * @param v The vector to subtract.
+   * @return The subtraction between this vector and the given one.
+   */
+  def minus(v: Vec4f): Vec4f = this - v
+
+  /**
+   * Returns the additive inverse of this vector.
+   *
+   * @return The additive inverse of this vector.
+   */
+  def unary_-(): Vec4f = Vec4f(-this.x, -this.y, -this.z, -this.w)
+
+  /**
+   * Returns the additive inverse of this vector.
+   *
+   * This method can be used in place of the unary `-` operator for better interoperability with Java.
+   *
+   * @return The additive inverse of this vector.
+   */
+  def negated: Vec4f = -this
+
+  /**
+   * Multiplies each component of this vector by the given values and returns the result.
+   *
+   * @param x Value to multiply the x component by.
+   * @param y Value to multiply the y component by.
+   * @param z Value to multiply the z component by.
+   * @param w Value to multiply the w component by.
+   * @return The component-wise multiplication between this vector and the given values.
    */
   def *(x: Float, y: Float, z: Float, w: Float): Vec4f = Vec4f(this.x * x, this.y * y, this.z * z, this.w * w)
 
   /**
-   * Returns the component-wise multiplication between this vector and the given scalars.
+   * Multiplies each component of this vector by the given values and returns the result.
    *
-   * This method can be used in place of the '*' operator for better interoperability with Java.
+   * This method can be used in place of the `*` operator for better interoperability with Java.
    *
-   * @param x Value by which the X component is multiplied
-   * @param y Value by which the Y component is multiplied
-   * @param z Value by which the Z component is multiplied
-   * @param w Value by which the W component is multiplied
-   * @return The component-wise multiplication between this vector and the given scalars.
+   * @param x The value to multiply the x component by.
+   * @param y The value to multiply the y component by.
+   * @param z The value to multiply the z component by.
+   * @param w The value to multiply the w component by.
+   * @return The component-wise multiplication between this vector and the given values.
    */
   def multiply(x: Float, y: Float, z: Float, w: Float): Vec4f = this * (x, y, z, w)
 
   /**
-   * Returns the component-wise multiplication between this vector and the given one.
+   * Multiplies each component of this vector by the components of the given ones and returns the result.
    *
-   * @param v The second operand of the multiplication.
-   * @return The component-wise multiplication between this vector and the given one.
+   * @param v The vector to multiply this one by.
+   * @return The component-wise multiplication between this vector and the one.
    */
-  override def *(v: Vec4f): Vec4f = this * (v.x, v.y, v.z, v.w)
+  def *(v: Vec4f): Vec4f = this * (v.x, v.y, v.z, v.w)
 
   /**
-   * Returns the result of the dot product (or scalar product) between this vector and the one with the given components.
+   * Multiplies each component of this vector by the components of the given ones and returns the result.
    *
-   * @param x X component of the vector by which this one is multiplied
-   * @param y Y component of the vector by which this one is multiplied
-   * @param z Z component of the vector by which this one is multiplied
-   * @param w W component of the vector by which this one is multiplied
-   * @return The result of the dot product between this vector and the one with the given components.
+   * This method can be used in place of the `*` operator for better interoperability with Java.
+   *
+   * @param v The vector to multiply this one by.
+   * @return The component-wise multiplication between this vector and the one.
    */
-  def dot(x: Float, y: Float, z: Float, w: Float): Float = this.x * x + this.y * y + this.z * z + this.w * w
+  def multiply(v: Vec4f): Vec4f = this * v
 
   /**
-   * Returns the result of the dot product (or scalar product) between this vector and the given one.
+   * Multiplies this vector by the given scalar and returns the result.
    *
-   * @param v The vector by which this one is multiplied.
-   * @return The result of the dot product between this vector and the given one.
+   * @param k The scalar to multiply this vector by.
+   * @return The product between this vector and the given scalar.
    */
-  override def dot(v: Vec4f): Float = this.dot(v.x, v.y, v.z, v.w)
+  def *(k: Float): Vec4f = this * (k, k, k, k)
 
   /**
-   * Returns the squared length (or squared magnitude) of this vector.
+   * Multiplies this vector by the given scalar and returns the result.
    *
-   * @return The squared length of this vector.
+   * This method can be used in place of the `*` operator for better interoperability with Java.
+   *
+   * @param k The scalar to multiply this vector by.
+   * @return The product between this vector and the given scalar.
    */
-  override def lengthSquared: Float = this dot this
+  def multipliedBy(k: Float): Vec4f = this * k
 
   /**
-   * Returns the angle in radians between this vector and the one with the given components.
+   * Divides each component of this vector by the given values and returns the result.
    *
-   * @param x X component of the second vector
-   * @param y Y component of the second vector
-   * @param z Z component of the second vector
-   * @param w W component of the second vector
-   * @return The angle in radians between this vector and the one with the given components
-   */
-  def angle(x: Double, y: Double, z: Double, w: Double): Double = this.toDouble.angle(Vec4d(x, y, z, w))
-
-  /**
-   * Returns a vector whose components are the multiplicative inverse of this vectors components.
-   *
-   * @return A vector whose components are the multiplicative inverse of this vectors components
-   */
-  override def inverse: Vec4f = Vec4f(1.0f / this.x, 1.0f / this.y, 1.0f / this.z, 1.0f / this.w)
-
-  /**
-   * Returns the component-wise division between this vector and the given scalars.
-   *
-   * @param x Value by which the X component is divided
-   * @param y Value by which the Y component is divided
-   * @param z Value by which the Z component is divided
-   * @param w Value by which the W component is divided
-   * @return The component-wise division between this vector and the given scalars.
+   * @param x The value to divide the x component by.
+   * @param y The value to divide the y component by.
+   * @param z The value to divide the z component by.
+   * @param w The value to divide the w component by.
+   * @return The component-wise division between this vector and the given values.
    */
   def /(x: Float, y: Float, z: Float, w: Float): Vec4f = Vec4f(this.x / x, this.y / y, this.z / z, this.w / w)
 
   /**
-   * Returns the component-wise division between this vector and the given scalars.
+   * Divides each component of this vector by the given values and returns the result.
    *
-   * This method can be used in place of the '/' operator for better interoperability with Java.
+   * This method can be used in place of the `/` operator for better interoperability with Java.
    *
-   * @param x Value by which the X component is divided
-   * @param y Value by which the Y component is divided
-   * @param z Value by which the Z component is divided
-   * @param w Value by which the W component is divided
-   * @return The component-wise division between this vector and the given scalars.
+   * @param x The value to divide the x component by.
+   * @param y The value to divide the y component by.
+   * @param z The value to divide the z component by.
+   * @param w The value to divide the w component by.
+   * @return The component-wise division between this vector and the given values.
    */
   def divide(x: Float, y: Float, z: Float, w: Float): Vec4f = this / (x, y, z, w)
 
   /**
-   * Returns a vector with all components in absolute value.
+   * Divides each component of this vector by the components of the given ones and returns the result.
    *
-   * @return This vector with all components in absolute value
+   * @param v The vector to divide this one by.
+   * @return The component-wise division between this vector and the one.
    */
-  override def abs: Vec4f = Vec4f(math.abs(this.x), math.abs(this.y), math.abs(this.z), math.abs(this.w))
+  def /(v: Vec4f): Vec4f = this / (v.x, v.y, v.z, v.w)
 
   /**
-   * Returns the normalized vector pointing from this vector to the one with the given components.
+   * Divides each component of this vector by the components of the given ones and returns the result.
    *
-   * Using `a.directionTo(b)` is equivalent to using `(b - a).normalized`.
+   * This method can be used in place of the `/` operator for better interoperability with Java.
    *
-   * @param x X component of the second vector
-   * @param y Y component of the second vector
-   * @param z Z component of the second vector
-   * @param w W component of the second vector
-   * @return The normalized vector pointing from this vector to the given one
+   * @param v The vector to divide this one by.
+   * @return The component-wise division between this vector and the one.
+   */
+  def divide(v: Vec4f): Vec4f = this / v
+
+  /**
+   * Divides this vector by the given scalar and returns the result.
+   *
+   * @param k The scalar to divide this vector by.
+   * @return The division between this vector and the given scalar.
+   */
+  def /(k: Float): Vec4f = this / (k, k, k, k)
+
+  /**
+   * Divides this vector by the given scalar and returns the result.
+   *
+   * This method can be used in place of the `/` operator for better interoperability with Java.
+   *
+   * @param k The scalar to divide this vector by.
+   * @return The division between this vector and the given scalar.
+   */
+  def dividedBy(k: Float): Vec4f = this / k
+
+  /**
+   * Returns the inverse of this vector with respect to component-wise multiplication.
+   * For a vector `(x, y, z, w)`, that is the vector `(1.0 / x, 1.0 / y, 1.0 / z, 1.0 / w)`.
+   *
+   * @return The inverse of this vector.
+   */
+  def inverse: Vec4f = Vec4f(1.0f / this.x, 1.0f / this.y, 1.0f / this.z, 1.0f / this.w)
+
+  /**
+   * Returns the dot product, or scalar product, between this vector and the given values.
+   *
+   * @param x The x component of the vector to multiply this one by.
+   * @param y The y component of the vector to multiply this one by.
+   * @param z The z component of the vector to multiply this one by.
+   * @param w The w component of the vector to multiply this one by.
+   * @return The dot product between this vector and the given values.
+   */
+  def dot(x: Float, y: Float, z: Float, w: Float): Float = this.x * x + this.y * y + this.z * z + this.w * w
+
+  /**
+   * Returns the dot product, or scalar product, between this vector and the given one.
+   *
+   * @param v The second vector.
+   * @return The dot product between this vector and the given one.
+   */
+  def dot(v: Vec4f): Float = this.dot(v.x, v.y, v.z, v.w)
+
+  /**
+   * Returns the squared length, or magnitude, or modulus, of this vector.
+   *
+   * When comparing vectors by their length, it is more efficient to compare them by their squared length, since computing it does not require computing a square root.
+   *
+   * @return The squared length of this vector.
+   * @see [[length]]
+   */
+  def lengthSquared: Float = this.dot(this)
+
+  /**
+   * Returns the length, or magnitude, or modulus, of this vector.
+   *
+   * @return The length of this vector.
+   * @see [[lengthSquared]]
+   */
+  def length: Float = math.sqrt(this.lengthSquared).toFloat
+
+  /**
+   * Returns the result of scaling this vector to unit length.
+   * Equivalent to `v / v.length`.
+   *
+   * The resulting vector has the same direction as this one, but a length of `1.0`.
+   *
+   * @return The result of scaling this vector to unit length.
+   * @see [[isNormalized]]
+   */
+  def normalized: Vec4f = this / this.length
+
+  /**
+   * Checks if this vector is a unit vector by checking if its length is approximately equal to `1.0`.
+   *
+   * @return True if this vector is a unit vector, otherwise false.
+   * @see [[normalized]]
+   */
+  def isNormalized: Boolean = this.lengthSquared ~= 1.0f
+
+  /**
+   * Returns the vector with a maximum length by limiting its length to the given limit.
+   *
+   * @param limit The maximum length of the resulting vector.
+   * @return The vector with a maximum length limited by the given limit.
+   */
+  def limitLength(limit: Float): Vec4f = {
+    val length = this.length
+    if(length > 0.0f && limit < length) {
+      this / length * limit
+    } else {
+      this
+    }
+  }
+
+  /**
+   * Returns a vector with all components in absolute value.
+   *
+   * Not to be confused with the modulus, or [[length]], of a vector.
+   *
+   * @return A vector with all components in absolute value.
+   */
+  def abs: Vec4f = Vec4f(this.x.abs, this.y.abs, this.z.abs, this.w.abs)
+
+  /**
+   * Returns a vector with the signs of the components of this vector.
+   *
+   * @return A vector with all components representing the sign of this vector.
+   */
+  def sign: Vec4f = Vec4f(this.x.sign, this.y.sign, this.z.sign, this.w.sign)
+
+  /**
+   * Returns a vector with all components rounded to the nearest integer.
+   *
+   * @return A vector with all components rounded to the nearest integer.
+   */
+  def round: Vec4f = Vec4f(this.x.round, this.y.round, this.z.round, this.w.round)
+
+  /**
+   * Returns a vector with all components rounded up.
+   *
+   * @return A vector with all components rounded up.
+   */
+  def ceil: Vec4f = Vec4f(this.x.ceil, this.y.ceil, this.z.ceil, this.w.ceil)
+
+  /**
+   * Returns a vector with all components rounded down.
+   *
+   * @return A vector with all components rounded down.
+   */
+  def floor: Vec4f = Vec4f(this.x.floor, this.y.floor, this.z.floor, this.w.floor)
+
+  /**
+   * Returns a vector moved toward the given one by the given delta without going past the final value.
+   *
+   * @param to The final value of the vector.
+   * @param delta The fixed delta by which this vector is moved.
+   * @return A vector moved toward the given one by the given delta.
+   */
+  def moveToward(to: Vec4f, delta: Float): Vec4f = {
+    val vd = to - this
+    val length = vd.length
+    if(length <= delta) {
+      to
+    } else {
+      this + vd / length * delta
+    }
+  }
+
+  /**
+   * Computes the linear interpolation between this vector and the given one by the given weight and returns the result.
+   *
+   * The given weight must be in the `[0.0, 1.0]` range, representing the amount of interpolation.
+   *
+   * @param to The second vector.
+   * @param weight The weight of the interpolation between `0.0` and `1.0`.
+   * @return The result of linearly interpolating between this vector and the given one.
+   */
+  def lerp(to: Vec4f, weight: Float): Vec4f = this + (to - this) * weight
+
+  /**
+   * Computes the normalized vector pointing from this one to the given one and returns the result.
+   *
+   * This method is equivalent to `(b - a).normalized`.
+   *
+   * @param v The second vector.
+   * @return The normalized vector pointing from this one to the given one.
+   */
+  def directionTo(v: Vec4f): Vec4f = (v - this).normalized
+
+  /**
+   * Computes the normalized vector pointing from this one to the one with the given components and returns the result.
+   *
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @param z The z component of the second vector.
+   * @param w The w component of the second vector.
+   * @return The normalized vector pointing from this one to the one with the given components.
    */
   def directionTo(x: Float, y: Float, z: Float, w: Float): Vec4f = this.directionTo(Vec4f(x, y, z, w))
 
   /**
-   * Returns the squared distance between this vector and the one with the given components.
+   * Returns the squared distance between the point represented by this vector and the point represented by the given one.
    *
-   * Using `a.distanceSquaredTo(b)` is equivalent to using `(b - a).lengthSquared`.
+   * This method is equivalent to `(b - a).lengthSquared`
    *
-   * @param x X component of the second vector
-   * @param y Y component of the second vector
-   * @param z Z component of the second vector
-   * @param w W component of the second vector
-   * @return The squared distance between this vector and the one with the given components
+   * @param v The second vector.
+   * @return The squared distance between this vector and the given one.
+   * @see [[lengthSquared]]
+   */
+  def distanceSquaredTo(v: Vec4f): Float = (v - this).lengthSquared
+
+  /**
+   * Returns the squared distance between the point represented by this vector and the point represented by the given one.
+   *
+   * This method is equivalent to `(b - a).lengthSquared`
+   *
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @param z The z component of the second vector.
+   * @param w The w component of the second vector.
+   * @return The squared distance between this vector and the one with the given components.
+   * @see [[lengthSquared]]
    */
   def distanceSquaredTo(x: Float, y: Float, z: Float, w: Float): Float = this.distanceSquaredTo(Vec4f(x, y, z, w))
 
   /**
-   * Returns the distance between this vector and the one with the given components.
+   * Returns the distance between the point represented by this vector and the point represented by the given one.
    *
-   * Using `a.distanceTo(b)` is equivalent to using `(b - a).length`.
+   * This method is equivalent to `(b - a).length`
    *
-   * @param x X component of the second vector
-   * @param y Y component of the second vector
-   * @param z Z component of the second vector
-   * @param w W component of the second vector
-   * @return The distance between this vector and the one with the given components
+   * @param v The second vector.
+   * @return The squared between this vector and the given one.
+   * @see [[length]]
    */
-  def distanceTo(x: Float, y: Float, z: Float, w: Float): Double = this.distanceTo(Vec4f(x, y, z, w))
+  def distanceTo(v: Vec4f): Float = (v - this).length
 
   /**
-   * Returns this vector reflected from a plane defined by the given normal (must be normalized).
+   * Returns the distance between the point represented by this vector and the point represented by the given one.
    *
-   * @param x X component of the normal
-   * @param y Y component of the normal
-   * @param z Z component of the normal
-   * @param w W component of the normal
-   * @return This vector reflected from a plane defined by the given normal
+   * This method is equivalent to `(b - a).length`
+   *
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @param z The z component of the second vector.
+   * @param w The w component of the second vector.
+   * @return The squared between this vector and the one with the given components.
+   * @see [[length]]
    */
-  def reflect(x: Float, y: Float, z: Float, w: Float): Vec4f = this.reflect(Vec4f(x, y, z, w))
+  def distanceTo(x: Float, y: Float, z: Float, w: Float): Float = this.distanceTo(Vec4f(x, y, z, w))
 
   /**
-   * Returns this vector "bounced off" from a plane defined by the given normal (must be normalized).
+   * Returns the angle in radians between this vector and the given one.
    *
-   * @param x X component of the normal
-   * @param y Y component of the normal
-   * @param z Z component of the normal
-   * @param w W component of the normal
-   * @return This vector "bounced off" from a plane defined by the given normal
+   * @param v The second vector.
+   * @return The angle in radians between this vector and the given one.
    */
-  def bounce(x: Float, y: Float, z: Float, w: Float): Vec4f = this.bounce(Vec4f(x, y, z, w))
+  def angleTo(v: Vec4f): Double = math.acos((this dot v) / (this.length * v.length))
 
   /**
-   * Returns this vector projected onto the one with the given components.
+   * Returns the angle in radians between this vector and the one with the given components.
    *
-   * @param x X component of the vector to project onto
-   * @param y Y component of the vector to project onto
-   * @param z Z component of the vector to project onto
-   * @param w W component of the vector to project onto
-   * @return This vector projected onto the one with the given components
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @param z The z component of the second vector.
+   * @param w The w component of the second vector.
+   * @return The angle in radians between this vector and the one with the given components.
+   */
+  def angleTo(x: Float, y: Float, z: Float, w: Float): Double = this.angleTo(Vec4f(x, y, z, w))
+
+  /**
+   * Projects this vector on the given one and returns the result.
+   *
+   * @param v The second vector.
+   * @return The projection of this vector on the given one.
+   */
+  def project(v: Vec4f): Vec4f = v * ((this dot v) / v.lengthSquared)
+
+  /**
+   * Projects this vector on the one with the given components and returns the result.
+   *
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @param z The z component of the second vector.
+   * @param w The w component of the second vector.
+   * @return The projection of this vector on the one with the given components.
    */
   def project(x: Float, y: Float, z: Float, w: Float): Vec4f = this.project(Vec4f(x, y, z, w))
 
   /**
-   * Returns this vector slid along a plane defined by the normal with the given components.
+   * Reflects this vector by the given normal and returns the result.
    *
-   * @param x X component of the normal
-   * @param y Y component of the normal
-   * @param z Z component of the normal
-   * @param w W component of the normal
-   * @return This vector slid along a plane defined by the given normal
+   * @param n The reflection normal.
+   * @return The reflection of this vector by the given normal.
+   */
+  def reflect(n: Vec4f): Vec4f = this - (n * (this dot n) * 2.0f)
+
+  /**
+   * Reflects this vector by the normal defined by the given components and returns the result.
+   *
+   * @param x The x component of the reflection normal.
+   * @param y The y component of the reflection normal.
+   * @param z The z component of the reflection normal.
+   * @param w The w component of the reflection normal.
+   * @return The reflection of this vector by the normal defined by the given components.
+   */
+  def reflect(x: Float, y: Float, z: Float, w: Float): Vec4f = this.reflect(Vec4f(x, y, z, w))
+
+  /**
+   * "Bounces" this vector on a plane defined by the given normal and returns the result.
+   *
+   * @param n The normal of the plane.
+   * @return A vector "bounced off" from a plane defined by the given normal.
+   */
+  def bounce(n: Vec4f): Vec4f = -this.reflect(n)
+
+  /**
+   * "Bounces" this vector on a plane defined by the normal defined by the given components and returns the result.
+   *
+   * @param x The x component of the plane's normal.
+   * @param y The y component of the plane's normal.
+   * @param z The z component of the plane's normal.
+   * @param w The w component of the plane's normal.
+   * @return A vector "bounced off" from a plane defined by the normal defined by the given components.
+   */
+  def bounce(x: Float, y: Float, z: Float, w: Float): Vec4f = this.bounce(Vec4f(x, y, z, w))
+
+  /**
+   * Slides this vector along a plane defined by the given normal and returns the result.
+   *
+   * @param n The normal of the plane.
+   * @return The result of sliding this vector along a plane defined by the given normal.
+   */
+  def slide(n: Vec4f): Vec4f = this - (n * (this dot n))
+
+  /**
+   * Slides this vector along a plane defined by the normal defined by the given components and returns the result.
+   *
+   * @param x The x component of the plane's normal.
+   * @param y The y component of the plane's normal.
+   * @param z The z component of the plane's normal.
+   * @param w The w component of the plane's normal.
+   * @return The result of sliding this vector along a plane defined by the normal defined by the given components.
    */
   def slide(x: Float, y: Float, z: Float, w: Float): Vec4f = this.slide(Vec4f(x, y, z, w))
 
   /**
-   * Casts this vector to an int vector.
+   * Returns a vector composed by the reminder of the division between this vector's components and the given values.
    *
-   * @return A vector same as this one cast to int
+   * @param x The x component.
+   * @param y The y component.
+   * @param z The z component.
+   * @param w The w component.
+   * @return A vector composed by the reminder of the division between this vector's components and the given values.
    */
-  def toInt: Vec4i = Vec4i(this.x.toInt, this.y.toInt, this.z.toInt, this.w.toInt)
+  def %(x: Float, y: Float, z: Float, w: Float): Vec4f = Vec4f(this.x % x, this.y % y, this.z % z, this.w % w)
 
   /**
-   * Converts this vector to a double vector.
+   * Returns a vector composed by the reminder of the division between this vector's components and the given values.
    *
-   * @return This same vector as a double vector
+   * This method can be used in place of the `%` operator for better interoperability with Java.
+   *
+   * @param x The x component.
+   * @param y The y component.
+   * @param z The z component.
+   * @param w The w component.
+   * @return A vector composed by the reminder of the division between this vector's components and the given values.
    */
-  def toDouble: Vec4d = Vec4d(this.x.toDouble, this.y.toDouble, this.z.toDouble, this.w.toDouble)
+  def mod(x: Float, y: Float, z: Float, w: Float): Vec4f = this % (x, y, z, w)
+
+  /**
+   * Returns a vector composed by the reminder of the division between this vector's components and the components of the given vector.
+   *
+   * @param v The second vector.
+   * @return A vector composed by the reminder of the division between this vector's components and the components of the given vector.
+   */
+  def %(v: Vec4f): Vec4f = this % (v.x, v.y, v.z, v.w)
+
+  /**
+   * Returns a vector composed by the reminder of the division between this vector's components and the components of the given vector.
+   *
+   * This method can be used in place of the `%` operator for better interoperability with Java.
+   *
+   * @param v The second vector.
+   * @return A vector composed by the reminder of the division between this vector's components and the components of the given vector.
+   */
+  def mod(v: Vec4f): Vec4f = this % v
+
+  /**
+   * Returns a vector composed by the reminder of the division between this vector's components and the given scalar.
+   *
+   * @param k The scalar.
+   * @return A vector composed by the reminder of the division between this vector's components and the given scalar.
+   */
+  def %(k: Float): Vec4f = this % (k, k, k, k)
+
+  /**
+   * Returns a vector composed by the reminder of the division between this vector's components and the given scalar.
+   *
+   * This method can be used in place of the `%` operator for better interoperability with Java.
+   *
+   * @param k The scalar.
+   * @return A vector composed by the reminder of the division between this vector's components and the given scalar.
+   */
+  def mod(k: Float): Vec4f = this % k
+
+  /**
+   * Returns the outer product between this vector and the given one.
+   *
+   * @param v The second vector.
+   * @return The outer product between this vector and the given one.
+   */
+  def outer(v: Vec4f): Mat4f = Mat4f(
+    this.x * v.x, this.x * v.y, this.x * v.z, this.x * v.w,
+    this.y * v.x, this.y * v.y, this.y * v.z, this.y * v.w,
+    this.z * v.x, this.z * v.y, this.z * v.z, this.z * v.w,
+    this.w * v.x, this.w * v.y, this.w * v.z, this.w * v.w
+  )
 
   /**
    * Checks if the components of this vector are equal to the given ones.
    *
-   * @param x X component of the vector
-   * @param y Y component of the vector
-   * @param z Z component of the vector
-   * @param w W component of the vector
-   * @return True if the components of this vector equal the given ones, otherwise false
+   * @param x The x component.
+   * @param y The y component.
+   * @param z The z component.
+   * @param w The w component.
+   * @return True if the components of this vector are equal to the given ones, otherwise false.
    */
   def ==(x: Float, y: Float, z: Float, w: Float): Boolean = this.x == x && this.y == y && this.z == z && this.w == w
 
   /**
    * Checks if the components of this vector are equal to the given ones.
    *
-   * This method can be used in place of the '==' operator for better interoperability with Java.
+   * This method can be used in place of the `==` operator for better interoperability with Java.
    *
-   * @param x X component of the vector
-   * @param y Y component of the vector
-   * @param z Z component of the vector
-   * @param w W component of the vector
-   * @return True if the components of this vector equal the given ones, otherwise false
+   * @param x The x component.
+   * @param y The y component.
+   * @param z The z component.
+   * @param w The w component.
+   * @return True if the components of this vector are equal to the given ones, otherwise false.
    */
   def equals(x: Float, y: Float, z: Float, w: Float): Boolean = this == (x, y, z, w)
+
+  /**
+   * Checks if the components of this vector are approximately equal to the given ones using an internal epsilon.
+   *
+   * @param x The x component.
+   * @param y The y component.
+   * @param z The z component.
+   * @param w The w component.
+   * @return True if the components of this vector are approximately equal to the given ones, otherwise false.
+   */
+  def ~=(x: Float, y: Float, z: Float, w: Float): Boolean = (this.x ~= x) && (this.y ~= y) && (this.z ~= z) && (this.w ~= w)
+
+  /**
+   * Checks if the components of this vector are approximately equal to the given ones using an internal epsilon.
+   *
+   * This method can be used in place of the `~=` operator for better interoperability with Java.
+   *
+   * @param x The x component.
+   * @param y The y component.
+   * @param z The z component.
+   * @param w The w component.
+   * @return True if the components of this vector are approximately equal to the given ones, otherwise false.
+   */
+  def equalsApprox(x: Float, y: Float, z: Float, w: Float): Boolean = this ~= (x, y, z, w)
+
+  /**
+   * Checks if this vector is approximately equal to the given one using an internal epsilon.
+   *
+   * @param v The second vector.
+   * @return True if this vector is approximately equal to the given one, otherwise false.
+   */
+  def ~=(v: Vec4f): Boolean = this ~= (v.x, v.y, v.z, v.w)
+
+  /**
+   * Checks if this vector is approximately equal to the given one using an internal epsilon.
+   *
+   * This method can be used in place of the `~=` operator for better interoperability with Java.
+   *
+   * @param v The second vector.
+   * @return True if this vector is approximately equal to the given one, otherwise false.
+   */
+  def equalsApprox(v: Vec4f): Boolean = this ~= v
+
+  /**
+   * Returns the component of this vector at the given index.
+   * `0` for `x`, `1` for `y`, `2` for `z`, `3` for `w`.
+   *
+   * @param i The index of the requested component. Must be either 0, 1, 2, or 3.
+   * @return The component of this vector at the given index.
+   * @throws scala.MatchError If the given index is out of bounds.
+   */
+  def apply(i: Int): Float = i match {
+    case 0 => this.x
+    case 1 => this.y
+    case 2 => this.z
+    case 3 => this.w
+  }
+
+  /**
+   * Casts this vector to an int vector.
+   *
+   * @return This vector cast to int.
+   */
+  def toInt: Vec4i = Vec4i(this.x.toInt, this.y.toInt, this.z.toInt, this.w.toInt)
+
+  /**
+   * Returns this vector as a double vector.
+   *
+   * @return This vector as a double vector.
+   */
+  def toDouble: Vec4d = Vec4d(this.x, this.y, this.z, this.w)
 }
 
+/**
+ * Constants, factory methods, and implicits for vectors.
+ */
 object Vec4f {
-  /** Shorthand for `new Vec4f(0.0f, 0.0f, 0.0f, 0.0f)` */
+
+  /** Shorthand for `Vec4f(0.0f, 0.0f, 0.0f, 0.0f)` */
   val Zero: Vec4f = Vec4f(0.0f, 0.0f, 0.0f, 0.0f)
-  /** Shorthand for `new Vec4f(1.0f, 1.0f, 1.0f, 1.0f)` */
+  /** Shorthand for `Vec4f(1.0f, 1.0f, 1.0f, 1.0f)` */
   val One: Vec4f = Vec4f(1.0f, 1.0f, 1.0f, 1.0f)
 
   /**
-   * Constructs a Vec4f from the given components.
-   * Allows to use the syntax `Vec4f(xy, z, w)` instead of `new Vec4f(xy, z, w)` in scala.
+   * Constructs a 4D vector from the given components.
    *
-   * @param xy X and Y components of the vector
-   * @param z  Z component of the vector
-   * @param w  W component of the vector
-   * @return The resulting vector
+   * @param xyz The vector's x, y, and z components.
+   * @param w The vector's w component.
+   * @return A 4D vector constructed from the given components.
    */
-  def apply(xy: Float2, z: Float, w: Float): Vec4f = new Vec4f(xy, z, w)
+  def apply(xyz: Vec3f, w: Float) = new Vec4f(xyz, w)
 
   /**
-   * Constructs a Vec4f from the given components.
-   * Allows to use the syntax `Vec4f(x, yz, w)` instead of `new Vec4f(x, yz, w)` in scala.
+   * Constructs a 4D vector from the given components.
    *
-   * @param x  X component of the vector
-   * @param yz Y and Z components of the vector
-   * @param w  W component of the vector
-   * @return The resulting vector
+   * @param xy The vector's x and y components.
+   * @param z The vector's z component.
+   * @param w The vector's w component.
+   * @return A 4D vector constructed from the given components.
    */
-  def apply(x: Float, yz: Float2, w: Float): Vec4f = new Vec4f(x, yz, w)
+  def apply(xy: Vec2f, z: Float, w: Float) = new Vec4f(xy, z, w)
 
   /**
-   * Constructs a Vec4f from the given components.
-   * Allows to use the syntax `Vec4f(x, y, zw)` instead of `new Vec4f(x, y, zw)` in scala.
+   * Allows to use the `*` and `/` operators with a scalar as `1.0f * vector`.
    *
-   * @param x  X component of the vector
-   * @param y  Y component of the vector
-   * @param zw Z and W components of the vector
-   * @return The resulting vector
+   * @param self The scalar value.
    */
-  def apply(x: Float, y: Float, zw: Float2): Vec4f = new Vec4f(x, y, zw)
-
-  /**
-   * Constructs a Vec4f from the given components.
-   * Allows to use the syntax `Vec4f(xyz, w)` instead of `new Vec4f(xyz, w)` in scala.
-   *
-   * @param xyz X, Y, and Z components of the vector
-   * @param w   W component of the vector
-   * @return The resulting vector
-   */
-  def apply(xyz: Float3, w: Float): Vec4f = new Vec4f(xyz, w)
-
-  /**
-   * Constructs a Vec4f from the given components.
-   * Allows to use the syntax `Vec4f(x, yzw)` instead of `new Vec4f(x, yzw)` in scala.
-   *
-   * @param x   X component of the vector
-   * @param yzw Y, Z, and W components of the vector
-   * @return The resulting vector
-   */
-  def apply(x: Float, yzw: Float3): Vec4f = new Vec4f(x, yzw)
-
-  /**
-   * Allows to use the operator '*' with a scalar as `1.0f * vector`.
-   *
-   * @param k The scalar to which the vector is multiplied
-   */
-  implicit class MultiplicationExtender(val k: Float) extends AnyVal {
+  implicit class MultiplicationExtender(val self: Float) extends AnyVal {
 
     /**
-     * Returns the product between this scalar and the given vector.
+     * Multiplies the given vector by this scalar and returns the result.
      *
-     * @param v The vector to which the scalar is multiplied
-     * @return The result of the product between this scalar and the given vector
+     * @param v The vector to multiply.
+     * @return The product between this scalar and the given vector.
      */
-    def *(v: Vec4f): Vec4f = v * k
+    def *(v: Vec4f): Vec4f = v * self
+
+    /**
+     * Multiplies the [[Vec4f.inverse]] of the given vector by this scalar and returns the result.
+     *
+     * @param v The vector to multiply.
+     * @return The product between this scalar and the inverse of the given vector.
+     */
+    def /(v: Vec4f): Vec4f = self * v.inverse
   }
+
+  /**
+   * Implicit conversion from [[Vec4f]] to [[Vec4d]].
+   */
+  implicit val vec4fToVec4d: Vec4f => Vec4d = v => v.toDouble
 }
