@@ -448,18 +448,6 @@ case class Mat3i(
   )
 
   /**
-   * Constructs an orthonormal matrix from the columns of this matrix using the Gram-Schmidt procedure.
-   *
-   * @return This matrix with orthogonal columns of unit length.
-   */
-  def orthonormalized: Mat3f = {
-    val (v0, v1, v2) = (this.col0, this.col1, this.col2)
-    val u1 = v1 - v1.project(v0)
-    val u2 = v2 - v2.project(v0) - v2.project(v1)
-    Mat3f.fromColumns(v0.normalized, u1.normalized, u2.normalized)
-  }
-
-  /**
    * Returns the element at the given row and column index.
    *
    * @param row The row index of the desired element. Must be either 0, 1, or 2.

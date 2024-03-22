@@ -239,14 +239,6 @@ case class Vec2i(x: Int, y: Int) {
   def dividedBy(k: Int): Vec2i = this / k
 
   /**
-   * Returns the inverse of this vector with respect to component-wise multiplication.
-   * For a vector `(x, y)`, that is the vector `(1.0 / x, 1.0 / y)`.
-   *
-   * @return The inverse of this vector.
-   */
-  def inverse: Vec2f = Vec2f(1.0f / this.x, 1.0f / this.y)
-
-  /**
    * Returns the dot product, or scalar product, between this vector and the given values.
    *
    * @param x The x component of the vector to multiply this one by.
@@ -282,25 +274,6 @@ case class Vec2i(x: Int, y: Int) {
   def length: Float = math.sqrt(this.lengthSquared).toFloat
 
   /**
-   * Returns the result of scaling this vector to unit length.
-   * Equivalent to `v / v.length`.
-   *
-   * The resulting vector has the same direction as this one, but a length of `1.0`.
-   *
-   * @return The result of scaling this vector to unit length.
-   * @see [[isNormalized]]
-   */
-  def normalized: Vec2f = this / this.length
-
-  /**
-   * Checks if this vector is a unit vector by checking if its length is equal to `1`.
-   *
-   * @return True if this vector is a unit vector, otherwise false.
-   * @see [[normalized]]
-   */
-  def isNormalized: Boolean = this.lengthSquared == 1
-
-  /**
    * Returns a vector with all components in absolute value.
    *
    * Not to be confused with the modulus, or [[length]], of a vector.
@@ -317,28 +290,9 @@ case class Vec2i(x: Int, y: Int) {
   def sign: Vec2i = Vec2i(this.x.sign, this.y.sign)
 
   /**
-   * Computes the normalized vector pointing from this one to the given one and returns the result.
-   *
-   * This method is equivalent to `(b - a).normalized`.
-   *
-   * @param v The second vector.
-   * @return The normalized vector pointing from this one to the given one.
-   */
-  def directionTo(v: Vec2i): Vec2f = (v - this).normalized
-
-  /**
-   * Computes the normalized vector pointing from this one to the one with the given components and returns the result.
-   *
-   * @param x The x component of the second vector.
-   * @param y The y component of the second vector.
-   * @return The normalized vector pointing from this one to the one with the given components.
-   */
-  def directionTo(x: Int, y: Int): Vec2f = this.directionTo(Vec2i(x, y))
-
-  /**
    * Returns the squared distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).lengthSquared`
+   * This method is equivalent to `(b - a).lengthSquared`.
    *
    * @param v The second vector.
    * @return The squared distance between this vector and the given one.
@@ -349,7 +303,7 @@ case class Vec2i(x: Int, y: Int) {
   /**
    * Returns the squared distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).lengthSquared`
+   * This method is equivalent to `(b - a).lengthSquared`.
    *
    * @param x The x component of the second vector.
    * @param y The y component of the second vector.
@@ -361,7 +315,7 @@ case class Vec2i(x: Int, y: Int) {
   /**
    * Returns the distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).length`
+   * This method is equivalent to `(b - a).length`.
    *
    * @param v The second vector.
    * @return The squared between this vector and the given one.
@@ -372,7 +326,7 @@ case class Vec2i(x: Int, y: Int) {
   /**
    * Returns the distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).length`
+   * This method is equivalent to `(b - a).length`.
    *
    * @param x The x component of the second vector.
    * @param y The y component of the second vector.
@@ -387,7 +341,7 @@ case class Vec2i(x: Int, y: Int) {
    * @param v The second vector.
    * @return The angle in radians between this vector and the given one.
    */
-  def angleTo(v: Vec2i): Double = math.acos((this dot v) / (this.length * v.length))
+  def angleTo(v: Vec2i): Double = math.acos(this.dot(v) / (this.length * v.length))
 
   /**
    * Returns the angle in radians between this vector and the one with the given components.
@@ -427,29 +381,12 @@ case class Vec2i(x: Int, y: Int) {
   def angleToPoint(x: Int, y: Int): Double = this.angleToPoint(Vec2i(x, y))
 
   /**
-   * Projects this vector on the given one and returns the result.
-   *
-   * @param v The second vector.
-   * @return The projection of this vector on the given one.
-   */
-  def project(v: Vec2i): Vec2f = v * ((this dot v) / v.lengthSquared.toFloat)
-
-  /**
-   * Projects this vector on the one with the given components and returns the result.
-   *
-   * @param x The x component of the second vector.
-   * @param y The y component of the second vector.
-   * @return The projection of this vector on the one with the given components.
-   */
-  def project(x: Int, y: Int): Vec2f = this.project(Vec2i(x, y))
-
-  /**
    * Reflects this vector by the given normal and returns the result.
    *
    * @param n The reflection normal.
    * @return The reflection of this vector by the given normal.
    */
-  def reflect(n: Vec2i): Vec2i = this - (n * (this dot n) * 2)
+  def reflect(n: Vec2i): Vec2i = this - (n * (this.dot(n) * 2))
 
   /**
    * Reflects this vector by the normal defined by the given components and returns the result.
@@ -483,7 +420,7 @@ case class Vec2i(x: Int, y: Int) {
    * @param n The normal of the plane.
    * @return The result of sliding this vector along a plane defined by the given normal.
    */
-  def slide(n: Vec2i): Vec2i = this - (n * (this dot n))
+  def slide(n: Vec2i): Vec2i = this - (n * this.dot(n))
 
   /**
    * Slides this vector along a plane defined by the normal defined by the given components and returns the result.
@@ -599,14 +536,15 @@ case class Vec2i(x: Int, y: Int) {
   def cross(v: Vec2i): Vec3i = this.cross(v.x, v.y, 0)
 
   /**
-   * Returns the outer product between this vector and the given one.
+   * Returns the outer product between this vector and the given values.
    *
-   * @param v The second vector.
-   * @return The outer product between this vector and the given one.
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @return The outer product between this vector and the given values.
    */
-  def outer(v: Vec2i): Mat2i = Mat2i(
-    this.x * v.x, this.x * v.y,
-    this.y * v.x, this.y * v.y
+  def outer(x: Int, y: Int): Mat2i = Mat2i(
+    this.x * x, this.x * y,
+    this.y * x, this.y * y
   )
 
   /**
@@ -615,10 +553,28 @@ case class Vec2i(x: Int, y: Int) {
    * @param v The second vector.
    * @return The outer product between this vector and the given one.
    */
-  def outer(v: Vec3i): Mat2x3i = Mat2x3i(
-    this.x * v.x, this.x * v.y, this.x * v.z,
-    this.y * v.x, this.y * v.y, this.y * v.z
+  def outer(v: Vec2i): Mat2i = this.outer(v.x, v.y)
+
+  /**
+   * Returns the outer product between this vector and the given values.
+   *
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @param z The z component of the second vector.
+   * @return The outer product between this vector and the given values.
+   */
+  def outer(x: Int, y: Int, z: Int): Mat2x3i = Mat2x3i(
+    this.x * x, this.x * y, this.x * z,
+    this.y * x, this.y * y, this.y * z
   )
+
+  /**
+   * Returns the outer product between this vector and the given one.
+   *
+   * @param v The second vector.
+   * @return The outer product between this vector and the given one.
+   */
+  def outer(v: Vec3i): Mat2x3i = this.outer(v.x, v.y, v.z)
 
   /**
    * Checks if the components of this vector are equal to the given ones.

@@ -488,19 +488,6 @@ case class Mat4i(
   )
 
   /**
-   * Constructs an orthonormal matrix from the columns of this matrix using the Gram-Schmidt procedure.
-   *
-   * @return This matrix with orthogonal columns of unit length.
-   */
-  def orthonormalized: Mat4f = {
-    val (v0, v1, v2, v3) = (this.col0, this.col1, this.col2, this.col3)
-    val u1 = v1 - v1.project(v0)
-    val u2 = v2 - v2.project(v0) - v2.project(v1)
-    val u3 = v3 - v3.project(v0) - v3.project(v1) - v3.project(v2)
-    Mat4f.fromColumns(v0.normalized, u1.normalized, u2.normalized, u3.normalized)
-  }
-
-  /**
    * Returns the element at the given row and column index.
    *
    * @param row The row index of the desired element. Must be either 0, 1, 2, or 3.

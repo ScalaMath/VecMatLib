@@ -368,17 +368,6 @@ case class Mat2i(m00: Int, m01: Int, m10: Int, m11: Int) {
   )
 
   /**
-   * Constructs an orthonormal matrix from the columns of this matrix using the Gram-Schmidt procedure.
-   *
-   * @return This matrix with orthogonal columns of unit length.
-   */
-  def orthonormalized: Mat2f = {
-    val (v0, v1) = (this.col0, this.col1)
-    val u1 = v1 - v1.project(v0)
-    Mat2f.fromColumns(v0.normalized, u1.normalized)
-  }
-
-  /**
    * Returns the element at the given row and column index.
    *
    * @param row The row index of the desired element. Must be either 0 or 1.

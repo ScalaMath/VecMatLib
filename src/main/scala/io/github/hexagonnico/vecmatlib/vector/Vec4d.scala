@@ -442,7 +442,7 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) {
   /**
    * Returns the squared distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).lengthSquared`
+   * This method is equivalent to `(b - a).lengthSquared`.
    *
    * @param v The second vector.
    * @return The squared distance between this vector and the given one.
@@ -453,7 +453,7 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) {
   /**
    * Returns the squared distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).lengthSquared`
+   * This method is equivalent to `(b - a).lengthSquared`.
    *
    * @param x The x component of the second vector.
    * @param y The y component of the second vector.
@@ -467,7 +467,7 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) {
   /**
    * Returns the distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).length`
+   * This method is equivalent to `(b - a).length`.
    *
    * @param v The second vector.
    * @return The squared between this vector and the given one.
@@ -478,7 +478,7 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) {
   /**
    * Returns the distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).length`
+   * This method is equivalent to `(b - a).length`.
    *
    * @param x The x component of the second vector.
    * @param y The y component of the second vector.
@@ -495,7 +495,7 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) {
    * @param v The second vector.
    * @return The angle in radians between this vector and the given one.
    */
-  def angleTo(v: Vec4d): Double = math.acos((this dot v) / (this.length * v.length))
+  def angleTo(v: Vec4d): Double = math.acos(this.dot(v) / (this.length * v.length))
 
   /**
    * Returns the angle in radians between this vector and the one with the given components.
@@ -514,7 +514,7 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) {
    * @param v The second vector.
    * @return The projection of this vector on the given one.
    */
-  def project(v: Vec4d): Vec4d = v * ((this dot v) / v.lengthSquared)
+  def project(v: Vec4d): Vec4d = v * (this.dot(v) / v.lengthSquared)
 
   /**
    * Projects this vector on the one with the given components and returns the result.
@@ -533,7 +533,7 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) {
    * @param n The reflection normal.
    * @return The reflection of this vector by the given normal.
    */
-  def reflect(n: Vec4d): Vec4d = this - (n * (this dot n) * 2.0)
+  def reflect(n: Vec4d): Vec4d = this - (n * (this.dot(n) * 2.0))
 
   /**
    * Reflects this vector by the normal defined by the given components and returns the result.
@@ -571,7 +571,7 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) {
    * @param n The normal of the plane.
    * @return The result of sliding this vector along a plane defined by the given normal.
    */
-  def slide(n: Vec4d): Vec4d = this - (n * (this dot n))
+  def slide(n: Vec4d): Vec4d = this - (n * this.dot(n))
 
   /**
    * Slides this vector along a plane defined by the normal defined by the given components and returns the result.
@@ -645,17 +645,28 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) {
   def mod(k: Double): Vec4d = this % k
 
   /**
+   * Returns the outer product between this vector and the given values.
+   *
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @param z The z component of the second vector.
+   * @param w The w component of the second vector.
+   * @return The outer product between this vector and the given values.
+   */
+  def outer(x: Double, y: Double, z: Double, w: Double): Mat4d = Mat4d(
+    this.x * x, this.x * y, this.x * z, this.x * w,
+    this.y * x, this.y * y, this.y * z, this.y * w,
+    this.z * x, this.z * y, this.z * z, this.z * w,
+    this.w * x, this.w * y, this.w * z, this.w * w
+  )
+
+  /**
    * Returns the outer product between this vector and the given one.
    *
    * @param v The second vector.
    * @return The outer product between this vector and the given one.
    */
-  def outer(v: Vec4d): Mat4d = Mat4d(
-    this.x * v.x, this.x * v.y, this.x * v.z, this.x * v.w,
-    this.y * v.x, this.y * v.y, this.y * v.z, this.y * v.w,
-    this.z * v.x, this.z * v.y, this.z * v.z, this.z * v.w,
-    this.w * v.x, this.w * v.y, this.w * v.z, this.w * v.w
-  )
+  def outer(v: Vec4d): Mat4d = this.outer(v.x, v.y, v.z, v.w)
 
   /**
    * Checks if the components of this vector are equal to the given ones.
@@ -689,6 +700,7 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) {
    * @param z The z component.
    * @param w The w component.
    * @return True if the components of this vector are approximately equal to the given ones, otherwise false.
+   * @see [[DoubleEqualsApprox]]
    */
   def ~=(x: Double, y: Double, z: Double, w: Double): Boolean = (this.x ~= x) && (this.y ~= y) && (this.z ~= z) && (this.w ~= w)
 
@@ -702,6 +714,7 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) {
    * @param z The z component.
    * @param w The w component.
    * @return True if the components of this vector are approximately equal to the given ones, otherwise false.
+   * @see [[DoubleEqualsApprox]]
    */
   def equalsApprox(x: Double, y: Double, z: Double, w: Double): Boolean = this ~= (x, y, z, w)
 
@@ -710,6 +723,7 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) {
    *
    * @param v The second vector.
    * @return True if this vector is approximately equal to the given one, otherwise false.
+   * @see [[DoubleEqualsApprox]]
    */
   def ~=(v: Vec4d): Boolean = this ~= (v.x, v.y, v.z, v.w)
 
@@ -720,6 +734,7 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) {
    *
    * @param v The second vector.
    * @return True if this vector is approximately equal to the given one, otherwise false.
+   * @see [[DoubleEqualsApprox]]
    */
   def equalsApprox(v: Vec4d): Boolean = this ~= v
 

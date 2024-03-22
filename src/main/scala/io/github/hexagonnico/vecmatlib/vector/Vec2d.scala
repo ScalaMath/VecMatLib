@@ -410,7 +410,7 @@ case class Vec2d(x: Double, y: Double) {
   /**
    * Returns the squared distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).lengthSquared`
+   * This method is equivalent to `(b - a).lengthSquared`.
    *
    * @param v The second vector.
    * @return The squared distance between this vector and the given one.
@@ -421,7 +421,7 @@ case class Vec2d(x: Double, y: Double) {
   /**
    * Returns the squared distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).lengthSquared`
+   * This method is equivalent to `(b - a).lengthSquared`.
    *
    * @param x The x component of the second vector.
    * @param y The y component of the second vector.
@@ -433,7 +433,7 @@ case class Vec2d(x: Double, y: Double) {
   /**
    * Returns the distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).length`
+   * This method is equivalent to `(b - a).length`.
    *
    * @param v The second vector.
    * @return The squared between this vector and the given one.
@@ -444,7 +444,7 @@ case class Vec2d(x: Double, y: Double) {
   /**
    * Returns the distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).length`
+   * This method is equivalent to `(b - a).length`.
    *
    * @param x The x component of the second vector.
    * @param y The y component of the second vector.
@@ -459,7 +459,7 @@ case class Vec2d(x: Double, y: Double) {
    * @param v The second vector.
    * @return The angle in radians between this vector and the given one.
    */
-  def angleTo(v: Vec2d): Double = math.acos((this dot v) / (this.length * v.length))
+  def angleTo(v: Vec2d): Double = math.acos(this.dot(v) / (this.length * v.length))
 
   /**
    * Returns the angle in radians between this vector and the one with the given components.
@@ -504,7 +504,7 @@ case class Vec2d(x: Double, y: Double) {
    * @param v The second vector.
    * @return The projection of this vector on the given one.
    */
-  def project(v: Vec2d): Vec2d = v * ((this dot v) / v.lengthSquared)
+  def project(v: Vec2d): Vec2d = v * (this.dot(v) / v.lengthSquared)
 
   /**
    * Projects this vector on the one with the given components and returns the result.
@@ -521,7 +521,7 @@ case class Vec2d(x: Double, y: Double) {
    * @param n The reflection normal.
    * @return The reflection of this vector by the given normal.
    */
-  def reflect(n: Vec2d): Vec2d = this - (n * (this dot n) * 2.0)
+  def reflect(n: Vec2d): Vec2d = this - (n * (this.dot(n) * 2.0))
 
   /**
    * Reflects this vector by the normal defined by the given components and returns the result.
@@ -555,7 +555,7 @@ case class Vec2d(x: Double, y: Double) {
    * @param n The normal of the plane.
    * @return The result of sliding this vector along a plane defined by the given normal.
    */
-  def slide(n: Vec2d): Vec2d = this - (n * (this dot n))
+  def slide(n: Vec2d): Vec2d = this - (n * this.dot(n))
 
   /**
    * Slides this vector along a plane defined by the normal defined by the given components and returns the result.
@@ -645,9 +645,9 @@ case class Vec2d(x: Double, y: Double) {
    * @return This vector rotated by the given angle.
    */
   def rotated(angle: Double): Vec2d = {
-    val sine = math.sin(angle)
-    val cosine = math.cos(angle)
-    Vec2d(this.x * cosine - this.y * sine, this.x * sine + this.y * sine)
+    val sin = math.sin(angle)
+    val cos = math.cos(angle)
+    Vec2d(this.x * cos - this.y * sin, this.x * sin + this.y * cos)
   }
 
   /**
@@ -683,14 +683,15 @@ case class Vec2d(x: Double, y: Double) {
   def cross(v: Vec2d): Vec3d = this.cross(v.x, v.y, 0.0)
 
   /**
-   * Returns the outer product between this vector and the given one.
+   * Returns the outer product between this vector and the given values.
    *
-   * @param v The second vector.
-   * @return The outer product between this vector and the given one.
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @return The outer product between this vector and the given values.
    */
-  def outer(v: Vec2d): Mat2d = Mat2d(
-    this.x * v.x, this.x * v.y,
-    this.y * v.x, this.y * v.y
+  def outer(x: Double, y: Double): Mat2d = Mat2d(
+    this.x * x, this.x * y,
+    this.y * x, this.y * y
   )
 
   /**
@@ -699,10 +700,28 @@ case class Vec2d(x: Double, y: Double) {
    * @param v The second vector.
    * @return The outer product between this vector and the given one.
    */
-  def outer(v: Vec3d): Mat2x3d = Mat2x3d(
-    this.x * v.x, this.x * v.y, this.x * v.z,
-    this.y * v.x, this.y * v.y, this.y * v.z
+  def outer(v: Vec2d): Mat2d = this.outer(v.x, v.y)
+
+  /**
+   * Returns the outer product between this vector and the given values.
+   *
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @param z The z component of the second vector.
+   * @return The outer product between this vector and the given values.
+   */
+  def outer(x: Double, y: Double, z: Double): Mat2x3d = Mat2x3d(
+    this.x * x, this.x * y, this.x * z,
+    this.y * x, this.y * y, this.y * z
   )
+
+  /**
+   * Returns the outer product between this vector and the given one.
+   *
+   * @param v The second vector.
+   * @return The outer product between this vector and the given one.
+   */
+  def outer(v: Vec3d): Mat2x3d = this.outer(v.x, v.y, v.z)
 
   /**
    * Checks if the components of this vector are equal to the given ones.
@@ -730,6 +749,7 @@ case class Vec2d(x: Double, y: Double) {
    * @param x The x component.
    * @param y The y component.
    * @return True if the components of this vector are approximately equal to the given ones, otherwise false.
+   * @see [[DoubleEqualsApprox]]
    */
   def ~=(x: Double, y: Double): Boolean = (this.x ~= x) && (this.y ~= y)
 
@@ -741,6 +761,7 @@ case class Vec2d(x: Double, y: Double) {
    * @param x The x component.
    * @param y The y component.
    * @return True if the components of this vector are approximately equal to the given ones, otherwise false.
+   * @see [[DoubleEqualsApprox]]
    */
   def equalsApprox(x: Double, y: Double): Boolean = this ~= (x, y)
 
@@ -749,6 +770,7 @@ case class Vec2d(x: Double, y: Double) {
    *
    * @param v The second vector.
    * @return True if this vector is approximately equal to the given one, otherwise false.
+   * @see [[DoubleEqualsApprox]]
    */
   def ~=(v: Vec2d): Boolean = this ~= (v.x, v.y)
 
@@ -759,6 +781,7 @@ case class Vec2d(x: Double, y: Double) {
    *
    * @param v The second vector.
    * @return True if this vector is approximately equal to the given one, otherwise false.
+   * @see [[DoubleEqualsApprox]]
    */
   def equalsApprox(v: Vec2d): Boolean = this ~= v
 

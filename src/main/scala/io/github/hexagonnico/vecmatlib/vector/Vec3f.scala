@@ -427,7 +427,7 @@ case class Vec3f(x: Float, y: Float, z: Float) {
    *
    * The given weight must be in the `[0.0, 1.0]` range, representing the amount of interpolation.
    *
-   * If this vector or the given one are approximately zero, this method behaves like [[lerp]].
+   * This method behaves like [[lerp]] if this vector or the given one are approximately zero.
    *
    * @param to The second vector.
    * @param weight The weight of the interpolation between `0.0` and `1.0`.
@@ -464,7 +464,7 @@ case class Vec3f(x: Float, y: Float, z: Float) {
   /**
    * Returns the squared distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).lengthSquared`
+   * This method is equivalent to `(b - a).lengthSquared`.
    *
    * @param v The second vector.
    * @return The squared distance between this vector and the given one.
@@ -475,7 +475,7 @@ case class Vec3f(x: Float, y: Float, z: Float) {
   /**
    * Returns the squared distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).lengthSquared`
+   * This method is equivalent to `(b - a).lengthSquared`.
    *
    * @param x The x component of the second vector.
    * @param y The y component of the second vector.
@@ -488,7 +488,7 @@ case class Vec3f(x: Float, y: Float, z: Float) {
   /**
    * Returns the distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).length`
+   * This method is equivalent to `(b - a).length`.
    *
    * @param v The second vector.
    * @return The squared between this vector and the given one.
@@ -499,7 +499,7 @@ case class Vec3f(x: Float, y: Float, z: Float) {
   /**
    * Returns the distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).length`
+   * This method is equivalent to `(b - a).length`.
    *
    * @param x The x component of the second vector.
    * @param y The y component of the second vector.
@@ -515,7 +515,7 @@ case class Vec3f(x: Float, y: Float, z: Float) {
    * @param v The second vector.
    * @return The angle in radians between this vector and the given one.
    */
-  def angleTo(v: Vec3f): Double = math.acos((this dot v) / (this.length * v.length))
+  def angleTo(v: Vec3f): Double = math.acos(this.dot(v) / (this.length * v.length))
 
   /**
    * Returns the angle in radians between this vector and the one with the given components.
@@ -536,12 +536,7 @@ case class Vec3f(x: Float, y: Float, z: Float) {
    */
   def signedAngleTo(to: Vec3f, axis: Vec3f): Double = {
     val cross = this.cross(to)
-    val angle = math.atan2(cross.length, this.dot(to))
-    if (cross.dot(axis) < 0) {
-      -angle
-    } else {
-      angle
-    }
+    math.atan2(cross.length, this.dot(to)) * cross.dot(axis).sign
   }
 
   /**
@@ -550,7 +545,7 @@ case class Vec3f(x: Float, y: Float, z: Float) {
    * @param v The second vector.
    * @return The projection of this vector on the given one.
    */
-  def project(v: Vec3f): Vec3f = v * ((this dot v) / v.lengthSquared)
+  def project(v: Vec3f): Vec3f = v * (this.dot(v) / v.lengthSquared)
 
   /**
    * Projects this vector on the one with the given components and returns the result.
@@ -568,7 +563,7 @@ case class Vec3f(x: Float, y: Float, z: Float) {
    * @param n The reflection normal.
    * @return The reflection of this vector by the given normal.
    */
-  def reflect(n: Vec3f): Vec3f = this - (n * (this dot n) * 2.0f)
+  def reflect(n: Vec3f): Vec3f = this - (n * (this.dot(n) * 2.0f))
 
   /**
    * Reflects this vector by the normal defined by the given components and returns the result.
@@ -604,7 +599,7 @@ case class Vec3f(x: Float, y: Float, z: Float) {
    * @param n The normal of the plane.
    * @return The result of sliding this vector along a plane defined by the given normal.
    */
-  def slide(n: Vec3f): Vec3f = this - (n * (this dot n))
+  def slide(n: Vec3f): Vec3f = this - (n * this.dot(n))
 
   /**
    * Slides this vector along a plane defined by the normal defined by the given components and returns the result.
@@ -685,15 +680,17 @@ case class Vec3f(x: Float, y: Float, z: Float) {
   def rotated(axis: Vec3f, angle: Double): Vec3f = Mat3f.rotation(axis, angle) * this
 
   /**
-   * Returns the outer product between this vector and the given one.
+   * Returns the outer product between this vector and the given values.
    *
-   * @param v The second vector.
-   * @return The outer product between this vector and the given one.
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @param z The z component of the second vector.
+   * @return The outer product between this vector and the given values.
    */
-  def outer(v: Vec3f): Mat3f = Mat3f(
-    this.x * v.x, this.x * v.y, this.x * v.z,
-    this.y * v.x, this.y * v.y, this.y * v.z,
-    this.z * v.x, this.z * v.y, this.z * v.z
+  def outer(x: Float, y: Float, z: Float): Mat3f = Mat3f(
+    this.x * x, this.x * y, this.x * z,
+    this.y * x, this.y * y, this.y * z,
+    this.z * x, this.z * y, this.z * z
   )
 
   /**
@@ -702,11 +699,30 @@ case class Vec3f(x: Float, y: Float, z: Float) {
    * @param v The second vector.
    * @return The outer product between this vector and the given one.
    */
-  def outer(v: Vec4f): Mat3x4f = Mat3x4f(
-    this.x * v.x, this.x * v.y, this.x * v.z, this.x * v.w,
-    this.y * v.x, this.y * v.y, this.y * v.z, this.y * v.w,
-    this.z * v.x, this.z * v.y, this.z * v.z, this.z * v.w
+  def outer(v: Vec3f): Mat3f = this.outer(v.x, v.y, v.z)
+
+  /**
+   * Returns the outer product between this vector and the given values.
+   *
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @param z The z component of the second vector.
+   * @param w The w component of the second vector.
+   * @return The outer product between this vector and the given values.
+   */
+  def outer(x: Float, y: Float, z: Float, w: Float): Mat3x4f = Mat3x4f(
+    this.x * x, this.x * y, this.x * z, this.x * w,
+    this.y * x, this.y * y, this.y * z, this.y * w,
+    this.z * x, this.z * y, this.z * z, this.z * w
   )
+
+  /**
+   * Returns the outer product between this vector and the given one.
+   *
+   * @param v The second vector.
+   * @return The outer product between this vector and the given one.
+   */
+  def outer(v: Vec4f): Mat3x4f = this.outer(v.x, v.y, v.z, v.w)
 
   /**
    * Checks if the components of this vector are equal to the given ones.
@@ -737,6 +753,7 @@ case class Vec3f(x: Float, y: Float, z: Float) {
    * @param y The y component.
    * @param z The z component.
    * @return True if the components of this vector are approximately equal to the given ones, otherwise false.
+   * @see [[FloatEqualsApprox]]
    */
   def ~=(x: Float, y: Float, z: Float): Boolean = (this.x ~= x) && (this.y ~= y) && (this.z ~= z)
 
@@ -749,6 +766,7 @@ case class Vec3f(x: Float, y: Float, z: Float) {
    * @param y The y component.
    * @param z The z component.
    * @return True if the components of this vector are approximately equal to the given ones, otherwise false.
+   * @see [[FloatEqualsApprox]]
    */
   def equalsApprox(x: Float, y: Float, z: Float): Boolean = this ~= (x, y, z)
 
@@ -757,6 +775,7 @@ case class Vec3f(x: Float, y: Float, z: Float) {
    *
    * @param v The second vector.
    * @return True if this vector is approximately equal to the given one, otherwise false.
+   * @see [[FloatEqualsApprox]]
    */
   def ~=(v: Vec3f): Boolean = this ~= (v.x, v.y, v.z)
 
@@ -767,6 +786,7 @@ case class Vec3f(x: Float, y: Float, z: Float) {
    *
    * @param v The second vector.
    * @return True if this vector is approximately equal to the given one, otherwise false.
+   * @see [[FloatEqualsApprox]]
    */
   def equalsApprox(v: Vec3f): Boolean = this ~= v
 

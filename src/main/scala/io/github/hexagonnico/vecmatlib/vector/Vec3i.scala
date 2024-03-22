@@ -263,14 +263,6 @@ case class Vec3i(x: Int, y: Int, z: Int) {
   def dividedBy(k: Int): Vec3i = this / k
 
   /**
-   * Returns the inverse of this vector with respect to component-wise multiplication.
-   * For a vector `(x, y)`, that is the vector `(1.0 / x, 1.0 / y, 1.0 / z)`.
-   *
-   * @return The inverse of this vector.
-   */
-  def inverse: Vec3f = Vec3f(1.0f / this.x, 1.0f / this.y, 1.0f / this.z)
-
-  /**
    * Returns the dot product, or scalar product, between this vector and the given values.
    *
    * @param x The x component of the vector to multiply this one by.
@@ -335,25 +327,6 @@ case class Vec3i(x: Int, y: Int, z: Int) {
   def length: Float = math.sqrt(this.lengthSquared).toFloat
 
   /**
-   * Returns the result of scaling this vector to unit length.
-   * Equivalent to `v / v.length`.
-   *
-   * The resulting vector has the same direction as this one, but a length of `1.0`.
-   *
-   * @return The result of scaling this vector to unit length.
-   * @see [[isNormalized]]
-   */
-  def normalized: Vec3f = this / this.length
-
-  /**
-   * Checks if this vector is a unit vector by checking if its length is equal to `1`.
-   *
-   * @return True if this vector is a unit vector, otherwise false.
-   * @see [[normalized]]
-   */
-  def isNormalized: Boolean = this.lengthSquared == 1
-
-  /**
    * Returns a vector with all components in absolute value.
    *
    * Not to be confused with the modulus, or [[length]], of a vector.
@@ -370,29 +343,9 @@ case class Vec3i(x: Int, y: Int, z: Int) {
   def sign: Vec3i = Vec3i(this.x.sign, this.y.sign, this.z.sign)
 
   /**
-   * Computes the normalized vector pointing from this one to the given one and returns the result.
-   *
-   * This method is equivalent to `(b - a).normalized`.
-   *
-   * @param v The second vector.
-   * @return The normalized vector pointing from this one to the given one.
-   */
-  def directionTo(v: Vec3i): Vec3f = (v - this).normalized
-
-  /**
-   * Computes the normalized vector pointing from this one to the one with the given components and returns the result.
-   *
-   * @param x The x component of the second vector.
-   * @param y The y component of the second vector.
-   * @param z The z component of the second vector.
-   * @return The normalized vector pointing from this one to the one with the given components.
-   */
-  def directionTo(x: Int, y: Int, z: Int): Vec3f = this.directionTo(Vec3i(x, y, z))
-
-  /**
    * Returns the squared distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).lengthSquared`
+   * This method is equivalent to `(b - a).lengthSquared`.
    *
    * @param v The second vector.
    * @return The squared distance between this vector and the given one.
@@ -403,7 +356,7 @@ case class Vec3i(x: Int, y: Int, z: Int) {
   /**
    * Returns the squared distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).lengthSquared`
+   * This method is equivalent to `(b - a).lengthSquared`.
    *
    * @param x The x component of the second vector.
    * @param y The y component of the second vector.
@@ -416,7 +369,7 @@ case class Vec3i(x: Int, y: Int, z: Int) {
   /**
    * Returns the distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).length`
+   * This method is equivalent to `(b - a).length`.
    *
    * @param v The second vector.
    * @return The squared between this vector and the given one.
@@ -427,7 +380,7 @@ case class Vec3i(x: Int, y: Int, z: Int) {
   /**
    * Returns the distance between the point represented by this vector and the point represented by the given one.
    *
-   * This method is equivalent to `(b - a).length`
+   * This method is equivalent to `(b - a).length`.
    *
    * @param x The x component of the second vector.
    * @param y The y component of the second vector.
@@ -443,7 +396,7 @@ case class Vec3i(x: Int, y: Int, z: Int) {
    * @param v The second vector.
    * @return The angle in radians between this vector and the given one.
    */
-  def angleTo(v: Vec3i): Double = math.acos((this dot v) / (this.length * v.length))
+  def angleTo(v: Vec3i): Double = math.acos(this.dot(v) / (this.length * v.length))
 
   /**
    * Returns the angle in radians between this vector and the one with the given components.
@@ -464,31 +417,8 @@ case class Vec3i(x: Int, y: Int, z: Int) {
    */
   def signedAngleTo(to: Vec3i, axis: Vec3i): Double = {
     val cross = this.cross(to)
-    val angle = math.atan2(cross.length, this.dot(to))
-    if (cross.dot(axis) < 0) {
-      -angle
-    } else {
-      angle
-    }
+    math.atan2(cross.length, this.dot(to)) * cross.dot(axis).sign
   }
-
-  /**
-   * Projects this vector on the given one and returns the result.
-   *
-   * @param v The second vector.
-   * @return The projection of this vector on the given one.
-   */
-  def project(v: Vec3i): Vec3f = v * ((this dot v) / v.lengthSquared.toFloat)
-
-  /**
-   * Projects this vector on the one with the given components and returns the result.
-   *
-   * @param x The x component of the second vector.
-   * @param y The y component of the second vector.
-   * @param z The z component of the second vector.
-   * @return The projection of this vector on the one with the given components.
-   */
-  def project(x: Int, y: Int, z: Int): Vec3f = this.project(Vec3i(x, y, z))
 
   /**
    * Reflects this vector by the given normal and returns the result.
@@ -496,7 +426,7 @@ case class Vec3i(x: Int, y: Int, z: Int) {
    * @param n The reflection normal.
    * @return The reflection of this vector by the given normal.
    */
-  def reflect(n: Vec3i): Vec3i = this - (n * (this dot n) * 2)
+  def reflect(n: Vec3i): Vec3i = this - (n * (this.dot(n) * 2))
 
   /**
    * Reflects this vector by the normal defined by the given components and returns the result.
@@ -532,7 +462,7 @@ case class Vec3i(x: Int, y: Int, z: Int) {
    * @param n The normal of the plane.
    * @return The result of sliding this vector along a plane defined by the given normal.
    */
-  def slide(n: Vec3i): Vec3i = this - (n * (this dot n))
+  def slide(n: Vec3i): Vec3i = this - (n * this.dot(n))
 
   /**
    * Slides this vector along a plane defined by the normal defined by the given components and returns the result.
@@ -603,15 +533,17 @@ case class Vec3i(x: Int, y: Int, z: Int) {
   def mod(k: Int): Vec3i = this % k
 
   /**
-   * Returns the outer product between this vector and the given one.
+   * Returns the outer product between this vector and the given values.
    *
-   * @param v The second vector.
-   * @return The outer product between this vector and the given one.
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @param z The z component of the second vector.
+   * @return The outer product between this vector and the given values.
    */
-  def outer(v: Vec3i): Mat3i = Mat3i(
-    this.x * v.x, this.x * v.y, this.x * v.z,
-    this.y * v.x, this.y * v.y, this.y * v.z,
-    this.z * v.x, this.z * v.y, this.z * v.z
+  def outer(x: Int, y: Int, z: Int): Mat3i = Mat3i(
+    this.x * x, this.x * y, this.x * z,
+    this.y * x, this.y * y, this.y * z,
+    this.z * x, this.z * y, this.z * z
   )
 
   /**
@@ -620,11 +552,30 @@ case class Vec3i(x: Int, y: Int, z: Int) {
    * @param v The second vector.
    * @return The outer product between this vector and the given one.
    */
-  def outer(v: Vec4i): Mat3x4i = Mat3x4i(
-    this.x * v.x, this.x * v.y, this.x * v.z, this.x * v.w,
-    this.y * v.x, this.y * v.y, this.y * v.z, this.y * v.w,
-    this.z * v.x, this.z * v.y, this.z * v.z, this.z * v.w
+  def outer(v: Vec3i): Mat3i = this.outer(v.x, v.y, v.z)
+
+  /**
+   * Returns the outer product between this vector and the given values.
+   *
+   * @param x The x component of the second vector.
+   * @param y The y component of the second vector.
+   * @param z The z component of the second vector.
+   * @param w The w component of the second vector.
+   * @return The outer product between this vector and the given values.
+   */
+  def outer(x: Int, y: Int, z: Int, w: Int): Mat3x4i = Mat3x4i(
+    this.x * x, this.x * y, this.x * z, this.x * w,
+    this.y * x, this.y * y, this.y * z, this.y * w,
+    this.z * x, this.z * y, this.z * z, this.z * w
   )
+
+  /**
+   * Returns the outer product between this vector and the given one.
+   *
+   * @param v The second vector.
+   * @return The outer product between this vector and the given one.
+   */
+  def outer(v: Vec4i): Mat3x4i = this.outer(v.x, v.y, v.z, v.w)
 
   /**
    * Checks if the components of this vector are equal to the given ones.
