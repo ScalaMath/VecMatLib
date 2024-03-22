@@ -3,6 +3,8 @@
 
 A Scala library for vectors and matrix math.
 
+TODO: Update this Readme
+
 ## Project goals
 
 The goal of VecMatLib is to provide easy-to-use and efficient linear algebra operations, needed by any 3D application.
