@@ -401,7 +401,7 @@ case class Mat4f(
     case (0, 0) => Mat3f(this.m11, this.m12, this.m13, this.m21, this.m22, this.m23, this.m31, this.m32, this.m33)
     case (0, 1) => Mat3f(this.m10, this.m12, this.m13, this.m20, this.m22, this.m23, this.m30, this.m32, this.m33)
     case (0, 2) => Mat3f(this.m10, this.m11, this.m13, this.m20, this.m21, this.m23, this.m30, this.m31, this.m33)
-    case (0, 3) => Mat3f(this.m10, this.m11, this.m12, this.m20, this.m21, this.m23, this.m30, this.m31, this.m32)
+    case (0, 3) => Mat3f(this.m10, this.m11, this.m12, this.m20, this.m21, this.m22, this.m30, this.m31, this.m32)
     case (1, 0) => Mat3f(this.m01, this.m02, this.m03, this.m21, this.m22, this.m23, this.m31, this.m32, this.m33)
     case (1, 1) => Mat3f(this.m00, this.m02, this.m03, this.m20, this.m22, this.m23, this.m30, this.m32, this.m33)
     case (1, 2) => Mat3f(this.m00, this.m01, this.m03, this.m20, this.m21, this.m23, this.m30, this.m31, this.m33)
@@ -409,8 +409,8 @@ case class Mat4f(
     case (2, 0) => Mat3f(this.m01, this.m02, this.m03, this.m11, this.m12, this.m13, this.m31, this.m32, this.m33)
     case (2, 1) => Mat3f(this.m00, this.m02, this.m03, this.m10, this.m12, this.m13, this.m30, this.m32, this.m33)
     case (2, 2) => Mat3f(this.m00, this.m01, this.m03, this.m10, this.m11, this.m13, this.m30, this.m31, this.m33)
-    case (2, 3) => Mat3f(this.m00, this.m01, this.m02, this.m10, this.m11, this.m12, this.m30, this.m31, this.m23)
-    case (3, 0) => Mat3f(this.m01, this.m02, this.m03, this.m11, this.m12, this.m12, this.m21, this.m22, this.m23)
+    case (2, 3) => Mat3f(this.m00, this.m01, this.m02, this.m10, this.m11, this.m12, this.m30, this.m31, this.m32)
+    case (3, 0) => Mat3f(this.m01, this.m02, this.m03, this.m11, this.m12, this.m13, this.m21, this.m22, this.m23)
     case (3, 1) => Mat3f(this.m00, this.m02, this.m03, this.m10, this.m12, this.m13, this.m20, this.m22, this.m23)
     case (3, 2) => Mat3f(this.m00, this.m01, this.m03, this.m10, this.m11, this.m13, this.m20, this.m21, this.m23)
     case (3, 3) => Mat3f(this.m00, this.m01, this.m02, this.m10, this.m11, this.m12, this.m20, this.m21, this.m22)
@@ -676,6 +676,8 @@ object Mat4f {
   /**
    * Returns a 4x4 matrix representing a translation in a 3D space.
    *
+   * A translation can be applied to a vector by multiplying it with this matrix as `m * (v, 1.0f)` or `m.multiply(v, 1.0f)`.
+   *
    * @param x Translation on the x axis.
    * @param y Translation on the y axis.
    * @param z Translation on the z axis.
@@ -686,6 +688,8 @@ object Mat4f {
   /**
    * Returns a 4x4 matrix representing a translation in a 3D space.
    *
+   * A translation can be applied to a vector by multiplying it with this matrix as `m * (v, 1.0f)` or `m.multiply(v, 1.0f)`.
+   *
    * @param t The translation vector.
    * @return A 4x4 matrix representing a translation in a 3D space.
    */
@@ -693,6 +697,8 @@ object Mat4f {
 
   /**
    * Returns a 4x4 matrix representing a translation in a 2D space.
+   *
+   * A translation can be applied to a vector by multiplying it with this matrix as `m * (v, 0.0f, 1.0f)` or `m.multiply(v, 0.0f, 1.0f)`.
    *
    * @param t The translation vector.
    * @return A 4x4 matrix representing a translation in a 2D space.
@@ -806,7 +812,7 @@ object Mat4f {
    * @param z Scale factor on the z axis.
    * @return A 4x4 matrix representing a scaling by the given factor in a 3D space.
    */
-  def scale(x: Float, y: Float, z: Float): Mat4f = Mat4f(x, 0.0f, 0.0f, 0.0f, 0.0f, y, 0.0f, 0.0f, 0.0f, 0.0f, z, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f)
+  def scaling(x: Float, y: Float, z: Float): Mat4f = Mat4f(x, 0.0f, 0.0f, 0.0f, 0.0f, y, 0.0f, 0.0f, 0.0f, 0.0f, z, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f)
 
   /**
    * Returns a 4x4 matrix representing a scaling by the given factor in a 3D space.
@@ -814,7 +820,7 @@ object Mat4f {
    * @param s A vector representing the scale factor on the x, y, and z axes.
    * @return A 4x4 matrix representing a scaling by the given factor in a 3D space.
    */
-  def scale(s: Vec3f): Mat4f = this.scale(s.x, s.y, s.z)
+  def scaling(s: Vec3f): Mat4f = this.scaling(s.x, s.y, s.z)
 
   /**
    * Returns a 4x4 matrix representing a scaling by the given factor in a 2D space.
@@ -822,7 +828,7 @@ object Mat4f {
    * @param s A vector representing the scale factor on the x and y axes.
    * @return A 4x4 matrix representing a scaling by the given factor in a 2D space.
    */
-  def scale(s: Vec2f): Mat4f = this.scale(s.x, s.y, 1.0f)
+  def scaling(s: Vec2f): Mat4f = this.scaling(s.x, s.y, 1.0f)
 
   /**
    * Returns a 4x4 projection matrix representing perspective screen projection.

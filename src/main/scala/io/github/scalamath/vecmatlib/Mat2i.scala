@@ -250,7 +250,7 @@ case class Mat2i(m00: Int, m01: Int, m10: Int, m11: Int) {
    * @param m The matrix to multiply this one by.
    * @return The product between this matrix and the given one.
    */
-  def *(m: Mat2x3f): Mat2x3f = Mat2x3f(
+  def *(m: Mat2x3i): Mat2x3i = Mat2x3i(
     this.row0.dot(m.col0), this.row0.dot(m.col1), this.row0.dot(m.col2),
     this.row1.dot(m.col0), this.row1.dot(m.col1), this.row1.dot(m.col2)
   )
@@ -263,7 +263,7 @@ case class Mat2i(m00: Int, m01: Int, m10: Int, m11: Int) {
    * @param m The matrix to multiply this one by.
    * @return The product between this matrix and the given one.
    */
-  def multiply(m: Mat2x3f): Mat2x3f = this * m
+  def multiply(m: Mat2x3i): Mat2x3i = this * m
 
   /**
    * Returns the transposed of this matrix.
@@ -311,16 +311,6 @@ case class Mat2i(m00: Int, m01: Int, m10: Int, m11: Int) {
     this.m11, -this.m01,
     -this.m10, this.m00
   )
-
-  /**
-   * Returns the inverse of this matrix.
-   *
-   * The result is undefined if this matrix is not invertible.
-   * It is possible to check if the matrix is invertible by checking if its [[determinant]] is not zero.
-   *
-   * @return The inverse of this matrix.
-   */
-  def inverse: Mat2f = this.adjugate.toFloat / this.determinant
 
   /**
    * Raises this matrix to the given power by multiplying it with itself `exp` times and returns the result.

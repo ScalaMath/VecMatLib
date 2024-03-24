@@ -310,8 +310,8 @@ case class Mat3d(
    */
   def *(m: Mat3x4d): Mat3x4d = Mat3x4d(
     this.row0.dot(m.col0), this.row0.dot(m.col1), this.row0.dot(m.col2), this.row0.dot(m.col3),
-    this.row1.dot(m.col0), this.row1.dot(m.col1), this.row1.dot(m.col2), this.row0.dot(m.col3),
-    this.row2.dot(m.col0), this.row2.dot(m.col1), this.row2.dot(m.col2), this.row0.dot(m.col3)
+    this.row1.dot(m.col0), this.row1.dot(m.col1), this.row1.dot(m.col2), this.row1.dot(m.col3),
+    this.row2.dot(m.col0), this.row2.dot(m.col1), this.row2.dot(m.col2), this.row2.dot(m.col3)
   )
 
   /**
@@ -376,7 +376,7 @@ case class Mat3d(
    *
    * @return The determinant of this matrix.
    */
-  def determinant: Double = this.m00 * (this.m11 * this.m22 - this.m21 * this.m12) - this.m01 * (this.m10 * this.m22 - this.m02 * this.m12) + this.m02 * (this.m10 * this.m21 - this.m02 * this.m11)
+  def determinant: Double = this.m00 * (this.m11 * this.m22 - this.m21 * this.m12) - this.m01 * (this.m10 * this.m22 - this.m20 * this.m12) + this.m02 * (this.m10 * this.m21 - this.m20 * this.m11)
 
   /**
    * Returns the adjugate of this matrix.
@@ -609,14 +609,18 @@ object Mat3d {
   /**
    * Returns a 3x3 matrix representing a translation in a 2D space.
    *
+   * A translation can be applied to a vector by multiplying it with this matrix as `m * (v, 1.0)` or `m.multiply(v, 1.0)`.
+   *
    * @param x Translation on the x axis.
    * @param y Translation on the y axis.
-   * @return A 2x3 matrix representing a translation in a 2D space.
+   * @return A 3x3 matrix representing a translation in a 2D space.
    */
   def translation(x: Double, y: Double): Mat3d = Mat3d(1.0, 0.0, x, 0.0, 1.0, y, 0.0, 0.0, 1.0)
 
   /**
    * Returns a 3x3 matrix representing a translation in a 2D space.
+   *
+   * A translation can be applied to a vector by multiplying it with this matrix as `m * (v, 1.0)` or `m.multiply(v, 1.0)`.
    *
    * @param t The translation vector.
    * @return A 3x3 matrix representing a translation in a 2D space.
@@ -719,7 +723,7 @@ object Mat3d {
    * @param z Scale factor on the z axis.
    * @return A 3x3 matrix representing a scaling by the given factor in a 3D space.
    */
-  def scale(x: Double, y: Double, z: Double): Mat3d = Mat3d(x, 0.0, 0.0, 0.0, y, 0.0, 0.0, 0.0, z)
+  def scaling(x: Double, y: Double, z: Double): Mat3d = Mat3d(x, 0.0, 0.0, 0.0, y, 0.0, 0.0, 0.0, z)
 
   /**
    * Returns a 3x3 matrix representing a scaling by the given factor in a 3D space.
@@ -727,7 +731,7 @@ object Mat3d {
    * @param s A vector representing the scale factor on the x, y, and z axes.
    * @return A 3x3 matrix representing a scaling by the given factor in a 3D space.
    */
-  def scale(s: Vec3d): Mat3d = this.scale(s.x, s.y, s.z)
+  def scaling(s: Vec3d): Mat3d = this.scaling(s.x, s.y, s.z)
 
   /**
    * Returns a 3x3 matrix representing a scaling by the given factor in a 2D space.
@@ -735,7 +739,7 @@ object Mat3d {
    * @param s A vector representing the scale factor on the x and y axes.
    * @return A 3x3 matrix representing a scaling by the given factor in a 2D space.
    */
-  def scale(s: Vec2d): Mat3d = this.scale(s.x, s.y, 1.0)
+  def scaling(s: Vec2d): Mat3d = this.scaling(s.x, s.y, 1.0)
 
   /**
    * Allows to use the `*` operator with a scalar as `1.0 * matrix`.

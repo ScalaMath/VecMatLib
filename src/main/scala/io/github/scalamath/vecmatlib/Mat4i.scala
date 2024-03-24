@@ -394,7 +394,7 @@ case class Mat4i(
     case (0, 0) => Mat3i(this.m11, this.m12, this.m13, this.m21, this.m22, this.m23, this.m31, this.m32, this.m33)
     case (0, 1) => Mat3i(this.m10, this.m12, this.m13, this.m20, this.m22, this.m23, this.m30, this.m32, this.m33)
     case (0, 2) => Mat3i(this.m10, this.m11, this.m13, this.m20, this.m21, this.m23, this.m30, this.m31, this.m33)
-    case (0, 3) => Mat3i(this.m10, this.m11, this.m12, this.m20, this.m21, this.m23, this.m30, this.m31, this.m32)
+    case (0, 3) => Mat3i(this.m10, this.m11, this.m12, this.m20, this.m21, this.m22, this.m30, this.m31, this.m32)
     case (1, 0) => Mat3i(this.m01, this.m02, this.m03, this.m21, this.m22, this.m23, this.m31, this.m32, this.m33)
     case (1, 1) => Mat3i(this.m00, this.m02, this.m03, this.m20, this.m22, this.m23, this.m30, this.m32, this.m33)
     case (1, 2) => Mat3i(this.m00, this.m01, this.m03, this.m20, this.m21, this.m23, this.m30, this.m31, this.m33)
@@ -402,8 +402,8 @@ case class Mat4i(
     case (2, 0) => Mat3i(this.m01, this.m02, this.m03, this.m11, this.m12, this.m13, this.m31, this.m32, this.m33)
     case (2, 1) => Mat3i(this.m00, this.m02, this.m03, this.m10, this.m12, this.m13, this.m30, this.m32, this.m33)
     case (2, 2) => Mat3i(this.m00, this.m01, this.m03, this.m10, this.m11, this.m13, this.m30, this.m31, this.m33)
-    case (2, 3) => Mat3i(this.m00, this.m01, this.m02, this.m10, this.m11, this.m12, this.m30, this.m31, this.m23)
-    case (3, 0) => Mat3i(this.m01, this.m02, this.m03, this.m11, this.m12, this.m12, this.m21, this.m22, this.m23)
+    case (2, 3) => Mat3i(this.m00, this.m01, this.m02, this.m10, this.m11, this.m12, this.m30, this.m31, this.m32)
+    case (3, 0) => Mat3i(this.m01, this.m02, this.m03, this.m11, this.m12, this.m13, this.m21, this.m22, this.m23)
     case (3, 1) => Mat3i(this.m00, this.m02, this.m03, this.m10, this.m12, this.m13, this.m20, this.m22, this.m23)
     case (3, 2) => Mat3i(this.m00, this.m01, this.m03, this.m10, this.m11, this.m13, this.m20, this.m21, this.m23)
     case (3, 3) => Mat3i(this.m00, this.m01, this.m02, this.m10, this.m11, this.m12, this.m20, this.m21, this.m22)
@@ -427,16 +427,6 @@ case class Mat4i(
     this.submatrix(0, 2).determinant, -this.submatrix(1, 2).determinant, this.submatrix(2, 2).determinant, -this.submatrix(3, 2).determinant,
     -this.submatrix(0, 3).determinant, this.submatrix(1, 3).determinant, -this.submatrix(2, 3).determinant, this.submatrix(3, 3).determinant
   )
-
-  /**
-   * Returns the inverse of this matrix.
-   *
-   * The result is undefined if this matrix is not invertible.
-   * It is possible to check if the matrix is invertible by checking if its [[determinant]] is not zero.
-   *
-   * @return The inverse of this matrix.
-   */
-  def inverse: Mat4f = this.adjugate.toFloat / this.determinant
 
   /**
    * Raises this matrix to the given power by multiplying it with itself `exp` times and returns the result.

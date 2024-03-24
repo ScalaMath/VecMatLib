@@ -310,8 +310,8 @@ case class Mat3f(
    */
   def *(m: Mat3x4f): Mat3x4f = Mat3x4f(
     this.row0.dot(m.col0), this.row0.dot(m.col1), this.row0.dot(m.col2), this.row0.dot(m.col3),
-    this.row1.dot(m.col0), this.row1.dot(m.col1), this.row1.dot(m.col2), this.row0.dot(m.col3),
-    this.row2.dot(m.col0), this.row2.dot(m.col1), this.row2.dot(m.col2), this.row0.dot(m.col3)
+    this.row1.dot(m.col0), this.row1.dot(m.col1), this.row1.dot(m.col2), this.row1.dot(m.col3),
+    this.row2.dot(m.col0), this.row2.dot(m.col1), this.row2.dot(m.col2), this.row2.dot(m.col3)
   )
 
   /**
@@ -376,7 +376,7 @@ case class Mat3f(
    *
    * @return The determinant of this matrix.
    */
-  def determinant: Float = this.m00 * (this.m11 * this.m22 - this.m21 * this.m12) - this.m01 * (this.m10 * this.m22 - this.m02 * this.m12) + this.m02 * (this.m10 * this.m21 - this.m02 * this.m11)
+  def determinant: Float = this.m00 * (this.m11 * this.m22 - this.m21 * this.m12) - this.m01 * (this.m10 * this.m22 - this.m20 * this.m12) + this.m02 * (this.m10 * this.m21 - this.m20 * this.m11)
 
   /**
    * Returns the adjugate of this matrix.
@@ -609,14 +609,18 @@ object Mat3f {
   /**
    * Returns a 3x3 matrix representing a translation in a 2D space.
    *
+   * A translation can be applied to a vector by multiplying it with this matrix as `m * (v, 1.0f)` or `m.multiply(v, 1.0f)`.
+   *
    * @param x Translation on the x axis.
    * @param y Translation on the y axis.
-   * @return A 2x3 matrix representing a translation in a 2D space.
+   * @return A 3x3 matrix representing a translation in a 2D space.
    */
   def translation(x: Float, y: Float): Mat3f = Mat3f(1.0f, 0.0f, x, 0.0f, 1.0f, y, 0.0f, 0.0f, 1.0f)
 
   /**
    * Returns a 3x3 matrix representing a translation in a 2D space.
+   *
+   * A translation can be applied to a vector by multiplying it with this matrix as `m * (v, 1.0f)` or `m.multiply(v, 1.0f)`.
    *
    * @param t The translation vector.
    * @return A 3x3 matrix representing a translation in a 2D space.
@@ -728,7 +732,7 @@ object Mat3f {
    * @param z Scale factor on the z axis.
    * @return A 3x3 matrix representing a scaling by the given factor in a 3D space.
    */
-  def scale(x: Float, y: Float, z: Float): Mat3f = Mat3f(x, 0.0f, 0.0f, 0.0f, y, 0.0f, 0.0f, 0.0f, z)
+  def scaling(x: Float, y: Float, z: Float): Mat3f = Mat3f(x, 0.0f, 0.0f, 0.0f, y, 0.0f, 0.0f, 0.0f, z)
 
   /**
    * Returns a 3x3 matrix representing a scaling by the given factor in a 3D space.
@@ -736,7 +740,7 @@ object Mat3f {
    * @param s A vector representing the scale factor on the x, y, and z axes.
    * @return A 3x3 matrix representing a scaling by the given factor in a 3D space.
    */
-  def scale(s: Vec3f): Mat3f = this.scale(s.x, s.y, s.z)
+  def scaling(s: Vec3f): Mat3f = this.scaling(s.x, s.y, s.z)
 
   /**
    * Returns a 3x3 matrix representing a scaling by the given factor in a 2D space.
@@ -744,7 +748,7 @@ object Mat3f {
    * @param s A vector representing the scale factor on the x and y axes.
    * @return A 3x3 matrix representing a scaling by the given factor in a 2D space.
    */
-  def scale(s: Vec2f): Mat3f = this.scale(s.x, s.y, 1.0f)
+  def scaling(s: Vec2f): Mat3f = this.scaling(s.x, s.y, 1.0f)
 
   /**
    * Allows to use the `*` operator with a scalar as `1.0f * matrix`.

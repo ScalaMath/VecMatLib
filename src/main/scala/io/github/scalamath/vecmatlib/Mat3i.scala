@@ -311,8 +311,8 @@ case class Mat3i(
    */
   def *(m: Mat3x4i): Mat3x4i = Mat3x4i(
     this.row0.dot(m.col0), this.row0.dot(m.col1), this.row0.dot(m.col2), this.row0.dot(m.col3),
-    this.row1.dot(m.col0), this.row1.dot(m.col1), this.row1.dot(m.col2), this.row0.dot(m.col3),
-    this.row2.dot(m.col0), this.row2.dot(m.col1), this.row2.dot(m.col2), this.row0.dot(m.col3)
+    this.row1.dot(m.col0), this.row1.dot(m.col1), this.row1.dot(m.col2), this.row1.dot(m.col3),
+    this.row2.dot(m.col0), this.row2.dot(m.col1), this.row2.dot(m.col2), this.row2.dot(m.col3)
   )
 
   /**
@@ -377,7 +377,7 @@ case class Mat3i(
    *
    * @return The determinant of this matrix.
    */
-  def determinant: Int = this.m00 * (this.m11 * this.m22 - this.m21 * this.m12) - this.m01 * (this.m10 * this.m22 - this.m02 * this.m12) + this.m02 * (this.m10 * this.m21 - this.m02 * this.m11)
+  def determinant: Int = this.m00 * (this.m11 * this.m22 - this.m21 * this.m12) - this.m01 * (this.m10 * this.m22 - this.m20 * this.m12) + this.m02 * (this.m10 * this.m21 - this.m20 * this.m11)
 
   /**
    * Returns the adjugate of this matrix.
@@ -389,16 +389,6 @@ case class Mat3i(
     this.m12 * this.m20 - this.m10 * this.m22, this.m00 * this.m22 - this.m20 * this.m02, this.m02 * this.m10 - this.m00 * this.m12,
     this.m10 * this.m21 - this.m20 * this.m11, this.m20 * this.m01 - this.m00 * this.m21, this.m00 * this.m11 - this.m10 * this.m01
   )
-
-  /**
-   * Returns the inverse of this matrix.
-   *
-   * The result is undefined if this matrix is not invertible.
-   * It is possible to check if the matrix is invertible by checking if its [[determinant]] is not zero.
-   *
-   * @return The inverse of this matrix.
-   */
-  def inverse: Mat3f = this.adjugate.toFloat / this.determinant
 
   /**
    * Raises this matrix to the given power by multiplying it with itself `exp` times and returns the result.

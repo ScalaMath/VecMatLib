@@ -438,6 +438,8 @@ object Mat2x3d {
   /**
    * Returns a 2x3 matrix representing a translation in a 2D space.
    *
+   * A translation can be applied to a vector by multiplying it with this matrix as `m * (v, 1.0)` or `m.multiply(v, 1.0)`.
+   *
    * @param x Translation on the x axis.
    * @param y Translation on the y axis.
    * @return A 2x3 matrix representing a translation in a 2D space.
@@ -446,6 +448,8 @@ object Mat2x3d {
 
   /**
    * Returns a 2x3 matrix representing a translation in a 2D space.
+   *
+   * A translation can be applied to a vector by multiplying it with this matrix as `m * (v, 1.0)` or `m.multiply(v, 1.0)`.
    *
    * @param v The translation vector.
    * @return A 2x3 matrix representing a translation in a 2D space.

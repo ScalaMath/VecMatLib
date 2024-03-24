@@ -401,7 +401,7 @@ case class Mat4d(
     case (0, 0) => Mat3d(this.m11, this.m12, this.m13, this.m21, this.m22, this.m23, this.m31, this.m32, this.m33)
     case (0, 1) => Mat3d(this.m10, this.m12, this.m13, this.m20, this.m22, this.m23, this.m30, this.m32, this.m33)
     case (0, 2) => Mat3d(this.m10, this.m11, this.m13, this.m20, this.m21, this.m23, this.m30, this.m31, this.m33)
-    case (0, 3) => Mat3d(this.m10, this.m11, this.m12, this.m20, this.m21, this.m23, this.m30, this.m31, this.m32)
+    case (0, 3) => Mat3d(this.m10, this.m11, this.m12, this.m20, this.m21, this.m22, this.m30, this.m31, this.m32)
     case (1, 0) => Mat3d(this.m01, this.m02, this.m03, this.m21, this.m22, this.m23, this.m31, this.m32, this.m33)
     case (1, 1) => Mat3d(this.m00, this.m02, this.m03, this.m20, this.m22, this.m23, this.m30, this.m32, this.m33)
     case (1, 2) => Mat3d(this.m00, this.m01, this.m03, this.m20, this.m21, this.m23, this.m30, this.m31, this.m33)
@@ -409,8 +409,8 @@ case class Mat4d(
     case (2, 0) => Mat3d(this.m01, this.m02, this.m03, this.m11, this.m12, this.m13, this.m31, this.m32, this.m33)
     case (2, 1) => Mat3d(this.m00, this.m02, this.m03, this.m10, this.m12, this.m13, this.m30, this.m32, this.m33)
     case (2, 2) => Mat3d(this.m00, this.m01, this.m03, this.m10, this.m11, this.m13, this.m30, this.m31, this.m33)
-    case (2, 3) => Mat3d(this.m00, this.m01, this.m02, this.m10, this.m11, this.m12, this.m30, this.m31, this.m23)
-    case (3, 0) => Mat3d(this.m01, this.m02, this.m03, this.m11, this.m12, this.m12, this.m21, this.m22, this.m23)
+    case (2, 3) => Mat3d(this.m00, this.m01, this.m02, this.m10, this.m11, this.m12, this.m30, this.m31, this.m32)
+    case (3, 0) => Mat3d(this.m01, this.m02, this.m03, this.m11, this.m12, this.m13, this.m21, this.m22, this.m23)
     case (3, 1) => Mat3d(this.m00, this.m02, this.m03, this.m10, this.m12, this.m13, this.m20, this.m22, this.m23)
     case (3, 2) => Mat3d(this.m00, this.m01, this.m03, this.m10, this.m11, this.m13, this.m20, this.m21, this.m23)
     case (3, 3) => Mat3d(this.m00, this.m01, this.m02, this.m10, this.m11, this.m12, this.m20, this.m21, this.m22)
@@ -676,6 +676,8 @@ object Mat4d {
   /**
    * Returns a 4x4 matrix representing a translation in a 3D space.
    *
+   * A translation can be applied to a vector by multiplying it with this matrix as `m * (v, 1.0)` or `m.multiply(v, 1.0)`.
+   *
    * @param x Translation on the x axis.
    * @param y Translation on the y axis.
    * @param z Translation on the z axis.
@@ -686,6 +688,8 @@ object Mat4d {
   /**
    * Returns a 4x4 matrix representing a translation in a 3D space.
    *
+   * A translation can be applied to a vector by multiplying it with this matrix as `m * (v, 1.0)` or `m.multiply(v, 1.0)`.
+   *
    * @param t The translation vector.
    * @return A 4x4 matrix representing a translation in a 3D space.
    */
@@ -693,6 +697,8 @@ object Mat4d {
 
   /**
    * Returns a 4x4 matrix representing a translation in a 2D space.
+   *
+   * A translation can be applied to a vector by multiplying it with this matrix as `m * (v, 0.0, 1.0)` or `m.multiply(v, 0.0, 1.0)`.
    *
    * @param t The translation vector.
    * @return A 4x4 matrix representing a translation in a 2D space.
@@ -797,7 +803,7 @@ object Mat4d {
    * @param z Scale factor on the z axis.
    * @return A 4x4 matrix representing a scaling by the given factor in a 3D space.
    */
-  def scale(x: Double, y: Double, z: Double): Mat4d = Mat4d(x, 0.0, 0.0, 0.0, 0.0, y, 0.0, 0.0, 0.0, 0.0, z, 0.0, 0.0, 0.0, 0.0, 1.0)
+  def scaling(x: Double, y: Double, z: Double): Mat4d = Mat4d(x, 0.0, 0.0, 0.0, 0.0, y, 0.0, 0.0, 0.0, 0.0, z, 0.0, 0.0, 0.0, 0.0, 1.0)
 
   /**
    * Returns a 4x4 matrix representing a scaling by the given factor in a 3D space.
@@ -805,7 +811,7 @@ object Mat4d {
    * @param s A vector representing the scale factor on the x, y, and z axes.
    * @return A 4x4 matrix representing a scaling by the given factor in a 3D space.
    */
-  def scale(s: Vec3d): Mat4d = this.scale(s.x, s.y, s.z)
+  def scaling(s: Vec3d): Mat4d = this.scaling(s.x, s.y, s.z)
 
   /**
    * Returns a 4x4 matrix representing a scaling by the given factor in a 2D space.
@@ -813,7 +819,7 @@ object Mat4d {
    * @param s A vector representing the scale factor on the x and y axes.
    * @return A 4x4 matrix representing a scaling by the given factor in a 2D space.
    */
-  def scale(s: Vec2d): Mat4d = this.scale(s.x, s.y, 1.0)
+  def scaling(s: Vec2d): Mat4d = this.scaling(s.x, s.y, 1.0)
 
   /**
    * Returns a 4x4 projection matrix representing perspective screen projection.

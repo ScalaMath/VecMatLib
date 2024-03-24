@@ -532,6 +532,8 @@ object Mat3x4d {
   /**
    * Returns a 3x4 matrix representing a translation in a 3D space.
    *
+   * A translation can be applied to a vector by multiplying it with this matrix as `m * (v, 1.0)` or `m.multiply(v, 1.0)`.
+   *
    * @param x Translation on the x axis.
    * @param y Translation on the y axis.
    * @param z Translation on the z axis.
@@ -542,6 +544,8 @@ object Mat3x4d {
   /**
    * Returns a 3x4 matrix representing a translation in a 3D space.
    *
+   * A translation can be applied to a vector by multiplying it with this matrix as `m * (v, 1.0)` or `m.multiply(v, 1.0)`.
+   *
    * @param t The translation vector.
    * @return A 3x4 matrix representing a translation in a 3D space.
    */
@@ -549,6 +553,8 @@ object Mat3x4d {
 
   /**
    * Returns a 3x4 matrix representing a translation in a 2D space.
+   *
+   * A translation can be applied to a vector by multiplying it with this matrix as `m * (v, 0.0, 1.0)` or `m.multiply(v, 0.0, 1.0)`.
    *
    * @param t The translation vector.
    * @return A 3x4 matrix representing a translation in a 2D space.
@@ -631,7 +637,7 @@ object Mat3x4d {
    * @param z Scale factor on the z axis.
    * @return A 3x4 matrix representing a scaling by the given factor in a 3D space.
    */
-  def scale(x: Double, y: Double, z: Double): Mat3x4d = Mat3x4d(x, 0.0, 0.0, 0.0, 0.0, y, 0.0, 0.0, 0.0, 0.0, z, 0.0)
+  def scaling(x: Double, y: Double, z: Double): Mat3x4d = Mat3x4d(x, 0.0, 0.0, 0.0, 0.0, y, 0.0, 0.0, 0.0, 0.0, z, 0.0)
 
   /**
    * Returns a 3x4 matrix representing a scaling by the given factor in a 3D space.
@@ -639,7 +645,7 @@ object Mat3x4d {
    * @param s A vector representing the scale factor on the x, y, and z axes.
    * @return A 3x4 matrix representing a scaling by the given factor in a 3D space.
    */
-  def scale(s: Vec3d): Mat3x4d = this.scale(s.x, s.y, s.z)
+  def scaling(s: Vec3d): Mat3x4d = this.scaling(s.x, s.y, s.z)
 
   /**
    * Returns a 3x4 matrix representing a scaling by the given factor in a 2D space.
@@ -647,7 +653,7 @@ object Mat3x4d {
    * @param s A vector representing the scale factor on the x and y axes.
    * @return A 3x4 matrix representing a scaling by the given factor in a 2D space.
    */
-  def scale(s: Vec2d): Mat3x4d = this.scale(s.x, s.y, 1.0)
+  def scaling(s: Vec2d): Mat3x4d = this.scaling(s.x, s.y, 1.0)
 
   /**
    * Allows to use the `*` operator with a scalar as `1.0 * matrix`.

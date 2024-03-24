@@ -1,5 +1,7 @@
 package io.github.scalamath.vecmatlib
 
+import io.github.scalamath
+import org.scalactic.Tolerance.convertNumericToPlusOrMinusWrapper
 import org.scalatest.funsuite.AnyFunSuite
 
 class Vec2iSuite extends AnyFunSuite {
@@ -152,30 +154,30 @@ class Vec2iSuite extends AnyFunSuite {
   test("Angle between two vectors") {
     val a = Vec2i(3, 3)
     val b = Vec2i(0, 2)
-    assert(a.angleTo(b) == math.Pi / 4)
+    assert(a.angleTo(b) === math.Pi / 4 +- scalamath.Epsilon)
   }
 
   test("Angle to values") {
     val vec = Vec2i(3, 3)
     val angle = vec.angleTo(0, 2)
-    assert(angle == math.Pi / 4)
+    assert(angle === math.Pi / 4 +- scalamath.Epsilon)
   }
 
   test("Angle between a vector and the x axis") {
     val vec = Vec2i(2, 2)
-    assert(vec.angle == math.Pi / 4)
+    assert(vec.angle === math.Pi / 4 +- scalamath.Epsilon)
   }
 
   test("Angle to a point with a vector") {
     val a = Vec2i(1, 2)
     val b = Vec2i(2, 3)
-    assert(a.angleToPoint(b) == math.Pi / 4)
+    assert(a.angleToPoint(b) === math.Pi / 4 +- scalamath.Epsilon)
   }
 
   test("Angle to a point with a values") {
     val vec = Vec2i(1, 2)
     val angle = vec.angleToPoint(2, 3)
-    assert(angle == math.Pi / 4)
+    assert(angle === math.Pi / 4 +- scalamath.Epsilon)
   }
 
   test("Reflect a vector by a vector") {
@@ -250,7 +252,7 @@ class Vec2iSuite extends AnyFunSuite {
     val a = Vec2i(2, 3)
     val b = Vec2i(3, -2)
     assert(a.orthogonal == b)
-    assert(a.angleTo(b) == math.Pi / 2)
+    assert(a.angleTo(b) === math.Pi / 2 +- scalamath.Epsilon)
   }
 
   test("Cross product with three values") {
