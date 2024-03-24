@@ -91,7 +91,7 @@ case class Vec4i(x: Int, y: Int, z: Int, w: Int) {
    *
    * @return This exact vector.
    */
-  def unary_+(): Vec4i = this
+  def unary_+ : Vec4i = this
 
   /**
    * Subtracts the given values from each component of this vector and returns the result.
@@ -140,7 +140,7 @@ case class Vec4i(x: Int, y: Int, z: Int, w: Int) {
    *
    * @return The additive inverse of this vector.
    */
-  def unary_-(): Vec4i = Vec4i(-this.x, -this.y, -this.z, -this.w)
+  def unary_- : Vec4i = Vec4i(-this.x, -this.y, -this.z, -this.w)
 
   /**
    * Returns the additive inverse of this vector.
@@ -590,14 +590,14 @@ case class Vec4i(x: Int, y: Int, z: Int, w: Int) {
    *
    * @return This vector as a float vector.
    */
-  def toFloat: Vec4f = Vec4f(this.x, this.y, this.z, this.w)
+  def toFloat: Vec4f = Vec4f(this.x.toFloat, this.y.toFloat, this.z.toFloat, this.w.toFloat)
 
   /**
    * Returns this vector as a double vector.
    *
    * @return This vector as a double vector.
    */
-  def toDouble: Vec4d = Vec4d(this.x, this.y, this.z, this.w)
+  def toDouble: Vec4d = Vec4d(this.x.toDouble, this.y.toDouble, this.z.toDouble, this.w.toDouble)
 }
 
 /**

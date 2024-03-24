@@ -74,7 +74,7 @@ case class Vec3i(x: Int, y: Int, z: Int) {
    *
    * @return This exact vector.
    */
-  def unary_+(): Vec3i = this
+  def unary_+ : Vec3i = this
 
   /**
    * Subtracts the given values from each component of this vector and returns the result.
@@ -121,7 +121,7 @@ case class Vec3i(x: Int, y: Int, z: Int) {
    *
    * @return The additive inverse of this vector.
    */
-  def unary_-(): Vec3i = Vec3i(-this.x, -this.y, -this.z)
+  def unary_- : Vec3i = Vec3i(-this.x, -this.y, -this.z)
 
   /**
    * Returns the additive inverse of this vector.
@@ -616,14 +616,14 @@ case class Vec3i(x: Int, y: Int, z: Int) {
    *
    * @return This vector as a float vector.
    */
-  def toFloat: Vec3f = Vec3f(this.x, this.y, this.z)
+  def toFloat: Vec3f = Vec3f(this.x.toFloat, this.y.toFloat, this.z.toFloat)
 
   /**
    * Returns this vector as a double vector.
    *
    * @return This vector as a double vector.
    */
-  def toDouble: Vec3d = Vec3d(this.x, this.y, this.z)
+  def toDouble: Vec3d = Vec3d(this.x.toDouble, this.y.toDouble, this.z.toDouble)
 }
 
 /**

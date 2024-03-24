@@ -61,7 +61,7 @@ case class Mat4d(
    *
    * @return This matrix.
    */
-  def unary_+(): Mat4d = this
+  def unary_+ : Mat4d = this
 
   /**
    * Subtracts the given matrix from this one and returns the result.
@@ -91,7 +91,7 @@ case class Mat4d(
    *
    * @return The additive inverse of this matrix.
    */
-  def unary_-(): Mat4d = Mat4d(
+  def unary_- : Mat4d = Mat4d(
     -this.m00, -this.m01, -this.m02, -this.m03,
     -this.m10, -this.m11, -this.m12, -this.m13,
     -this.m20, -this.m21, -this.m22, -this.m23,
@@ -514,10 +514,10 @@ case class Mat4d(
    * @return A matrix with all elements rounded to the nearest integer.
    */
   def round: Mat4d = Mat4d(
-    this.m00.round, this.m01.round, this.m02.round, this.m03.round,
-    this.m10.round, this.m11.round, this.m12.round, this.m13.round,
-    this.m20.round, this.m21.round, this.m22.round, this.m23.round,
-    this.m30.round, this.m31.round, this.m32.round, this.m33.round
+    this.m00.round.toDouble, this.m01.round.toDouble, this.m02.round.toDouble, this.m03.round.toDouble,
+    this.m10.round.toDouble, this.m11.round.toDouble, this.m12.round.toDouble, this.m13.round.toDouble,
+    this.m20.round.toDouble, this.m21.round.toDouble, this.m22.round.toDouble, this.m23.round.toDouble,
+    this.m30.round.toDouble, this.m31.round.toDouble, this.m32.round.toDouble, this.m33.round.toDouble
   )
 
   /**

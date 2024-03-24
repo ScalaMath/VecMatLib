@@ -58,7 +58,7 @@ case class Vec2f(x: Float, y: Float) {
    *
    * @return This exact vector.
    */
-  def unary_+(): Vec2f = this
+  def unary_+ : Vec2f = this
 
   /**
    * Subtracts the given values from each component of this vector and returns the result.
@@ -103,7 +103,7 @@ case class Vec2f(x: Float, y: Float) {
    *
    * @return The additive inverse of this vector.
    */
-  def unary_-(): Vec2f = Vec2f(-this.x, -this.y)
+  def unary_- : Vec2f = Vec2f(-this.x, -this.y)
 
   /**
    * Returns the additive inverse of this vector.
@@ -324,7 +324,7 @@ case class Vec2f(x: Float, y: Float) {
    *
    * @return A vector with all components rounded to the nearest integer.
    */
-  def round: Vec2f = Vec2f(this.x.round, this.y.round)
+  def round: Vec2f = Vec2f(this.x.round.toFloat, this.y.round.toFloat)
 
   /**
    * Returns a vector with all components rounded up.
@@ -809,7 +809,7 @@ case class Vec2f(x: Float, y: Float) {
    *
    * @return This vector as a double vector.
    */
-  def toDouble: Vec2d = Vec2d(this.x, this.y)
+  def toDouble: Vec2d = Vec2d(this.x.toDouble, this.y.toDouble)
 }
 
 /**

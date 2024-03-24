@@ -81,7 +81,7 @@ case class Quatd(w: Double, x: Double, y: Double, z: Double) {
    *
    * @return This quaternion.
    */
-  def unary_+(): Quatd = this
+  def unary_+ : Quatd = this
 
   /**
    * Computes the subtraction of the given values from this quaternion and returns the result.
@@ -130,7 +130,7 @@ case class Quatd(w: Double, x: Double, y: Double, z: Double) {
    *
    * @return The additive inverse of this quaternion.
    */
-  def unary_-(): Quatd = Quatd(-this.w, -this.x, -this.y, -this.z)
+  def unary_- : Quatd = Quatd(-this.w, -this.x, -this.y, -this.z)
 
   /**
    * Returns the additive inverse of this quaternion.

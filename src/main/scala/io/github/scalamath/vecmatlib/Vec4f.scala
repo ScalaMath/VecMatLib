@@ -93,7 +93,7 @@ case class Vec4f(x: Float, y: Float, z: Float, w: Float) {
    *
    * @return This exact vector.
    */
-  def unary_+(): Vec4f = this
+  def unary_+ : Vec4f = this
 
   /**
    * Subtracts the given values from each component of this vector and returns the result.
@@ -142,7 +142,7 @@ case class Vec4f(x: Float, y: Float, z: Float, w: Float) {
    *
    * @return The additive inverse of this vector.
    */
-  def unary_-(): Vec4f = Vec4f(-this.x, -this.y, -this.z, -this.w)
+  def unary_- : Vec4f = Vec4f(-this.x, -this.y, -this.z, -this.w)
 
   /**
    * Returns the additive inverse of this vector.
@@ -373,7 +373,7 @@ case class Vec4f(x: Float, y: Float, z: Float, w: Float) {
    *
    * @return A vector with all components rounded to the nearest integer.
    */
-  def round: Vec4f = Vec4f(this.x.round, this.y.round, this.z.round, this.w.round)
+  def round: Vec4f = Vec4f(this.x.round.toFloat, this.y.round.toFloat, this.z.round.toFloat, this.w.round.toFloat)
 
   /**
    * Returns a vector with all components rounded up.
@@ -764,7 +764,7 @@ case class Vec4f(x: Float, y: Float, z: Float, w: Float) {
    *
    * @return This vector as a double vector.
    */
-  def toDouble: Vec4d = Vec4d(this.x, this.y, this.z, this.w)
+  def toDouble: Vec4d = Vec4d(this.x.toDouble, this.y.toDouble, this.z.toDouble, this.w.toDouble)
 }
 
 /**

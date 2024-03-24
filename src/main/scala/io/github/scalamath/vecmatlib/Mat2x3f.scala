@@ -46,7 +46,7 @@ case class Mat2x3f(m00: Float, m01: Float, m02: Float, m10: Float, m11: Float, m
    *
    * @return This exact matrix.
    */
-  def unary_+(): Mat2x3f = this
+  def unary_+ : Mat2x3f = this
 
   /**
    * Subtracts the given matrix from this one and returns the result.
@@ -74,7 +74,7 @@ case class Mat2x3f(m00: Float, m01: Float, m02: Float, m10: Float, m11: Float, m
    *
    * @return The additive inverse of this matrix.
    */
-  def unary_-(): Mat2x3f = Mat2x3f(
+  def unary_- : Mat2x3f = Mat2x3f(
     -this.m00, -this.m01, -this.m02,
     -this.m10, -this.m11, -this.m12
   )
@@ -322,8 +322,8 @@ case class Mat2x3f(m00: Float, m01: Float, m02: Float, m10: Float, m11: Float, m
    * @return A matrix with all elements rounded to the nearest integer.
    */
   def round: Mat2x3f = Mat2x3f(
-    this.m00.round, this.m01.round, this.m02.round,
-    this.m10.round, this.m11.round, this.m12.round
+    this.m00.round.toFloat, this.m01.round.toFloat, this.m02.round.toFloat,
+    this.m10.round.toFloat, this.m11.round.toFloat, this.m12.round.toFloat
   )
 
   /**
@@ -405,7 +405,7 @@ case class Mat2x3f(m00: Float, m01: Float, m02: Float, m10: Float, m11: Float, m
    *
    * @return This matrix as a double matrix.
    */
-  def toDouble: Mat2x3d = Mat2x3d(this.m00, this.m01, this.m02, this.m10, this.m11, this.m12)
+  def toDouble: Mat2x3d = Mat2x3d(this.m00.toDouble, this.m01.toDouble, this.m02.toDouble, this.m10.toDouble, this.m11.toDouble, this.m12.toDouble)
 }
 
 /**

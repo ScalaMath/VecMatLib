@@ -81,7 +81,7 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
    *
    * @return This quaternion.
    */
-  def unary_+(): Quatf = this
+  def unary_+ : Quatf = this
 
   /**
    * Computes the subtraction of the given values from this quaternion and returns the result.
@@ -130,7 +130,7 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
    *
    * @return The additive inverse of this quaternion.
    */
-  def unary_-(): Quatf = Quatf(-this.w, -this.x, -this.y, -this.z)
+  def unary_- : Quatf = Quatf(-this.w, -this.x, -this.y, -this.z)
 
   /**
    * Returns the additive inverse of this quaternion.

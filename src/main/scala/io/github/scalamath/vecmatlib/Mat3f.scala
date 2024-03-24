@@ -52,7 +52,7 @@ case class Mat3f(
    *
    * @return This matrix.
    */
-  def unary_+(): Mat3f = this
+  def unary_+ : Mat3f = this
 
   /**
    * Subtracts the given matrix from this one and returns the result.
@@ -81,7 +81,7 @@ case class Mat3f(
    *
    * @return The additive inverse of this matrix.
    */
-  def unary_-(): Mat3f = Mat3f(
+  def unary_- : Mat3f = Mat3f(
     -this.m00, -this.m01, -this.m02,
     -this.m10, -this.m11, -this.m12,
     -this.m20, -this.m21, -this.m22
@@ -465,9 +465,9 @@ case class Mat3f(
    * @return A matrix with all elements rounded to the nearest integer.
    */
   def round: Mat3f = Mat3f(
-    this.m00.round, this.m01.round, this.m02.round,
-    this.m10.round, this.m11.round, this.m12.round,
-    this.m20.round, this.m21.round, this.m22.round
+    this.m00.round.toFloat, this.m01.round.toFloat, this.m02.round.toFloat,
+    this.m10.round.toFloat, this.m11.round.toFloat, this.m12.round.toFloat,
+    this.m20.round.toFloat, this.m21.round.toFloat, this.m22.round.toFloat
   )
 
   /**
@@ -561,9 +561,9 @@ case class Mat3f(
    * @return This matrix as a double matrix.
    */
   def toDouble: Mat3d = Mat3d(
-    this.m00, this.m01, this.m02,
-    this.m10, this.m11, this.m12,
-    this.m20, this.m21, this.m22
+    this.m00.toDouble, this.m01.toDouble, this.m02.toDouble,
+    this.m10.toDouble, this.m11.toDouble, this.m12.toDouble,
+    this.m20.toDouble, this.m21.toDouble, this.m22.toDouble
   )
 }
 

@@ -76,7 +76,7 @@ case class Vec3f(x: Float, y: Float, z: Float) {
    *
    * @return This exact vector.
    */
-  def unary_+(): Vec3f = this
+  def unary_+ : Vec3f = this
 
   /**
    * Subtracts the given values from each component of this vector and returns the result.
@@ -123,7 +123,7 @@ case class Vec3f(x: Float, y: Float, z: Float) {
    *
    * @return The additive inverse of this vector.
    */
-  def unary_-(): Vec3f = Vec3f(-this.x, -this.y, -this.z)
+  def unary_- : Vec3f = Vec3f(-this.x, -this.y, -this.z)
 
   /**
    * Returns the additive inverse of this vector.
@@ -377,7 +377,7 @@ case class Vec3f(x: Float, y: Float, z: Float) {
    *
    * @return A vector with all components rounded to the nearest integer.
    */
-  def round: Vec3f = Vec3f(this.x.round, this.y.round, this.z.round)
+  def round: Vec3f = Vec3f(this.x.round.toFloat, this.y.round.toFloat, this.z.round.toFloat)
 
   /**
    * Returns a vector with all components rounded up.
@@ -815,7 +815,7 @@ case class Vec3f(x: Float, y: Float, z: Float) {
    *
    * @return This vector as a double vector.
    */
-  def toDouble: Vec3d = Vec3d(this.x, this.y, this.z)
+  def toDouble: Vec3d = Vec3d(this.x.toDouble, this.y.toDouble, this.z.toDouble)
 }
 
 /**

@@ -39,7 +39,7 @@ case class Mat2i(m00: Int, m01: Int, m10: Int, m11: Int) {
    *
    * @return This exact matrix.
    */
-  def unary_+(): Mat2i = this
+  def unary_+ : Mat2i = this
 
   /**
    * Subtracts the given matrix from this one and returns the result.
@@ -67,7 +67,7 @@ case class Mat2i(m00: Int, m01: Int, m10: Int, m11: Int) {
    *
    * @return The additive inverse of this matrix.
    */
-  def unary_-(): Mat2i = Mat2i(
+  def unary_- : Mat2i = Mat2i(
     -this.m00, -this.m01,
     -this.m10, -this.m11
   )
@@ -375,14 +375,14 @@ case class Mat2i(m00: Int, m01: Int, m10: Int, m11: Int) {
    *
    * @return This matrix as a float matrix.
    */
-  def toFloat: Mat2f = Mat2f(this.m00, this.m01, this.m10, this.m11)
+  def toFloat: Mat2f = Mat2f(this.m00.toFloat, this.m01.toFloat, this.m10.toFloat, this.m11.toFloat)
 
   /**
    * Returns this matrix as a double matrix.
    *
    * @return This matrix as a double matrix.
    */
-  def toDouble: Mat2d = Mat2d(this.m00, this.m01, this.m10, this.m11)
+  def toDouble: Mat2d = Mat2d(this.m00.toDouble, this.m01.toDouble, this.m10.toDouble, this.m11.toDouble)
 }
 
 /**

@@ -49,7 +49,7 @@ case class Mat3i(
    *
    * @return This matrix.
    */
-  def unary_+(): Mat3i = this
+  def unary_+ : Mat3i = this
 
   /**
    * Subtracts the given matrix from this one and returns the result.
@@ -78,7 +78,7 @@ case class Mat3i(
    *
    * @return The additive inverse of this matrix.
    */
-  def unary_-(): Mat3i = Mat3i(
+  def unary_- : Mat3i = Mat3i(
     -this.m00, -this.m01, -this.m02,
     -this.m10, -this.m11, -this.m12,
     -this.m20, -this.m21, -this.m22
@@ -461,9 +461,9 @@ case class Mat3i(
    * @return This matrix as a float matrix.
    */
   def toFloat: Mat3f = Mat3f(
-    this.m00, this.m01, this.m02,
-    this.m10, this.m11, this.m12,
-    this.m20, this.m21, this.m22
+    this.m00.toFloat, this.m01.toFloat, this.m02.toFloat,
+    this.m10.toFloat, this.m11.toFloat, this.m12.toFloat,
+    this.m20.toFloat, this.m21.toFloat, this.m22.toFloat
   )
 
   /**
@@ -472,9 +472,9 @@ case class Mat3i(
    * @return This matrix as a double matrix.
    */
   def toDouble: Mat3d = Mat3d(
-    this.m00, this.m01, this.m02,
-    this.m10, this.m11, this.m12,
-    this.m20, this.m21, this.m22
+    this.m00.toDouble, this.m01.toDouble, this.m02.toDouble,
+    this.m10.toDouble, this.m11.toDouble, this.m12.toDouble,
+    this.m20.toDouble, this.m21.toDouble, this.m22.toDouble
   )
 }
 

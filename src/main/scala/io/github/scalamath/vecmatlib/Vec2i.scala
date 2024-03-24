@@ -56,7 +56,7 @@ case class Vec2i(x: Int, y: Int) {
    *
    * @return This exact vector.
    */
-  def unary_+(): Vec2i = this
+  def unary_+ : Vec2i = this
 
   /**
    * Subtracts the given values from each component of this vector and returns the result.
@@ -101,7 +101,7 @@ case class Vec2i(x: Int, y: Int) {
    *
    * @return The additive inverse of this vector.
    */
-  def unary_-(): Vec2i = Vec2i(-this.x, -this.y)
+  def unary_- : Vec2i = Vec2i(-this.x, -this.y)
 
   /**
    * Returns the additive inverse of this vector.
@@ -612,14 +612,14 @@ case class Vec2i(x: Int, y: Int) {
    *
    * @return This vector as a float vector.
    */
-  def toFloat: Vec2f = Vec2f(this.x, this.y)
+  def toFloat: Vec2f = Vec2f(this.x.toFloat, this.y.toFloat)
 
   /**
    * Returns this vector as a double vector.
    *
    * @return This vector as a double vector.
    */
-  def toDouble: Vec2d = Vec2d(this.x, this.y)
+  def toDouble: Vec2d = Vec2d(this.x.toDouble, this.y.toDouble)
 }
 
 /**

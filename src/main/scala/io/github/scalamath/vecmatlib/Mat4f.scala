@@ -61,7 +61,7 @@ case class Mat4f(
    *
    * @return This matrix.
    */
-  def unary_+(): Mat4f = this
+  def unary_+ : Mat4f = this
 
   /**
    * Subtracts the given matrix from this one and returns the result.
@@ -91,7 +91,7 @@ case class Mat4f(
    *
    * @return The additive inverse of this matrix.
    */
-  def unary_-(): Mat4f = Mat4f(
+  def unary_- : Mat4f = Mat4f(
     -this.m00, -this.m01, -this.m02, -this.m03,
     -this.m10, -this.m11, -this.m12, -this.m13,
     -this.m20, -this.m21, -this.m22, -this.m23,
@@ -514,10 +514,10 @@ case class Mat4f(
    * @return A matrix with all elements rounded to the nearest integer.
    */
   def round: Mat4f = Mat4f(
-    this.m00.round, this.m01.round, this.m02.round, this.m03.round,
-    this.m10.round, this.m11.round, this.m12.round, this.m13.round,
-    this.m20.round, this.m21.round, this.m22.round, this.m23.round,
-    this.m30.round, this.m31.round, this.m32.round, this.m33.round
+    this.m00.round.toFloat, this.m01.round.toFloat, this.m02.round.toFloat, this.m03.round.toFloat,
+    this.m10.round.toFloat, this.m11.round.toFloat, this.m12.round.toFloat, this.m13.round.toFloat,
+    this.m20.round.toFloat, this.m21.round.toFloat, this.m22.round.toFloat, this.m23.round.toFloat,
+    this.m30.round.toFloat, this.m31.round.toFloat, this.m32.round.toFloat, this.m33.round.toFloat
   )
 
   /**
@@ -623,10 +623,10 @@ case class Mat4f(
    * @return This matrix as a double matrix.
    */
   def toDouble: Mat4d = Mat4d(
-    this.m00, this.m01, this.m02, this.m03,
-    this.m10, this.m11, this.m12, this.m13,
-    this.m20, this.m21, this.m22, this.m23,
-    this.m30, this.m31, this.m32, this.m33
+    this.m00.toDouble, this.m01.toDouble, this.m02.toDouble, this.m03.toDouble,
+    this.m10.toDouble, this.m11.toDouble, this.m12.toDouble, this.m13.toDouble,
+    this.m20.toDouble, this.m21.toDouble, this.m22.toDouble, this.m23.toDouble,
+    this.m30.toDouble, this.m31.toDouble, this.m32.toDouble, this.m33.toDouble
   )
 }
 

@@ -58,7 +58,7 @@ case class Mat4i(
    *
    * @return This matrix.
    */
-  def unary_+(): Mat4i = this
+  def unary_+ : Mat4i = this
 
   /**
    * Subtracts the given matrix from this one and returns the result.
@@ -88,7 +88,7 @@ case class Mat4i(
    *
    * @return The additive inverse of this matrix.
    */
-  def unary_-(): Mat4i = Mat4i(
+  def unary_- : Mat4i = Mat4i(
     -this.m00, -this.m01, -this.m02, -this.m03,
     -this.m10, -this.m11, -this.m12, -this.m13,
     -this.m20, -this.m21, -this.m22, -this.m23,
@@ -508,10 +508,10 @@ case class Mat4i(
    * @return This matrix as a float matrix.
    */
   def toFloat: Mat4f = Mat4f(
-    this.m00, this.m01, this.m02, this.m03,
-    this.m10, this.m11, this.m12, this.m13,
-    this.m20, this.m21, this.m22, this.m23,
-    this.m30, this.m31, this.m32, this.m33
+    this.m00.toFloat, this.m01.toFloat, this.m02.toFloat, this.m03.toFloat,
+    this.m10.toFloat, this.m11.toFloat, this.m12.toFloat, this.m13.toFloat,
+    this.m20.toFloat, this.m21.toFloat, this.m22.toFloat, this.m23.toFloat,
+    this.m30.toFloat, this.m31.toFloat, this.m32.toFloat, this.m33.toFloat
   )
 
   /**
@@ -520,10 +520,10 @@ case class Mat4i(
    * @return This matrix as a double matrix.
    */
   def toDouble: Mat4d = Mat4d(
-    this.m00, this.m01, this.m02, this.m03,
-    this.m10, this.m11, this.m12, this.m13,
-    this.m20, this.m21, this.m22, this.m23,
-    this.m30, this.m31, this.m32, this.m33
+    this.m00.toDouble, this.m01.toDouble, this.m02.toDouble, this.m03.toDouble,
+    this.m10.toDouble, this.m11.toDouble, this.m12.toDouble, this.m13.toDouble,
+    this.m20.toDouble, this.m21.toDouble, this.m22.toDouble, this.m23.toDouble,
+    this.m30.toDouble, this.m31.toDouble, this.m32.toDouble, this.m33.toDouble
   )
 }
 
