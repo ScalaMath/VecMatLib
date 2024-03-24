@@ -1,16 +1,14 @@
-package io.github
+package io.github.scalamath
+
+import io.github.scalamath
 
 /**
- * The package object `io.github.scalamath` contains methods for performing numeric operations that are not in `scala.math` or [[java.lang.Math]].
+ * Scala object containing methods for performing numeric operations that are not in `scala.math` or [[java.lang.Math]].
  *
- * All methods in the [[ScalaMath]] object forward here and can be used for better interoperability with Java.
+ * All methods forward to the `scalamath` package object.
+ * This object can be used for better interoperability with Java.
  */
-package object scalamath {
-
-  /**
-   * Internal constant used to check if two values are approximately equal.
-   */
-  val Epsilon = 1e-6
+object ScalaMath {
 
   /**
    * Clamps the given value between the given minimum and maximum.
@@ -22,7 +20,7 @@ package object scalamath {
    * @param max The maximum value.
    * @return The given value clamped between the given maximum and minimum.
    */
-  def clamp(value: Int, min: Int, max: Int): Int = math.max(min, math.min(value, max))
+  def clamp(value: Int, min: Int, max: Int): Int = scalamath.clamp(value, min, max)
 
   /**
    * Clamps the given value between the given minimum and maximum.
@@ -34,7 +32,7 @@ package object scalamath {
    * @param max The maximum value.
    * @return The given value clamped between the given maximum and minimum.
    */
-  def clamp(value: Float, min: Float, max: Float): Float = math.max(min, math.min(value, max))
+  def clamp(value: Float, min: Float, max: Float): Float = scalamath.clamp(value, min, max)
 
   /**
    * Clamps the given value between the given minimum and maximum.
@@ -46,7 +44,7 @@ package object scalamath {
    * @param max The maximum value.
    * @return The given value clamped between the given maximum and minimum.
    */
-  def clamp(value: Double, min: Double, max: Double): Double = math.max(min, math.min(value, max))
+  def clamp(value: Double, min: Double, max: Double): Double = scalamath.clamp(value, min, max)
 
   /**
    * Linearly interpolates between the two given values by the given weight and returns the result.
@@ -58,7 +56,7 @@ package object scalamath {
    * @param weight The weight of the interpolation between `0.0` and `1.0`.
    * @return The result of linearly interpolating between the two given values.
    */
-  def lerp(from: Float, to: Float, weight: Float): Float = from + (to - from) * weight
+  def lerp(from: Float, to: Float, weight: Float): Float = scalamath.lerp(from, to, weight)
 
   /**
    * Linearly interpolates between the two given values by the given weight and returns the result.
@@ -70,59 +68,23 @@ package object scalamath {
    * @param weight The weight of the interpolation between `0.0` and `1.0`.
    * @return The result of linearly interpolating between the two given values.
    */
-  def lerp(from: Double, to: Double, weight: Double): Double = from + (to - from) * weight
+  def lerp(from: Double, to: Double, weight: Double): Double = scalamath.lerp(from, to, weight)
 
   /**
    * Checks if the given values are approximately equal using an internal epsilon.
-   *
-   * The `~=` operator can be used instead of this method with the [[FloatEqualsApprox]] implicit class.
    *
    * @param a The first value.
    * @param b The second value.
    * @return True if the two values are approximately equal, otherwise false.
    */
-  def equalsApprox(a: Float, b: Float): Boolean = a == b || math.abs(a - b) < math.max(Epsilon, Epsilon * math.abs(a))
+  def equalsApprox(a: Float, b: Float): Boolean = scalamath.equalsApprox(a, b)
 
   /**
    * Checks if the given values are approximately equal using an internal epsilon.
-   *
-   * The `~=` operator can be used instead of this method with the [[DoubleEqualsApprox]] implicit class.
    *
    * @param a The first value.
    * @param b The second value.
    * @return True if the two values are approximately equal, otherwise false.
    */
-  def equalsApprox(a: Double, b: Double): Boolean = a == b || math.abs(a - b) < math.max(Epsilon, Epsilon * math.abs(a))
-
-  /**
-   * Implicit class that allows to use the `~=` operator.
-   *
-   * @param self This value.
-   */
-  implicit class FloatEqualsApprox(val self: Float) extends AnyVal {
-
-    /**
-     * Checks if this value is approximately equal to the given one using an internal epsilon.
-     *
-     * @param x The second value.
-     * @return True if this value is approximately equal to the given one, otherwise false.
-     */
-    def ~=(x: Float): Boolean = equalsApprox(self, x)
-  }
-
-  /**
-   * Implicit class that allows to use the `~=` operator.
-   *
-   * @param self This value.
-   */
-  implicit class DoubleEqualsApprox(val self: Double) extends AnyVal {
-
-    /**
-     * Checks if this value is approximately equal to the given one using an internal epsilon.
-     *
-     * @param x The second value.
-     * @return True if this value is approximately equal to the given one, otherwise false.
-     */
-    def ~=(x: Double): Boolean = equalsApprox(self, x)
-  }
+  def equalsApprox(a: Double, b: Double): Boolean = scalamath.equalsApprox(a, b)
 }

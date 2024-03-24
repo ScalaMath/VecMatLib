@@ -1,6 +1,7 @@
 package io.github.scalamath.vecmatlib
 
-import io.github.scalamath.{FloatEqualsApprox, clamp}
+import io.github.scalamath
+import io.github.scalamath.FloatEqualsApprox
 
 /**
  * Trait used to represent a color.
@@ -24,7 +25,7 @@ trait Color {
    *
    * @return The red component of this color as an integer in the `[0, 255]` range.
    */
-  def r8: Int = (clamp(this.r, 0.0f, 1.0f) * 255.0f).round
+  def r8: Int = (scalamath.clamp(this.r, 0.0f, 1.0f) * 255.0f).round
 
   /**
    * Returns the green component of this color as a float in the `[0.0, 1.0]` range.
@@ -42,7 +43,7 @@ trait Color {
    *
    * @return The green component of this color as an integer in the `[0, 255]` range.
    */
-  def g8: Int = (clamp(this.g, 0.0f, 1.0f) * 255.0f).round
+  def g8: Int = (scalamath.clamp(this.g, 0.0f, 1.0f) * 255.0f).round
 
   /**
    * Returns the blue component of this color as a float in the `[0.0, 1.0]` range.
@@ -60,7 +61,7 @@ trait Color {
    *
    * @return The blue component of this color as an integer in the `[0, 255]` range.
    */
-  def b8: Int = (clamp(this.b, 0.0f, 1.0f) * 255.0f).round
+  def b8: Int = (scalamath.clamp(this.b, 0.0f, 1.0f) * 255.0f).round
 
   /**
    * Returns the alpha component of this color as a float in the `[0.0, 1.0]` range.
@@ -80,7 +81,7 @@ trait Color {
    *
    * @return The alpha component of this color as an integer in the `[0, 255]` range.
    */
-  def a8: Int = (clamp(this.a, 0.0f, 1.0f) * 255.0f).round
+  def a8: Int = (scalamath.clamp(this.a, 0.0f, 1.0f) * 255.0f).round
 
   /**
    * Returns an integer representing this color in the RGBA format.

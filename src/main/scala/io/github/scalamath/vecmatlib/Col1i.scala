@@ -1,6 +1,6 @@
 package io.github.scalamath.vecmatlib
 
-import io.github.scalamath.clamp
+import io.github.scalamath
 
 /**
  * A color represented by a single integer in the RGBA format.
@@ -22,7 +22,7 @@ case class Col1i(override val rgba: Int) extends Color {
    * @param b The blue component of the color.
    * @param a The alpha component of the color.
    */
-  def this(r: Int, g: Int, b: Int, a: Int) = this((clamp(r, 0, 255) << 24) | (clamp(g, 0, 255) << 16) | (clamp(b, 0, 255) << 8) | clamp(a, 0, 255))
+  def this(r: Int, g: Int, b: Int, a: Int) = this((scalamath.clamp(r, 0, 255) << 24) | (scalamath.clamp(g, 0, 255) << 16) | (scalamath.clamp(b, 0, 255) << 8) | scalamath.clamp(a, 0, 255))
 
   /**
    * Constructs a color from the three given components in the `[0, 255]` range and sets the alpha component to `255`.
@@ -45,7 +45,7 @@ case class Col1i(override val rgba: Int) extends Color {
    * @param b The blue component of the color.
    * @param a The alpha component of the color.
    */
-  def this(r: Float, g: Float, b: Float, a: Float) = this((clamp(r, 0.0f, 1.0f) * 255.0f).round, (clamp(g, 0.0f, 1.0f) * 255.0f).round, (clamp(b, 0.0f, 1.0f) * 255.0f).round, (clamp(a, 0.0f, 1.0f) * 255.0f).round)
+  def this(r: Float, g: Float, b: Float, a: Float) = this((scalamath.clamp(r, 0.0f, 1.0f) * 255.0f).round, (scalamath.clamp(g, 0.0f, 1.0f) * 255.0f).round, (scalamath.clamp(b, 0.0f, 1.0f) * 255.0f).round, (scalamath.clamp(a, 0.0f, 1.0f) * 255.0f).round)
 
   /**
    * Constructs a color from the three given components and sets the alpha component to `1.0`.
