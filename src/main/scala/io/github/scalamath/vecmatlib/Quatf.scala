@@ -447,6 +447,14 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
   def euler: Vec3f = this.euler(EulerOrder.ZYX)
 
   /**
+   * Rotates the given point by the rotation defined by this quaternion and returns the rotated point.
+   *
+   * @param p The point to rotate, represented by a [[Vec3f]].
+   * @return The point after applying the rotation.
+   */
+  def rotate(p: Vec3f): Vec3f = (this * (0.0f, p.x, p.y, p.z) * this.conjugate).vector
+
+  /**
    * Checks if the components of this quaternion are equal to the given ones.
    *
    * @param w The real/scalar part of the quaternion.

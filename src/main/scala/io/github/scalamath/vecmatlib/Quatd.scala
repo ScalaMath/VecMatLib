@@ -445,6 +445,14 @@ case class Quatd(w: Double, x: Double, y: Double, z: Double) {
   def euler: Vec3d = this.euler(EulerOrder.ZYX)
 
   /**
+   * Rotates the given point by the rotation defined by this quaternion and returns the rotated point.
+   *
+   * @param p The point to rotate, represented by a [[Vec3d]].
+   * @return The point after applying the rotation.
+   */
+  def rotate(p: Vec3d): Vec3d = (this * (0.0, p.x, p.y, p.z) * this.conjugate).vector
+
+  /**
    * Checks if the components of this quaternion are equal to the given ones.
    *
    * @param w The real/scalar part of the quaternion.

@@ -222,6 +222,8 @@ class QuatfSuite extends AnyFunSuite {
     assert(q.euler === res)
   }
 
+  // TODO: Rotate point
+
   test("Quaternion equals four values") {
     val q = Quatf(1.2f, 1.4f, -2.1f, 3.0f)
     assert(q == (1.2f, 1.4f, -2.1f, 3.0f))
