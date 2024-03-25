@@ -275,8 +275,6 @@ case class Quatd(w: Double, x: Double, y: Double, z: Double) {
    *
    * Only unit quaternions represent a rotation.
    *
-   * The result will be NaN if this quaternion is the zero quaternion.
-   *
    * @return The result of scaling this quaternion to unit length.
    * @see [[isNormalized]]
    */
@@ -285,7 +283,8 @@ case class Quatd(w: Double, x: Double, y: Double, z: Double) {
   /**
    * Checks if this quaternion is a unit quaternion, i.e. its length is approximately equal to `1.0`.
    *
-   * @return True if this quaternion is normalized, otherwise false.
+   * @return True if this quaternion is a unit quaternion, otherwise false.
+   * @see [[normalized]]
    */
   def isNormalized: Boolean = this.lengthSquared ~= 1.0
 
@@ -301,6 +300,7 @@ case class Quatd(w: Double, x: Double, y: Double, z: Double) {
    *
    * @param q The quaternion to divide this one by.
    * @return The product between this quaternion and the inverse of the given one.
+   * @see [[multiply]]
    */
   def /(q: Quatd): Quatd = this * q.inverse
 
@@ -311,22 +311,24 @@ case class Quatd(w: Double, x: Double, y: Double, z: Double) {
    *
    * @param q The quaternion to divide this one by.
    * @return The product between this quaternion and the inverse of the given one.
+   * @see [[multiply]]
    */
   def divide(q: Quatd): Quatd = this / q
 
   /**
-   * Divides this quaternion by the given values as defined by the Hamilton product and returns the result.
+   * Multiplies this quaternion by the [[inverse]] of the one defined by the given values and returns the result.
    *
    * @param w The real/scalar part of the quaternion to divide this one by.
    * @param x The x component of the vector part of the quaternion to divide this one by.
    * @param y The y component of the vector part of the quaternion to divide this one by.
    * @param z The z component of the vector part of the quaternion to divide this one by.
    * @return The division of this quaternion by the given values.
+   * @see [[multiply]]
    */
   def /(w: Double, x: Double, y: Double, z: Double): Quatd = this / Quatd(w, x, y, z)
 
   /**
-   * Divides this quaternion by the given values as defined by the Hamilton product and returns the result.
+   * Multiplies this quaternion by the [[inverse]] of the one defined by the given values and returns the result.
    *
    * This method can be used in place of the `/` operator for better interoperability with Java.
    *
@@ -335,6 +337,7 @@ case class Quatd(w: Double, x: Double, y: Double, z: Double) {
    * @param y The y component of the vector part of the quaternion to divide this one by.
    * @param z The z component of the vector part of the quaternion to divide this one by.
    * @return The division of this quaternion by the given values.
+   * @see [[multiply]]
    */
   def divide(w: Double, x: Double, y: Double, z: Double): Quatd = this / (w, x, y, z)
 
@@ -434,12 +437,12 @@ case class Quatd(w: Double, x: Double, y: Double, z: Double) {
   def euler(order: EulerOrder): Vec3d = order.toEulerAngles(this)
 
   /**
-   * Returns this quaternion's rotation in the form of euler angles using the `YXZ` convention.
+   * Returns this quaternion's rotation in the form of euler angles using the `ZYX` convention.
    *
    * @return A [[Vec3d]] representing this quaternion's rotation in the form of euler angles.
    * @see [[EulerOrder]]
    */
-  def euler: Vec3d = this.euler(EulerOrder.YXZ)
+  def euler: Vec3d = this.euler(EulerOrder.ZYX)
 
   /**
    * Checks if the components of this quaternion are equal to the given ones.
@@ -516,7 +519,7 @@ case class Quatd(w: Double, x: Double, y: Double, z: Double) {
    *
    * @param i The index of the requested component. Must be either 0, 1, 2, or 3.
    * @return The requested component.
-   * @throws scala.MatchError if the given index is out of bounds.
+   * @throws MatchError if the given index is out of bounds.
    */
   def apply(i: Int): Double = i match {
     case 0 => this.w
@@ -582,22 +585,22 @@ object Quatd {
   def fromEuler(x: Double, y: Double, z: Double, order: EulerOrder): Quatd = order.toQuaternion(x, y, z)
 
   /**
-   * Constructs a quaternion from the given euler angles in the `YXZ` order.
+   * Constructs a quaternion from the given euler angles in the `ZYX` order.
    *
    * @param euler A [[Vec3d]] representing the quaternion's rotation in form of euler angles.
-   * @return The quaternion constructed from the given euler angles in the `YXZ` order.
+   * @return The quaternion constructed from the given euler angles in the `ZYX` order.
    */
-  def fromEuler(euler: Vec3d): Quatd = this.fromEuler(euler, EulerOrder.YXZ)
+  def fromEuler(euler: Vec3d): Quatd = this.fromEuler(euler, EulerOrder.ZYX)
 
   /**
-   * Constructs a quaternion from the given euler angles in the `YXZ` order.
+   * Constructs a quaternion from the given euler angles in the `ZYX` order.
    *
    * @param x Rotation angle on the x axis.
    * @param y Rotation angle on the y axis.
    * @param z Rotation angle on the z axis.
-   * @return The quaternion constructed from the given euler angles in the `YXZ` order.
+   * @return The quaternion constructed from the given euler angles in the `ZYX` order.
    */
-  def fromEuler(x: Double, y: Double, z: Double): Quatd = this.fromEuler(x, y, z, EulerOrder.YXZ)
+  def fromEuler(x: Double, y: Double, z: Double): Quatd = this.fromEuler(x, y, z, EulerOrder.ZYX)
 
   /**
    * Constructs a quaternion representing the shortest arc between two points on the surface of a sphere with a radius of `1.0`.
@@ -637,6 +640,6 @@ object Quatd {
      * @param q The second operand of the division
      * @return The product of this scalar by the inverse of the given quaternion
      */
-    def /(q: Quatd): Quatd = self * q.inverse
+    def /(q: Quatd): Quatd = q.inverse * self
   }
 }

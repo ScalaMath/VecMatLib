@@ -30,7 +30,7 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
    * @param axis The rotation axis. Must be normalized.
    * @param angle The rotation angle in radians.
    */
-  def this(axis: Vec3f, angle: Double) = this(math.cos(angle).toFloat, axis * math.sin(angle).toFloat / axis.length)
+  def this(axis: Vec3f, angle: Double) = this(math.cos(angle * 0.5).toFloat, axis * math.sin(angle * 0.5).toFloat / axis.length)
 
   /**
    * Computes the sum between this quaternion and the given values and returns the result.
@@ -113,7 +113,7 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
    * @param q The quaternion to subtract.
    * @return The subtraction of the given quaternion from this one.
    */
-  def -(q: Quatf): Quatf = this - (q.w, q.x, q.z, q.y)
+  def -(q: Quatf): Quatf = this - (q.w, q.x, q.y, q.z)
 
   /**
    * Computes the subtraction of the given quaternion from this one and returns the result.
@@ -285,7 +285,8 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
   /**
    * Checks if this quaternion is a unit quaternion, i.e. its length is approximately equal to `1.0`.
    *
-   * @return True if this quaternion is normalized, otherwise false.
+   * @return True if this quaternion is a unit quaternion, otherwise false.
+   * @see [[normalized]]
    */
   def isNormalized: Boolean = this.lengthSquared ~= 1.0f
 
@@ -301,6 +302,7 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
    *
    * @param q The quaternion to divide this one by.
    * @return The product between this quaternion and the inverse of the given one.
+   * @see [[multiply]]
    */
   def /(q: Quatf): Quatf = this * q.inverse
 
@@ -311,22 +313,24 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
    *
    * @param q The quaternion to divide this one by.
    * @return The product between this quaternion and the inverse of the given one.
+   * @see [[multiply]]
    */
   def divide(q: Quatf): Quatf = this / q
 
   /**
-   * Divides this quaternion by the given values as defined by the Hamilton product and returns the result.
+   * Multiplies this quaternion by the [[inverse]] of the one defined by the given values and returns the result.
    *
    * @param w The real/scalar part of the quaternion to divide this one by.
    * @param x The x component of the vector part of the quaternion to divide this one by.
    * @param y The y component of the vector part of the quaternion to divide this one by.
    * @param z The z component of the vector part of the quaternion to divide this one by.
    * @return The division of this quaternion by the given values.
+   * @see [[multiply]]
    */
   def /(w: Float, x: Float, y: Float, z: Float): Quatf = this / Quatf(w, x, y, z)
 
   /**
-   * Divides this quaternion by the given values as defined by the Hamilton product and returns the result.
+   * Multiplies this quaternion by the [[inverse]] of the one defined by the given values and returns the result.
    *
    * This method can be used in place of the `/` operator for better interoperability with Java.
    *
@@ -335,6 +339,7 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
    * @param y The y component of the vector part of the quaternion to divide this one by.
    * @param z The z component of the vector part of the quaternion to divide this one by.
    * @return The division of this quaternion by the given values.
+   * @see [[multiply]]
    */
   def divide(w: Float, x: Float, y: Float, z: Float): Quatf = this / (w, x, y, z)
 
@@ -434,12 +439,12 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
   def euler(order: EulerOrder): Vec3f = order.toEulerAngles(this.toDouble).toFloat
 
   /**
-   * Returns this quaternion's rotation in the form of euler angles using the `YXZ` convention.
+   * Returns this quaternion's rotation in the form of euler angles using the `ZYX` convention.
    *
    * @return A [[Vec3f]] representing this quaternion's rotation in the form of euler angles.
    * @see [[EulerOrder]]
    */
-  def euler: Vec3f = this.euler(EulerOrder.YXZ)
+  def euler: Vec3f = this.euler(EulerOrder.ZYX)
 
   /**
    * Checks if the components of this quaternion are equal to the given ones.
@@ -516,7 +521,7 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
    *
    * @param i The index of the requested component. Must be either 0, 1, 2, or 3.
    * @return The requested component.
-   * @throws scala.MatchError if the given index is out of bounds.
+   * @throws MatchError if the given index is out of bounds.
    */
   def apply(i: Int): Float = i match {
     case 0 => this.w
@@ -573,31 +578,48 @@ object Quatf {
   /**
    * Constructs a quaternion from the given euler angles and rotation order.
    *
+   * @param euler A [[Vec3d]] representing the quaternion's rotation in form of euler angles.
+   * @param order The rotation order.
+   * @return The quaternion constructed from the given euler angles and rotation order.
+   */
+  def fromEuler(euler: Vec3d, order: EulerOrder): Quatf = order.toQuaternion(euler).toFloat
+
+  /**
+   * Constructs a quaternion from the given euler angles and rotation order.
+   *
    * @param x Rotation angle on the x axis.
    * @param y Rotation angle on the y axis.
    * @param z Rotation angle on the z axis.
    * @param order The rotation order.
    * @return The quaternion constructed from the given euler angles and rotation order.
    */
-  def fromEuler(x: Float, y: Float, z: Float, order: EulerOrder): Quatf = order.toQuaternion(x, y, z).toFloat
+  def fromEuler(x: Double, y: Double, z: Double, order: EulerOrder): Quatf = order.toQuaternion(x, y, z).toFloat
 
   /**
-   * Constructs a quaternion from the given euler angles in the `YXZ` order.
+   * Constructs a quaternion from the given euler angles in the `ZYX` order.
    *
    * @param euler A [[Vec3f]] representing the quaternion's rotation in form of euler angles.
-   * @return The quaternion constructed from the given euler angles in the `YXZ` order.
+   * @return The quaternion constructed from the given euler angles in the `ZYX` order.
    */
-  def fromEuler(euler: Vec3f): Quatf = this.fromEuler(euler, EulerOrder.YXZ)
+  def fromEuler(euler: Vec3f): Quatf = this.fromEuler(euler, EulerOrder.ZYX)
 
   /**
-   * Constructs a quaternion from the given euler angles in the `YXZ` order.
+   * Constructs a quaternion from the given euler angles in the `ZYX` order.
+   *
+   * @param euler A [[Vec3d]] representing the quaternion's rotation in form of euler angles.
+   * @return The quaternion constructed from the given euler angles in the `ZYX` order.
+   */
+  def fromEuler(euler: Vec3d): Quatf = this.fromEuler(euler, EulerOrder.ZYX)
+
+  /**
+   * Constructs a quaternion from the given euler angles in the `ZYX` order.
    *
    * @param x Rotation angle on the x axis.
    * @param y Rotation angle on the y axis.
    * @param z Rotation angle on the z axis.
-   * @return The quaternion constructed from the given euler angles in the `YXZ` order.
+   * @return The quaternion constructed from the given euler angles in the `ZYX` order.
    */
-  def fromEuler(x: Float, y: Float, z: Float): Quatf = this.fromEuler(x, y, z, EulerOrder.YXZ)
+  def fromEuler(x: Double, y: Double, z: Double): Quatf = this.fromEuler(x, y, z, EulerOrder.ZYX)
 
   /**
    * Constructs a quaternion representing the shortest arc between two points on the surface of a sphere with a radius of `1.0`.

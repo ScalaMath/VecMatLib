@@ -275,6 +275,6 @@ class Vec4iSuite extends AnyFunSuite {
     assert(vec(1) == 2)
     assert(vec(2) == 3)
     assert(vec(3) == 4)
-    assertThrows[scala.MatchError] {vec(4)}
+    assertThrows[MatchError] {vec(4)}
   }
 }

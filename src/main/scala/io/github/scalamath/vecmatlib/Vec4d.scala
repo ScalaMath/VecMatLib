@@ -743,7 +743,7 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) {
    *
    * @param i The index of the requested component. Must be either 0, 1, 2, or 3.
    * @return The component of this vector at the given index.
-   * @throws scala.MatchError If the given index is out of bounds.
+   * @throws MatchError If the given index is out of bounds.
    */
   def apply(i: Int): Double = i match {
     case 0 => this.x

@@ -55,7 +55,7 @@ class Mat2iSuite extends AnyFunSuite {
     val r1 = Vec2i(3, 4)
     assert(m.row(0) == r0)
     assert(m.row(1) == r1)
-    assertThrows[scala.MatchError] {m.row(2)}
+    assertThrows[MatchError] {m.row(2)}
   }
 
   test("Get the columns of the matrix") {
@@ -72,7 +72,7 @@ class Mat2iSuite extends AnyFunSuite {
     val c1 = Vec2i(2, 4)
     assert(m.col(0) == c0)
     assert(m.col(1) == c1)
-    assertThrows[scala.MatchError] {m.col(2)}
+    assertThrows[MatchError] {m.col(2)}
   }
 
   test("Matrix vector product") {
@@ -171,9 +171,9 @@ class Mat2iSuite extends AnyFunSuite {
     assert(m(0, 1) == 2)
     assert(m(1, 0) == 3)
     assert(m(1, 1) == 4)
-    assertThrows[scala.MatchError] {m(2, 0)}
-    assertThrows[scala.MatchError] {m(0, 2)}
-    assertThrows[scala.MatchError] {m(2, 2)}
+    assertThrows[MatchError] {m(2, 0)}
+    assertThrows[MatchError] {m(0, 2)}
+    assertThrows[MatchError] {m(2, 2)}
   }
 
   test("Construct matrix from rows") {

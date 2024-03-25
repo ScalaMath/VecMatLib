@@ -422,6 +422,6 @@ class Vec3fSuite extends AnyFunSuite {
     assert(vec(0) == 1.1f)
     assert(vec(1) == 2.2f)
     assert(vec(2) == 3.3f)
-    assertThrows[scala.MatchError] {vec(3)}
+    assertThrows[MatchError] {vec(3)}
   }
 }

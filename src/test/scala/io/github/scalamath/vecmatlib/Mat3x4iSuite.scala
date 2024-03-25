@@ -59,7 +59,7 @@ class Mat3x4iSuite extends AnyFunSuite {
     assert(m.row(0) == r0)
     assert(m.row(1) == r1)
     assert(m.row(2) == r2)
-    assertThrows[scala.MatchError] {m.row(3)}
+    assertThrows[MatchError] {m.row(3)}
   }
 
   test("Get the columns of the matrix") {
@@ -84,7 +84,7 @@ class Mat3x4iSuite extends AnyFunSuite {
     assert(m.col(1) == c1)
     assert(m.col(2) == c2)
     assert(m.col(3) == c3)
-    assertThrows[scala.MatchError] {m.col(4)}
+    assertThrows[MatchError] {m.col(4)}
   }
 
   test("Matrix vector product") {
@@ -147,9 +147,9 @@ class Mat3x4iSuite extends AnyFunSuite {
     assert(m(2, 1) == 10)
     assert(m(2, 2) == 11)
     assert(m(2, 3) == 12)
-    assertThrows[scala.MatchError] {m(3, 0)}
-    assertThrows[scala.MatchError] {m(0, 4)}
-    assertThrows[scala.MatchError] {m(3, 4)}
+    assertThrows[MatchError] {m(3, 0)}
+    assertThrows[MatchError] {m(0, 4)}
+    assertThrows[MatchError] {m(3, 4)}
   }
 
   test("Construct matrix from rows") {

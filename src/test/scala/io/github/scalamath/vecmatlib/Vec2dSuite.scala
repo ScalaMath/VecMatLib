@@ -443,6 +443,6 @@ class Vec2dSuite extends AnyFunSuite {
     val vec = Vec2d(1.1, 2.2)
     assert(vec(0) == 1.1)
     assert(vec(1) == 2.2)
-    assertThrows[scala.MatchError] {vec(2)}
+    assertThrows[MatchError] {vec(2)}
   }
 }

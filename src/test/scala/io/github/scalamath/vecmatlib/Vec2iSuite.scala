@@ -313,6 +313,6 @@ class Vec2iSuite extends AnyFunSuite {
     val vec = Vec2i(1, 2)
     assert(vec(0) == 1)
     assert(vec(1) == 2)
-    assertThrows[scala.MatchError] {vec(2)}
+    assertThrows[MatchError] {vec(2)}
   }
 }

@@ -71,7 +71,7 @@ class Mat2x3dSuite extends AnyFunSuite {
     val r1 = Vec3d(4.0, 5.0, 6.0)
     assert(m.row(0) == r0)
     assert(m.row(1) == r1)
-    assertThrows[scala.MatchError] {m.row(2)}
+    assertThrows[MatchError] {m.row(2)}
   }
 
   test("Get the columns of the matrix") {
@@ -92,7 +92,7 @@ class Mat2x3dSuite extends AnyFunSuite {
     assert(m.col(0) == c0)
     assert(m.col(1) == c1)
     assert(m.col(2) == c2)
-    assertThrows[scala.MatchError] {m.col(3)}
+    assertThrows[MatchError] {m.col(3)}
   }
 
   test("Matrix vector product") {
@@ -175,9 +175,9 @@ class Mat2x3dSuite extends AnyFunSuite {
     assert(m(1, 0) == 4.0)
     assert(m(1, 1) == 5.0)
     assert(m(1, 2) == 6.0)
-    assertThrows[scala.MatchError] {m(2, 0)}
-    assertThrows[scala.MatchError] {m(0, 3)}
-    assertThrows[scala.MatchError] {m(2, 3)}
+    assertThrows[MatchError] {m(2, 0)}
+    assertThrows[MatchError] {m(0, 3)}
+    assertThrows[MatchError] {m(2, 3)}
   }
 
   test("Construct matrix from rows") {

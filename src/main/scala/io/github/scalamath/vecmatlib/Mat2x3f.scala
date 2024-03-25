@@ -151,7 +151,7 @@ case class Mat2x3f(m00: Float, m01: Float, m02: Float, m10: Float, m11: Float, m
    *
    * @param i The index of the requested row. Must be either 0 or 1.
    * @return The row at the given index.
-   * @throws scala.MatchError If the given index is out of bounds.
+   * @throws MatchError If the given index is out of bounds.
    * @see [[row0]] and [[row1]]
    */
   def row(i: Int): Vec3f = i match {
@@ -188,7 +188,7 @@ case class Mat2x3f(m00: Float, m01: Float, m02: Float, m10: Float, m11: Float, m
    *
    * @param i The index of the requested column. Must be either 0, 1, or 2.
    * @return The column at the given index.
-   * @throws scala.MatchError If the given index is out of bounds.
+   * @throws MatchError If the given index is out of bounds.
    * @see [[col0]], [[col1]], and [[col2]]
    */
   def col(i: Int): Vec2f = i match {
@@ -382,7 +382,7 @@ case class Mat2x3f(m00: Float, m01: Float, m02: Float, m10: Float, m11: Float, m
    * @param row The row index of the desired element. Must be either 0 or 1.
    * @param col The column index of the desired element. Must be either 0, 1, or 2.
    * @return The element at the given row and column index.
-   * @throws scala.MatchError If any of the given indices is out of bounds.
+   * @throws MatchError If any of the given indices is out of bounds.
    */
   def apply(row: Int, col: Int): Float = (row, col) match {
     case (0, 0) => this.m00

@@ -191,7 +191,7 @@ case class Mat4i(
    *
    * @param i The index of the requested row. Must be either 0, 1, 2, or 3.
    * @return The row at the given index.
-   * @throws scala.MatchError If the given index is out of bounds.
+   * @throws MatchError If the given index is out of bounds.
    * @see [[row0]], [[row1]], [[row2]], and [[row3]]
    */
   def row(i: Int): Vec4i = i match {
@@ -238,7 +238,7 @@ case class Mat4i(
    *
    * @param i The index of the requested column. Must be either 0, 1, 2, or 3.
    * @return The column at the given index.
-   * @throws scala.MatchError If the given index is out of bounds.
+   * @throws MatchError If the given index is out of bounds.
    * @see [[col0]], [[col1]], [[col2]], and [[col3]]
    */
   def col(i: Int): Vec4i = i match {
@@ -388,7 +388,7 @@ case class Mat4i(
    * @param i Index of the row to remove. Must be either 0, 1, 2, or 3.
    * @param j Index of the column to remove. Must be either 0, 1, 2, or 3.
    * @return A submatrix of this matrix.
-   * @throws scala.MatchError if one of the given indices is out of bounds.
+   * @throws MatchError if one of the given indices is out of bounds.
    */
   def submatrix(i: Int, j: Int): Mat3i = (i, j) match {
     case (0, 0) => Mat3i(this.m11, this.m12, this.m13, this.m21, this.m22, this.m23, this.m31, this.m32, this.m33)
@@ -481,7 +481,7 @@ case class Mat4i(
    * @param row The row index of the desired element. Must be either 0, 1, 2, or 3.
    * @param col The column index of the desired element. Must be either 0, 1, 2, or 3.
    * @return The element at the given row and column index.
-   * @throws scala.MatchError If any of the given indices is out of bounds.
+   * @throws MatchError If any of the given indices is out of bounds.
    */
   def apply(row: Int, col: Int): Int = (row, col) match {
     case (0, 0) => this.m00
