@@ -712,8 +712,8 @@ object Mat4f {
    * @return A 4x4 rotation matrix.
    */
   def rotationX(x: Double): Mat4f = {
-    val sin = math.sin(-x).toFloat
-    val cos = math.cos(-x).toFloat
+    val sin = math.sin(x).toFloat
+    val cos = math.cos(x).toFloat
     Mat4f(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, cos, -sin, 0.0f, 0.0f, sin, cos, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f)
   }
 
@@ -724,8 +724,8 @@ object Mat4f {
    * @return A 4x4 rotation matrix.
    */
   def rotationY(y: Double): Mat4f = {
-    val sin = math.sin(-y).toFloat
-    val cos = math.cos(-y).toFloat
+    val sin = math.sin(y).toFloat
+    val cos = math.cos(y).toFloat
     Mat4f(cos, 0.0f, sin, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, -sin, 0.0f, cos, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f)
   }
 
@@ -736,8 +736,8 @@ object Mat4f {
    * @return A 4x4 rotation matrix.
    */
   def rotationZ(z: Double): Mat4f = {
-    val sin = math.sin(-z).toFloat
-    val cos = math.cos(-z).toFloat
+    val sin = math.sin(z).toFloat
+    val cos = math.cos(z).toFloat
     Mat4f(cos, -sin, 0.0f, 0.0f, sin, cos, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f)
   }
 
@@ -750,7 +750,7 @@ object Mat4f {
    * @param z Rotation angle in radians on the z axis.
    * @return A 4x4 rotation matrix with the given rotation.
    */
-  def rotation(x: Double, y: Double, z: Double): Mat4f = this.rotationZ(z) * this.rotationY(y) * this.rotationX(x)
+  def rotation(x: Double, y: Double, z: Double): Mat4f = this.rotationX(x) * this.rotationY(y) * this.rotationZ(z)
 
   /**
    * Returns a 4x4 rotation matrix with the given rotation.
@@ -773,7 +773,7 @@ object Mat4f {
   /**
    * Returns a 4x4 rotation matrix with a rotation of the given angle around the given axis.
    *
-   * @param axis A unit vector representing the rotation axis. The result is undefined if this vector is not normalized.
+   * @param axis A unit vector representing the rotation axis. The result is undefined if this vector is not [[Vec4f.normalized]].
    * @param angle The rotation angle in radians.
    * @return A 4x4 rotation matrix with the given rotation.
    */

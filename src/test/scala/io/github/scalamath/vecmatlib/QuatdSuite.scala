@@ -214,7 +214,13 @@ class QuatdSuite extends AnyFunSuite {
 
   // TODO: angleTo
 
-  // TODO: slerp
+  test("Quaternion slerp") {
+    val sq2 = math.sqrt(2.0) / 2.0
+    val q1 = Quatd(sq2, 0.0, 0.0, sq2)
+    val q2 = Quatd(0.0, sq2, sq2, 0.0)
+    val res = Quatd(0.5, 0.5, 0.5, 0.5)
+    assert(q1.slerp(q2, 0.5) === res)
+  }
 
   test("Get euler angles in the default order") {
     val q = Quatd(0.9253338, 0.0, 0.3791534, 0.0)
@@ -222,7 +228,12 @@ class QuatdSuite extends AnyFunSuite {
     assert(q.euler === res)
   }
 
-  // TODO: Rotate point
+  test("Rotate point") {
+    val quaternion = Quatd(Vec3d.Up, math.Pi / 2.0)
+    val point = Vec3d(1.0, 0.0, 0.0)
+    val res = Vec3d(0.0, 0.0, -1.0)
+    assert(quaternion.rotate(point) === res)
+  }
 
   test("Quaternion equals four values") {
     val q = Quatd(1.2, 1.4, -2.1, 3.0)

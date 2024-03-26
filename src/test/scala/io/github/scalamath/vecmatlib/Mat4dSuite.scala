@@ -331,7 +331,56 @@ class Mat4dSuite extends AnyFunSuite {
     assert((m * (v, 0.0, 1.0)).xy === v + t)
   }
 
-  // TODO: Rotation matrices
+  test("Rotation matrix around the x axis") {
+    val v1 = Vec3d(1.0, 2.0, 1.0)
+    val v2 = Vec3d(1.0, 0.70710678, 2.12132034)
+    val m = Mat4d.rotationX(math.Pi / 4.0)
+    assert((m * (v1, 0.0)).xyz === v2)
+  }
+
+  test("Rotation matrix around the y axis") {
+    val v1 = Vec3d(1.0, 2.0, 1.0)
+    val v2 = Vec3d(1.41421356, 2.0, 0.0)
+    val m = Mat4d.rotationY(math.Pi / 4.0)
+    assert((m * (v1, 0.0)).xyz === v2)
+  }
+
+  test("Rotation matrix around the z axis") {
+    val v1 = Vec3d(1.0, 2.0, 1.0)
+    val v2 = Vec3d(-0.70710678, 2.12132034, 1.0)
+    val m = Mat4d.rotationZ(math.Pi / 4.0)
+    assert((m * (v1, 0.0)).xyz === v2)
+  }
+
+  test("Rotation matrix around the three axes") {
+    val v1 = Vec3d(1.0, 2.0, 1.0)
+    val v2 = Vec3d(0.61237244, 0.42161062, 2.33393327)
+    val m = Mat4d.rotation(math.Pi / 3.0, math.Pi / 4.0, math.Pi / 6.0)
+    assert((m * (v1, 0.0)).xyz === v2)
+  }
+
+  test("Rotation matrix from rotation vector") {
+    val v1 = Vec3d(1.0, 2.0, 1.0)
+    val r = Vec3d(math.Pi / 3.0, math.Pi / 4.0, math.Pi / 6.0)
+    val v2 = Vec3d(0.61237244, 0.42161062, 2.33393327)
+    val m = Mat4d.rotation(r)
+    assert((m * (v1, 0.0)).xyz === v2)
+  }
+
+  test("Rotation around an arbitrary axis") {
+    val axis = Vec3d.One.normalized
+    val point = Vec3d(1.0, 2.0, 1.0)
+    val res = Vec3d(0.68938278, 1.80473785, 1.50587936)
+    val matrix = Mat4d.rotation(axis, math.Pi / 4.0)
+    assert((matrix * (point, 0.0)).xyz === res)
+  }
+
+  test("Rotation matrix from quaternion") {
+    val quaternion = Quatd(0.7233174, 0.3919038, 0.2005621, 0.5319757)
+    val matrix = Mat4d.rotation(quaternion)
+    val point = Vec3d(1.0, 2.0, 1.0)
+    assert((matrix * (point, 0.0)).xyz === quaternion.rotate(point))
+  }
 
   test("Scaling matrix from values") {
     val v1 = Vec3d(1.5, 1.5, 1.5)

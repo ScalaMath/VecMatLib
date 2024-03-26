@@ -208,7 +208,11 @@ class Mat2dSuite extends AnyFunSuite {
     assert(mat.floor == floor)
   }
 
-  // TODO: Orthonormalize
+  test("Orthonormalize matrix") {
+    val mat = Mat2d(1.0, 2.0, 3.0, 4.0)
+    val res = Mat2d(1.0, 3.0, 3.0, -1.0) / math.sqrt(10.0)
+    assert(mat.orthonormalized === res)
+  }
 
   test("Matrix equals approx") {
     val m1 = Mat2d(1.00000001, 1.99999999, 3.00000001, 3.99999999)

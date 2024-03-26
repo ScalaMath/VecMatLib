@@ -88,9 +88,9 @@ Scala example:
 val transform = Mat3x4f.translation(tx, ty, tz) * Mat4f.rotation(rx, ry, rz) * Mat4f.scaling(sx, sy, sz)
 var point = Vec3f(x, y, z)
 
-// Applies first a translation by (tx, ty, tz),
+// Applies first a scaling by (sx, sy, sz),
 // then a rotation by (rx, ry, rz) in radians,
-// then a scaling by (sx, sy, sz)
+// then a translation by (tx, ty, tz)
 point = transform * (point, 1.0f)
 ```
 
@@ -102,9 +102,9 @@ Mat3x4f transform = Mat3x4f.translation(tx, ty, tz)
         .multiply(Mat4f.scaling(sx, sy, sz));
 Vec3f point = new Vec3f(x, y, z);
 
-// Applies first a translation by (tx, ty, tz),
+// Applies first a scaling by (sx, sy, sz),
 // then a rotation by (rx, ry, rz) in radians,
-// then a scaling by (sx, sy, sz)
+// then a translation by (tx, ty, tz)
 point = transform.multiply(point, 1.0f);
 ```
 
@@ -123,7 +123,7 @@ Unit quaternions can be used to represent rotations.
 
 ```Scala
 val quaternion = Quatd(Vec3d.Up, math.Pi / 2.0) // Represents a rotation of 90 degrees around the y axis
-val point = Vec3d(1.0, 0.0, 0.0)
+var point = Vec3d(1.0, 0.0, 0.0)
 point = quaternion.rotate(point) // Results in Vec3d(0.0, 0.0, -1.0)
 ```
 

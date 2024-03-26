@@ -634,8 +634,8 @@ object Mat3f {
    * @return A 3x3 rotation matrix.
    */
   def rotationX(x: Double): Mat3f = {
-    val sin = math.sin(-x).toFloat
-    val cos = math.cos(-x).toFloat
+    val sin = math.sin(x).toFloat
+    val cos = math.cos(x).toFloat
     Mat3f(1.0f, 0.0f, 0.0f, 0.0f, cos, -sin, 0.0f, sin, cos)
   }
 
@@ -646,8 +646,8 @@ object Mat3f {
    * @return A 3x3 rotation matrix.
    */
   def rotationY(y: Double): Mat3f = {
-    val sin = math.sin(-y).toFloat
-    val cos = math.cos(-y).toFloat
+    val sin = math.sin(y).toFloat
+    val cos = math.cos(y).toFloat
     Mat3f(cos, 0.0f, sin, 0.0f, 1.0f, 0.0f, -sin, 0.0f, cos)
   }
 
@@ -658,8 +658,8 @@ object Mat3f {
    * @return A 3x3 rotation matrix.
    */
   def rotationZ(z: Double): Mat3f = {
-    val sin = math.sin(-z).toFloat
-    val cos = math.cos(-z).toFloat
+    val sin = math.sin(z).toFloat
+    val cos = math.cos(z).toFloat
     Mat3f(cos, -sin, 0.0f, sin, cos, 0.0f, 0.0f, 0.0f, 1.0f)
   }
 
@@ -672,7 +672,7 @@ object Mat3f {
    * @param z Rotation angle in radians on the z axis.
    * @return A 3x3 rotation matrix with the given rotation.
    */
-  def rotation(x: Double, y: Double, z: Double): Mat3f = this.rotationZ(z) * this.rotationY(y) * this.rotationX(x)
+  def rotation(x: Double, y: Double, z: Double): Mat3f = this.rotationX(x) * this.rotationY(y) * this.rotationZ(z)
 
   /**
    * Returns a 3x3 rotation matrix with the given rotation.

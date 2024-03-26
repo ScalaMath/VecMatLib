@@ -568,8 +568,8 @@ object Mat3x4f {
    * @return A 3x4 rotation matrix.
    */
   def rotationX(x: Double): Mat3x4f = {
-    val sin = math.sin(-x).toFloat
-    val cos = math.cos(-x).toFloat
+    val sin = math.sin(x).toFloat
+    val cos = math.cos(x).toFloat
     Mat3x4f(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, cos, -sin, 0.0f, 0.0f, sin, cos, 0.0f)
   }
 
@@ -580,8 +580,8 @@ object Mat3x4f {
    * @return A 3x4 rotation matrix.
    */
   def rotationY(y: Double): Mat3x4f = {
-    val sin = math.sin(-y).toFloat
-    val cos = math.cos(-y).toFloat
+    val sin = math.sin(y).toFloat
+    val cos = math.cos(y).toFloat
     Mat3x4f(cos, 0.0f, sin, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, -sin, 0.0f, cos, 0.0f)
   }
 
@@ -592,15 +592,15 @@ object Mat3x4f {
    * @return A 3x4 rotation matrix.
    */
   def rotationZ(z: Double): Mat3x4f = {
-    val sin = math.sin(-z).toFloat
-    val cos = math.cos(-z).toFloat
+    val sin = math.sin(z).toFloat
+    val cos = math.cos(z).toFloat
     Mat3x4f(cos, -sin, 0.0f, 0.0f, sin, cos, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f)
   }
 
   /**
    * Returns a 3x4 rotation matrix with a rotation of the given angle around the given axis.
    *
-   * @param axis A unit vector representing the rotation axis. The result is undefined if this vector is not normalized.
+   * @param axis A unit vector representing the rotation axis. The result is undefined if this vector is not [[Vec3f.normalized]].
    * @param angle The rotation angle in radians.
    * @return A 3x4 rotation matrix with the given rotation.
    */

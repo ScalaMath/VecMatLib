@@ -214,7 +214,13 @@ class QuatfSuite extends AnyFunSuite {
 
   // TODO: angleTo
 
-  // TODO: slerp
+  test("Quaternion slerp") {
+    val sq2 = (math.sqrt(2.0) / 2.0).toFloat
+    val q1 = Quatf(sq2, 0.0f, 0.0f, sq2)
+    val q2 = Quatf(0.0f, sq2, sq2, 0.0f)
+    val res = Quatf(0.5f, 0.5f, 0.5f, 0.5f)
+    assert(q1.slerp(q2, 0.5f) === res)
+  }
 
   test("Get euler angles in the default order") {
     val q = Quatf(0.9253338f, 0.0f, 0.3791534f, 0.0f)
@@ -222,7 +228,12 @@ class QuatfSuite extends AnyFunSuite {
     assert(q.euler === res)
   }
 
-  // TODO: Rotate point
+  test("Rotate point") {
+    val quaternion = Quatf(Vec3f.Up, math.Pi / 2.0)
+    val point = Vec3f(1.0f, 0.0f, 0.0f)
+    val res = Vec3f(0.0f, 0.0f, -1.0f)
+    assert(quaternion.rotate(point) === res)
+  }
 
   test("Quaternion equals four values") {
     val q = Quatf(1.2f, 1.4f, -2.1f, 3.0f)

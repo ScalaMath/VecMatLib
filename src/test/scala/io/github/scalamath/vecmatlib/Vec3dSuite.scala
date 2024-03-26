@@ -1,6 +1,8 @@
 package io.github.scalamath.vecmatlib
 
+import io.github.scalamath
 import org.scalactic.Equality
+import org.scalactic.Tolerance.convertNumericToPlusOrMinusWrapper
 import org.scalatest.funsuite.AnyFunSuite
 
 class Vec3dSuite extends AnyFunSuite {
@@ -292,7 +294,12 @@ class Vec3dSuite extends AnyFunSuite {
     assert(angle == math.Pi / 2.0)
   }
 
-  // TODO: Signed angle to
+  test("Signed angle to vector") {
+    val a = Vec3d(1.0, 1.0, 0.0)
+    val b = Vec3d(0.0, 1.0, 1.0)
+    assert(a.signedAngleTo(b, Vec3d.Up) === -math.Pi / 3 +- scalamath.Epsilon)
+    assert(a.signedAngleTo(b, Vec3d.Down) === math.Pi / 3 +- scalamath.Epsilon)
+  }
 
   test("Project a vector onto a vector") {
     val vec = Vec3d(2.0, 2.0, 1.0)
@@ -371,7 +378,12 @@ class Vec3dSuite extends AnyFunSuite {
     assert(mod === res)
   }
 
-  // TODO: Rotated by axis and angle
+  test("Vector rotated by axis and angle") {
+    val vec = Vec3d.Right
+    val rot = vec.rotated(Vec3d.Up, math.Pi / 2.0)
+    val res = Vec3d.Backwards
+    assert(rot === res)
+  }
 
   test("Outer product with three values") {
     val vec = Vec3d(1.0, 2.0, 3.0)

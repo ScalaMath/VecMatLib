@@ -445,4 +445,10 @@ class Vec2dSuite extends AnyFunSuite {
     assert(vec(1) == 2.2)
     assertThrows[MatchError] {vec(2)}
   }
+
+  test("Unit vector from angle") {
+    val vec = Vec2d.fromAngle(math.Pi / 4.0)
+    assert(vec ~= Vec2d.One.normalized)
+    assert(vec ~= Vec2d.Right.rotated(math.Pi / 4.0))
+  }
 }

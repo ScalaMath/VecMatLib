@@ -1,5 +1,7 @@
 package io.github.scalamath.vecmatlib
 
+import io.github.scalamath
+import org.scalactic.Tolerance.convertNumericToPlusOrMinusWrapper
 import org.scalatest.funsuite.AnyFunSuite
 
 class Vec3iSuite extends AnyFunSuite {
@@ -194,7 +196,12 @@ class Vec3iSuite extends AnyFunSuite {
     assert(angle == math.Pi / 2)
   }
 
-  // TODO: Signed angle to
+  test("Signed angle to vector") {
+    val a = Vec3i(1, 1, 0)
+    val b = Vec3i(0, 1, 1)
+    assert(a.signedAngleTo(b, Vec3i.Up) === -math.Pi / 3 +- scalamath.Epsilon)
+    assert(a.signedAngleTo(b, Vec3i.Down) === math.Pi / 3 +- scalamath.Epsilon)
+  }
 
   test("Reflect a vector by a vector") {
     val vec = Vec3i(1, 2, 3)

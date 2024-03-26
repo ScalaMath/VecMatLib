@@ -712,8 +712,8 @@ object Mat4d {
    * @return A 4x4 rotation matrix.
    */
   def rotationX(x: Double): Mat4d = {
-    val sin = math.sin(-x)
-    val cos = math.cos(-x)
+    val sin = math.sin(x)
+    val cos = math.cos(x)
     Mat4d(1.0, 0.0, 0.0, 0.0, 0.0, cos, -sin, 0.0, 0.0, sin, cos, 0.0, 0.0, 0.0, 0.0, 1.0)
   }
 
@@ -724,8 +724,8 @@ object Mat4d {
    * @return A 4x4 rotation matrix.
    */
   def rotationY(y: Double): Mat4d = {
-    val sin = math.sin(-y)
-    val cos = math.cos(-y)
+    val sin = math.sin(y)
+    val cos = math.cos(y)
     Mat4d(cos, 0.0, sin, 0.0, 0.0, 1.0, 0.0, 0.0, -sin, 0.0, cos, 0.0, 0.0, 0.0, 0.0, 1.0)
   }
 
@@ -736,8 +736,8 @@ object Mat4d {
    * @return A 4x4 rotation matrix.
    */
   def rotationZ(z: Double): Mat4d = {
-    val sin = math.sin(-z)
-    val cos = math.cos(-z)
+    val sin = math.sin(z)
+    val cos = math.cos(z)
     Mat4d(cos, -sin, 0.0, 0.0, sin, cos, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0)
   }
 
@@ -750,7 +750,7 @@ object Mat4d {
    * @param z Rotation angle in radians on the z axis.
    * @return A 4x4 rotation matrix with the given rotation.
    */
-  def rotation(x: Double, y: Double, z: Double): Mat4d = this.rotationZ(z) * this.rotationY(y) * this.rotationX(x)
+  def rotation(x: Double, y: Double, z: Double): Mat4d = this.rotationX(x) * this.rotationY(y) * this.rotationZ(z)
 
   /**
    * Returns a 4x4 rotation matrix with the given rotation.
@@ -764,7 +764,7 @@ object Mat4d {
   /**
    * Returns a 4x4 rotation matrix with a rotation of the given angle around the given axis.
    *
-   * @param axis A unit vector representing the rotation axis. The result is undefined if this vector is not normalized.
+   * @param axis A unit vector representing the rotation axis. The result is undefined if this vector is not [[Vec3d.normalized]].
    * @param angle The rotation angle in radians.
    * @return A 4x4 rotation matrix with the given rotation.
    */
