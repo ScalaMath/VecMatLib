@@ -7,9 +7,7 @@ package io.github.scalamath.vecmatlib;
  * @see Quatd#euler(EulerOrder)
  */
 public enum EulerOrder {
-    /**
-     * Specifies that the euler angles should be in the {@code XYZ} order.
-     */
+    /** Specifies that the euler angles should be in the {@code XYZ} order. */
     XYZ {
         @Override
         public Vec3d toEulerAngles(Mat3d m) {
@@ -23,9 +21,7 @@ public enum EulerOrder {
                 .multiply(Math.cos(z / 2.0), 0.0, 0.0, Math.sin(z / 2.0));
         }
     },
-    /**
-     * Specifies that the euler angles should be in the {@code XZY} order.
-     */
+    /** Specifies that the euler angles should be in the {@code XZY} order. */
     XZY {
         @Override
         public Vec3d toEulerAngles(Mat3d m) {
@@ -39,9 +35,7 @@ public enum EulerOrder {
                 .multiply(Math.cos(y / 2.0), 0.0, Math.sin(y / 2.0), 0.0);
         }
     },
-    /**
-     * Specifies that the euler angles should be in the {@code YXZ} order.
-     */
+    /** Specifies that the euler angles should be in the {@code YXZ} order. */
     YXZ {
         @Override
         public Vec3d toEulerAngles(Mat3d m) {
@@ -55,9 +49,7 @@ public enum EulerOrder {
                 .multiply(Math.cos(z / 2.0), 0.0, 0.0, Math.sin(z / 2.0));
         }
     },
-    /**
-     * Specifies that the euler angles should be in the {@code YZX} order.
-     */
+    /** Specifies that the euler angles should be in the {@code YZX} order. */
     YZX {
         @Override
         public Vec3d toEulerAngles(Mat3d m) {
@@ -71,9 +63,7 @@ public enum EulerOrder {
                 .multiply(Math.cos(x / 2.0), Math.sin(x / 2.0), 0.0, 0.0);
         }
     },
-    /**
-     * Specifies that the euler angles should be in the {@code XZY} order.
-     */
+    /** Specifies that the euler angles should be in the {@code XZY} order. */
     ZXY {
         @Override
         public Vec3d toEulerAngles(Mat3d m) {
@@ -87,9 +77,7 @@ public enum EulerOrder {
                 .multiply(Math.cos(y / 2.0), 0.0, Math.sin(y / 2.0), 0.0);
         }
     },
-    /**
-     * Specifies that the euler angles should be in the {@code ZYX} order.
-     */
+    /** Specifies that the euler angles should be in the {@code ZYX} order. */
     ZYX {
         @Override
         public Vec3d toEulerAngles(Mat3d m) {

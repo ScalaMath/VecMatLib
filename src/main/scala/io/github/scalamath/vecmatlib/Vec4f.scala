@@ -87,11 +87,11 @@ case class Vec4f(x: Float, y: Float, z: Float, w: Float) {
   def plus(v: Vec4f): Vec4f = this + v
 
   /**
-   * Returns this exact vector.
+   * Returns this same vector.
    *
    * The unary `+` operator does nothing, but can sometimes make the code more readable.
    *
-   * @return This exact vector.
+   * @return This same vector.
    */
   def unary_+ : Vec4f = this
 
@@ -338,10 +338,11 @@ case class Vec4f(x: Float, y: Float, z: Float, w: Float) {
   def isNormalized: Boolean = this.lengthSquared ~= 1.0f
 
   /**
-   * Returns the vector with a maximum length by limiting its length to the given limit.
+   * Returns a vector with the same direction as this one and a length not longer than the given limit.
+   * Returns this same vector if its length is smaller than the given limit.
    *
    * @param limit The maximum length of the resulting vector.
-   * @return The vector with a maximum length limited by the given limit.
+   * @return A vector with the same direction as this one and a length not longer than the given limit.
    */
   def limitLength(limit: Float): Vec4f = {
     val length = this.length

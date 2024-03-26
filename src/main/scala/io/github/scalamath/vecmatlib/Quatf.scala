@@ -29,6 +29,7 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
    *
    * @param axis The rotation axis. Must be normalized.
    * @param angle The rotation angle in radians.
+   * @see [[Vec3f.normalized]]
    */
   def this(axis: Vec3f, angle: Double) = this(math.cos(angle * 0.5).toFloat, axis * math.sin(angle * 0.5).toFloat / axis.length)
 
@@ -302,7 +303,6 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
    *
    * @param q The quaternion to divide this one by.
    * @return The product between this quaternion and the inverse of the given one.
-   * @see [[multiply]]
    */
   def /(q: Quatf): Quatf = this * q.inverse
 
@@ -313,7 +313,6 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
    *
    * @param q The quaternion to divide this one by.
    * @return The product between this quaternion and the inverse of the given one.
-   * @see [[multiply]]
    */
   def divide(q: Quatf): Quatf = this / q
 
@@ -325,7 +324,6 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
    * @param y The y component of the vector part of the quaternion to divide this one by.
    * @param z The z component of the vector part of the quaternion to divide this one by.
    * @return The division of this quaternion by the given values.
-   * @see [[multiply]]
    */
   def /(w: Float, x: Float, y: Float, z: Float): Quatf = this / Quatf(w, x, y, z)
 
@@ -339,7 +337,6 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
    * @param y The y component of the vector part of the quaternion to divide this one by.
    * @param z The z component of the vector part of the quaternion to divide this one by.
    * @return The division of this quaternion by the given values.
-   * @see [[multiply]]
    */
   def divide(w: Float, x: Float, y: Float, z: Float): Quatf = this / (w, x, y, z)
 
@@ -351,9 +348,9 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
   def vector: Vec3f = Vec3f(this.x, this.y, this.z)
 
   /**
-   * Returns the angle of the rotation represented by this quaternion.
+   * Returns the angle in radians of the rotation represented by this quaternion.
    *
-   * @return The angle of the rotation represented by this quaternion.
+   * @return The angle in radians of the rotation represented by this quaternion.
    * @see [[axis]]
    */
   def angle: Double = 2.0 * math.acos(this.w)
@@ -382,7 +379,7 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
   def exp: Quatf = {
     val l = this.vector.length
     if (l > 0.0f) {
-      math.exp(this.w).toFloat * Quatf(math.cos(l).toFloat, this.vector / l * math.sin(l).toFloat)
+      Quatf(math.cos(l).toFloat, this.vector / l * math.sin(l).toFloat) * math.exp(this.w).toFloat
     } else {
       Quatf.Identity
     }
@@ -407,11 +404,11 @@ case class Quatf(w: Float, x: Float, y: Float, z: Float) {
   def pow(exp: Float): Quatf = (this.log * exp).exp
 
   /**
-   * Returns the angle between this quaternion and the given one.
+   * Returns the angle in radians between this quaternion and the given one.
    * This is the magnitude of the angle you would need to rotate by to get from one to the other.
    *
    * @param q The second quaternion.
-   * @return The angle between this quaternion and the given one.
+   * @return The angle in radians between this quaternion and the given one.
    */
   def angleTo(q: Quatf): Double = {
     val d = this.dot(q)
@@ -595,9 +592,9 @@ object Quatf {
   /**
    * Constructs a quaternion from the given euler angles and rotation order.
    *
-   * @param x Rotation angle on the x axis.
-   * @param y Rotation angle on the y axis.
-   * @param z Rotation angle on the z axis.
+   * @param x Rotation angle in radians on the x axis.
+   * @param y Rotation angle in radians on the y axis.
+   * @param z Rotation angle in radians on the z axis.
    * @param order The rotation order.
    * @return The quaternion constructed from the given euler angles and rotation order.
    */
@@ -622,9 +619,9 @@ object Quatf {
   /**
    * Constructs a quaternion from the given euler angles in the `ZYX` order.
    *
-   * @param x Rotation angle on the x axis.
-   * @param y Rotation angle on the y axis.
-   * @param z Rotation angle on the z axis.
+   * @param x Rotation angle in radians on the x axis.
+   * @param y Rotation angle in radians on the y axis.
+   * @param z Rotation angle in radians on the z axis.
    * @return The quaternion constructed from the given euler angles in the `ZYX` order.
    */
   def fromEuler(x: Double, y: Double, z: Double): Quatf = this.fromEuler(x, y, z, EulerOrder.ZYX)

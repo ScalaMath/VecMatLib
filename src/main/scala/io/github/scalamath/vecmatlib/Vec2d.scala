@@ -52,11 +52,11 @@ case class Vec2d(x: Double, y: Double) {
   def plus(v: Vec2d): Vec2d = this + v
 
   /**
-   * Returns this exact vector.
+   * Returns this same vector.
    *
    * The unary `+` operator does nothing, but can sometimes make the code more readable.
    *
-   * @return This exact vector.
+   * @return This same vector.
    */
   def unary_+ : Vec2d = this
 
@@ -289,10 +289,11 @@ case class Vec2d(x: Double, y: Double) {
   def isNormalized: Boolean = this.lengthSquared ~= 1.0
 
   /**
-   * Returns the vector with a maximum length by limiting its length to the given limit.
+   * Returns a vector with the same direction as this one and a length not longer than the given limit.
+   * Returns this same vector if its length is smaller than the given limit.
    *
    * @param limit The maximum length of the resulting vector.
-   * @return The vector with a maximum length limited by the given limit.
+   * @return A vector with the same direction as this one and a length not longer than the given limit.
    */
   def limitLength(limit: Double): Vec2d = {
     val length = this.length
@@ -813,7 +814,7 @@ case class Vec2d(x: Double, y: Double) {
 }
 
 /**
- * Constants and implicits for vectors.
+ * Constants, implicits, and factory methods for vectors.
  */
 object Vec2d {
 
@@ -829,6 +830,16 @@ object Vec2d {
   val Up: Vec2d = Vec2d(0.0, 1.0)
   /** Shorthand for `Vec2d(0.0, -1.0)` */
   val Down: Vec2d = Vec2d(0.0, -1.0)
+
+  /**
+   * Constructs a unit vector with the given angle from the x axis.
+   *
+   * This method is equivalent to `Vec2d(cos(angle), sin(angle))` or `Vec2d.Right.rotated(angle)`.
+   *
+   * @param angle The angle in radians of the resulting vector from the x axis.
+   * @return A unit vector with the given angle from the x axis.
+   */
+  def fromAngle(angle: Double): Vec2d = Vec2d(math.cos(angle), math.sin(angle))
 
   /**
    * Allows to use the `*` and `/` operators with a scalar as `1.0 * vector`.
@@ -851,6 +862,6 @@ object Vec2d {
      * @param v The vector to multiply.
      * @return The product between this scalar and the inverse of the given vector.
      */
-    def /(v: Vec2d): Vec2d = self * v.inverse
+    def /(v: Vec2d): Vec2d = v.inverse * self
   }
 }

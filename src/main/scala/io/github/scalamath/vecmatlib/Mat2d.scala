@@ -36,11 +36,11 @@ case class Mat2d(m00: Double, m01: Double, m10: Double, m11: Double) {
   def plus(m: Mat2d): Mat2d = this + m
 
   /**
-   * Returns this exact matrix.
+   * Returns this same matrix.
    *
    * The unary `+` operator does nothing, but can sometimes make the code more readable.
    *
-   * @return This exact matrix.
+   * @return This same matrix.
    */
   def unary_+ : Mat2d = this
 
@@ -473,10 +473,10 @@ case class Mat2d(m00: Double, m01: Double, m10: Double, m11: Double) {
 object Mat2d {
 
   /** Shorthand for an identity matrix */
-  val Identity: Mat2d = Mat2d(1.0f, 0.0f, 0.0f, 1.0f)
+  val Identity: Mat2d = Mat2d(1.0, 0.0, 0.0, 1.0)
 
   /** Shorthand for the zero matrix */
-  val Zero: Mat2d = Mat2d(0.0f, 0.0f, 0.0f, 0.0f)
+  val Zero: Mat2d = Mat2d(0.0, 0.0, 0.0, 0.0)
 
   /**
    * Returns a 2x2 matrix from the given rows.
@@ -515,7 +515,7 @@ object Mat2d {
    * @param y Scale factor on the y axis.
    * @return A 2x2 matrix representing a scaling by the given factor in a 2D space.
    */
-  def scaling(x: Double, y: Double): Mat2d = Mat2d(x, 0.0f, 0.0f, y)
+  def scaling(x: Double, y: Double): Mat2d = Mat2d(x, 0.0, 0.0, y)
 
   /**
    * Returns a 2x2 matrix representing a scaling by the given factor in a 2D space.
@@ -541,8 +541,8 @@ object Mat2d {
    * @return A 2x2 matrix representing a shear transformation by the given angles in a 2D space.
    */
   def shearing(x: Double, y: Double): Mat2d = Mat2d(
-    1.0f, math.tan(x),
-    math.tan(y), 1.0f
+    1.0, math.tan(x),
+    math.tan(y), 1.0
   )
 
   /**
@@ -554,7 +554,7 @@ object Mat2d {
   def shearing(v: Vec2d): Mat2d = this.shearing(v.x, v.y)
 
   /**
-   * Allows to use the `*` operator with a scalar as `1.0f * matrix`.
+   * Allows to use the `*` operator with a scalar as `1.0 * matrix`.
    *
    * @param self The scalar value.
    */

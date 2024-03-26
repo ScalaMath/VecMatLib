@@ -748,7 +748,7 @@ object Mat4d {
    * @param x Rotation angle in radians on the x axis.
    * @param y Rotation angle in radians on the y axis.
    * @param z Rotation angle in radians on the z axis.
-   * @return A 3x3 rotation matrix with the given rotation.
+   * @return A 4x4 rotation matrix with the given rotation.
    */
   def rotation(x: Double, y: Double, z: Double): Mat4d = this.rotationZ(z) * this.rotationY(y) * this.rotationX(x)
 
@@ -786,11 +786,11 @@ object Mat4d {
    * @return A 4x4 rotation matrix with the rotation expressed by the given quaternion.
    */
   def rotation(q: Quatd): Mat4d = {
-    val s = 1.0 / q.lengthSquared
+    val s = 2.0 / q.lengthSquared
     Mat4d(
-      1.0 - 2.0 * s * (q.y * q.y + q.z * q.z), 2.0 * s * (q.x * q.y - q.z * q.w), 2.0 * s * (q.x * q.z + q.y * q.w), 0.0,
-      2.0 * s * (q.x * q.y + q.z * q.w), 1.0 - 2.0 * s * (q.x * q.x + q.z * q.z), 2.0 * s * (q.y * q.z - q.x * q.w), 0.0,
-      2.0 * s * (q.x * q.z - q.y * q.w), 2.0 * s * (q.y * q.z + q.x * q.w), 1.0 - 2.0 * s * (q.x * q.x + q.y * q.y), 0.0,
+      1.0 - s * (q.y * q.y + q.z * q.z), s * (q.x * q.y - q.z * q.w), s * (q.x * q.z + q.y * q.w), 0.0,
+      s * (q.x * q.y + q.z * q.w), 1.0 - s * (q.x * q.x + q.z * q.z), s * (q.y * q.z - q.x * q.w), 0.0,
+      s * (q.x * q.z - q.y * q.w), s * (q.y * q.z + q.x * q.w), 1.0 - s * (q.x * q.x + q.y * q.y), 0.0,
       0.0, 0.0, 0.0, 1.0
     )
   }

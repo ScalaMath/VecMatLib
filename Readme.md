@@ -217,9 +217,9 @@ implementation 'io.github.scalamath:vecmatlib:3.0'
 
 ## Questions and answers
 
-Q: Why does VecMatLib not use scala 3?
+**Q**: Why does VecMatLib not use scala 3?
 
-A: One of the design goals of VecMatLib is to be usable both in Scala and Java. Support for Scala 3 in IDEs is still actively being developed.
+**A**: One of the design goals of VecMatLib is to be usable both in Scala and Java. Support for Scala 3 in IDEs is still actively being developed, therefore a Scala 3 library may not be suitable to work with.
 
 ## Contributing
 

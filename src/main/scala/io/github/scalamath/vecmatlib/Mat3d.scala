@@ -686,7 +686,7 @@ object Mat3d {
   /**
    * Returns a 3x3 rotation matrix with a rotation of the given angle around the given axis.
    *
-   * @param axis A unit vector representing the rotation axis. The result is undefined if this vector is not normalized.
+   * @param axis A unit vector representing the rotation axis. The result is undefined if this vector is not [[Vec3d.normalized]].
    * @param angle The rotation angle in radians.
    * @return A 3x3 rotation matrix with the given rotation.
    */
@@ -707,11 +707,11 @@ object Mat3d {
    * @return A 3x3 rotation matrix with the rotation expressed by the given quaternion.
    */
   def rotation(q: Quatd): Mat3d = {
-    val s = 1.0 / q.lengthSquared
+    val s = 2.0 / q.lengthSquared
     Mat3d(
-      1.0 - 2.0 * s * (q.y * q.y + q.z * q.z), 2.0 * s * (q.x * q.y - q.z * q.w), 2.0 * s * (q.x * q.z + q.y * q.w),
-      2.0 * s * (q.x * q.y + q.z * q.w), 1.0 - 2.0 * s * (q.x * q.x + q.z * q.z), 2.0 * s * (q.y * q.z - q.x * q.w),
-      2.0 * s * (q.x * q.z - q.y * q.w), 2.0 * s * (q.y * q.z + q.x * q.w), 1.0 - 2.0 * s * (q.x * q.x + q.y * q.y)
+      1.0 - s * (q.y * q.y + q.z * q.z), s * (q.x * q.y - q.z * q.w), s * (q.x * q.z + q.y * q.w),
+      s * (q.x * q.y + q.z * q.w), 1.0 - s * (q.x * q.x + q.z * q.z), s * (q.y * q.z - q.x * q.w),
+      s * (q.x * q.z - q.y * q.w), s * (q.y * q.z + q.x * q.w), 1.0 - s * (q.x * q.x + q.y * q.y)
     )
   }
 

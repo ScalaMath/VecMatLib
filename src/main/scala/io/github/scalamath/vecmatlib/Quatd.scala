@@ -29,6 +29,7 @@ case class Quatd(w: Double, x: Double, y: Double, z: Double) {
    *
    * @param axis The rotation axis. Must be normalized.
    * @param angle The rotation angle in radians.
+   * @see [[Vec3d.normalized]]
    */
   def this(axis: Vec3d, angle: Double) = this(math.cos(angle * 0.5), axis * math.sin(angle * 0.5) / axis.length)
 
@@ -300,7 +301,6 @@ case class Quatd(w: Double, x: Double, y: Double, z: Double) {
    *
    * @param q The quaternion to divide this one by.
    * @return The product between this quaternion and the inverse of the given one.
-   * @see [[multiply]]
    */
   def /(q: Quatd): Quatd = this * q.inverse
 
@@ -311,7 +311,6 @@ case class Quatd(w: Double, x: Double, y: Double, z: Double) {
    *
    * @param q The quaternion to divide this one by.
    * @return The product between this quaternion and the inverse of the given one.
-   * @see [[multiply]]
    */
   def divide(q: Quatd): Quatd = this / q
 
@@ -323,7 +322,6 @@ case class Quatd(w: Double, x: Double, y: Double, z: Double) {
    * @param y The y component of the vector part of the quaternion to divide this one by.
    * @param z The z component of the vector part of the quaternion to divide this one by.
    * @return The division of this quaternion by the given values.
-   * @see [[multiply]]
    */
   def /(w: Double, x: Double, y: Double, z: Double): Quatd = this / Quatd(w, x, y, z)
 
@@ -337,7 +335,6 @@ case class Quatd(w: Double, x: Double, y: Double, z: Double) {
    * @param y The y component of the vector part of the quaternion to divide this one by.
    * @param z The z component of the vector part of the quaternion to divide this one by.
    * @return The division of this quaternion by the given values.
-   * @see [[multiply]]
    */
   def divide(w: Double, x: Double, y: Double, z: Double): Quatd = this / (w, x, y, z)
 
@@ -380,7 +377,7 @@ case class Quatd(w: Double, x: Double, y: Double, z: Double) {
   def exp: Quatd = {
     val l = this.vector.length
     if (l > 0.0) {
-      math.exp(this.w) * Quatd(math.cos(l), this.vector / l * math.sin(l))
+      Quatd(math.cos(l), this.vector / l * math.sin(l)) * math.exp(this.w)
     } else {
       Quatd.Identity
     }
@@ -405,11 +402,11 @@ case class Quatd(w: Double, x: Double, y: Double, z: Double) {
   def pow(exp: Double): Quatd = (this.log * exp).exp
 
   /**
-   * Returns the angle between this quaternion and the given one.
+   * Returns the angle in radians between this quaternion and the given one.
    * This is the magnitude of the angle you would need to rotate by to get from one to the other.
    *
    * @param q The second quaternion.
-   * @return The angle between this quaternion and the given one.
+   * @return The angle in radians between this quaternion and the given one.
    */
   def angleTo(q: Quatd): Double = {
     val d = this.dot(q)
@@ -584,9 +581,9 @@ object Quatd {
   /**
    * Constructs a quaternion from the given euler angles and rotation order.
    *
-   * @param x Rotation angle on the x axis.
-   * @param y Rotation angle on the y axis.
-   * @param z Rotation angle on the z axis.
+   * @param x Rotation angle in radians on the x axis.
+   * @param y Rotation angle in radians on the y axis.
+   * @param z Rotation angle in radians on the z axis.
    * @param order The rotation order.
    * @return The quaternion constructed from the given euler angles and rotation order.
    */
@@ -603,9 +600,9 @@ object Quatd {
   /**
    * Constructs a quaternion from the given euler angles in the `ZYX` order.
    *
-   * @param x Rotation angle on the x axis.
-   * @param y Rotation angle on the y axis.
-   * @param z Rotation angle on the z axis.
+   * @param x Rotation angle in radians on the x axis.
+   * @param y Rotation angle in radians on the y axis.
+   * @param z Rotation angle in radians on the z axis.
    * @return The quaternion constructed from the given euler angles in the `ZYX` order.
    */
   def fromEuler(x: Double, y: Double, z: Double): Quatd = this.fromEuler(x, y, z, EulerOrder.ZYX)

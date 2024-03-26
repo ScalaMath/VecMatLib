@@ -35,11 +35,11 @@ case class Mat2x3i(m00: Int, m01: Int, m02: Int, m10: Int, m11: Int, m12: Int) {
   def plus(m: Mat2x3i): Mat2x3i = this + m
 
   /**
-   * Returns this exact matrix.
+   * Returns this same matrix.
    *
    * The unary `+` operator does nothing, but can sometimes make the code more readable.
    *
-   * @return This exact matrix.
+   * @return This same matrix.
    */
   def unary_+ : Mat2x3i = this
 

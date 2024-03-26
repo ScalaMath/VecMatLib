@@ -7,9 +7,7 @@ package io.github
  */
 package object scalamath {
 
-  /**
-   * Internal constant used to check if two values are approximately equal.
-   */
+  /** Internal constant used to check if two values are approximately equal. */
   val Epsilon = 1e-6
 
   /**

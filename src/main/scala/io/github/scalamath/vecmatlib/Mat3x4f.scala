@@ -621,11 +621,11 @@ object Mat3x4f {
    * @return A 3x4 rotation matrix with the rotation expressed by the given quaternion.
    */
   def rotation(q: Quatf): Mat3x4f = {
-    val s = 1.0f / q.lengthSquared
+    val s = 2.0f / q.lengthSquared
     Mat3x4f(
-      1.0f - 2.0f * s * (q.y * q.y + q.z * q.z), 2.0f * s * (q.x * q.y - q.z * q.w), 2.0f * s * (q.x * q.z + q.y * q.w), 0.0f,
-      2.0f * s * (q.x * q.y + q.z * q.w), 1.0f - 2.0f * s * (q.x * q.x + q.z * q.z), 2.0f * s * (q.y * q.z - q.x * q.w), 0.0f,
-      2.0f * s * (q.x * q.z - q.y * q.w), 2.0f * s * (q.y * q.z + q.x * q.w), 1.0f - 2.0f * s * (q.x * q.x + q.y * q.y), 0.0f
+      1.0f - s * (q.y * q.y + q.z * q.z), s * (q.x * q.y - q.z * q.w), s * (q.x * q.z + q.y * q.w), 0.0f,
+      s * (q.x * q.y + q.z * q.w), 1.0f - s * (q.x * q.x + q.z * q.z), s * (q.y * q.z - q.x * q.w), 0.0f,
+      s * (q.x * q.z - q.y * q.w), s * (q.y * q.z + q.x * q.w), 1.0f - s * (q.x * q.x + q.y * q.y), 0.0f
     )
   }
 

@@ -50,11 +50,11 @@ case class Vec2i(x: Int, y: Int) {
   def plus(v: Vec2i): Vec2i = this + v
 
   /**
-   * Returns this exact vector.
+   * Returns this same vector.
    *
    * The unary `+` operator does nothing, but can sometimes make the code more readable.
    *
-   * @return This exact vector.
+   * @return This same vector.
    */
   def unary_+ : Vec2i = this
 

@@ -36,11 +36,11 @@ case class Mat2f(m00: Float, m01: Float, m10: Float, m11: Float) {
   def plus(m: Mat2f): Mat2f = this + m
 
   /**
-   * Returns this exact matrix.
+   * Returns this same matrix.
    *
    * The unary `+` operator does nothing, but can sometimes make the code more readable.
    *
-   * @return This exact matrix.
+   * @return This same matrix.
    */
   def unary_+ : Mat2f = this
 
