@@ -38,6 +38,70 @@ class ScalaMathSuite extends AnyFunSuite {
     assert(lerp(1.0, 2.0, 1.0) == 2.0)
   }
 
+  test("Int move toward") {
+    assert(moveToward(1, 5, 2) == 3)
+    assert(moveToward(1, 5, 6) == 5)
+    assert(moveToward(5, 1, 2) == 3)
+    assert(moveToward(5, 1, 6) == 1)
+  }
+
+  test("Long move toward") {
+    assert(moveToward(1L, 5L, 2L) == 3L)
+    assert(moveToward(1L, 5L, 6L) == 5L)
+    assert(moveToward(5L, 1L, 2L) == 3L)
+    assert(moveToward(5L, 1L, 6L) == 1L)
+  }
+
+  test("Float move toward") {
+    assert(moveToward(1.0f, 2.0f, 0.6f) == 1.6f)
+    assert(moveToward(1.0f, 2.0f, 3.0f) == 2.0f)
+    assert(moveToward(2.0f, 1.0f, 0.6f) == 1.4f)
+    assert(moveToward(2.0f, 1.0f, 3.0f) == 1.0f)
+  }
+
+  test("Double move toward") {
+    assert(moveToward(1.0, 2.0, 0.6) == 1.6)
+    assert(moveToward(1.0, 2.0, 3.0) == 2.0)
+    assert(moveToward(2.0, 1.0, 0.6) == 1.4)
+    assert(moveToward(2.0, 1.0, 3.0) == 1.0)
+  }
+
+  test("Map int range") {
+    assert(map(5, 0, 10, 0, 100) == 50)
+    assert(map(12, 0, 10, 0, 100) == 120)
+    assert(map(-1, 0, 10, 0, 100) == -10)
+  }
+
+  test("Map long range") {
+    assert(map(5L, 0L, 10L, 0L, 100L) == 50L)
+    assert(map(12L, 0L, 10L, 0L, 100L) == 120L)
+    assert(map(-1L, 0L, 10L, 0L, 100L) == -10L)
+  }
+
+  test("Map float range") {
+    assert(map(5.0f, 0.0f, 10.0f, 0.0f, 1.0f) == 0.5f)
+    assert(map(12.0f, 0.0f, 10.0f, 0.0f, 1.0f) == 1.2f)
+    assert(map(-1.0f, 0.0f, 10.0f, 0.0f, 1.0f) == -0.1f)
+  }
+
+  test("Map double range") {
+    assert(map(5.0, 0.0, 10.0, 0.0, 1.0) == 0.5)
+    assert(map(12.0, 0.0, 10.0, 0.0, 1.0) == 1.2)
+    assert(map(-1.0, 0.0, 10.0, 0.0, 1.0) == -0.1)
+  }
+
+  test("Smoothstep float") {
+    assert(smoothstep(3.0f, 4.0f, 3.5f) == 0.5f)
+    assert(smoothstep(3.0f, 4.0f, 2.0f) == 0.0f)
+    assert(smoothstep(3.0f, 4.0f, 5.0f) == 1.0f)
+  }
+
+  test("Smoothstep double") {
+    assert(smoothstep(3.0, 4.0, 3.5) == 0.5)
+    assert(smoothstep(3.0, 4.0, 2.0) == 0.0)
+    assert(smoothstep(3.0, 4.0, 5.0) == 1.0)
+  }
+
   test("Float equals approx") {
     assert(equalsApprox(1.0f, 1.0f))
     assert(equalsApprox(1.0f, 0.9999999f))

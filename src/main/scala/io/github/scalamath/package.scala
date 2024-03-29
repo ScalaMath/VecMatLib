@@ -71,6 +71,132 @@ package object scalamath {
   def lerp(from: Double, to: Double, weight: Double): Double = from + (to - from) * weight
 
   /**
+   * Moves the first value toward the second value by the given delta without going past the final value.
+   *
+   * @param from The first value.
+   * @param to The second value.
+   * @param delta Delta amount.
+   * @return The first value moved towards the second value by the given amount.
+   */
+  def moveToward(from: Int, to: Int, delta: Int): Int = if(math.abs(to - from) <= delta) to else from + (to - from).sign * delta
+
+  /**
+   * Moves the first value toward the second value by the given delta without going past the final value.
+   *
+   * @param from The first value.
+   * @param to The second value.
+   * @param delta Delta amount.
+   * @return The first value moved towards the second value by the given amount.
+   */
+  def moveToward(from: Long, to: Long, delta: Long): Long = if(math.abs(to - from) <= delta) to else from + (to - from).sign * delta
+
+  /**
+   * Moves the first value toward the second value by the given delta without going past the final value.
+   *
+   * @param from The first value.
+   * @param to The second value.
+   * @param delta Delta amount.
+   * @return The first value moved towards the second value by the given amount.
+   */
+  def moveToward(from: Float, to: Float, delta: Float): Float = if(math.abs(to - from) <= delta) to else from + (to - from).sign * delta
+
+  /**
+   * Moves the first value toward the second value by the given delta without going past the final value.
+   *
+   * @param from The first value.
+   * @param to The second value.
+   * @param delta Delta amount.
+   * @return The first value moved towards the second value by the given amount.
+   */
+  def moveToward(from: Double, to: Double, delta: Double): Double = if (math.abs(to - from) <= delta) to else from + (to - from).sign * delta
+
+  /**
+   * Maps the given value from the first range to the second range.
+   *
+   * If the given value is outside of the first range, the resulting value will be outside of the second range.
+   *
+   * @param value The value to remap.
+   * @param min1 The minimum of the first range.
+   * @param max1 The maximum of the first range.
+   * @param min2 The minimum of the second range.
+   * @param max2 The maximum of the second range.
+   * @return The remapped value.
+   */
+  def map(value: Int, min1: Int, max1: Int, min2: Int, max2: Int): Int = (value - min1) * (max2 - min2) / (max1 - min1) + min2
+
+  /**
+   * Maps the given value from the first range to the second range.
+   *
+   * If the given value is outside of the first range, the resulting value will be outside of the second range.
+   *
+   * @param value The value to remap.
+   * @param min1 The minimum of the first range.
+   * @param max1 The maximum of the first range.
+   * @param min2 The minimum of the second range.
+   * @param max2 The maximum of the second range.
+   * @return The remapped value.
+   */
+  def map(value: Long, min1: Long, max1: Long, min2: Long, max2: Long): Long = (value - min1) * (max2 - min2) / (max1 - min1) + min2
+
+  /**
+   * Maps the given value from the first range to the second range.
+   *
+   * If the given value is outside of the first range, the resulting value will be outside of the second range.
+   *
+   * @param value The value to remap.
+   * @param min1 The minimum of the first range.
+   * @param max1 The maximum of the first range.
+   * @param min2 The minimum of the second range.
+   * @param max2 The maximum of the second range.
+   * @return The remapped value.
+   */
+  def map(value: Float, min1: Float, max1: Float, min2: Float, max2: Float): Float = (value - min1) * (max2 - min2) / (max1 - min1) + min2
+
+  /**
+   * Maps the given value from the first range to the second range.
+   *
+   * If the given value is outside of the first range, the resulting value will be outside of the second range.
+   *
+   * @param value The value to remap.
+   * @param min1 The minimum of the first range.
+   * @param max1 The maximum of the first range.
+   * @param min2 The minimum of the second range.
+   * @param max2 The maximum of the second range.
+   * @return The remapped value.
+   */
+  def map(value: Double, min1: Double, max1: Double, min2: Double, max2: Double): Double = (value - min1) * (max2 - min2) / (max1 - min1) + min2
+
+  /**
+   * Returns a sigmoid-like interpolation of the given value between zero and one, based on where it lies with respect to the given edges.
+   *
+   * The return value is `0.0` if the given value is less than the minimum, `1.0` if the given value is greater than the maximum.
+   *
+   * @param from The lower bound of the range.
+   * @param to The upper bound of the range.
+   * @param value The given value.
+   * @return A sigmoid-like interpolation of the given value between zero and one.
+   */
+  def smoothstep(from: Float, to: Float, value: Float): Float = {
+    val s = clamp((value - from) / (to - from), 0.0f, 1.0f)
+    s * s * (3.0f - 2.0f * s)
+  }
+
+  /**
+   * Returns a sigmoid-like interpolation of the given value between zero and one, based on where it lies with respect to the given edges.
+   *
+   * The return value is `0.0` if the given value is less than the minimum, `1.0` if the given value is greater than the maximum.
+   *
+   * @param from The lower bound of the range.
+   * @param to The upper bound of the range.
+   * @param value The given value.
+   * @return A sigmoid-like interpolation of the given value between zero and one.
+   */
+  def smoothstep(from: Double, to: Double, value: Double): Double = {
+    val s = clamp((value - from) / (to - from), 0.0, 1.0)
+    s * s * (3.0 - 2.0 * s)
+  }
+
+  /**
    * Checks if the given values are approximately equal using an internal epsilon.
    *
    * The `~=` operator can be used instead of this method with the [[FloatEqualsApprox]] implicit class.
