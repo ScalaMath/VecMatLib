@@ -423,6 +423,44 @@ class Vec2dSuite extends AnyFunSuite {
     assert(a.outer(b) == res)
   }
 
+  test("Quadratic Bézier interpolation") {
+    val p0 = Vec2d(1.0, 1.5)
+    val p2 = Vec2d(5.0, 6.0)
+    val p1 = Vec2d(2.0, 3.0)
+    val t = 0.35
+    val l1 = p0.lerp(p1, t)
+    val l2 = p1.lerp(p2, t)
+    val res = l1.lerp(l2, t)
+    assert(p0.bezierInterpolate(p2, p1, t) === res)
+  }
+
+  test("Quadratic Bézier derivative") {
+    val p0 = Vec2d(0.0, 0.0)
+    val p1 = Vec2d(2.0, 0.0)
+    val control = Vec2d(1.0, 1.0)
+    val res = Vec2d(0.0, 2.0)
+    assert(p0.bezierDerivative(p1, control, 0.5) === res)
+  }
+
+  test("Cubic Bézier interpolation") {
+    val p0 = Vec2d(1.0, 1.5)
+    val p3 = Vec2d(5.0, 6.0)
+    val p1 = Vec2d(1.5, 2.5)
+    val p2 = Vec2d(3.0, 4.0)
+    val t = 0.35
+    val m1 = p0.lerp(p1, t)
+    val m2 = p1.lerp(p2, t)
+    val m3 = p2.lerp(p3, t)
+    val l1 = m1.lerp(m2, t)
+    val l2 = m2.lerp(m3, t)
+    val res = l1.lerp(l2, t)
+    assert(p0.bezierInterpolate(p3, p1, p2, t) === res)
+  }
+
+  ignore("Cubic Bézier derivative") {
+    // TODO
+  }
+
   test("Vector equals two values") {
     val vec = Vec2d(1.1, 2.2)
     assert(vec == (1.1, 2.2))

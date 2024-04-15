@@ -102,6 +102,60 @@ class ScalaMathSuite extends AnyFunSuite {
     assert(smoothstep(3.0, 4.0, 5.0) == 1.0)
   }
 
+  test("Float quadratic Bézier curve") {
+    val (p0, p1, control, t) = (2.0f, 5.0f, 4.0f, 0.35f)
+    val l1 = lerp(p0, control, t)
+    val l2 = lerp(control, p1, t)
+    val res = lerp(l1, l2, t)
+    assert(bezierInterpolate(p0, p1, control, t) == res)
+  }
+
+  test("Double quadratic Bézier curve") {
+    val (p0, p1, control, t) = (2.0, 5.0, 4.0, 0.35)
+    val l1 = lerp(p0, control, t)
+    val l2 = lerp(control, p1, t)
+    val res = lerp(l1, l2, t)
+    assert(bezierInterpolate(p0, p1, control, t) == res)
+  }
+
+  ignore("Float quadratic Bézier derivative") {
+    // TODO
+  }
+
+  ignore("Double quadratic Bézier derivative") {
+    // TODO
+  }
+
+  test("Float cubic Bézier curve") {
+    val (p0, p3, p1, p2, t) = (1.0f, 5.0f, 2.0f, 4.0f, 0.35f)
+    val m1 = lerp(p0, p1, t)
+    val m2 = lerp(p1, p2, t)
+    val m3 = lerp(p2, p3, t)
+    val l1 = lerp(m1, m2, t)
+    val l2 = lerp(m2, m3, t)
+    val res = lerp(l1, l2, t)
+    assert(bezierInterpolate(p0, p3, p1, p2, t) == res)
+  }
+
+  test("Double cubic Bézier curve") {
+    val (p0, p3, p1, p2, t) = (1.0, 5.0, 2.0, 4.0, 0.35)
+    val m1 = lerp(p0, p1, t)
+    val m2 = lerp(p1, p2, t)
+    val m3 = lerp(p2, p3, t)
+    val l1 = lerp(m1, m2, t)
+    val l2 = lerp(m2, m3, t)
+    val res = lerp(l1, l2, t)
+    assert(bezierInterpolate(p0, p3, p1, p2, t) == res)
+  }
+
+  ignore("Float cubic Bézier derivative") {
+    // TODO
+  }
+
+  ignore("Double cubic Bézier derivative") {
+    // TODO
+  }
+
   test("Float equals approx") {
     assert(equalsApprox(1.0f, 1.0f))
     assert(equalsApprox(1.0f, 0.9999999f))

@@ -413,6 +413,44 @@ class Vec3fSuite extends AnyFunSuite {
     assert(a.outer(b) == res)
   }
 
+  test("Quadratic Bézier interpolation") {
+    val p0 = Vec3f(1.0f, 1.5f, 0.5f)
+    val p2 = Vec3f(5.0f, 6.0f, 4.0f)
+    val p1 = Vec3f(2.0f, 3.0f, 2.5f)
+    val t = 0.35f
+    val l1 = p0.lerp(p1, t)
+    val l2 = p1.lerp(p2, t)
+    val res = l1.lerp(l2, t)
+    assert(p0.bezierInterpolate(p2, p1, t) === res)
+  }
+
+  test("Quadratic Bézier derivative") {
+    val p0 = Vec3f(0.0f, 0.0f, 0.0f)
+    val p1 = Vec3f(2.0f, 0.0f, 0.0f)
+    val control = Vec3f(1.0f, 1.0f, 0.0f)
+    val res = Vec3f(0.0f, 2.0f, 0.0f)
+    assert(p0.bezierDerivative(p1, control, 0.5f) === res)
+  }
+
+  test("Cubic Bézier interpolation") {
+    val p0 = Vec3f(1.0f, 1.5f, 0.5f)
+    val p3 = Vec3f(5.0f, 6.0f, 4.0f)
+    val p1 = Vec3f(1.5f, 2.5f, 1.0f)
+    val p2 = Vec3f(3.0f, 4.0f, 2.0f)
+    val t = 0.35f
+    val m1 = p0.lerp(p1, t)
+    val m2 = p1.lerp(p2, t)
+    val m3 = p2.lerp(p3, t)
+    val l1 = m1.lerp(m2, t)
+    val l2 = m2.lerp(m3, t)
+    val res = l1.lerp(l2, t)
+    assert(p0.bezierInterpolate(p3, p1, p2, t) === res)
+  }
+
+  ignore("Cubic Bézier derivative") {
+    // TODO
+  }
+
   test("Vector equals three values") {
     val vec = Vec3f(1.1f, 2.2f, 3.3f)
     assert(vec == (1.1f, 2.2f, 3.3f))

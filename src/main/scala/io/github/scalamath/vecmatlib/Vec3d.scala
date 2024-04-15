@@ -1,5 +1,6 @@
 package io.github.scalamath.vecmatlib
 
+import io.github.scalamath
 import io.github.scalamath.DoubleEqualsApprox
 
 /**
@@ -723,6 +724,64 @@ case class Vec3d(x: Double, y: Double, z: Double) {
    * @return The outer product between this vector and the given one.
    */
   def outer(v: Vec4d): Mat3x4d = this.outer(v.x, v.y, v.z, v.w)
+
+  /**
+   * Returns the point at the given `t` on the quadratic Bézier curve defined by this vector and the given points.
+   *
+   * @param to The end point of the Bézier curve.
+   * @param control The control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The point at the given `t` on the quadratic Bézier curve defined by this vector and the given points.
+   */
+  def bezierInterpolate(to: Vec3d, control: Vec3d, t: Double): Vec3d = Vec3d(
+    scalamath.bezierInterpolate(this.x, to.x, control.x, t),
+    scalamath.bezierInterpolate(this.y, to.y, control.y, t),
+    scalamath.bezierInterpolate(this.z, to.z, control.z, t)
+  )
+
+  /**
+   * Returns the derivative at the given `t` on the quadratic Bézier curve defined by this vector and the given points.
+   *
+   * @param to The end point of the Bézier curve.
+   * @param control The control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The derivative at the given `t` on the quadratic Bézier curve defined by this vector and the given points.
+   */
+  def bezierDerivative(to: Vec3d, control: Vec3d, t: Double): Vec3d = Vec3d(
+    scalamath.bezierDerivative(this.x, to.x, control.x, t),
+    scalamath.bezierDerivative(this.y, to.y, control.y, t),
+    scalamath.bezierDerivative(this.z, to.z, control.z, t)
+  )
+
+  /**
+   * Returns the point at the given `t` on the cubic Bézier curve defined by this vector and the given points.
+   *
+   * @param to The end point of the Bézier curve.
+   * @param control1 The first control point of the Bézier curve.
+   * @param control2 The second control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The point at the given `t` on the cubic Bézier curve defined by this vector and the given points.
+   */
+  def bezierInterpolate(to: Vec3d, control1: Vec3d, control2: Vec3d, t: Double): Vec3d = Vec3d(
+    scalamath.bezierInterpolate(this.x, to.x, control1.x, control2.x, t),
+    scalamath.bezierInterpolate(this.y, to.y, control1.y, control2.y, t),
+    scalamath.bezierInterpolate(this.z, to.z, control1.z, control2.z, t)
+  )
+
+  /**
+   * Returns the derivative at the given `t` on the cubic Bézier curve defined by this vector and the given points.
+   *
+   * @param to The end point of the Bézier curve.
+   * @param control1 The first control point of the Bézier curve.
+   * @param control2 The second control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The derivative at the given `t` on the cubic Bézier curve defined by this vector and the given points.
+   */
+  def bezierDerivative(to: Vec3d, control1: Vec3d, control2: Vec3d, t: Double): Vec3d = Vec3d(
+    scalamath.bezierDerivative(this.x, to.x, control1.x, control2.x, t),
+    scalamath.bezierDerivative(this.y, to.y, control1.y, control2.y, t),
+    scalamath.bezierDerivative(this.z, to.z, control1.z, control2.z, t)
+  )
 
   /**
    * Checks if the components of this vector are equal to the given ones.

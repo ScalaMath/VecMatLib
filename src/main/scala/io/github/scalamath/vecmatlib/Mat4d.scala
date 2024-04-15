@@ -4,7 +4,7 @@ import io.github.scalamath
 import io.github.scalamath.DoubleEqualsApprox
 
 /**
- * A 4x4 float matrix.
+ * A 4x4 double matrix.
  *
  * @constructor Constructs a matrix from the given values.
  * @param m00 Element 0 0

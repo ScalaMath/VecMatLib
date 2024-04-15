@@ -139,30 +139,6 @@ object ScalaMath {
   def map(value: Long, min1: Long, max1: Long, min2: Long, max2: Long): Long = scalamath.map(value, min1, max1, min2, max2)
 
   /**
-   * Returns a sigmoid-like interpolation of the given value between zero and one, based on where it lies with respect to the given edges.
-   *
-   * The return value is `0.0` if the given value is less than the minimum, `1.0` if the given value is greater than the maximum.
-   *
-   * @param from The lower bound of the range.
-   * @param to The upper bound of the range.
-   * @param value The given value.
-   * @return A sigmoid-like interpolation of the given value between zero and one.
-   */
-  def smoothstep(from: Float, to: Float, value: Float): Float = scalamath.smoothstep(from, to, value)
-
-  /**
-   * Returns a sigmoid-like interpolation of the given value between zero and one, based on where it lies with respect to the given edges.
-   *
-   * The return value is `0.0` if the given value is less than the minimum, `1.0` if the given value is greater than the maximum.
-   *
-   * @param from The lower bound of the range.
-   * @param to The upper bound of the range.
-   * @param value The given value.
-   * @return A sigmoid-like interpolation of the given value between zero and one.
-   */
-  def smoothstep(from: Double, to: Double, value: Double): Double = scalamath.smoothstep(from, to, value)
-
-  /**
    * Maps the given value from the first range to the second range.
    *
    * If the given value is outside of the first range, the resulting value will be outside of the second range.
@@ -189,6 +165,122 @@ object ScalaMath {
    * @return The remapped value.
    */
   def map(value: Double, min1: Double, max1: Double, min2: Double, max2: Double): Double = scalamath.map(value, min1, max1, min2, max2)
+
+  /**
+   * Returns a sigmoid-like interpolation of the given value between zero and one, based on where it lies with respect to the given edges.
+   *
+   * The return value is `0.0` if the given value is less than the minimum, `1.0` if the given value is greater than the maximum.
+   *
+   * @param from The lower bound of the range.
+   * @param to The upper bound of the range.
+   * @param value The given value.
+   * @return A sigmoid-like interpolation of the given value between zero and one.
+   */
+  def smoothstep(from: Float, to: Float, value: Float): Float = scalamath.smoothstep(from, to, value)
+
+  /**
+   * Returns a sigmoid-like interpolation of the given value between zero and one, based on where it lies with respect to the given edges.
+   *
+   * The return value is `0.0` if the given value is less than the minimum, `1.0` if the given value is greater than the maximum.
+   *
+   * @param from The lower bound of the range.
+   * @param to The upper bound of the range.
+   * @param value The given value.
+   * @return A sigmoid-like interpolation of the given value between zero and one.
+   */
+  def smoothstep(from: Double, to: Double, value: Double): Double = scalamath.smoothstep(from, to, value)
+
+  /**
+   * Returns the point at the given `t` on the quadratic Bézier curve defined by the given points.
+   *
+   * @param from The starting point of the Bézier curve.
+   * @param to The end point of the Bézier curve.
+   * @param control The control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The point at the given `t` on the quadratic Bézier curve defined by the given points.
+   */
+  def bezierInterpolate(from: Float, to: Float, control: Float, t: Float): Float = scalamath.bezierInterpolate(from, to, control, t)
+
+  /**
+   * Returns the point at the given `t` on the quadratic Bézier curve defined by the given points.
+   *
+   * @param from The starting point of the Bézier curve.
+   * @param to The end point of the Bézier curve.
+   * @param control The control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The point at the given `t` on the quadratic Bézier curve defined by the given points.
+   */
+  def bezierInterpolate(from: Double, to: Double, control: Double, t: Double): Double = scalamath.bezierInterpolate(from, to, control, t)
+
+  /**
+   * Returns the derivative at the given `t` on the quadratic Bézier curve defined by the given points.
+   *
+   * @param from The starting point of the Bézier curve.
+   * @param to The end point of the Bézier curve.
+   * @param control The control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The derivative at the given `t` on the quadratic Bézier curve defined by the given points.
+   */
+  def bezierDerivative(from: Float, to: Float, control: Float, t: Float): Float = scalamath.bezierDerivative(from, to, control, t)
+
+  /**
+   * Returns the derivative at the given `t` on the quadratic Bézier curve defined by the given points.
+   *
+   * @param from The starting point of the Bézier curve.
+   * @param to The end point of the Bézier curve.
+   * @param control The control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The derivative at the given `t` on the quadratic Bézier curve defined by the given points.
+   */
+  def bezierDerivative(from: Double, to: Double, control: Double, t: Double): Double = scalamath.bezierDerivative(from, to, control, t)
+
+  /**
+   * Returns the point at the given `t` on the cubic Bézier curve defined by the given points.
+   *
+   * @param from The starting point of the Bézier curve.
+   * @param to The end point of the Bézier curve.
+   * @param control1 The first control point of the Bézier curve.
+   * @param control2 The second control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The point at the given `t` on the cubic Bézier curve defined by the given points.
+   */
+  def bezierInterpolate(from: Float, to: Float, control1: Float, control2: Float, t: Float): Float = scalamath.bezierInterpolate(from, to, control1, control2, t)
+
+  /**
+   * Returns the point at the given `t` on the cubic Bézier curve defined by the given points.
+   *
+   * @param from The starting point of the Bézier curve.
+   * @param to The end point of the Bézier curve.
+   * @param control1 The first control point of the Bézier curve.
+   * @param control2 The second control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The point at the given `t` on the cubic Bézier curve defined by the given points.
+   */
+  def bezierInterpolate(from: Double, to: Double, control1: Double, control2: Double, t: Double): Double = scalamath.bezierInterpolate(from, to, control1, control2, t)
+
+  /**
+   * Returns the derivative at the given `t` on the cubic Bézier curve defined by the given points.
+   *
+   * @param from The starting point of the Bézier curve.
+   * @param to The end point of the Bézier curve.
+   * @param control1 The first control point of the Bézier curve.
+   * @param control2 The second control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The derivative at the given `t` on the cubic Bézier curve defined by the given points.
+   */
+  def bezierDerivative(from: Float, to: Float, control1: Float, control2: Float, t: Float): Float = scalamath.bezierDerivative(from, to, control1, control2, t)
+
+  /**
+   * Returns the derivative at the given `t` on the cubic Bézier curve defined by the given points.
+   *
+   * @param from The starting point of the Bézier curve.
+   * @param to The end point of the Bézier curve.
+   * @param control1 The first control point of the Bézier curve.
+   * @param control2 The second control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The derivative at the given `t` on the cubic Bézier curve defined by the given points.
+   */
+  def bezierDerivative(from: Double, to: Double, control1: Double, control2: Double, t: Double): Double = scalamath.bezierDerivative(from, to, control1, control2, t)
 
   /**
    * Checks if the given values are approximately equal using an internal epsilon.

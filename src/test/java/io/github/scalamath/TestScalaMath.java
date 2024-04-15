@@ -1,6 +1,7 @@
 package io.github.scalamath;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestScalaMath {
@@ -116,6 +117,72 @@ public class TestScalaMath {
         Assert.assertEquals(0.5, ScalaMath.smoothstep(3.0, 4.0, 3.5), 1e-12);
         Assert.assertEquals(0.0, ScalaMath.smoothstep(3.0, 4.0, 2.0), 1e-12);
         Assert.assertEquals(1.0, ScalaMath.smoothstep(3.0, 4.0, 5.0), 1e-12);
+    }
+
+    @Test
+    public void testFloatQuadraticBezierCurve() {
+        float p0 = 2.0f, p1 = 5.0f, control = 4.0f, t = 0.35f;
+        float l1 = ScalaMath.lerp(p0, control, t);
+        float l2 = ScalaMath.lerp(control, p1, t);
+        float res = ScalaMath.lerp(l1, l2, t);
+        Assert.assertEquals(res, ScalaMath.bezierInterpolate(p0, p1, control, t), 1e-12f);
+    }
+
+    @Test
+    public void testDoubleQuadraticBezierCurve() {
+        double p0 = 2.0, p1 = 5.0, control = 4.0, t = 0.35;
+        double l1 = ScalaMath.lerp(p0, control, t);
+        double l2 = ScalaMath.lerp(control, p1, t);
+        double res = ScalaMath.lerp(l1, l2, t);
+        Assert.assertEquals(res, ScalaMath.bezierInterpolate(p0, p1, control, t), 1e-12);
+    }
+
+    @Test
+    @Ignore
+    public void testFloatQuadraticBezierDerivative() {
+        // TODO
+    }
+
+    @Test
+    @Ignore
+    public void testDoubleQuadraticBezierDerivative() {
+        // TODO
+    }
+
+    @Test
+    public void testFloatCubicBezierCurve() {
+        float p0 = 1.0f, p3 = 5.0f, p1 = 2.0f, p2 = 4.0f, t = 0.35f;
+        float m1 = ScalaMath.lerp(p0, p1, t);
+        float m2 = ScalaMath.lerp(p1, p2, t);
+        float m3 = ScalaMath.lerp(p2, p3, t);
+        float l1 = ScalaMath.lerp(m1, m2, t);
+        float l2 = ScalaMath.lerp(m2, m3, t);
+        float res = ScalaMath.lerp(l1, l2, t);
+        Assert.assertEquals(res, ScalaMath.bezierInterpolate(p0, p3, p1, p2, t), 1e-12f);
+    }
+
+    @Test
+    public void testDoubleCubicBezierCurve() {
+        double p0 = 1.0, p3 = 5.0, p1 = 2.0, p2 = 4.0, t = 0.35;
+        double m1 = ScalaMath.lerp(p0, p1, t);
+        double m2 = ScalaMath.lerp(p1, p2, t);
+        double m3 = ScalaMath.lerp(p2, p3, t);
+        double l1 = ScalaMath.lerp(m1, m2, t);
+        double l2 = ScalaMath.lerp(m2, m3, t);
+        double res = ScalaMath.lerp(l1, l2, t);
+        Assert.assertEquals(res, ScalaMath.bezierInterpolate(p0, p3, p1, p2, t), 1e-12);
+    }
+
+    @Test
+    @Ignore
+    public void testFloatCubicBezierDerivative() {
+        // TODO
+    }
+
+    @Test
+    @Ignore
+    public void testDoubleCubicBezierDerivative() {
+        // TODO
     }
 
     @Test

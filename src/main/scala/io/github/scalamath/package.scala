@@ -197,6 +197,120 @@ package object scalamath {
   }
 
   /**
+   * Returns the point at the given `t` on the quadratic Bézier curve defined by the given points.
+   *
+   * @param from The starting point of the Bézier curve.
+   * @param to The end point of the Bézier curve.
+   * @param control The control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The point at the given `t` on the quadratic Bézier curve defined by the given points.
+   */
+  def bezierInterpolate(from: Float, to: Float, control: Float, t: Float): Float = {
+    val w = 1.0f - t
+    w * w * from + 2.0f * w * t * control + t * t * to
+  }
+
+  /**
+   * Returns the point at the given `t` on the quadratic Bézier curve defined by the given points.
+   *
+   * @param from The starting point of the Bézier curve.
+   * @param to The end point of the Bézier curve.
+   * @param control The control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The point at the given `t` on the quadratic Bézier curve defined by the given points.
+   */
+  def bezierInterpolate(from: Double, to: Double, control: Double, t: Double): Double = {
+    val w = 1.0 - t
+    w * w * from + 2.0 * w * t * control + t * t * to
+  }
+
+  /**
+   * Returns the derivative at the given `t` on the quadratic Bézier curve defined by the given points.
+   *
+   * @param from The starting point of the Bézier curve.
+   * @param to The end point of the Bézier curve.
+   * @param control The control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The derivative at the given `t` on the quadratic Bézier curve defined by the given points.
+   */
+  def bezierDerivative(from: Float, to: Float, control: Float, t: Float): Float = 2.0f * (1-0f - t) * (control - from) + 2.0f * t * (to - control)
+
+  /**
+   * Returns the derivative at the given `t` on the quadratic Bézier curve defined by the given points.
+   *
+   * @param from The starting point of the Bézier curve.
+   * @param to The end point of the Bézier curve.
+   * @param control The control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The derivative at the given `t` on the quadratic Bézier curve defined by the given points.
+   */
+  def bezierDerivative(from: Double, to: Double, control: Double, t: Double): Double = 2.0 * (1-0 - t) * (control - from) + 2.0 * t * (to - control)
+
+  /**
+   * Returns the point at the given `t` on the cubic Bézier curve defined by the given points.
+   *
+   * @param from The starting point of the Bézier curve.
+   * @param to The end point of the Bézier curve.
+   * @param control1 The first control point of the Bézier curve.
+   * @param control2 The second control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The point at the given `t` on the cubic Bézier curve defined by the given points.
+   */
+  def bezierInterpolate(from: Float, to: Float, control1: Float, control2: Float, t: Float): Float = {
+    val w = 1.0f - t
+    val ww = w * w
+    val tt = t * t
+    w * ww * from + 3.0f * ww * t * control1 + 3.0f * w * tt * control2 + t * tt * to
+  }
+
+  /**
+   * Returns the point at the given `t` on the cubic Bézier curve defined by the given points.
+   *
+   * @param from The starting point of the Bézier curve.
+   * @param to The end point of the Bézier curve.
+   * @param control1 The first control point of the Bézier curve.
+   * @param control2 The second control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The point at the given `t` on the cubic Bézier curve defined by the given points.
+   */
+  def bezierInterpolate(from: Double, to: Double, control1: Double, control2: Double, t: Double): Double = {
+    val w = 1.0 - t
+    val ww = w * w
+    val tt = t * t
+    w * ww * from + 3.0 * ww * t * control1 + 3.0 * w * tt * control2 + t * tt * to
+  }
+
+  /**
+   * Returns the derivative at the given `t` on the cubic Bézier curve defined by the given points.
+   *
+   * @param from The starting point of the Bézier curve.
+   * @param to The end point of the Bézier curve.
+   * @param control1 The first control point of the Bézier curve.
+   * @param control2 The second control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The derivative at the given `t` on the cubic Bézier curve defined by the given points.
+   */
+  def bezierDerivative(from: Float, to: Float, control1: Float, control2: Float, t: Float): Float = {
+    val w = 1.0f - t
+    3.0f * w * w * (control1 - from) + 6.0f * w * t * (control2 - control1) + 3.0f * t * t * (to - control2)
+  }
+
+  /**
+   * Returns the derivative at the given `t` on the cubic Bézier curve defined by the given points.
+   *
+   * @param from The starting point of the Bézier curve.
+   * @param to The end point of the Bézier curve.
+   * @param control1 The first control point of the Bézier curve.
+   * @param control2 The second control point of the Bézier curve.
+   * @param t The interpolation weight. Must be in the [0.0, 1.0] range.
+   * @return The derivative at the given `t` on the cubic Bézier curve defined by the given points.
+   */
+  def bezierDerivative(from: Double, to: Double, control1: Double, control2: Double, t: Double): Double = {
+    val w = 1.0 - t
+    3.0 * w * w * (control1 - from) + 6.0 * w * t * (control2 - control1) + 3.0 * t * t * (to - control2)
+  }
+
+  /**
    * Checks if the given values are approximately equal using an internal epsilon.
    *
    * The `~=` operator can be used instead of this method with the [[FloatEqualsApprox]] implicit class.
