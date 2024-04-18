@@ -428,7 +428,7 @@ class Vec3fSuite extends AnyFunSuite {
     val p0 = Vec3f(0.0f, 0.0f, 0.0f)
     val p1 = Vec3f(2.0f, 0.0f, 0.0f)
     val control = Vec3f(1.0f, 1.0f, 0.0f)
-    val res = Vec3f(0.0f, 2.0f, 0.0f)
+    val res = Vec3f(2.0f, 0.0f, 0.0f)
     assert(p0.bezierDerivative(p1, control, 0.5f) === res)
   }
 
@@ -447,8 +447,13 @@ class Vec3fSuite extends AnyFunSuite {
     assert(p0.bezierInterpolate(p3, p1, p2, t) === res)
   }
 
-  ignore("Cubic Bézier derivative") {
-    // TODO
+  test("Cubic Bézier derivative") {
+    val p0 = Vec3f(0.0f, 0.0f, 0.0f)
+    val p1 = Vec3f(2.0f, 0.0f, 0.0f)
+    val control1 = Vec3f(0.0f, 1.0f, 0.0f)
+    val control2 = Vec3f(2.0f, 1.0f, 0.0f)
+    val res = Vec3f(3.0f, 0.0f, 0.0f)
+    assert(p0.bezierDerivative(p1, control1, control2, 0.5f) === res)
   }
 
   test("Vector equals three values") {

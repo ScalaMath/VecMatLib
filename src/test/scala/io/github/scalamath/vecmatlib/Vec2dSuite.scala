@@ -438,7 +438,7 @@ class Vec2dSuite extends AnyFunSuite {
     val p0 = Vec2d(0.0, 0.0)
     val p1 = Vec2d(2.0, 0.0)
     val control = Vec2d(1.0, 1.0)
-    val res = Vec2d(0.0, 2.0)
+    val res = Vec2d(2.0, 0.0)
     assert(p0.bezierDerivative(p1, control, 0.5) === res)
   }
 
@@ -457,8 +457,13 @@ class Vec2dSuite extends AnyFunSuite {
     assert(p0.bezierInterpolate(p3, p1, p2, t) === res)
   }
 
-  ignore("Cubic Bézier derivative") {
-    // TODO
+  test("Cubic Bézier derivative") {
+    val p0 = Vec2d(0.0, 0.0)
+    val p1 = Vec2d(2.0, 0.0)
+    val control1 = Vec2d(0.0, 1.0)
+    val control2 = Vec2d(2.0, 1.0)
+    val res = Vec2d(3.0, 0.0)
+    assert(p0.bezierDerivative(p1, control1, control2, 0.5f) === res)
   }
 
   test("Vector equals two values") {
