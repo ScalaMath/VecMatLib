@@ -847,7 +847,7 @@ case class Vec2d(x: Double, y: Double) {
    *
    * @param i The index of the requested component. Must be either 0, or 1.
    * @return The component of this vector at the given index.
-   * @throws MatchError If the given index is out of bounds.
+   * @throws scala.MatchError If the given index is out of bounds.
    */
   def apply(i: Int): Double = i match {
     case 0 => this.x

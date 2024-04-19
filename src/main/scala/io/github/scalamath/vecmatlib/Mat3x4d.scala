@@ -174,7 +174,7 @@ case class Mat3x4d(
    *
    * @param i The index of the requested row. Must be either 0, 1, or 2.
    * @return The row at the given index.
-   * @throws MatchError If the given index is out of bounds.
+   * @throws scala.MatchError If the given index is out of bounds.
    * @see [[row0]], [[row1]], and [[row2]]
    */
   def row(i: Int): Vec4d = i match {
@@ -220,7 +220,7 @@ case class Mat3x4d(
    *
    * @param i The index of the requested column. Must be either 0, 1, 2, or 3.
    * @return The column at the given index.
-   * @throws MatchError If the given index is out of bounds.
+   * @throws scala.MatchError If the given index is out of bounds.
    * @see [[col0]], [[col1]], [[col2]], and [[col3]]
    */
   def col(i: Int): Vec3d = i match {
@@ -452,7 +452,7 @@ case class Mat3x4d(
    * @param row The row index of the desired element. Must be either 0, 1, or 2.
    * @param col The column index of the desired element. Must be either 0, 1, 2, or 3.
    * @return The element at the given row and column index.
-   * @throws MatchError If any of the given indices is out of bounds.
+   * @throws scala.MatchError If any of the given indices is out of bounds.
    */
   def apply(row: Int, col: Int): Double = (row, col) match {
     case (0, 0) => this.m00

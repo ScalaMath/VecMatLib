@@ -524,7 +524,7 @@ case class Quatd(w: Double, x: Double, y: Double, z: Double) {
    *
    * @param i The index of the requested component. Must be either 0, 1, 2, or 3.
    * @return The requested component.
-   * @throws MatchError if the given index is out of bounds.
+   * @throws scala.MatchError if the given index is out of bounds.
    */
   def apply(i: Int): Double = i match {
     case 0 => this.w
