@@ -212,7 +212,9 @@ class QuatfSuite extends AnyFunSuite {
     assert(q.inverse.pow(3) === q.pow(-3))
   }
 
-  // TODO: angleTo
+  ignore("Angle between two quaternions") {
+    // TODO: Angle between two quaternions
+  }
 
   test("Quaternion slerp") {
     val sq2 = (math.sqrt(2.0) / 2.0).toFloat
@@ -278,5 +280,7 @@ class QuatfSuite extends AnyFunSuite {
     assert(q === res)
   }
 
-  // TODO: Quaternion from shortest arc
+  ignore("Quaternion from shortest arc") {
+    // TODO: Quaternion from shortest arc
+  }
 }

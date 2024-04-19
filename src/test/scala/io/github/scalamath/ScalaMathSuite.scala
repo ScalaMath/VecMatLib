@@ -119,11 +119,11 @@ class ScalaMathSuite extends AnyFunSuite {
   }
 
   ignore("Float quadratic Bézier derivative") {
-    // TODO
+    // TODO: Quadratic Bézier derivative
   }
 
   ignore("Double quadratic Bézier derivative") {
-    // TODO
+    // TODO: Quadratic Bézier derivative
   }
 
   test("Float cubic Bézier curve") {
@@ -149,11 +149,11 @@ class ScalaMathSuite extends AnyFunSuite {
   }
 
   ignore("Float cubic Bézier derivative") {
-    // TODO
+    // TODO: Cubic Bézier derivative
   }
 
   ignore("Double cubic Bézier derivative") {
-    // TODO
+    // TODO: Cubic Bézier derivative
   }
 
   test("Float equals approx") {

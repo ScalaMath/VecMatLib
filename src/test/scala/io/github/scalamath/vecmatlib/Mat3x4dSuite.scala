@@ -174,7 +174,9 @@ class Mat3x4dSuite extends AnyFunSuite {
     assert(mat.floor == floor)
   }
 
-  // TODO: Orthonormalize
+  ignore("Orthonormalize matrix") {
+    // TODO: Orthonormalize matrix
+  }
 
   test("Matrix equals approx") {
     val m1 = Mat3x4d(1.00000001, 1.99999999, 3.00000001, 3.99999999, 5.00000001, 5.99999999, 7.00000001, 7.99999999, 9.00000001, 2.00000001, 1.99999999, 3.00000001)

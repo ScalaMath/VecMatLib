@@ -63,10 +63,10 @@ public class TestScalaMath {
 
     @Test
     public void testFloatMoveToward() {
-        Assert.assertEquals(1.6f, ScalaMath.moveToward(1.0f, 2.0f, 0.6f), 1e-12);
-        Assert.assertEquals(2.0f, ScalaMath.moveToward(1.0f, 2.0f, 3.0f), 1e-12);
-        Assert.assertEquals(1.4f, ScalaMath.moveToward(2.0f, 1.0f, 0.6f), 1e-12);
-        Assert.assertEquals(1.0f, ScalaMath.moveToward(2.0f, 1.0f, 3.0f), 1e-12);
+        Assert.assertEquals(1.6f, ScalaMath.moveToward(1.0f, 2.0f, 0.6f), 1e-12f);
+        Assert.assertEquals(2.0f, ScalaMath.moveToward(1.0f, 2.0f, 3.0f), 1e-12f);
+        Assert.assertEquals(1.4f, ScalaMath.moveToward(2.0f, 1.0f, 0.6f), 1e-12f);
+        Assert.assertEquals(1.0f, ScalaMath.moveToward(2.0f, 1.0f, 3.0f), 1e-12f);
     }
 
     @Test
@@ -93,9 +93,9 @@ public class TestScalaMath {
 
     @Test
     public void testMapFloatRange() {
-        Assert.assertEquals(0.5f, ScalaMath.map(5.0f, 0.0f, 10.0f, 0.0f, 1.0f), 1e-12);
-        Assert.assertEquals(1.2f, ScalaMath.map(12.0f, 0.0f, 10.0f, 0.0f, 1.0f), 1e-12);
-        Assert.assertEquals(-0.1f, ScalaMath.map(-1.0f, 0.0f, 10.0f, 0.0f, 1.0f), 1e-12);
+        Assert.assertEquals(0.5f, ScalaMath.map(5.0f, 0.0f, 10.0f, 0.0f, 1.0f), 1e-12f);
+        Assert.assertEquals(1.2f, ScalaMath.map(12.0f, 0.0f, 10.0f, 0.0f, 1.0f), 1e-12f);
+        Assert.assertEquals(-0.1f, ScalaMath.map(-1.0f, 0.0f, 10.0f, 0.0f, 1.0f), 1e-12f);
     }
 
     @Test
@@ -107,9 +107,9 @@ public class TestScalaMath {
 
     @Test
     public void testSmoothstepFloat() {
-        Assert.assertEquals(0.5f, ScalaMath.smoothstep(3.0f, 4.0f, 3.5f), 1e-12);
-        Assert.assertEquals(0.0f, ScalaMath.smoothstep(3.0f, 4.0f, 2.0f), 1e-12);
-        Assert.assertEquals(1.0f, ScalaMath.smoothstep(3.0f, 4.0f, 5.0f), 1e-12);
+        Assert.assertEquals(0.5f, ScalaMath.smoothstep(3.0f, 4.0f, 3.5f), 1e-12f);
+        Assert.assertEquals(0.0f, ScalaMath.smoothstep(3.0f, 4.0f, 2.0f), 1e-12f);
+        Assert.assertEquals(1.0f, ScalaMath.smoothstep(3.0f, 4.0f, 5.0f), 1e-12f);
     }
 
     @Test
@@ -140,13 +140,13 @@ public class TestScalaMath {
     @Test
     @Ignore
     public void testFloatQuadraticBezierDerivative() {
-        // TODO
+        // TODO: Quadratic Bézier derivative
     }
 
     @Test
     @Ignore
     public void testDoubleQuadraticBezierDerivative() {
-        // TODO
+        // TODO: Quadratic Bézier derivative
     }
 
     @Test
@@ -176,13 +176,13 @@ public class TestScalaMath {
     @Test
     @Ignore
     public void testFloatCubicBezierDerivative() {
-        // TODO
+        // TODO: Cubic Bézier derivative
     }
 
     @Test
     @Ignore
     public void testDoubleCubicBezierDerivative() {
-        // TODO
+        // TODO: Cubic Bézier derivative
     }
 
     @Test
