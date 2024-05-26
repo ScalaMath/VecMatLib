@@ -46,6 +46,24 @@ public class TestScalaMath {
     }
 
     @Test
+    public void testInverseLerpFloat() {
+        Assert.assertEquals(0.5f, ScalaMath.inverseLerp(1.0f, 2.0f, 1.5f), 1e-12f);
+        Assert.assertEquals(0.25f, ScalaMath.inverseLerp(1.0f, 2.0f, 1.25f), 1e-12f);
+        Assert.assertEquals(0.75f, ScalaMath.inverseLerp(1.0f, 2.0f, 1.75f), 1e-12f);
+        Assert.assertEquals(0.0f, ScalaMath.inverseLerp(1.0f, 2.0f, 1.0f), 1e-12f);
+        Assert.assertEquals(1.0f, ScalaMath.inverseLerp(1.0f, 2.0f, 2.0f), 1e-12f);
+    }
+
+    @Test
+    public void testInverseLerpDouble() {
+        Assert.assertEquals(0.5, ScalaMath.inverseLerp(1.0, 2.0, 1.5), 1e-12);
+        Assert.assertEquals(0.25, ScalaMath.inverseLerp(1.0, 2.0, 1.25), 1e-12);
+        Assert.assertEquals(0.75, ScalaMath.inverseLerp(1.0, 2.0, 1.75), 1e-12);
+        Assert.assertEquals(0.0, ScalaMath.inverseLerp(1.0, 2.0, 1.0), 1e-12);
+        Assert.assertEquals(1.0, ScalaMath.inverseLerp(1.0, 2.0, 2.0), 1e-12);
+    }
+
+    @Test
     public void testIntMoveToward() {
         Assert.assertEquals(3, ScalaMath.moveToward(1, 5, 2));
         Assert.assertEquals(5, ScalaMath.moveToward(1, 5, 6));

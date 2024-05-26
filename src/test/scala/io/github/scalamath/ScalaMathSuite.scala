@@ -38,6 +38,22 @@ class ScalaMathSuite extends AnyFunSuite {
     assert(lerp(1.0, 2.0, 1.0) == 2.0)
   }
 
+  test("Inverse lerp float") {
+    assert(inverseLerp(1.0f, 2.0f, 1.5f) == 0.5f)
+    assert(inverseLerp(1.0f, 2.0f, 1.25f) == 0.25f)
+    assert(inverseLerp(1.0f, 2.0f, 1.75f) == 0.75f)
+    assert(inverseLerp(1.0f, 2.0f, 1.0f) == 0.0f)
+    assert(inverseLerp(1.0f, 2.0f, 2.0f) == 1.0f)
+  }
+
+  test("Inverse lerp double") {
+    assert(inverseLerp(1.0, 2.0, 1.5) == 0.5)
+    assert(inverseLerp(1.0, 2.0, 1.25) == 0.25)
+    assert(inverseLerp(1.0, 2.0, 1.75) == 0.75)
+    assert(inverseLerp(1.0, 2.0, 1.0) == 0.0)
+    assert(inverseLerp(1.0, 2.0, 2.0) == 1.0)
+  }
+
   test("Int move toward") {
     assert(moveToward(1, 5, 2) == 3)
     assert(moveToward(1, 5, 6) == 5)

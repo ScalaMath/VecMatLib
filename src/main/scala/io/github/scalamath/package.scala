@@ -71,6 +71,28 @@ package object scalamath {
   def lerp(from: Double, to: Double, weight: Double): Double = from + (to - from) * weight
 
   /**
+   * The inverse of the `lerp` function.
+   * Determines where a value lies between two points.
+   *
+   * @param from The first value.
+   * @param to The second value.
+   * @param value A value within the `[from, to]` range.
+   * @return A value in the `[0.0, 1.0]` range that describes where the given value lies in the `[from, to]` range.
+   */
+  def inverseLerp(from: Float, to: Float, value: Float): Float = (value - from) / (to - from)
+
+  /**
+   * The inverse of the `lerp` function.
+   * Determines where a value lies between two points.
+   *
+   * @param from The first value.
+   * @param to The second value.
+   * @param value A value within the `[from, to]` range.
+   * @return A value in the `[0.0, 1.0]` range that describes where the given value lies in the `[from, to]` range.
+   */
+  def inverseLerp(from: Double, to: Double, value: Double): Double = (value - from) / (to - from)
+
+  /**
    * Moves the first value toward the second value by the given delta without going past the final value.
    *
    * @param from The first value.
