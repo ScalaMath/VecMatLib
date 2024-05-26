@@ -20,6 +20,22 @@ class Mat2x3dSuite extends AnyFunSuite {
     case _ => false
   }
 
+  ignore("Construct a matrix from a submatrix and two values") {
+    // TODO
+  }
+
+  ignore("Construct a matrix from a submatrix and a column") {
+    // TODO
+  }
+
+  ignore("Construct a matrix from two values and a submatrix") {
+    // TODO
+  }
+
+  ignore("Construct a matrix from a column and a submatrix") {
+    // TODO
+  }
+
   test("Sum of two matrices") {
     val m1 = Mat2x3d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0)
     val m2 = Mat2x3d(3.0, 4.0, 1.0, 2.0, 6.0, 5.0)
@@ -120,6 +136,22 @@ class Mat2x3dSuite extends AnyFunSuite {
     val m2 = Mat3d(3.0, 4.0, 1.0, 2.0, 6.0, 5.0, -2.0, 8.0, -1.0)
     val res = Mat2x3d(1.0, 40.0, 8.0, 10.0, 94.0, 23.0)
     assert(m1 * m2 === res)
+  }
+
+  ignore("Matrix product with a 2x3 matrix and three values") {
+    // TODO
+  }
+
+  ignore("Matrix product with a 2x3 matrix and a third row") {
+    // TODO
+  }
+
+  ignore("2x2 submatrix") {
+    // TODO
+  }
+
+  ignore("Affine inverse") {
+    // TODO
   }
 
   test("Lerp elements") {

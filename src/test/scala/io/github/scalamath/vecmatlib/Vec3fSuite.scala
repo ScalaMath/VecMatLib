@@ -138,6 +138,10 @@ class Vec3fSuite extends AnyFunSuite {
     assert(res == 11.0f)
   }
 
+  ignore("Dot product with a 2D vector and a third value") {
+    // TODO
+  }
+
   test("Cross product with three values") {
     val vec = Vec3f.Right
     val res = vec.cross(0.0f, 1.0f, 0.0f)

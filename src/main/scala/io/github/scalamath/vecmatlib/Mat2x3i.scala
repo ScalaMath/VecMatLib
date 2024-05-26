@@ -14,6 +14,40 @@ package io.github.scalamath.vecmatlib
 case class Mat2x3i(m00: Int, m01: Int, m02: Int, m10: Int, m11: Int, m12: Int) {
 
   /**
+   * Constructs a matrix from the given submatrix and column.
+   *
+   * @param m The first two columns of this matrix.
+   * @param m02 The first element of the third column.
+   * @param m12 The second element of the third column.
+   */
+  def this(m: Mat2i, m02: Int, m12: Int) = this(m.m00, m.m01, m02, m.m10, m.m11, m12)
+
+  /**
+   * Constructs a matrix from the given submatrix and column.
+   *
+   * @param m The first two columns of this matrix.
+   * @param col2 The third column of this matrix.
+   */
+  def this(m: Mat2i, col2: Vec2i) = this(m, col2.x, col2.y)
+
+  /**
+   * Constructs a matrix from the given submatrix and column.
+   *
+   * @param m00 The first element of the first column.
+   * @param m10 The second element of the second column.
+   * @param m The second and third column of this matrix.
+   */
+  def this(m00: Int, m10: Int, m: Mat2i) = this(m00, m.m00, m.m01, m10, m.m10, m.m11)
+
+  /**
+   * Constructs a matrix from the given submatrix and column.
+   *
+   * @param col0 The first column of this matrix.
+   * @param m The second and third column of this matrix.
+   */
+  def this(col0: Vec2i, m: Mat2i) = this(col0.x, col0.y, m)
+
+  /**
    * Adds the given matrix to this one and returns the result.
    *
    * @param m The matrix to add.
@@ -278,6 +312,74 @@ case class Mat2x3i(m00: Int, m01: Int, m02: Int, m10: Int, m11: Int, m12: Int) {
   def multiply(m: Mat3i): Mat2x3i = this * m
 
   /**
+   * Multiplies this matrix by the matrix with the given components and returns the result.
+   *
+   * Useful to simplify the composition of two 2x3 transformation matrices.
+   *
+   * @param m The first and second row of the matrix to multiply this one by.
+   * @param m20 The first element of the third row of the matrix to multiply this one by.
+   * @param m21 The second element of the third row of the matrix to multiply this one by.
+   * @param m22 The third element of the third row of the matrix to multiply this one by.
+   * @return The product between this matrix and the matrix with the given components.
+   */
+  def *(m: Mat2x3i, m20: Int, m21: Int, m22: Int): Mat2x3i = Mat2x3i(
+    this.row0.dot(m.col0, m20), this.row0.dot(m.col1, m21), this.row0.dot(m.col2, m22),
+    this.row1.dot(m.col0, m20), this.row1.dot(m.col1, m21), this.row1.dot(m.col2, m22)
+  )
+
+  /**
+   * Multiplies this matrix by the matrix with the given components and returns the result.
+   *
+   * Useful to simplify the composition of two 2x3 transformation matrices.
+   *
+   * This method can be used in place of the `*` operator for better interoperability with Java.
+   *
+   * @param m The first and second row of the matrix to multiply this one by.
+   * @param m20 The first element of the third row of the matrix to multiply this one by.
+   * @param m21 The second element of the third row of the matrix to multiply this one by.
+   * @param m22 The third element of the third row of the matrix to multiply this one by.
+   * @return The product between this matrix and the matrix with the given components.
+   */
+  def multiply(m: Mat2x3i, m20: Int, m21: Int, m22: Int): Mat2x3i = this * (m, m20, m21, m22)
+
+  /**
+   * Multiplies this matrix by the matrix with the given components and returns the result.
+   *
+   * Useful to simplify the composition of two 2x3 transformation matrices.
+   *
+   * @param m The first and second row of the matrix to multiply this one by.
+   * @param v The third row of the matrix to multiply this one by.
+   * @return The product between this matrix and the matrix with the given components.
+   */
+  def *(m: Mat2x3i, v: Vec3i): Mat2x3i = this * (m, v.x, v.y, v.z)
+
+  /**
+   * Multiplies this matrix by the matrix with the given components and returns the result.
+   *
+   * Useful to simplify the composition of two 2x3 transformation matrices.
+   *
+   * This method can be used in place of the `*` operator for better interoperability with Java.
+   *
+   * @param m The first and second row of the matrix to multiply this one by.
+   * @param v The third row of the matrix to multiply this one by.
+   * @return The product between this matrix and the matrix with the given components.
+   */
+  def multiply(m: Mat2x3i, v: Vec3i): Mat2x3f = this * (m, v)
+
+  /**
+   * Returns a submatrix of this matrix obtained by removing the column at the given index.
+   *
+   * @param i Index of the column to remove. Must be either 0, 1, or 2.
+   * @return A submatrix of this matrix.
+   * @throws scala.MatchError If the given index is out of bounds.
+   */
+  def submatrix(i: Int): Mat2i = i match {
+    case 0 => Mat2i(this.m01, this.m02, this.m11, this.m12)
+    case 1 => Mat2i(this.m00, this.m02, this.m10, this.m12)
+    case 2 => Mat2i(this.m00, this.m01, this.m10, this.m11)
+  }
+
+  /**
    * Returns a matrix with all elements in absolute value.
    *
    * @return A matrix with all elements in absolute value.
@@ -336,6 +438,48 @@ object Mat2x3i {
 
   /** Shorthand for the zero matrix */
   val Zero: Mat2x3i = Mat2x3i(0, 0, 0, 0, 0, 0)
+
+  /**
+   * Constructs a matrix from the given submatrix and column.
+   *
+   * Allows to construct a matrix without using the `new` keyword in Scala.
+   *
+   * @param m The first two columns of this matrix.
+   * @param m02 The first element of the third column.
+   * @param m12 The second element of the third column.
+   */
+  def apply(m: Mat2i, m02: Int, m12: Int) = new Mat2x3i(m.m00, m.m01, m02, m.m10, m.m11, m12)
+
+  /**
+   * Constructs a matrix from the given submatrix and column.
+   *
+   * Allows to construct a matrix without using the `new` keyword in Scala.
+   *
+   * @param m The first two columns of this matrix.
+   * @param col2 The third column of this matrix.
+   */
+  def apply(m: Mat2i, col2: Vec2i) = new Mat2x3i(m, col2.x, col2.y)
+
+  /**
+   * Constructs a matrix from the given submatrix and column.
+   *
+   * Allows to construct a matrix without using the `new` keyword in Scala.
+   *
+   * @param m00 The first element of the first column.
+   * @param m10 The second element of the second column.
+   * @param m The second and third column of this matrix.
+   */
+  def apply(m00: Int, m10: Int, m: Mat2i) = new Mat2x3i(m00, m.m00, m.m01, m10, m.m10, m.m11)
+
+  /**
+   * Constructs a matrix from the given submatrix and column.
+   *
+   * Allows to construct a matrix without using the `new` keyword in Scala.
+   *
+   * @param col0 The first column of this matrix.
+   * @param m The second and third column of this matrix.
+   */
+  def apply(col0: Vec2i, m: Mat2i) = new Mat2x3i(col0.x, col0.y, m)
 
   /**
    * Returns a 2x3 matrix from the given rows.

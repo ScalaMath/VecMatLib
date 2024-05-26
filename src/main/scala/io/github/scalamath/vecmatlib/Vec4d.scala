@@ -301,6 +301,27 @@ case class Vec4d(x: Double, y: Double, z: Double, w: Double) {
   def dot(v: Vec4d): Double = this.dot(v.x, v.y, v.z, v.w)
 
   /**
+   * Returns the dot product, or scalar product, between this vector and the given values.
+   * This method is equivalent to `dot(v.x, v.y, v.z, w)`.
+   *
+   * @param v The x, y, and z components of the vector to multiply this one by.
+   * @param w The w component of the vector to multiply this one by.
+   * @return The dot product between this vector and the given values.
+   */
+  def dot(v: Vec3d, w: Double): Double = this.dot(v.x, v.y, v.z, w)
+
+  /**
+   * Returns the dot product, or scalar product, between this vector and the given values.
+   * This method is equivalent to `dot(v.x, v.y, z, w)`.
+   *
+   * @param v The x and y components of the vector to multiply this one by.
+   * @param z The z component of the vector to multiply this one by.
+   * @param w The w component of the vector to multiply this one by.
+   * @return The dot product between this vector and the given values.
+   */
+  def dot(v: Vec2d, z: Double, w: Double): Double = this.dot(v.x, v.y, z, w)
+
+  /**
    * Returns the squared length, or magnitude, or modulus, of this vector.
    *
    * When comparing vectors by their length, it is more efficient to compare them by their squared length, since computing it does not require computing a square root.

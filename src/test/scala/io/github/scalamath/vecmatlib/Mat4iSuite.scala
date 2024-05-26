@@ -145,7 +145,7 @@ class Mat4iSuite extends AnyFunSuite {
     assert(m2.isSkewSymmetric)
   }
 
-  test("Submatrix") {
+  test("3x3 submatrix") {
     val m = Mat4i(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
     assert(m.submatrix(0, 0) == Mat3i(6, 7, 8, 10, 11, 12, 14, 15, 16))
     assert(m.submatrix(0, 1) == Mat3i(5, 7, 8, 9, 11, 12, 13, 15, 16))
@@ -163,6 +163,10 @@ class Mat4iSuite extends AnyFunSuite {
     assert(m.submatrix(3, 1) == Mat3i(1, 3, 4, 5, 7, 8, 9, 11, 12))
     assert(m.submatrix(3, 2) == Mat3i(1, 2, 4, 5, 6, 8, 9, 10, 12))
     assert(m.submatrix(3, 3) == Mat3i(1, 2, 3, 5, 6, 7, 9, 10, 11))
+  }
+
+  ignore("3x4 submatrix") {
+    // TODO
   }
 
   test("Matrix determinant") {

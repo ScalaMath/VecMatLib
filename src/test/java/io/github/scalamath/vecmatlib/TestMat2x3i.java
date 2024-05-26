@@ -1,6 +1,7 @@
 package io.github.scalamath.vecmatlib;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestMat2x3i {
@@ -71,5 +72,17 @@ public class TestMat2x3i {
         var m2 = new Mat3i(3, 4, 1, 2, 6, 5, -2, 8, -1);
         var res = new Mat2x3i(1, 40, 8, 10, 94, 23);
         Assert.assertEquals(res, m1.multiply(m2));
+    }
+
+    @Test
+    @Ignore
+    public void testMatrixProductWith2x3MatrixAndThreeValues() {
+        // TODO
+    }
+
+    @Test
+    @Ignore
+    public void testMatrixProductWith2x3MatrixAndVector() {
+        // TODO
     }
 }

@@ -20,6 +20,22 @@ class Mat3x4fSuite extends AnyFunSuite {
     case _ => false
   }
 
+  ignore("Construct a matrix from a submatrix and three values") {
+    // TODO
+  }
+
+  ignore("Construct a matrix from a submatrix and a column") {
+    // TODO
+  }
+
+  ignore("Construct a matrix from three values and a submatrix") {
+    // TODO
+  }
+
+  ignore("Construct a matrix from a column and a submatrix") {
+    // TODO
+  }
+
   test("Sum of two matrices") {
     val m1 = Mat3x4f(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f, 11.0f, 12.0f)
     val m2 = Mat3x4f(3.0f, 4.0f, 1.0f, 2.0f, 7.0f, 5.0f, 9.0f, 6.0f, 8.0f, 11.0f, 12.0f, 10.0f)
@@ -135,6 +151,22 @@ class Mat3x4fSuite extends AnyFunSuite {
     val m2 = Mat4f(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f)
     val res = Mat3x4f(90.0f, 100.0f, 110.0f, 120.0f, 202.0f, 228.0f, 254.0f, 280.0f, 314.0f, 356.0f, 398.0f, 440.0f)
     assert(m1 * m2 === res)
+  }
+
+  ignore("Matrix product with a 3x4 matrix and four values") {
+    // TODO
+  }
+
+  ignore("Matrix product with a 3x4 matrix and a fourth row") {
+    // TODO
+  }
+
+  ignore("3x3 submatrix") {
+    // TODO
+  }
+
+  ignore("Affine inverse") {
+    // TODO
   }
 
   test("Lerp elements") {

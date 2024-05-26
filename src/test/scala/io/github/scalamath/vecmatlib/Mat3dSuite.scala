@@ -153,7 +153,7 @@ class Mat3dSuite extends AnyFunSuite {
     assert(m2.isSkewSymmetric)
   }
 
-  test("Submatrix") {
+  test("2x2 submatrix") {
     val m = Mat3d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0)
     assert(m.submatrix(0, 0) == Mat2d(5.0, 6.0, 8.0, 9.0))
     assert(m.submatrix(0, 1) == Mat2d(4.0, 6.0, 7.0, 9.0))
@@ -164,6 +164,10 @@ class Mat3dSuite extends AnyFunSuite {
     assert(m.submatrix(2, 0) == Mat2d(2.0, 3.0, 5.0, 6.0))
     assert(m.submatrix(2, 1) == Mat2d(1.0, 3.0, 4.0, 6.0))
     assert(m.submatrix(2, 2) == Mat2d(1.0, 2.0, 4.0, 5.0))
+  }
+
+  ignore("2x3 submatrix") {
+    // TODO
   }
 
   test("Matrix determinant") {

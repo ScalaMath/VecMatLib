@@ -388,7 +388,7 @@ case class Mat4i(
    * @param i Index of the row to remove. Must be either 0, 1, 2, or 3.
    * @param j Index of the column to remove. Must be either 0, 1, 2, or 3.
    * @return A submatrix of this matrix.
-   * @throws scala.MatchError if one of the given indices is out of bounds.
+   * @throws MatchError If one of the given indices is out of bounds.
    */
   def submatrix(i: Int, j: Int): Mat3i = (i, j) match {
     case (0, 0) => Mat3i(this.m11, this.m12, this.m13, this.m21, this.m22, this.m23, this.m31, this.m32, this.m33)
@@ -407,6 +407,20 @@ case class Mat4i(
     case (3, 1) => Mat3i(this.m00, this.m02, this.m03, this.m10, this.m12, this.m13, this.m20, this.m22, this.m23)
     case (3, 2) => Mat3i(this.m00, this.m01, this.m03, this.m10, this.m11, this.m13, this.m20, this.m21, this.m23)
     case (3, 3) => Mat3i(this.m00, this.m01, this.m02, this.m10, this.m11, this.m12, this.m20, this.m21, this.m22)
+  }
+
+  /**
+   * Returns a submatrix obtained by removing the row at the given index from this one.
+   *
+   * @param i Index of the row to remove. Must be either 0, 1, or 2.
+   * @return A submatrix of this matrix.
+   * @throws MatchError If the given index is out of bounds.
+   */
+  def submatrix(i: Int): Mat3x4i = i match {
+    case 0 => Mat3x4i(this.m10, this.m11, this.m12, this.m13, this.m20, this.m21, this.m22, this.m23, this.m30, this.m31, this.m32, this.m33)
+    case 1 => Mat3x4i(this.m00, this.m01, this.m02, this.m03, this.m20, this.m21, this.m22, this.m23, this.m30, this.m31, this.m32, this.m33)
+    case 2 => Mat3x4i(this.m00, this.m01, this.m02, this.m03, this.m10, this.m11, this.m12, this.m13, this.m30, this.m31, this.m32, this.m33)
+    case 3 => Mat3x4i(this.m00, this.m01, this.m02, this.m03, this.m10, this.m11, this.m12, this.m13, this.m20, this.m21, this.m22, this.m23)
   }
 
   /**

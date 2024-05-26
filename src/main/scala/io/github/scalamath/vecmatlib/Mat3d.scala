@@ -372,6 +372,19 @@ case class Mat3d(
   }
 
   /**
+   * Returns a submatrix obtained by removing the row at the given index from this one.
+   *
+   * @param i Index of the row to remove. Must be either 0, 1, or 2.
+   * @return A submatrix of this matrix.
+   * @throws MatchError If the given index is out of bounds.
+   */
+  def submatrix(i: Int): Mat2x3d = i match {
+    case 0 => Mat2x3d(this.m10, this.m11, this.m12, this.m20, this.m21, this.m22)
+    case 1 => Mat2x3d(this.m00, this.m01, this.m02, this.m20, this.m21, this.m22)
+    case 2 => Mat2x3d(this.m00, this.m01, this.m02, this.m10, this.m11, this.m12)
+  }
+
+  /**
    * Returns the determinant of this matrix.
    *
    * @return The determinant of this matrix.

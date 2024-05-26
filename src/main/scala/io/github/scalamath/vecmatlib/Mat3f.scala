@@ -357,7 +357,7 @@ case class Mat3f(
    * @param i Index of the row to remove. Must be either 0, 1, or 2.
    * @param j Index of the column to remove. Must be either 0, 1, or 2.
    * @return A submatrix of this matrix.
-   * @throws scala.MatchError if one of the given indices is out of bounds.
+   * @throws MatchError If one of the given indices is out of bounds.
    */
   def submatrix(i: Int, j: Int): Mat2f = (i, j) match {
     case (0, 0) => Mat2f(this.m11, this.m12, this.m21, this.m22)
@@ -369,6 +369,19 @@ case class Mat3f(
     case (2, 0) => Mat2f(this.m01, this.m02, this.m11, this.m12)
     case (2, 1) => Mat2f(this.m00, this.m02, this.m10, this.m12)
     case (2, 2) => Mat2f(this.m00, this.m01, this.m10, this.m11)
+  }
+
+  /**
+   * Returns a submatrix obtained by removing the row at the given index from this one.
+   *
+   * @param i Index of the row to remove. Must be either 0, 1, or 2.
+   * @return A submatrix of this matrix.
+   * @throws MatchError If the given index is out of bounds.
+   */
+  def submatrix(i: Int): Mat2x3f = i match {
+    case 0 => Mat2x3f(this.m10, this.m11, this.m12, this.m20, this.m21, this.m22)
+    case 1 => Mat2x3f(this.m00, this.m01, this.m02, this.m20, this.m21, this.m22)
+    case 2 => Mat2x3f(this.m00, this.m01, this.m02, this.m10, this.m11, this.m12)
   }
 
   /**

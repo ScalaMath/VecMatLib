@@ -24,6 +24,50 @@ case class Mat3x4i(
                 ) {
 
   /**
+   * Constructs a matrix from the given submatrix and column.
+   *
+   * @param m The first three columns of this matrix.
+   * @param m03 The first element of the fourth column.
+   * @param m13 The second element of the fourth column.
+   * @param m23 The third element of the fourth column.
+   */
+  def this(m: Mat3i, m03: Int, m13: Int, m23: Int) = this(
+    m.m00, m.m01, m.m02, m03,
+    m.m10, m.m11, m.m12, m13,
+    m.m20, m.m21, m.m22, m23
+  )
+
+  /**
+   * Constructs a matrix from the given submatrix and column.
+   *
+   * @param m The first three columns of this matrix.
+   * @param col3 The fourth column of this matrix.
+   */
+  def this(m: Mat3i, col3: Vec3i) = this(m, col3.x, col3.y, col3.z)
+
+  /**
+   * Constructs a matrix from the given submatrix and column.
+   *
+   * @param m00 The first element of the fourth column.
+   * @param m10 The second element of the fourth column.
+   * @param m20 The third element of the fourth column.
+   * @param m The second, third, and fourth column of this matrix.
+   */
+  def this(m00: Int, m10: Int, m20: Int, m: Mat3i) = this(
+    m00, m.m00, m.m01, m.m02,
+    m10, m.m10, m.m11, m.m12,
+    m20, m.m20, m.m21, m.m22
+  )
+
+  /**
+   * Constructs a matrix from the given submatrix and column.
+   *
+   * @param col0 The first column of this matrix.
+   * @param m The second, third, and fourth column of this matrix.
+   */
+  def this(col0: Vec3i, m: Mat3i) = this(col0.x, col0.y, col0.z, m)
+
+  /**
    * Adds the given matrix to this one and returns the result.
    *
    * @param m The matrix to add.
@@ -321,7 +365,7 @@ case class Mat3x4i(
   def *(m: Mat4i): Mat3x4i = Mat3x4i(
     this.row0.dot(m.col0), this.row0.dot(m.col1), this.row0.dot(m.col2), this.row0.dot(m.col3),
     this.row1.dot(m.col0), this.row1.dot(m.col1), this.row1.dot(m.col2), this.row1.dot(m.col3),
-    this.row2.dot(m.col0), this.row2.dot(m.col1), this.row2.dot(m.col2), this.row2.dot(m.col3),
+    this.row2.dot(m.col0), this.row2.dot(m.col1), this.row2.dot(m.col2), this.row2.dot(m.col3)
   )
 
   /**
@@ -333,6 +377,78 @@ case class Mat3x4i(
    * @return The product between this matrix and the given one.
    */
   def multiply(m: Mat4i): Mat3x4i = this * m
+
+  /**
+   * Multiplies this matrix by the matrix with the given components and returns the result.
+   *
+   * Useful to simplify the composition of two 3x4 transformation matrices.
+   *
+   * @param m The first, second, and third row of the matrix to multiply this one by.
+   * @param m30 The first element of the fourth column of the matrix to multiply this one by.
+   * @param m31 The second element of the fourth column of the matrix to multiply this one by.
+   * @param m32 The third element of the fourth column of the matrix to multiply this one by.
+   * @param m33 The fourth element of the fourth column of the matrix to multiply this one by.
+   * @return The product between this matrix and the matrix with the given components.
+   */
+  def *(m: Mat3x4i, m30: Int, m31: Int, m32: Int, m33: Int): Mat3x4i = Mat3x4i(
+    this.row0.dot(m.col0, m30), this.row0.dot(m.col1, m31), this.row0.dot(m.col2, m32), this.row0.dot(m.col3, m33),
+    this.row1.dot(m.col0, m30), this.row1.dot(m.col1, m31), this.row1.dot(m.col2, m32), this.row1.dot(m.col3, m33),
+    this.row2.dot(m.col0, m30), this.row2.dot(m.col1, m31), this.row2.dot(m.col2, m32), this.row2.dot(m.col3, m33)
+  )
+
+  /**
+   * Multiplies this matrix by the matrix with the given components and returns the result.
+   *
+   * Useful to simplify the composition of two 3x4 transformation matrices.
+   *
+   * This method can be used in place of the `*` operator for better interoperability with Java.
+   *
+   * @param m The first, second, and third row of the matrix to multiply this one by.
+   * @param m30 The first element of the fourth column of the matrix to multiply this one by.
+   * @param m31 The second element of the fourth column of the matrix to multiply this one by.
+   * @param m32 The third element of the fourth column of the matrix to multiply this one by.
+   * @param m33 The fourth element of the fourth column of the matrix to multiply this one by.
+   * @return The product between this matrix and the matrix with the given components.
+   */
+  def multiply(m: Mat3x4i, m30: Int, m31: Int, m32: Int, m33: Int): Mat3x4i = this * (m, m30, m31, m32, m33)
+
+  /**
+   * Multiplies this matrix by the matrix with the given components and returns the result.
+   *
+   * Useful to simplify the composition of two 3x4 transformation matrices.
+   *
+   * @param m The first, second, and third row of the matrix to multiply this one by.
+   * @param v The fourth column of the matrix to multiply this one by.
+   * @return The product between this matrix and the matrix with the given components.
+   */
+  def *(m: Mat3x4i, v: Vec4i): Mat3x4i = this * (m, v.x, v.y, v.z, v.w)
+
+  /**
+   * Multiplies this matrix by the matrix with the given components and returns the result.
+   *
+   * Useful to simplify the composition of two 3x4 transformation matrices.
+   *
+   * This method can be used in place of the `*` operator for better interoperability with Java.
+   *
+   * @param m The first, second, and third row of the matrix to multiply this one by.
+   * @param v The fourth column of the matrix to multiply this one by.
+   * @return The product between this matrix and the matrix with the given components.
+   */
+  def multiply(m: Mat3x4i, v: Vec4i): Mat3x4i = this * (m, v)
+
+  /**
+   * Returns a submatrix of this matrix obtained by removing the column at the given index.
+   *
+   * @param i Index of the column to remove. Must be either 0, 1, 2, or 3.
+   * @return A submatrix of this matrix.
+   * @throws MatchError If the given index is out of bounds.
+   */
+  def submatrix(i: Int): Mat3i = i match {
+    case 0 => Mat3i(this.m01, this.m02, this.m03, this.m11, this.m12, this.m13, this.m21, this.m22, this.m23)
+    case 1 => Mat3i(this.m00, this.m02, this.m03, this.m10, this.m12, this.m13, this.m20, this.m22, this.m23)
+    case 2 => Mat3i(this.m00, this.m01, this.m03, this.m10, this.m11, this.m13, this.m20, this.m21, this.m23)
+    case 3 => Mat3i(this.m00, this.m01, this.m02, this.m10, this.m11, this.m12, this.m20, this.m21, this.m22)
+  }
 
   /**
    * Returns a matrix with all elements in absolute value.
@@ -409,6 +525,58 @@ object Mat3x4i {
 
   /** Shorthand for the zero matrix */
   val Zero: Mat3x4i = Mat3x4i(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+  /**
+   * Constructs a matrix from the given submatrix and column.
+   *
+   * Allows to construct a matrix without using the `new` keyword in Scala.
+   *
+   * @param m The first three columns of this matrix.
+   * @param m03 The first element of the fourth column.
+   * @param m13 The second element of the fourth column.
+   * @param m23 The third element of the fourth column.
+   */
+  def apply(m: Mat3i, m03: Int, m13: Int, m23: Int) = new Mat3x4i(
+    m.m00, m.m01, m.m02, m03,
+    m.m10, m.m11, m.m12, m13,
+    m.m20, m.m21, m.m22, m23
+  )
+
+  /**
+   * Constructs a matrix from the given submatrix and column.
+   *
+   * Allows to construct a matrix without using the `new` keyword in Scala.
+   *
+   * @param m The first three columns of this matrix.
+   * @param col3 The fourth column of this matrix.
+   */
+  def apply(m: Mat3i, col3: Vec3i) = new Mat3x4i(m, col3.x, col3.y, col3.z)
+
+  /**
+   * Constructs a matrix from the given submatrix and column.
+   *
+   * Allows to construct a matrix without using the `new` keyword in Scala.
+   *
+   * @param m00 The first element of the fourth column.
+   * @param m10 The second element of the fourth column.
+   * @param m20 The third element of the fourth column.
+   * @param m The second, third, and fourth column of this matrix.
+   */
+  def apply(m00: Int, m10: Int, m20: Int, m: Mat3i) = new Mat3x4i(
+    m00, m.m00, m.m01, m.m02,
+    m10, m.m10, m.m11, m.m12,
+    m20, m.m20, m.m21, m.m22
+  )
+
+  /**
+   * Constructs a matrix from the given submatrix and column.
+   *
+   * Allows to construct a matrix without using the `new` keyword in Scala.
+   *
+   * @param col0 The first column of this matrix.
+   * @param m The second, third, and fourth column of this matrix.
+   */
+  def apply(col0: Vec3i, m: Mat3i) = new Mat3x4i(col0.x, col0.y, col0.z, m)
 
   /**
    * Returns a 3x4 matrix from the given rows.

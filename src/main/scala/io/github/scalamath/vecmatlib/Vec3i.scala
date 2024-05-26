@@ -279,6 +279,16 @@ case class Vec3i(x: Int, y: Int, z: Int) {
   def dot(v: Vec3i): Int = this.dot(v.x, v.y, v.z)
 
   /**
+   * Returns the dot product, or scalar product, between this vector and the given values.
+   * This method is equivalent to `dot(v.x, v.y, z)`.
+   *
+   * @param v The x and y components of the vector to multiply this one by.
+   * @param z The z component of the vector to multiply this one by.
+   * @return The dot product between this vector and the given values.
+   */
+  def dot(v: Vec2i, z: Int): Int = this.dot(v.x, v.y, z)
+
+  /**
    * Returns the cross product, or vector product, between this vector and the vector defined by the given components.
    *
    * @param x The x component of the second vector.

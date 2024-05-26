@@ -131,6 +131,14 @@ class Vec4iSuite extends AnyFunSuite {
     assert(res == 27)
   }
 
+  ignore("Dot product with a 3D vector and a fourth value") {
+    // TODO
+  }
+
+  ignore("Dot product with a 2D vector and a third and a fourth value") {
+    // TODO
+  }
+
   test("Length squared") {
     assert(Vec4i.One.lengthSquared == 4)
   }

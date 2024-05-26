@@ -4,6 +4,22 @@ import org.scalatest.funsuite.AnyFunSuite
 
 class Mat2x3iSuite extends AnyFunSuite {
 
+  ignore("Construct a matrix from a submatrix and two values") {
+    // TODO
+  }
+
+  ignore("Construct a matrix from a submatrix and a column") {
+    // TODO
+  }
+
+  ignore("Construct a matrix from two values and a submatrix") {
+    // TODO
+  }
+
+  ignore("Construct a matrix from a column and a submatrix") {
+    // TODO
+  }
+
   test("Sum of two matrices") {
     val m1 = Mat2x3i(1, 2, 3, 4, 5, 6)
     val m2 = Mat2x3i(3, 4, 1, 2, 6, 5)
@@ -104,6 +120,18 @@ class Mat2x3iSuite extends AnyFunSuite {
     val m2 = Mat3i(3, 4, 1, 2, 6, 5, -2, 8, -1)
     val res = Mat2x3i(1, 40, 8, 10, 94, 23)
     assert(m1 * m2 == res)
+  }
+
+  ignore("Matrix product with a 2x3 matrix and three values") {
+    // TODO
+  }
+
+  ignore("Matrix product with a 2x3 matrix and a third row") {
+    // TODO
+  }
+
+  ignore("2x2 submatrix") {
+    // TODO
   }
 
   test("Absolute values of the elements of a matrix") {
