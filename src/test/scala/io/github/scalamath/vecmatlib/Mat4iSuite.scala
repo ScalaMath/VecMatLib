@@ -165,8 +165,13 @@ class Mat4iSuite extends AnyFunSuite {
     assert(m.submatrix(3, 3) == Mat3i(1, 2, 3, 5, 6, 7, 9, 10, 11))
   }
 
-  ignore("3x4 submatrix") {
-    // TODO
+  test("3x4 submatrix") {
+    val m = Mat4i(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
+    assert(m.submatrix(0) == Mat3x4i(5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16))
+    assert(m.submatrix(1) == Mat3x4i(1, 2, 3, 4, 9, 10, 11, 12, 13, 14, 15, 16))
+    assert(m.submatrix(2) == Mat3x4i(1, 2, 3, 4, 5, 6, 7, 8, 13, 14, 15, 16))
+    assert(m.submatrix(3) == Mat3x4i(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12))
+    assertThrows[MatchError] {m.submatrix(4)}
   }
 
   test("Matrix determinant") {

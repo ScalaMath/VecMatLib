@@ -138,8 +138,11 @@ class Vec3dSuite extends AnyFunSuite {
     assert(res == 11.0)
   }
 
-  ignore("Dot product with a 2D vector and a third value") {
-    // TODO
+  test("Dot product with a 2D vector and a third value") {
+    val a = Vec3d(1.0, 2.0, 3.0)
+    val b = Vec2d(2.0, 3.0)
+    val res = a dot (b, 1.0)
+    assert(res == 11.0)
   }
 
   test("Cross product with three values") {

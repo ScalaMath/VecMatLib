@@ -4,20 +4,30 @@ import org.scalatest.funsuite.AnyFunSuite
 
 class Mat2x3iSuite extends AnyFunSuite {
 
-  ignore("Construct a matrix from a submatrix and two values") {
-    // TODO
+  test("Construct a matrix from a submatrix and two values") {
+    val m = Mat2i(1, 2, 4, 5)
+    val res = Mat2x3i(1, 2, 3, 4, 5, 6)
+    assert(Mat2x3i(m, 3, 6) == res)
   }
 
-  ignore("Construct a matrix from a submatrix and a column") {
-    // TODO
+  test("Construct a matrix from a submatrix and a column") {
+    val m = Mat2i(1, 2, 4, 5)
+    val v = Vec2i(3, 6)
+    val res = Mat2x3i(1, 2, 3, 4, 5, 6)
+    assert(Mat2x3i(m, v) == res)
   }
 
-  ignore("Construct a matrix from two values and a submatrix") {
-    // TODO
+  test("Construct a matrix from two values and a submatrix") {
+    val m = Mat2i(2, 3, 5, 6)
+    val res = Mat2x3i(1, 2, 3, 4, 5, 6)
+    assert(Mat2x3i(1, 4, m) == res)
   }
 
-  ignore("Construct a matrix from a column and a submatrix") {
-    // TODO
+  test("Construct a matrix from a column and a submatrix") {
+    val m = Mat2i(2, 3, 5, 6)
+    val v = Vec2i(1, 4)
+    val res = Mat2x3i(1, 2, 3, 4, 5, 6)
+    assert(Mat2x3i(v, m) == res)
   }
 
   test("Sum of two matrices") {
@@ -122,16 +132,27 @@ class Mat2x3iSuite extends AnyFunSuite {
     assert(m1 * m2 == res)
   }
 
-  ignore("Matrix product with a 2x3 matrix and three values") {
-    // TODO
+  test("Matrix product with a 2x3 matrix and three values") {
+    val m1 = Mat2x3i(1, 2, 3, 4, 5, 6)
+    val m2 = Mat2x3i(3, 4, 1, 2, 6, 5)
+    val res = Mat2x3i(1, 40, 8, 10, 94, 23)
+    assert(m1 * (m2, -2, 8, -1) === res)
   }
 
-  ignore("Matrix product with a 2x3 matrix and a third row") {
-    // TODO
+  test("Matrix product with a 2x3 matrix and a third row") {
+    val m1 = Mat2x3i(1, 2, 3, 4, 5, 6)
+    val m2 = Mat2x3i(3, 4, 1, 2, 6, 5)
+    val v = Vec3i(-2, 8, -1)
+    val res = Mat2x3i(1, 40, 8, 10, 94, 23)
+    assert(m1 * (m2, v) === res)
   }
 
-  ignore("2x2 submatrix") {
-    // TODO
+  test("2x2 submatrix") {
+    val m1 = Mat2x3i(1, 2, 3, 4, 5, 6)
+    assert(m1.submatrix(0) == Mat2i(2, 3, 5, 6))
+    assert(m1.submatrix(1) == Mat2i(1, 3, 4, 6))
+    assert(m1.submatrix(2) == Mat2i(1, 2, 4, 5))
+    assertThrows[MatchError] {m1.submatrix(3)}
   }
 
   test("Absolute values of the elements of a matrix") {

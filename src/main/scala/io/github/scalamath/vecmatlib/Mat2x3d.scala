@@ -394,16 +394,14 @@ case class Mat2x3d(m00: Double, m01: Double, m02: Double, m10: Double, m11: Doub
    *            val inverse: Mat2x3d = m.affineInverse
    *            // Is equivalent to
    *            val basis: Mat2d = m.submatrix(2)
-   *            val inverse = Mat2x3d(
-   *              basis.inverse, -basis.inverse * m.col2
-   *            )
+   *            val inverse = Mat2x3d(basis.inverse, -basis.inverse * m.col2)
    * }}}
    */
   def affineInverse: Mat2x3d = {
     val det = this.m00 * this.m11 - this.m01 * this.m10
     Mat2x3d(
-      this.m11 / det, -this.m01 / det, -this.m00 * this.m02 - this.m10 * this.m12,
-      -this.m10 / det, this.m00 / det, -this.m01 * this.m02 - this.m11 * this.m12
+      this.m11 / det, -this.m01 / det, -this.m00 / det * this.m02 - this.m10 / det * this.m12,
+      -this.m10 / det, this.m00 / det, -this.m01 / det * this.m02 - this.m11 / det * this.m12
     )
   }
 

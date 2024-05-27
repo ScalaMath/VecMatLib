@@ -150,8 +150,12 @@ class Mat3iSuite extends AnyFunSuite {
     assert(m.submatrix(2, 2) == Mat2i(1, 2, 4, 5))
   }
 
-  ignore("2x3 submatrix") {
-    // TODO
+  test("2x3 submatrix") {
+    val m = Mat3i(1, 2, 3, 4, 5, 6, 7, 8, 9)
+    assert(m.submatrix(0) == Mat2x3i(4, 5, 6, 7, 8, 9))
+    assert(m.submatrix(1) == Mat2x3i(1, 2, 3, 7, 8, 9))
+    assert(m.submatrix(2) == Mat2x3i(1, 2, 3, 4, 5, 6))
+    assertThrows[MatchError] {m.submatrix(3)}
   }
 
   test("Matrix determinant") {

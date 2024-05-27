@@ -1,7 +1,6 @@
 package io.github.scalamath.vecmatlib;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestMat3x4d {
@@ -83,15 +82,20 @@ public class TestMat3x4d {
     }
 
     @Test
-    @Ignore
-    public void testMatrixProductWith3x4MatrixAndThreeValues() {
-        // TODO
+    public void testMatrixProductWith3x4MatrixAndFourValues() {
+        var m1 = new Mat3x4d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+        var m2 = new Mat3x4d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+        var res = new Mat3x4d(90.0, 100.0, 110.0, 120.0, 202.0, 228.0, 254.0, 280.0, 314.0, 356.0, 398.0, 440.0);
+        Assert.assertEquals(res, m1.multiply(m2, 13.0, 14.0, 15.0, 16.0));
     }
 
     @Test
-    @Ignore
     public void testMatrixProductWith3x4MatrixAndVector() {
-        // TODO
+        var m1 = new Mat3x4d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+        var m2 = new Mat3x4d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+        var v = new Vec4d(13.0, 14.0, 15.0, 16.0);
+        var res = new Mat3x4d(90.0, 100.0, 110.0, 120.0, 202.0, 228.0, 254.0, 280.0, 314.0, 356.0, 398.0, 440.0);
+        Assert.assertEquals(res, m1.multiply(m2, v));
     }
 
     @Test

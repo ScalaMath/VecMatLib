@@ -419,7 +419,7 @@ case class Mat4f(
   /**
    * Returns a submatrix obtained by removing the row at the given index from this one.
    *
-   * @param i Index of the row to remove. Must be either 0, 1, or 2.
+   * @param i Index of the row to remove. Must be either 0, 1, 2, or 3.
    * @return A submatrix of this matrix.
    * @throws MatchError If the given index is out of bounds.
    */

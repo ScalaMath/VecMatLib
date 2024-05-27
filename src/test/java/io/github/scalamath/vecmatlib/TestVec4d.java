@@ -1,6 +1,5 @@
 package io.github.scalamath.vecmatlib;
 
-import io.github.scalamath.vecmatlib.Vec4d;
 import org.junit.Assert;
 import org.junit.Test;
 

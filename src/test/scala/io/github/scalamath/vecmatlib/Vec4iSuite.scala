@@ -131,12 +131,18 @@ class Vec4iSuite extends AnyFunSuite {
     assert(res == 27)
   }
 
-  ignore("Dot product with a 3D vector and a fourth value") {
-    // TODO
+  test("Dot product with a 3D vector and a fourth value") {
+    val a = Vec4i(1, 2, 3, 4)
+    val b = Vec3i(2, 3, 1)
+    val res = a dot (b, 4)
+    assert(res == 27)
   }
 
-  ignore("Dot product with a 2D vector and a third and a fourth value") {
-    // TODO
+  test("Dot product with a 2D vector and a third and a fourth value") {
+    val a = Vec4i(1, 2, 3, 4)
+    val b = Vec2i(2, 3)
+    val res = a dot (b, 1, 4)
+    assert(res == 27)
   }
 
   test("Length squared") {

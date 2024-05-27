@@ -20,20 +20,30 @@ class Mat3x4dSuite extends AnyFunSuite {
     case _ => false
   }
 
-  ignore("Construct a matrix from a submatrix and three values") {
-    // TODO
+  test("Construct a matrix from a submatrix and three values") {
+    val m = Mat3d(1.0, 2.0, 3.0, 5.0, 6.0, 7.0, 9.0, 10.0, 11.0)
+    val res = Mat3x4d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0)
+    assert(Mat3x4d(m, 4.0, 8.0, 12.0) == res)
   }
 
-  ignore("Construct a matrix from a submatrix and a column") {
-    // TODO
+  test("Construct a matrix from a submatrix and a column") {
+    val m = Mat3d(1.0, 2.0, 3.0, 5.0, 6.0, 7.0, 9.0, 10.0, 11.0)
+    val v = Vec3d(4.0, 8.0, 12.0)
+    val res = Mat3x4d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0)
+    assert(Mat3x4d(m, v) == res)
   }
 
-  ignore("Construct a matrix from three values and a submatrix") {
-    // TODO
+  test("Construct a matrix from three values and a submatrix") {
+    val m = Mat3d(2.0, 3.0, 4.0, 6.0, 7.0, 8.0, 10.0, 11.0, 12.0)
+    val res = Mat3x4d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0)
+    assert(Mat3x4d(1.0, 5.0, 9.0, m) == res)
   }
 
-  ignore("Construct a matrix from a column and a submatrix") {
-    // TODO
+  test("Construct a matrix from a column and a submatrix") {
+    val m = Mat3d(2.0, 3.0, 4.0, 6.0, 7.0, 8.0, 10.0, 11.0, 12.0)
+    val v = Vec3d(1.0, 5.0, 9.0)
+    val res = Mat3x4d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0)
+    assert(Mat3x4d(v, m) == res)
   }
 
   test("Sum of two matrices") {
@@ -153,20 +163,35 @@ class Mat3x4dSuite extends AnyFunSuite {
     assert(m1 * m2 === res)
   }
 
-  ignore("Matrix product with a 3x4 matrix and four values") {
-    // TODO
+  test("Matrix product with a 3x4 matrix and four values") {
+    val m1 = Mat3x4d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0)
+    val m2 = Mat3x4d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0)
+    val res = Mat3x4d(90.0, 100.0, 110.0, 120.0, 202.0, 228.0, 254.0, 280.0, 314.0, 356.0, 398.0, 440.0)
+    assert(m1 * (m2, 13.0, 14.0, 15.0, 16.0) == res)
   }
 
-  ignore("Matrix product with a 3x4 matrix and a fourth row") {
-    // TODO
+  test("Matrix product with a 3x4 matrix and a fourth row") {
+    val m1 = Mat3x4d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0)
+    val m2 = Mat3x4d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0)
+    val v = Vec4d(13.0, 14.0, 15.0, 16.0)
+    val res = Mat3x4d(90.0, 100.0, 110.0, 120.0, 202.0, 228.0, 254.0, 280.0, 314.0, 356.0, 398.0, 440.0)
+    assert(m1 * (m2, v) == res)
   }
 
-  ignore("3x3 submatrix") {
-    // TODO
+  test("3x3 submatrix") {
+    val m = Mat3x4d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0)
+    assert(m.submatrix(0) == Mat3d(2.0, 3.0, 4.0, 6.0, 7.0, 8.0, 10.0, 11.0, 12.0))
+    assert(m.submatrix(1) == Mat3d(1.0, 3.0, 4.0, 5.0, 7.0, 8.0, 9.0, 11.0, 12.0))
+    assert(m.submatrix(2) == Mat3d(1.0, 2.0, 4.0, 5.0, 6.0, 8.0, 9.0, 10.0, 12.0))
+    assert(m.submatrix(3) == Mat3d(1.0, 2.0, 3.0, 5.0, 6.0, 7.0, 9.0, 10.0, 11.0))
+    assertThrows[MatchError] {m.submatrix(4)}
   }
 
-  ignore("Affine inverse") {
-    // TODO
+  test("Affine inverse") {
+    val transform = Mat3x4d.translation(4.0, 3.0, 2.0) * Mat4d.rotation(math.Pi / 4.0, 0.0, math.Pi / 2.0) * Mat4d.scaling(2.0, 1.0, 2.0)
+    val point = Vec3d(8.0, 6.0, 9.0)
+    val res = transform * (point, 1.0)
+    assert(transform.affineInverse * (res, 1.0) === point)
   }
 
   test("Lerp elements") {

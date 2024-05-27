@@ -20,20 +20,30 @@ class Mat2x3fSuite extends AnyFunSuite {
     case _ => false
   }
 
-  ignore("Construct a matrix from a submatrix and two values") {
-    // TODO
+  test("Construct a matrix from a submatrix and two values") {
+    val m = Mat2f(1.0f, 2.0f, 4.0f, 5.0f)
+    val res = Mat2x3f(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f)
+    assert(Mat2x3f(m, 3.0f, 6.0f) == res)
   }
 
-  ignore("Construct a matrix from a submatrix and a column") {
-    // TODO
+  test("Construct a matrix from a submatrix and a column") {
+    val m = Mat2f(1.0f, 2.0f, 4.0f, 5.0f)
+    val v = Vec2f(3.0f, 6.0f)
+    val res = Mat2x3f(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f)
+    assert(Mat2x3f(m, v) == res)
   }
 
-  ignore("Construct a matrix from two values and a submatrix") {
-    // TODO
+  test("Construct a matrix from two values and a submatrix") {
+    val m = Mat2f(2.0f, 3.0f, 5.0f, 6.0f)
+    val res = Mat2x3f(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f)
+    assert(Mat2x3f(1.0f, 4.0f, m) == res)
   }
 
-  ignore("Construct a matrix from a column and a submatrix") {
-    // TODO
+  test("Construct a matrix from a column and a submatrix") {
+    val m = Mat2f(2.0f, 3.0f, 5.0f, 6.0f)
+    val v = Vec2f(1.0f, 4.0f)
+    val res = Mat2x3f(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f)
+    assert(Mat2x3f(v, m) == res)
   }
 
   test("Sum of two matrices") {
@@ -138,20 +148,34 @@ class Mat2x3fSuite extends AnyFunSuite {
     assert(m1 * m2 === res)
   }
 
-  ignore("Matrix product with a 2x3 matrix and three values") {
-    // TODO
+  test("Matrix product with a 2x3 matrix and three values") {
+    val m1 = Mat2x3f(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f)
+    val m2 = Mat2x3f(3.0f, 4.0f, 1.0f, 2.0f, 6.0f, 5.0f)
+    val res = Mat2x3f(1.0f, 40.0f, 8.0f, 10.0f, 94.0f, 23.0f)
+    assert(m1 * (m2, -2.0f, 8.0f, -1.0f) === res)
   }
 
-  ignore("Matrix product with a 2x3 matrix and a third row") {
-    // TODO
+  test("Matrix product with a 2x3 matrix and a third row") {
+    val m1 = Mat2x3f(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f)
+    val m2 = Mat2x3f(3.0f, 4.0f, 1.0f, 2.0f, 6.0f, 5.0f)
+    val v = Vec3f(-2.0f, 8.0f, -1.0f)
+    val res = Mat2x3f(1.0f, 40.0f, 8.0f, 10.0f, 94.0f, 23.0f)
+    assert(m1 * (m2, v) === res)
   }
 
-  ignore("2x2 submatrix") {
-    // TODO
+  test("2x2 submatrix") {
+    val m1 = Mat2x3f(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f)
+    assert(m1.submatrix(0) == Mat2f(2.0f, 3.0f, 5.0f, 6.0f))
+    assert(m1.submatrix(1) == Mat2f(1.0f, 3.0f, 4.0f, 6.0f))
+    assert(m1.submatrix(2) == Mat2f(1.0f, 2.0f, 4.0f, 5.0f))
+    assertThrows[MatchError] {m1.submatrix(3)}
   }
 
-  ignore("Affine inverse") {
-    // TODO
+  test("Affine inverse") {
+    val transform = Mat2x3f.translation(4.0f, 3.0f) * Mat3f.rotationZ(math.Pi / 4.0) * Mat3f.scaling(2.0f, 2.0f, 1.0f)
+    val point = Vec2f(8.0f, 6.0f)
+    val res = transform * (point, 1.0f)
+    assert(transform.affineInverse * (res, 1.0f) === point)
   }
 
   test("Lerp elements") {

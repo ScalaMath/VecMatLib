@@ -186,8 +186,13 @@ class Mat4dSuite extends AnyFunSuite {
     assert(m.submatrix(3, 3) == Mat3d(1.0, 2.0, 3.0, 5.0, 6.0, 7.0, 9.0, 10.0, 11.0))
   }
 
-  ignore("3x4 submatrix") {
-    // TODO
+  test("3x4 submatrix") {
+    val m = Mat4d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0)
+    assert(m.submatrix(0) == Mat3x4d(5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0))
+    assert(m.submatrix(1) == Mat3x4d(1.0, 2.0, 3.0, 4.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0))
+    assert(m.submatrix(2) == Mat3x4d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 13.0, 14.0, 15.0, 16.0))
+    assert(m.submatrix(3) == Mat3x4d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0))
+    assertThrows[MatchError] {m.submatrix(4)}
   }
 
   test("Matrix determinant") {

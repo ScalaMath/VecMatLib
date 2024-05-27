@@ -364,7 +364,7 @@ case class Mat2x3i(m00: Int, m01: Int, m02: Int, m10: Int, m11: Int, m12: Int) {
    * @param v The third row of the matrix to multiply this one by.
    * @return The product between this matrix and the matrix with the given components.
    */
-  def multiply(m: Mat2x3i, v: Vec3i): Mat2x3f = this * (m, v)
+  def multiply(m: Mat2x3i, v: Vec3i): Mat2x3i = this * (m, v)
 
   /**
    * Returns a submatrix of this matrix obtained by removing the column at the given index.

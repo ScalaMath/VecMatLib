@@ -4,20 +4,30 @@ import org.scalatest.funsuite.AnyFunSuite
 
 class Mat3x4iSuite extends AnyFunSuite {
 
-  ignore("Construct a matrix from a submatrix and three values") {
-    // TODO
+  test("Construct a matrix from a submatrix and three values") {
+    val m = Mat3i(1, 2, 3, 5, 6, 7, 9, 10, 11)
+    val res = Mat3x4i(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+    assert(Mat3x4i(m, 4, 8, 12) == res)
   }
 
-  ignore("Construct a matrix from a submatrix and a column") {
-    // TODO
+  test("Construct a matrix from a submatrix and a column") {
+    val m = Mat3i(1, 2, 3, 5, 6, 7, 9, 10, 11)
+    val v = Vec3i(4, 8, 12)
+    val res = Mat3x4i(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+    assert(Mat3x4i(m, v) == res)
   }
 
-  ignore("Construct a matrix from three values and a submatrix") {
-    // TODO
+  test("Construct a matrix from three values and a submatrix") {
+    val m = Mat3i(2, 3, 4, 6, 7, 8, 10, 11, 12)
+    val res = Mat3x4i(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+    assert(Mat3x4i(1, 5, 9, m) == res)
   }
 
-  ignore("Construct a matrix from a column and a submatrix") {
-    // TODO
+  test("Construct a matrix from a column and a submatrix") {
+    val m = Mat3i(2, 3, 4, 6, 7, 8, 10, 11, 12)
+    val v = Vec3i(1, 5, 9)
+    val res = Mat3x4i(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+    assert(Mat3x4i(v, m) == res)
   }
 
   test("Sum of two matrices") {
@@ -137,16 +147,28 @@ class Mat3x4iSuite extends AnyFunSuite {
     assert(m1 * m2 == res)
   }
 
-  ignore("Matrix product with a 3x4 matrix and four values") {
-    // TODO
+  test("Matrix product with a 3x4 matrix and four values") {
+    val m1 = Mat3x4i(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+    val m2 = Mat3x4i(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+    val res = Mat3x4i(90, 100, 110, 120, 202, 228, 254, 280, 314, 356, 398, 440)
+    assert(m1 * (m2, 13, 14, 15, 16) == res)
   }
 
-  ignore("Matrix product with a 3x4 matrix and a fourth row") {
-    // TODO
+  test("Matrix product with a 3x4 matrix and a fourth row") {
+    val m1 = Mat3x4i(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+    val m2 = Mat3x4i(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+    val v = Vec4i(13, 14, 15, 16)
+    val res = Mat3x4i(90, 100, 110, 120, 202, 228, 254, 280, 314, 356, 398, 440)
+    assert(m1 * (m2, v) == res)
   }
 
-  ignore("3x3 submatrix") {
-    // TODO
+  test("3x3 submatrix") {
+    val m = Mat3x4i(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+    assert(m.submatrix(0) == Mat3i(2, 3, 4, 6, 7, 8, 10, 11, 12))
+    assert(m.submatrix(1) == Mat3i(1, 3, 4, 5, 7, 8, 9, 11, 12))
+    assert(m.submatrix(2) == Mat3i(1, 2, 4, 5, 6, 8, 9, 10, 12))
+    assert(m.submatrix(3) == Mat3i(1, 2, 3, 5, 6, 7, 9, 10, 11))
+    assertThrows[MatchError] {m.submatrix(4)}
   }
 
   test("Absolute values of the elements of a matrix") {

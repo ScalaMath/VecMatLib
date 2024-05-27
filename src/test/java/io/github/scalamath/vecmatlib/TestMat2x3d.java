@@ -1,7 +1,6 @@
 package io.github.scalamath.vecmatlib;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestMat2x3d {
@@ -75,15 +74,20 @@ public class TestMat2x3d {
     }
 
     @Test
-    @Ignore
     public void testMatrixProductWith2x3MatrixAndThreeValues() {
-        // TODO
+        var m1 = new Mat2x3d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0);
+        var m2 = new Mat2x3d(3.0, 4.0, 1.0, 2.0, 6.0, 5.0);
+        var res = new Mat2x3d(1.0, 40.0, 8.0, 10.0, 94.0, 23.0);
+        Assert.assertEquals(res, m1.multiply(m2, -2.0, 8.0, -1.0));
     }
 
     @Test
-    @Ignore
     public void testMatrixProductWith2x3MatrixAndVector() {
-        // TODO
+        var m1 = new Mat2x3d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0);
+        var m2 = new Mat2x3d(3.0, 4.0, 1.0, 2.0, 6.0, 5.0);
+        var v = new Vec3d(-2.0, 8.0, -1.0);
+        var res = new Mat2x3d(1.0, 40.0, 8.0, 10.0, 94.0, 23.0);
+        Assert.assertEquals(res, m1.multiply(m2, v));
     }
 
     @Test

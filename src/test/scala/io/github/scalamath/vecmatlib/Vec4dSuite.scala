@@ -149,12 +149,18 @@ class Vec4dSuite extends AnyFunSuite {
     assert(res == 27.0)
   }
 
-  ignore("Dot product with a 3D vector and a fourth value") {
-    // TODO
+  test("Dot product with a 3D vector and a fourth value") {
+    val a = Vec4d(1.0, 2.0, 3.0, 4.0)
+    val b = Vec3d(2.0, 3.0, 1.0)
+    val res = a dot (b, 4.0)
+    assert(res == 27.0)
   }
 
-  ignore("Dot product with a 2D vector and a third and a fourth value") {
-    // TODO
+  test("Dot product with a 2D vector and a third and a fourth value") {
+    val a = Vec4d(1.0, 2.0, 3.0, 4.0)
+    val b = Vec2d(2.0, 3.0)
+    val res = a dot (b, 1.0, 4.0)
+    assert(res == 27.0)
   }
 
   test("Length squared") {

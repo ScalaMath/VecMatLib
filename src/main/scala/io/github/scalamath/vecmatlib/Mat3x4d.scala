@@ -469,9 +469,7 @@ case class Mat3x4d(
    *            val inverse: Mat3x4d = m.affineInverse
    *            // Is equivalent to
    *            val basis: Mat3d = m.submatrix(3)
-   *            val inverse = Mat3x4d(
-   *              basis.inverse, -basis.inverse * m.col3
-   *            )
+   *            val inverse = Mat3x4d(basis.inverse, -basis.inverse * m.col3)
    * }}}
    */
   def affineInverse: Mat3x4d = {
