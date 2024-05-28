@@ -1,7 +1,7 @@
 // Project info
 name := "VecMatLib"
 homepage := Some(url("https://github.com/ScalaMath/VecMatLib"))
-version := "3.0"
+version := "3.1"
 description := "A Scala library for vectors and matrix math"
 // Organization info
 organization := "io.github.scalamath"

@@ -196,7 +196,7 @@ Due to VecMatLib not using any internal or temporal objects during any computati
 ### sbt
 
 ```sbt
-libraryDependencies += "io.github.scalamath" % "vecmatlib" % "3.0"
+libraryDependencies += "io.github.scalamath" % "vecmatlib" % "3.1"
 ```
 
 ### Maven
@@ -205,14 +205,14 @@ libraryDependencies += "io.github.scalamath" % "vecmatlib" % "3.0"
 <dependency>
     <groupId>io.github.scalamath</groupId>
     <artifactId>vecmatlib</artifactId>
-    <version>3.0</version>
+    <version>3.1</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```groovy
-implementation 'io.github.scalamath:vecmatlib:3.0'
+implementation 'io.github.scalamath:vecmatlib:3.1'
 ```
 
 ## Questions and answers
